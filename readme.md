@@ -1,7 +1,12 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216)
 
-# Group gr2216 repository
+# Rotnivå README.md-fil
 
-Welcome to IT1901 Fall 2022 course
+Beskrivelse av innholdet:
+bla bla bla 
 
-Good luck!
+Mappestruktur:
+
+- Backend til prosjektet ligger i /src/main/java/com/example/gruppeprosjekt1/
+- Testene til prosjektet ligger i /src/test/java/com/example/gruppeprosjekt1/
+- FXML-filen ligger i src/main/resources/com/example/gruppeprosjekt1/
