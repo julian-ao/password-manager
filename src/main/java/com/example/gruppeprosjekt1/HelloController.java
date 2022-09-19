@@ -1,14 +1,37 @@
 package com.example.gruppeprosjekt1;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 
 public class HelloController {
     @FXML
-    private Label welcomeText;
+    private TextField usernameInput, passwordInput;
+    @FXML
+    private Button loginButton, registerButton;
+    //@FXML
+    //private Pane loginPage;
+
+
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private void onLoginButtonClick(){
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+
+        if(username != "" && password != ""){
+            System.out.println("username: "+ username+ " password: "+ password);
+            //loginPage.setVisible(false);
+        }
+
+        
+    }
+
+    @FXML
+    private void onRegisterButtonClick(){
+        //todo
+        //show the register page and hide the login page
     }
 }
