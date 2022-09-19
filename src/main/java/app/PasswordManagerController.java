@@ -1,4 +1,5 @@
-package com.example.gruppeprosjekt1;
+package app;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-public class HelloController {
+public class PasswordManagerController {
     @FXML
     private TextField usernameInput, passwordInput;
     @FXML

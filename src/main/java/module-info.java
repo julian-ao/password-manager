@@ -1,8 +1,8 @@
-module com.example.gruppeprosjekt1 {
+module app {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.gruppeprosjekt1 to javafx.fxml;
-    exports com.example.gruppeprosjekt1;
+    opens app to javafx.fxml;
+    exports app;
 }
