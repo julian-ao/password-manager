@@ -1,12 +1,12 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216)
 
-# Rotnivå README.md-fil
+# Root README.md-file
 
-Beskrivelse av innholdet:
+Content description:
 bla bla bla 
 
-Mappestruktur:
+Folder structure:
 
-- Backend til prosjektet ligger i /src/main/java/com/example/gruppeprosjekt1/
-- Testene til prosjektet ligger i /src/test/java/com/example/gruppeprosjekt1/
-- FXML-filen ligger i src/main/resources/com/example/gruppeprosjekt1/
+- Backend is located /src/main/java/com/example/passwordmanager/
+- The tests is located /src/test/java/com/example/passwordmanager/
+- The FXML-file is located src/main/resources/com/example/passwordmanager/

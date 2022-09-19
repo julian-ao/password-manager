@@ -1,9 +1,9 @@
-package com.example.gruppeprosjekt1;
+package app;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class HelloApplicationTest {
+public class PasswordManagerTest {
 
     @Test
     public void testApp() {
