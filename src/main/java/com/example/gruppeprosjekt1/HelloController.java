@@ -11,8 +11,8 @@ public class HelloController {
     private TextField usernameInput, passwordInput;
     @FXML
     private Button loginButton, registerButton;
-    //@FXML
-    //private Pane loginPage;
+    @FXML
+    private Pane loginPage;
 
 
 
@@ -22,8 +22,8 @@ public class HelloController {
         String password = passwordInput.getText();
 
         if(username != "" && password != ""){
-            System.out.println("username: "+ username+ " password: "+ password);
-            //loginPage.setVisible(false);
+            System.out.println("username: " + username + " password: " + password);
+            loginPage.setVisible(false);
         }
 
         
