@@ -42,7 +42,7 @@ public class DatabaseTalker {
 
 
     //returns true if the user is stored in the database, false if not
-    public boolean userExists(String username){//todo
+    public boolean userExists(String username){
         return getUsers().containsKey(username);
     }
 
