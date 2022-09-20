@@ -17,7 +17,7 @@ import javafx.util.Pair;
 
 public class DatabaseTalker {
 
-    File file;
+    private File file;
 
 
     //constructor takes the path of the database(currently a csv file)
