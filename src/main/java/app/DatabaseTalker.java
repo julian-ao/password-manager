@@ -1,12 +1,17 @@
 package app;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import javafx.util.Pair;
 
@@ -65,8 +70,50 @@ public class DatabaseTalker {
         return getUsers().containsKey(username);
     }
 
-    public void storeUser(String username, String password){
-        //todo: open file for writing, write username and password
+    public boolean insertUser(String username, String password){
+        if(!userExists(username)){
+            try{
+                Map<String, String> users = getUsers();
+                FileOutputStream fos = new FileOutputStream(this.file);
+    
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+                for(Map.Entry user : users.entrySet()){
+                    bw.write(user.getKey() + "," + user.getValue());
+                    bw.newLine();
+                }
+                bw.write(username + "," + password);
+                bw.close();
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean deleteUser(String username){
+        if(userExists(username)){
+            try{
+                Map<String, String> users = getUsers();
+                users.remove(username);
+                FileOutputStream fos = new FileOutputStream(this.file);
+
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+                for(Map.Entry user : users.entrySet()){
+                    bw.write(user.getKey() + "," + user.getValue());
+                    bw.newLine();
+                }
+                bw.close();
+            }catch(Exception e){
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
