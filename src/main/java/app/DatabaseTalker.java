@@ -38,23 +38,13 @@ public class DatabaseTalker {
     }
 
     public void storeUser(String username, String password){
-        Random rand = new Random();
-        int salt = rand.nextInt();
-        byte[] passwordBytes = password.getBytes();
-        byte[] hashedPassPlusSalt = hashWithSalt(passwordBytes, salt);
-
-        //todo
-        //store(username, salt, hashedPassPlusSalt)
+        
     }
 
 
     public boolean checkPassword(String username, String password){
         if(userExists(username)){
-            int salt = getSalt(username);
-            byte[] hashedPassPlusSalt = getHashedPassPlusSalt(username);
-            if(hashedPassPlusSalt == hashWithSalt(password.getBytes(), salt)){
-                return true;
-            }
+            
         }
         return false;
     }
