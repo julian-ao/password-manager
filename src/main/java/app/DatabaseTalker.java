@@ -19,38 +19,12 @@ public class DatabaseTalker {
 
     File file;
 
+
+    //constructor takes the path of the database(currently a csv file)
     DatabaseTalker(String csvFile){
         file = new File(csvFile);
     }
     
-
-    private byte[] testHashFunction(byte[] key){//todo (create seperate class for hashing)
-        byte[] result = {1, 2, 3, 4};
-        return result;
-    }
-
-
-    private byte[] hashWithSalt(byte[] key, int salt){
-        byte[] keyPlusSalt = new byte[key.length+4];
-        for(int i = 0; i < key.length; i++){
-            keyPlusSalt[i] = key[i];
-        }
-
-        keyPlusSalt[key.length+0] = (byte)(salt & 0xff000000);
-        keyPlusSalt[key.length+1] = (byte)(salt & 0x00ff0000);
-        keyPlusSalt[key.length+2] = (byte)(salt & 0x0000ff00);
-        keyPlusSalt[key.length+3] = (byte)(salt & 0x000000ff);
-        return testHashFunction(keyPlusSalt);
-    }
-
-    private int getSalt(String username){//todo
-        return 0;
-    }
-
-    private byte[] getHashedPassPlusSalt(String username){//todo
-        byte[] result = {1, 10, 100, (byte)255};
-        return result;
-    }
 
     private Map<String, String> getUsers(){
         Map<String,String> users = new HashMap<String,String>();
@@ -66,10 +40,13 @@ public class DatabaseTalker {
         return users;
     }
 
+
+    //returns true if the user is stored in the database, false if not
     public boolean userExists(String username){//todo
         return getUsers().containsKey(username);
     }
 
+    //if the user allready exists, inserUser() does nothing and returns false, if it does not exists, the user is added to the database
     public boolean insertUser(String username, String password){
         if(!userExists(username)){
             try{
@@ -93,6 +70,7 @@ public class DatabaseTalker {
         }
     }
 
+    //deletes user and returns true if the user existed, if not return false
     public boolean deleteUser(String username){
         if(userExists(username)){
             try{
@@ -116,7 +94,7 @@ public class DatabaseTalker {
         }
     }
 
-
+    //returns true if the the password matches the username in the database
     public boolean checkPassword(String username, String password){
         if(userExists(username)){
             String correctPassword = getUsers().get(username);
