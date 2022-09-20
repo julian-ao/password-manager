@@ -34,11 +34,11 @@ public class DatabaseTalker {
     }
 
     private boolean userExists(String username){//todo
-        return false;
+        return true;
     }
 
     public void storeUser(String username, String password){
-        
+        //todo: open file for writing, write username and password
     }
 
 
