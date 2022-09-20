@@ -46,7 +46,7 @@ public class DatabaseTalker {
         return getUsers().containsKey(username);
     }
 
-    //if the user allready exists, inserUser() does nothing and returns false, if it does not exists, the user is added to the database
+    //if the user allready exists, insertUser() does nothing and returns false, if it does not exists, the user is added to the database
     public boolean insertUser(String username, String password){
         if(!userExists(username)){
             try{
@@ -97,7 +97,6 @@ public class DatabaseTalker {
     //returns true if the the password matches the username in the database
     public boolean checkPassword(String username, String password){
         if(userExists(username)){
-            String correctPassword = getUsers().get(username);
             return getUsers().get(username).equals(password);
         }else{
             return false;
