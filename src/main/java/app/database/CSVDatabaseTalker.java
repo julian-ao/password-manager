@@ -1,4 +1,4 @@
-package app.DatabaseStuff;
+package app.database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

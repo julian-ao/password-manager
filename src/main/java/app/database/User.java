@@ -1,4 +1,4 @@
-package app.DatabaseStuff;
+package app.database;
 
 public class User {
     private String username;

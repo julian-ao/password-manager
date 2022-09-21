@@ -1,12 +1,9 @@
-package app;
+package app.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import app.DatabaseStuff.*;
 
-import app.DatabaseStuff.CSVDatabaseTalker;
-import app.DatabaseStuff.DatabaseTalker;
 
 public class CSVDatabaseTalkerTest {
     DatabaseTalker databaseTalker = new CSVDatabaseTalker("src/main/resources/app/testUsers.csv");

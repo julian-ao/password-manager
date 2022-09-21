@@ -1,4 +1,4 @@
-package app.DatabaseStuff;
+package app.database;
 
 public class Profile {
     private String url;
