@@ -39,8 +39,10 @@ public class CSVDatabaseTalker implements DatabaseTalker{
     }
 
 
-    public ArrayList<Profile> getProfiles(String username, String passsword){
-        //TODO
+    public ArrayList<Profile> getProfiles(String username, String password){
+        if(checkPassword(username, password)){
+            return new ArrayList<Profile>();
+        }
         return null;
     }
 
