@@ -1,4 +1,4 @@
-package app;
+package app.DatabaseStuff;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,15 +13,16 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+
 import javafx.util.Pair;
 
-public class DatabaseTalker {
+public class CSVDatabaseTalker implements DatabaseTalker{
 
     private File file;
 
 
     //constructor takes the path of the database(currently a csv file)
-    DatabaseTalker(String csvFile){
+    public CSVDatabaseTalker(String csvFile){
         file = new File(csvFile);
     }
     
@@ -39,6 +40,13 @@ public class DatabaseTalker {
         }
         return users;
     }
+
+
+    public ArrayList<Profile> getProfiles(String username, String passsword){
+        //TODO
+        return null;
+    }
+
 
 
     //returns true if the user is stored in the database, false if not
