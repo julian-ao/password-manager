@@ -13,7 +13,7 @@ public class UserSession {
     UserSession(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
     }
-
+    
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
             user = new User(username, password);
@@ -23,6 +23,11 @@ public class UserSession {
     }
 
     public ArrayList<Profile> getProfiles(){
-        return databaseTalker.getProfiles(user.getUsername(), user.getPassword());
+        return this.databaseTalker.getProfiles(user.getUsername(), user.getPassword());
+    }
+
+
+    public void registerUser(String username, String password){
+        this.databaseTalker.insertUser(username, password);
     }
 }
