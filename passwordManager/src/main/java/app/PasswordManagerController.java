@@ -28,7 +28,7 @@ public class PasswordManagerController {
 
         if(username != "" && password != ""){
             System.out.println("username: " + username + " password: " + password);
-            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
+            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if(userSession.login(username, password)){
                 loginPage.setVisible(false);
                 passwordListPage.setVisible(true);
@@ -51,7 +51,7 @@ public class PasswordManagerController {
         System.out.println("here");
         if(regPassword.getText().equals(regPasswordRepeat.getText())){
             System.out.println("here2");
-            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
+            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if(userSession.registerUser(regUsername.getText(), regPassword.getText())){
                 System.out.println("here3");
                 loginPage.setVisible(true);
