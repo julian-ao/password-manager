@@ -17,7 +17,7 @@ public class PasswordManagerController {
     @FXML
     private Button loginButton, registerButton;
     @FXML
-    private Pane loginPage;
+    private Pane loginPage, passwordListPage;
 
 
 
@@ -31,6 +31,7 @@ public class PasswordManagerController {
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
             if(userSession.login(username, password)){
                 loginPage.setVisible(false);
+                passwordListPage.setVisible(true);
             }else{
                 userSession = null;
             }
