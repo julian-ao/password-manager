@@ -48,7 +48,7 @@ public class PasswordManagerController {
 
     @FXML
     private void onCreateUserButtonClick(){
-        if(regPassword.getText().equals(regPasswordRepeat.getText())){
+        if(!regPassword.getText().isEmpty() && regPassword.getText().equals(regPasswordRepeat.getText())){
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if(userSession.registerUser(regUsername.getText(), regPassword.getText())){
                 loginPage.setVisible(true);
