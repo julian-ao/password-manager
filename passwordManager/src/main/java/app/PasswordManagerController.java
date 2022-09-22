@@ -48,12 +48,9 @@ public class PasswordManagerController {
 
     @FXML
     private void onCreateUserButtonClick(){
-        System.out.println("here");
         if(regPassword.getText().equals(regPasswordRepeat.getText())){
-            System.out.println("here2");
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if(userSession.registerUser(regUsername.getText(), regPassword.getText())){
-                System.out.println("here3");
                 loginPage.setVisible(true);
                 registerPage.setVisible(false);
             }
