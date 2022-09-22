@@ -13,11 +13,11 @@ public class PasswordManagerController {
     UserSession userSession;
 
     @FXML
-    private TextField usernameInput, passwordInput;
+    private TextField usernameInput, passwordInput, regUsername, regPassword, regPasswordRepeat;
     @FXML
     private Button loginButton, registerButton;
     @FXML
-    private Pane loginPage, passwordListPage;
+    private Pane loginPage, passwordListPage, registerPage;
 
 
 
@@ -42,7 +42,21 @@ public class PasswordManagerController {
 
     @FXML
     private void onRegisterButtonClick(){
-        //todo
-        //show the register page and hide the login page
+        loginPage.setVisible(false);
+        registerPage.setVisible(true);
+    }
+
+    @FXML
+    private void onCreateUserButtonClick(){
+        System.out.println("here");
+        if(regPassword.getText().equals(regPasswordRepeat.getText())){
+            System.out.println("here2");
+            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
+            if(userSession.registerUser(regUsername.getText(), regPassword.getText())){
+                System.out.println("here3");
+                loginPage.setVisible(true);
+                registerPage.setVisible(false);
+            }
+        }
     }
 }

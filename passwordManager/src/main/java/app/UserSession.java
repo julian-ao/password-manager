@@ -27,7 +27,7 @@ public class UserSession {
     }
 
 
-    public void registerUser(String username, String password){
-        this.databaseTalker.insertUser(username, password);
+    public boolean registerUser(String username, String password){
+        return this.databaseTalker.insertUser(username, password);
     }
 }
