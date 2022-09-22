@@ -18,7 +18,7 @@ When you register, you only need to submit a unique username and a password.
 
 
 ## Main page
-When you are logged in, you will see all the websites you have
+When you are logged in to the application, you will see all the websites you have
 stored a password for.
 
 There will also be possibility for deleting, adding and copying passwords to clipboard.
