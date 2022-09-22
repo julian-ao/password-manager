@@ -27,7 +27,8 @@ public class CSVDatabaseTalkerTest {
     }
 
 
-    @Test void insertUserTest(){
+    @Test
+    public void insertUserTest(){
         assertEquals(false, databaseTalker.userExists("user3"));
         assertEquals(true, databaseTalker.insertUser("user3", "password3"));
         assertEquals(true, databaseTalker.userExists("user3"));
