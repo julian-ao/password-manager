@@ -2,16 +2,10 @@
 
 # Password Manager project
 
-The application is explained in the readme.md located in /passwordManager/
-
-Content description???:
-bla bla bla 
-
 Folder structure:
 
-- Backend is located /passwordManager/src/main/java/app
-- The tests is located /passwordManager/src/test/java/app
-- The FXML-files is located /passwordManager/src/main/resources/app/
-
-The documentation is located in /docs/
-
+- The **main readme.md-file** where the application is explained is located: /passwordManager/
+- The **backend** is located /passwordManager/src/main/java/app/
+- The **tests** is located /passwordManager/src/test/java/app/
+- The **FXML-files** is located /passwordManager/src/main/resourcesapp/
+- The **documentation** is located in /docs/
