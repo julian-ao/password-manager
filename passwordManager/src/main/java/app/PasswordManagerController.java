@@ -1,6 +1,7 @@
 package app;
 
 
+import app.database.CSVDatabaseTalker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,12 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class PasswordManagerController {
+
+    UserSession userSession;
+
     @FXML
-    private TextField usernameInput, passwordInput;
+    private TextField usernameInput, passwordInput, regUsername, regPassword, regPasswordRepeat;
     @FXML
     private Button loginButton, registerButton;
     @FXML
-    private Pane loginPage;
+    private Pane loginPage, passwordListPage, registerPage;
 
 
 
@@ -24,7 +28,13 @@ public class PasswordManagerController {
 
         if(username != "" && password != ""){
             System.out.println("username: " + username + " password: " + password);
-            loginPage.setVisible(false);
+            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
+            if(userSession.login(username, password)){
+                loginPage.setVisible(false);
+                passwordListPage.setVisible(true);
+            }else{
+                userSession = null;
+            }
         }
 
         
@@ -32,7 +42,21 @@ public class PasswordManagerController {
 
     @FXML
     private void onRegisterButtonClick(){
-        //todo
-        //show the register page and hide the login page
+        loginPage.setVisible(false);
+        registerPage.setVisible(true);
+    }
+
+    @FXML
+    private void onCreateUserButtonClick(){
+        System.out.println("here");
+        if(regPassword.getText().equals(regPasswordRepeat.getText())){
+            System.out.println("here2");
+            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/testUsers.csv"));
+            if(userSession.registerUser(regUsername.getText(), regPassword.getText())){
+                System.out.println("here3");
+                loginPage.setVisible(true);
+                registerPage.setVisible(false);
+            }
+        }
     }
 }
