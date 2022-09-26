@@ -12,7 +12,7 @@ public class PasswordManagerApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PasswordManagerApp.class.getResource("passwords.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("Hello!");
+        stage.setTitle("Password Manager | Login");
         stage.setScene(scene);
         stage.show();
     }
