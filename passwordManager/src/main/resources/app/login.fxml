@@ -14,12 +14,12 @@
                <Font size="80.0" />
             </font>
          </Text>
-         <TextField fx:id="passwordInput" layoutX="264.0" layoutY="267.0" maxWidth="372.0" minWidth="50.0" prefHeight="66.0" prefWidth="372.0" promptText="Password">
+         <TextField fx:id="usernameInput" layoutX="264.0" layoutY="185.0" maxWidth="372.0" minWidth="50.0" prefHeight="66.0" prefWidth="372.0" promptText="Username">
             <font>
                <Font size="30.0" />
             </font>
          </TextField>
-         <TextField fx:id="usernameInput" layoutX="264.0" layoutY="185.0" maxWidth="372.0" minWidth="50.0" prefHeight="66.0" prefWidth="372.0" promptText="Username">
+         <TextField fx:id="passwordInput" layoutX="264.0" layoutY="267.0" maxWidth="372.0" minWidth="50.0" prefHeight="66.0" prefWidth="372.0" promptText="Password">
             <font>
                <Font size="30.0" />
             </font>
