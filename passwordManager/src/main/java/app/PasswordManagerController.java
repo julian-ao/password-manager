@@ -38,17 +38,6 @@ public class PasswordManagerController {
 
     public void initialize() {
         System.out.println("PasswordManagerController initialized");
-
-        ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-        passwords.add(passwordComponent("Google", "••••••••••••", "kennbr@gmail.com"));
-        passwords.add(passwordComponent("NTNU-bruker", "••••••••••••", "kennbr@stud.ntnu.no"));
-        passwords.add(passwordComponent("Figma", "••••••••••••", "kennbr@gmail.com"));
-        passwords.add(passwordComponent("Facebook", "••••••••••••", "email@gmail.com"));
-        passwords.add(passwordComponent("Instagram", "••••••••••••", "email@gmail.com"));
-
-        for (GridPane password : passwords) {
-            passwordList.getChildren().add(password);
-        }
     }
 
     private GridPane passwordComponent(String username, String password, String email) {
@@ -84,9 +73,27 @@ public class PasswordManagerController {
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if (userSession.login(username, password)) {
                 switchScene(event, "passwords.fxml");
-            } else {
-                userSession = null;
+
+                /*
+                 * ArrayList<GridPane> passwords = new ArrayList<GridPane>();
+                 * passwords.add(passwordComponent("Google", "••••••••••••",
+                 * "kennbr@gmail.com"));
+                 * passwords.add(passwordComponent("NTNU-bruker", "••••••••••••",
+                 * "kennbr@stud.ntnu.no"));
+                 * passwords.add(passwordComponent("Figma", "••••••••••••",
+                 * "kennbr@gmail.com"));
+                 * passwords.add(passwordComponent("Facebook", "••••••••••••",
+                 * "email@gmail.com"));
+                 * passwords.add(passwordComponent("Instagram", "••••••••••••",
+                 * "email@gmail.com"));
+                 * 
+                 * for (GridPane i : passwords) {
+                 * passwordList.getChildren().add(i);
+                 * }
+                 */
             }
+        } else {
+            userSession = null;
         }
     }
 
