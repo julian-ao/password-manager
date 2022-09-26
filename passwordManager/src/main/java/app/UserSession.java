@@ -26,8 +26,14 @@ public class UserSession {
         return this.databaseTalker.getProfiles(user.getUsername(), user.getPassword());
     }
 
-
     public boolean registerUser(String username, String password){
         return this.databaseTalker.insertUser(username, password);
+    }
+
+    /*
+     * logOut sets the user to null
+     */
+    public void logOut() {
+        this.user = null;
     }
 }
