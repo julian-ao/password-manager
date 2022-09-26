@@ -1,6 +1,5 @@
 package app;
 
-
 import app.database.CSVDatabaseTalker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -55,6 +54,11 @@ public class PasswordManagerController {
     // REGISTER PAGE METHODS
     
     @FXML
+    private void onRegisterBackButtonClick(ActionEvent event) throws IOException {
+        switchScene(event, "login.fxml");
+    }
+
+    @FXML
     private void onCreateUserButtonClick(ActionEvent event) throws IOException {
         if (!regPassword.getText().isEmpty() && regPassword.getText().equals(regPasswordRepeat.getText())) {
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
@@ -85,6 +89,9 @@ public class PasswordManagerController {
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        String title = sceneName.substring(0, sceneName.length() - 5);
+        title = title.substring(0, 1).toUpperCase() + title.substring(1);
+        stage.setTitle("Password Manager | " + title);
         stage.show();
     }
 }
