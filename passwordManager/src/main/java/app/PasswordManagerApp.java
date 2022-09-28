@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class PasswordManagerApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
