@@ -10,7 +10,7 @@ public class UserSession {
     private DatabaseTalker databaseTalker;
 
 
-    UserSession(DatabaseTalker databaseTalker){
+    public UserSession(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
     }
     

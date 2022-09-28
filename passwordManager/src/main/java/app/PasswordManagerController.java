@@ -19,123 +19,13 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-public class PasswordManagerController {
-
-    @FXML
-    private TextField usernameInput, passwordInput, regUsername, regPassword, regPasswordRepeat;
-    @FXML
-    private Button loginButton, registerButton, addPasswordButton;
-    @FXML
-    private Pane loginPage, passwordListPage, registerPage;
-    @FXML
-    private FlowPane passwordList;
-
-    private UserSession userSession;
+public class PasswordManagerController{
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    public void initialize() {
-        System.out.println("PasswordManagerController initialized");
-    }
-
-    private GridPane passwordComponent(String username, String password, String email) {
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefHeight(90);
-        gridPane.setPrefWidth(580);
-
-        Text usernameText = new Text(username);
-        usernameText.setStyle("-fx-font: 40 system;");
-        usernameText.setWrappingWidth(290);
-
-        Text passwordText = new Text(password);
-        passwordText.setStyle("-fx-font: 40 system;-fx-text-alignment: right;");
-        passwordText.setWrappingWidth(290);
-
-        Text emailText = new Text(email);
-        emailText.setStyle("-fx-font: 25 system;");
-
-        gridPane.add(usernameText, 0, 0);
-        gridPane.add(passwordText, 1, 1);
-        gridPane.add(emailText, 0, 1);
-
-        return gridPane;
-    }
-    // LOGIN PAGE METHODS
-
-    @FXML
-    private void onLoginButtonClick(ActionEvent event) throws IOException {
-        String username = usernameInput.getText();
-        String password = passwordInput.getText();
-
-        if (username != "" && password != "") {
-            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
-            if (userSession.login(username, password)) {
-                switchScene(event, "passwords.fxml");
-
-                /*
-                 * ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-                 * passwords.add(passwordComponent("Google", "••••••••••••",
-                 * "kennbr@gmail.com"));
-                 * passwords.add(passwordComponent("NTNU-bruker", "••••••••••••",
-                 * "kennbr@stud.ntnu.no"));
-                 * passwords.add(passwordComponent("Figma", "••••••••••••",
-                 * "kennbr@gmail.com"));
-                 * passwords.add(passwordComponent("Facebook", "••••••••••••",
-                 * "email@gmail.com"));
-                 * passwords.add(passwordComponent("Instagram", "••••••••••••",
-                 * "email@gmail.com"));
-                 * 
-                 * for (GridPane i : passwords) {
-                 * passwordList.getChildren().add(i);
-                 * }
-                 */
-            }
-        } else {
-            userSession = null;
-        }
-    }
-
-    @FXML
-    private void onRegisterButtonClick(ActionEvent event) throws IOException {
-        switchScene(event, "register.fxml");
-    }
-
-    // REGISTER PAGE METHODS
-
-    @FXML
-    private void onRegisterBackButtonClick(ActionEvent event) throws IOException {
-        switchScene(event, "login.fxml");
-    }
-
-    @FXML
-    private void onCreateUserButtonClick(ActionEvent event) throws IOException {
-        if (!regPassword.getText().isEmpty() && regPassword.getText().equals(regPasswordRepeat.getText())) {
-            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
-            if (userSession.registerUser(regUsername.getText(), regPassword.getText())) {
-                switchScene(event, "login.fxml");
-            }
-        }
-    }
-
-    // PASSWORDS PAGE METHODS
-
-    @FXML
-    private void onLogOutButtonClick(ActionEvent event) throws IOException {
-        // log out?
-        // userSession.logOut()?
-        switchScene(event, "login.fxml");
-    }
-
-    @FXML
-    private void onAddPasswordButtonClick(ActionEvent event) throws IOException {
-        // something happens
-    }
-
-    // GENERAL METHODS
-
-    private void switchScene(ActionEvent event, String sceneName) throws IOException {
+    protected void switchScene(ActionEvent event, String sceneName) throws IOException {
         root = FXMLLoader.load(getClass().getResource(sceneName));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
