@@ -5,15 +5,23 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class PasswordPageController extends PasswordManagerController {
     @FXML
     private FlowPane passwordList;
 
+    @FXML
+    private Pane passwordListPage;
+
     private UserSession userSession;
 
 
-    
+
+    @FXML
+    public void initialize(){
+    }
     // PASSWORDS PAGE METHODS
 
     @FXML
@@ -25,7 +33,9 @@ public class PasswordPageController extends PasswordManagerController {
 
     @FXML
     private void onAddPasswordButtonClick(ActionEvent event) throws IOException {
-        // something happens
+        
+        userSession = (UserSession)((Stage)passwordListPage.getScene().getWindow()).getUserData();
+        System.out.println(userSession.getUsername());
     }
 
 }

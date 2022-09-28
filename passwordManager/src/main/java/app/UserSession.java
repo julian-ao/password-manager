@@ -30,6 +30,11 @@ public class UserSession {
         return this.databaseTalker.insertUser(username, password);
     }
 
+
+
+    public String getUsername(){
+        return user.getUsername();
+    }
     /*
      * logOut sets the user to null
      */
