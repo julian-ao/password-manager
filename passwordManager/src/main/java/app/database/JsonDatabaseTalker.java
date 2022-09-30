@@ -3,7 +3,7 @@ package app.database;
 import java.util.ArrayList;
 
 public class JsonDatabaseTalker implements DatabaseTalker{
-
+    // json lagres i ././resources/app/Users.json
     @Override
     public boolean userExists(String username) {
         // TODO Auto-generated method stub

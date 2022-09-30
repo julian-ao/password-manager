@@ -5,6 +5,5 @@ public class Profile {
     private String email;
     private String profileUsername;
     private String encryptedPassword;
-    private String profileNickname;
 
 }
