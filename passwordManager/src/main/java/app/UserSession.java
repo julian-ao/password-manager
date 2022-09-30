@@ -8,15 +8,21 @@ public class UserSession {
     private User user;
     private ArrayList<Profile> profiles;
     private DatabaseTalker databaseTalker;
+    private static UserSession onlyInstance = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
 
 
-    public UserSession(DatabaseTalker databaseTalker){
+
+    private UserSession(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
+    }
+
+    public static UserSession getInstance(){
+        return onlyInstance;
     }
     
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
-            user = new User(username, password);
+            this.user = new User(username, password);
             this.profiles = databaseTalker.getProfiles(username, password);
             return true;
         }else return false;
@@ -30,6 +36,11 @@ public class UserSession {
         return this.databaseTalker.insertUser(username, password);
     }
 
+
+
+    public String getUsername(){
+        return user.getUsername();
+    }
     /*
      * logOut sets the user to null
      */

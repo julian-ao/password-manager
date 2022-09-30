@@ -30,7 +30,7 @@ public class RegisterPageController extends PasswordManagerController {
     @FXML
     private void onCreateUserButtonClick(ActionEvent event) throws IOException {
         if (!password.getText().isEmpty() && password.getText().equals(passwordRepeat.getText())) {
-            UserSession userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
+            UserSession userSession = UserSession.getInstance();
             if (userSession.registerUser(username.getText(), password.getText())) {
                 switchScene(event, "login.fxml");
             }
