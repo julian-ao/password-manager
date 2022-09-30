@@ -9,6 +9,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.text.Text;
+import javafx.animation.RotateTransition;
+import javafx.util.Duration;
+import javafx.scene.transform.Rotate;
 
 import java.io.IOException;
 
@@ -17,16 +21,16 @@ import javafx.stage.Stage;
 import app.UserSession;
 import app.database.*;
 
-public class LoginPageController extends PasswordManagerController{
-    
+public class LoginPageController extends PasswordManagerController {
+
     @FXML
     private TextField usernameInput, passwordInput;
 
     @FXML
     private Button loginButton, registerButton;
 
-    
-
+    @FXML
+    private Text visualFeedbackText;
 
     @FXML
     private void onLoginButtonClick(ActionEvent event) throws IOException {
@@ -39,33 +43,33 @@ public class LoginPageController extends PasswordManagerController{
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if (userSession.login(username, password)) {
                 switchScene(event, "passwords.fxml");
-
-                /*
-                 * ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-                 * passwords.add(passwordComponent("Google", "••••••••••••",
-                 * "kennbr@gmail.com"));
-                 * passwords.add(passwordComponent("NTNU-bruker", "••••••••••••",
-                 * "kennbr@stud.ntnu.no"));
-                 * passwords.add(passwordComponent("Figma", "••••••••••••",
-                 * "kennbr@gmail.com"));
-                 * passwords.add(passwordComponent("Facebook", "••••••••••••",
-                 * "email@gmail.com"));
-                 * passwords.add(passwordComponent("Instagram", "••••••••••••",
-                 * "email@gmail.com"));
-                 * 
-                 * for (GridPane i : passwords) {
-                 * passwordList.getChildren().add(i);
-                 * }
-                 */
-            }
-        } else {
-            userSession = null;
-        }
+            } 
+        } 
+        visualFeedbackText.setVisible(true);
+        usernameInput.setStyle("-fx-border-color: #FE8383");
+        passwordInput.setStyle("-fx-border-color: #FE8383");
+        rotateNode(visualFeedbackText, false);
+        userSession = null;
+        
     }
-    
+
     @FXML
     private void onRegisterButtonClick(ActionEvent event) throws IOException {
         super.switchScene(event, "register.fxml");
     }
 
+    private void rotateNode (Node element, boolean clockwise) {
+        element.setRotate(0);
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.millis(100));
+        if (clockwise) {
+            rotateTransition.setByAngle(5);
+        } else {
+            rotateTransition.setByAngle(-5);
+        }
+        rotateTransition.setCycleCount(4);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.setNode(element);
+        rotateTransition.play();
+    }
 }
