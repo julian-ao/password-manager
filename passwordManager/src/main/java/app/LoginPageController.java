@@ -40,8 +40,9 @@ public class LoginPageController extends PasswordManagerController {
         UserSession userSession;
 
         if (username != "" && password != "") {
-            userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
+            userSession = UserSession.getInstance();
             if (userSession.login(username, password)) {
+                ((Stage)usernameInput.getScene().getWindow()).setUserData(userSession);
                 switchScene(event, "passwords.fxml");
             }
             visualFeedbackText.setText("Wrong username or password");
