@@ -55,6 +55,8 @@ public class PasswordManagerController{
 
     protected void setBorderRed(Node element) {
         element.setStyle("-fx-border-color: #FE8383");
+    }
+    
     protected void updateUserData(){
 
     }

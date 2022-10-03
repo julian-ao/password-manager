@@ -10,8 +10,6 @@ public class UserSession {
     private DatabaseTalker databaseTalker;
     private static UserSession onlyInstance = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
 
-
-
     private UserSession(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
     }

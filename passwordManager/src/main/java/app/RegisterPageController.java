@@ -47,7 +47,7 @@ public class RegisterPageController extends PasswordManagerController {
 
             if (usernameValidation == UsernameValidation.OK && passwordValidation == PasswordValidation.OK) {
                 if (password.equals(passwordRepeat)) {
-                    UserSession userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
+                    UserSession userSession = UserSession.getInstance();
                     System.out.println("registering user");
                     if (userSession.registerUser(username, password)) {
                         switchScene(event, "login.fxml");
