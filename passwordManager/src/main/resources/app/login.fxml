@@ -34,7 +34,7 @@
                <Font size="25.0" />
             </font>
          </Button>
-         <Text fx:id="visualFeedbackText" fill="#fe8383" layoutX="337.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong username or password" visible="false">
+         <Text fx:id="visualFeedbackText" fill="#fe8383" layoutX="199.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong username or password" textAlignment="CENTER" visible="false" wrappingWidth="499.6116943359375">
             <font>
                <Font size="17.0" />
             </font>

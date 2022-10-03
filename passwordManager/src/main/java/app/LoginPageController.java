@@ -43,33 +43,21 @@ public class LoginPageController extends PasswordManagerController {
             userSession = new UserSession(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
             if (userSession.login(username, password)) {
                 switchScene(event, "passwords.fxml");
-            } 
-        } 
+            }
+            visualFeedbackText.setText("Wrong username or password");
+        } else {
+            visualFeedbackText.setText("Please fill in all fields");
+        }
+
         visualFeedbackText.setVisible(true);
         usernameInput.setStyle("-fx-border-color: #FE8383");
         passwordInput.setStyle("-fx-border-color: #FE8383");
-        rotateNode(visualFeedbackText, false);
+        super.rotateNode(visualFeedbackText, false);
         userSession = null;
-        
     }
 
     @FXML
     private void onRegisterButtonClick(ActionEvent event) throws IOException {
         super.switchScene(event, "register.fxml");
-    }
-
-    private void rotateNode (Node element, boolean clockwise) {
-        element.setRotate(0);
-        RotateTransition rotateTransition = new RotateTransition();
-        rotateTransition.setDuration(Duration.millis(100));
-        if (clockwise) {
-            rotateTransition.setByAngle(5);
-        } else {
-            rotateTransition.setByAngle(-5);
-        }
-        rotateTransition.setCycleCount(4);
-        rotateTransition.setAutoReverse(true);
-        rotateTransition.setNode(element);
-        rotateTransition.play();
     }
 }
