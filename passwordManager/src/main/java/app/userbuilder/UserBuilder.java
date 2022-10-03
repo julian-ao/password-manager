@@ -8,10 +8,6 @@ import java.util.Map;
 
 import app.database.*;
 
-
-
-
-
 public class UserBuilder {
     private String username;
     private String password;
@@ -20,14 +16,14 @@ public class UserBuilder {
     private Map<Predicate<String>, PasswordValidation> passwordValidation;
 
 
-    UserBuilder(DatabaseTalker databaseTalker){
+    public UserBuilder(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
 
         usernameValidation = new HashMap<Predicate<String>, UsernameValidation>();
         usernameValidation.put((x) -> x.length() < 3, UsernameValidation.tooShort);
         usernameValidation.put((x) -> x.length() > 30, UsernameValidation.tooLong);
         usernameValidation.put((x) -> !Pattern.matches("[a-zA-Z0-9]{0,10000}", x), UsernameValidation.invalidCharacters);
-        usernameValidation.put((x) -> databaseTalker.userExists(x), UsernameValidation.allreadyTaken);
+        usernameValidation.put((x) -> databaseTalker.userExists(x), UsernameValidation.alreadyTaken);
 
         passwordValidation = new HashMap<Predicate<String>, PasswordValidation>();
         passwordValidation.put((x) -> x.length() < 6, PasswordValidation.tooShort);

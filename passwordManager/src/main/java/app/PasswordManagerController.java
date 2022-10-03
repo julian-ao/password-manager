@@ -16,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
+import javafx.animation.RotateTransition;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,25 @@ public class PasswordManagerController{
         stage.show();
     }
 
+    protected void rotateNode(Node element, boolean clockwise) {
+        element.setRotate(0);
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.millis(100));
+        if (clockwise) {
+            rotateTransition.setByAngle(5);
+        } else {
+            rotateTransition.setByAngle(-5);
+        }
+        rotateTransition.setCycleCount(4);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.setNode(element);
+        rotateTransition.play();
+    }
+
+    protected void setBorderRed(Node element) {
+        element.setStyle("-fx-border-color: #FE8383");
+    }
+    
     protected void updateUserData(){
 
     }

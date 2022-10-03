@@ -9,36 +9,41 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.RegisterPageController">
     <Pane fx:id="registerPage" prefHeight="600.0" prefWidth="900.0">
          <children>
-            <Text layoutX="185.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create account">
-               <font>
-                  <Font size="80.0" />
-               </font>
-            </Text>
-            <TextField fx:id="username" layoutX="264.0" layoutY="185.0" promptText="Username">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="password" layoutX="264.0" layoutY="267.0" promptText="Password">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="passwordRepeat" layoutX="264.0" layoutY="349.0" promptText="Repeat password">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </TextField>
-            <Button fx:id="createUserButton" layoutX="376.0" layoutY="453.0" mnemonicParsing="false" onAction="#onCreateUserButtonClick" text="Register">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Button>
          <Button fx:id="registerBackButton" layoutX="27.0" layoutY="27.0" mnemonicParsing="false" onAction="#onRegisterBackButtonClick" text="&lt; Back">
             <font>
                <Font size="25.0" />
             </font>
          </Button>
+            <Text layoutX="185.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create account">
+               <font>
+                  <Font size="80.0" />
+               </font>
+            </Text>
+            <TextField fx:id="usernameInput" layoutX="264.0" layoutY="185.0" promptText="Username">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="passwordInput" layoutX="264.0" layoutY="267.0" promptText="Password">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="passwordRepeatInput" layoutX="264.0" layoutY="349.0" promptText="Repeat password">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+         <Text fx:id="visualFeedbackText" fill="#fe8383" layoutX="169.0" layoutY="451.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong username or password" textAlignment="CENTER" visible="false" wrappingWidth="562.4688752889633">
+            <font>
+               <Font size="17.0" />
+            </font>
+         </Text>
+            <Button fx:id="createUserButton" layoutX="376.0" layoutY="512.0" mnemonicParsing="false" onAction="#onCreateUserButtonClick" text="Register">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
 </Pane>
