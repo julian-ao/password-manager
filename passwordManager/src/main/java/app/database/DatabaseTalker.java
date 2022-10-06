@@ -15,7 +15,6 @@ public interface DatabaseTalker {
      */
     public boolean userExists(String username);
 
-
     /*
      * checkPassword checks if the password matches the username in the database
      * 
@@ -37,7 +36,7 @@ public interface DatabaseTalker {
      * 
      * @return true if the username was unique and the user was stores successfully
      */
-    public boolean insertUser(String username, String password);
+    public void insertUser(String username, String password);
 
 
     /*
@@ -48,7 +47,7 @@ public interface DatabaseTalker {
      * 
      * @return true if the user existed and the user was deleted
      */
-    public boolean deleteUser(String username);
+    public void deleteUser(String username);
 
 
     /*
