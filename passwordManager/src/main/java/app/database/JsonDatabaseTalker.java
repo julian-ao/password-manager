@@ -96,7 +96,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     }
 
     @Override
-    public void insertProfile(String username, String password, Profile profile) {
+    public void insertProfile(String username, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
@@ -112,7 +112,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     }
 
     @Override
-    public void deleteProfile(String username, String password, String profileName) {
+    public void deleteProfile(String username, String profileName) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
