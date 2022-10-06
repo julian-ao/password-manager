@@ -1,10 +1,10 @@
 package app.database;
 
 import java.util.ArrayList;
-import java.io.File;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.DataBindingException;
-import com.fasterxml.jackson.core.exc.StreamReadException;
+
+import java.io.File;
 
 public class JsonDatabaseTalker implements DatabaseTalker{
     // json lagres i ././resources/app/Users.json
@@ -13,6 +13,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     public JsonDatabaseTalker(String jsonFile){
         this.jsonFile = new File(jsonFile);
     }
+    
     @Override
     public boolean userExists(String username) {
         // TODO Auto-generated method stub
@@ -50,9 +51,12 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     }
 
     @Override
-    public void insertUser(User user) {
+    public boolean insertUser(User user) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
+        if(userExists(user.getUsername())){
+            return false;
+        }
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             User[] newUsers = new User[users.length + 1];
@@ -62,7 +66,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             newUsers[users.length] = user;
             mapper.writeValue(jsonFile, newUsers);
         }finally{
-            
+            return true;
         }
     }
 
@@ -107,16 +111,23 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     }
 
     @Override
-    public void insertProfile(String username, Profile profile) {
+    public boolean insertProfile(String username, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
+        boolean isAdded = false;
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
                     user.addProfile(profile);
+                    isAdded = true;
                 }
             }
-            mapper.writeValue(jsonFile, users);
+            if(isAdded){
+                mapper.writeValue(jsonFile, users);
+                return true;
+            }else{
+                return false;
+            }
         }finally{
             
         }
@@ -137,10 +148,5 @@ public class JsonDatabaseTalker implements DatabaseTalker{
         }finally{
             
         }
-    }
-
-    @Override
-    public void deleteProfile(String username, Profile profile){
-
     }
 }

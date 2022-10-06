@@ -53,7 +53,7 @@ public class CSVDatabaseTalker implements DatabaseTalker{
     }
 
     //if the user allready exists, insertUser() does nothing and returns false, if it does not exists, the user is added to the database
-    public void insertUser(User user){
+    public boolean insertUser(User user){
         if(!userExists(user.getUsername())){
             try{
                 Map<String, String> users = getUsers();
@@ -66,13 +66,14 @@ public class CSVDatabaseTalker implements DatabaseTalker{
                 }
                 bw.write(user.getUsername() + "," + user.getPassword());
                 bw.close();
+                return true;
             }catch (Exception e){
                 e.printStackTrace();
-                
+                return false;
             }
             
         }else{
-            
+            return false;
         }
     }
 
@@ -111,9 +112,9 @@ public class CSVDatabaseTalker implements DatabaseTalker{
 
 
     @Override
-    public void insertProfile(String username, Profile profile) {
+    public boolean insertProfile(String username, Profile profile) {
         // TODO Auto-generated method stub
-        
+        return false;
     }
 
 
