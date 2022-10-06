@@ -94,4 +94,36 @@ public class JsonDatabaseTalker implements DatabaseTalker{
         }
         return null;
     }
+
+    @Override
+    public void insertProfile(String username, String password, Profile profile) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            User[] users = mapper.readValue(jsonFile, User[].class);
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    if (user.getPassword().equals(password)) {
+                        user.addProfile(profile);
+                    }
+                }
+            }
+            mapper.writeValue(jsonFile, users);
+        }
+    }
+
+    @Override
+    public void deleteProfile(String username, String password, String profileName) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            User[] users = mapper.readValue(jsonFile, User[].class);
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    if (user.getPassword().equals(password)) {
+                        user.deleteProfile(profileName);
+                    }
+                }
+            }
+            mapper.writeValue(jsonFile, users);
+        }
+    }
 }

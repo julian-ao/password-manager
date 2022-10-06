@@ -59,4 +59,8 @@ public interface DatabaseTalker {
      * @return a list of profile objects that has been stored by the user
      */
     public ArrayList<Profile> getProfiles(String username, String password);
+
+    public void insertProfile(String username, Profile profile);
+
+    public void deleteProfile(String username, Profile profile);
 }
