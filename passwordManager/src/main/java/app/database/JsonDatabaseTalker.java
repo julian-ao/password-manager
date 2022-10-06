@@ -24,6 +24,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }
     }
 
     @Override
@@ -40,48 +41,51 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }
     }
 
     @Override
     public void insertUser(String username, String password) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
-        try{
+        try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             User[] newUsers = new User[users.length + 1];
-            for(int i = 0; i < users.length; i++){
+            for (int i = 0; i < users.length; i++) {
                 newUsers[i] = users[i];
             }
             newUsers[users.length] = new User(username, password);
             mapper.writeValue(jsonFile, newUsers);
+        }
     }
 
     @Override
     public void deleteUser(String username) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
-        try{
+        try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             User[] newUsers = new User[users.length - 1];
             int j = 0;
-            for(int i = 0; i < users.length; i++){
-                if(!users[i].getUsername().equals(username)){
+            for (int i = 0; i < users.length; i++) {
+                if (!users[i].getUsername().equals(username)) {
                     newUsers[j] = users[i];
                     j++;
                 }
             }
             mapper.writeValue(jsonFile, newUsers);
+        }
     }
 
     @Override
     public ArrayList<Profile> getProfiles(String username, String password) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
-        try{
+        try {
             User[] users = mapper.readValue(jsonFile, User[].class);
-            for(User user : users){
-                if(user.getUsername().equals(username)){
-                    if(user.getPassword().equals(password)){
+            for (User user : users) {
+                if (user.getUsername().equals(username)) {
+                    if (user.getPassword().equals(password)) {
                         return user.getProfiles();
                     }
                 }
@@ -89,4 +93,5 @@ public class JsonDatabaseTalker implements DatabaseTalker{
 
         }
         return null;
+    }
 }
