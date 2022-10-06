@@ -33,4 +33,19 @@ public class User {
     public String getPassword(){
         return this.password;
     }
+    public ArrayList<Profile> getProfiles(){
+        return this.profiles;
+    }
+
+    public void addProfile(Profile profile){
+        this.profiles.add(profile);
+    }
+
+    public void removeProfile(Profile profile){
+        this.profiles.remove(profile);
+    }
+
+    public String toString(){
+        return "username: " + this.username + " password: " + this.password + " profiles: " + this.profiles.toString();
+    }
 }
