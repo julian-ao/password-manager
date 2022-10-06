@@ -1,10 +1,9 @@
 package app.database;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
 
 public class JsonDatabaseTalker implements DatabaseTalker{
     // json lagres i ././resources/app/Users.json
@@ -13,7 +12,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     public JsonDatabaseTalker(String jsonFile){
         this.jsonFile = new File(jsonFile);
     }
-    
+
     @Override
     public boolean userExists(String username) {
         // TODO Auto-generated method stub
@@ -26,6 +25,9 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }finally{
             
         }
@@ -45,8 +47,11 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }finally{
-
+            
         }
     }
 
@@ -65,6 +70,9 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             }
             newUsers[users.length] = user;
             mapper.writeValue(jsonFile, newUsers);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }finally{
             return true;
         }
@@ -85,6 +93,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
             mapper.writeValue(jsonFile, newUsers);
+        }catch(Exception e){
+            e.printStackTrace();
         }finally{
             
         }
@@ -104,6 +114,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
 
+        }catch(Exception e){
+            e.printStackTrace();
         }finally{
             
         }
@@ -128,6 +140,9 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             }else{
                 return false;
             }
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }finally{
             
         }
@@ -145,6 +160,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
             mapper.writeValue(jsonFile, users);
+        }catch(Exception e){
+            e.printStackTrace();
         }finally{
             
         }
