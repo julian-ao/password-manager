@@ -3,6 +3,7 @@ package app.database;
 public class User {
     private String username;
     private String password;//!!!!MIDTLERTIDIG!!!!!
+    private ArrayList<Profile> profiles;
     private int salt;
     private byte[] hashedPassword;
 
@@ -10,6 +11,7 @@ public class User {
     public User(String username, String password){
         this.username = username;
         this.password = password;
+        this.profiles = new ArrayList<Profile>();
     }
 
     public void setUsername(String username){
@@ -18,6 +20,10 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public void setProfiles(ArrayList<Profile> profiles){
+        this.profiles = profiles;
     }
 
     public String getUsername(){
