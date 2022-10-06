@@ -60,7 +60,32 @@ public interface DatabaseTalker {
      */
     public ArrayList<Profile> getProfiles(String username, String password);
 
+
+    /*
+     * 
+     * insertProfile stores a new profile
+     * 
+     * 
+     * @param username the user which the profile should be stored with
+     * @param profile the new profile object that is to be saved
+     * 
+     * @return boolean telling wether the operation was succesful or not
+     * 
+     */
     public boolean insertProfile(String username, Profile profile);
 
+
+    /*
+     * deleteProfile deletes a profile
+     * 
+     * 
+     * 
+     * @param username the username that owns the profile
+     * 
+     * @param profile the profile which is to be deleted
+     * 
+     * 
+     * 
+     */
     public void deleteProfile(String username, Profile profile);
 }
