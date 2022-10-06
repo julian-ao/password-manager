@@ -5,5 +5,7 @@ module app {
 
 
     opens app to javafx.fxml;
+    opens app.database to com.fasterxml.jackson.databind;
+    exports app.database to com.fasterxml.jackson.databind;
     exports app;
 }

@@ -9,6 +9,10 @@ public class User {
     private byte[] hashedPassword;
 
 
+    public User(){
+        profiles = new ArrayList<Profile>();
+    }
+
     public User(String username, String password){
         this.username = username;
         this.password = password;
@@ -45,6 +49,7 @@ public class User {
     public void removeProfile(Profile profile){
         this.profiles.remove(profile);
     }
+
 
     public String toString(){
         return "username: " + this.username + " password: " + this.password + " profiles: " + this.profiles.toString();

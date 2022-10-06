@@ -3,6 +3,7 @@ package app.database;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDatabaseTalker implements DatabaseTalker{
@@ -59,6 +60,7 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     public boolean insertUser(User user) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         if(userExists(user.getUsername())){
             return false;
         }

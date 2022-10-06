@@ -6,6 +6,10 @@ public class Profile {
     private String profileUsername;
     private String encryptedPassword;
 
+
+    public Profile(){
+        
+    }
     public Profile(String url, String email, String profileUsername, String encryptedPassword){
         this.url = url;
         this.email = email;

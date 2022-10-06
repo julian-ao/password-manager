@@ -2,6 +2,8 @@ package app.database;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
 
 public class JsonDatabaseTalkerTest {
@@ -28,17 +30,48 @@ public class JsonDatabaseTalkerTest {
 
     @Test
     public void userExistsTest(){
-
+        assertEquals(true, jsonDatabaseTalker.userExists("user1"));
+        assertEquals(false, jsonDatabaseTalker.userExists("NOTAUSER"));
 
     }
 
     @Test
-    public void inserUserTest(){
-
+    public void insertUserTest(){
+        User newUser = new User("user2", "password2");
+        jsonDatabaseTalker.insertUser(newUser);
+        assertEquals(true, jsonDatabaseTalker.userExists(newUser.getUsername()));
     }
 
     @Test
     public void deleteUserTest(){
+        User newUser = new User("user2", "password2");
+        jsonDatabaseTalker.insertUser(newUser);
+        assertEquals(true, jsonDatabaseTalker.userExists(newUser.getUsername()));
+        jsonDatabaseTalker.deleteUser(newUser.getUsername());
+        assertEquals(false, jsonDatabaseTalker.userExists(newUser.getUsername()));
+    }
+
+    private boolean hasProfile(ArrayList<Profile> profiles, Profile profile){
+        for(Profile p : profiles){
+            if(
+                p.getUrl().equals(profile.getUrl()) &&
+                p.getEmail().equals(profile.getEmail()) &&
+                p.getProfileUsername().equals(profile.getProfileUsername()) &&
+                p.getEncryptedPassword().equals(profile.getEncryptedPassword())
+                ){
+                    return true;
+                }
+        }
+        return false;
+    }
+
+    @Test
+    public void insertProfileTest(){
+        Profile profile = new Profile("nettside.no", "sondrkol@it.no", "sondrkol", "passord");
+        jsonDatabaseTalker.insertProfile("user1", profile);
+        ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1", "password1");
+        assertEquals(true, hasProfile(profiles, profile));
 
     }
+
 }
