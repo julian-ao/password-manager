@@ -17,7 +17,7 @@ public class UserBuilderTest {
     @Test
     public void testUsernameValidation(){
         Assertions.assertEquals(UsernameValidation.tooShort, userBuilder.setUsername("a"));
-        Assertions.assertEquals(UsernameValidation.allreadyTaken, userBuilder.setUsername("user1"));
+        Assertions.assertEquals(UsernameValidation.alreadyTaken, userBuilder.setUsername("user1"));
         Assertions.assertEquals(UsernameValidation.tooLong, userBuilder.setUsername("VeryLongUsernameIDontKnowWhySomeoneWouldTryThisButHeyItNeedsToBeTested"));
         Assertions.assertEquals(UsernameValidation.invalidCharacters, userBuilder.setUsername("invInMyName++"));
         Assertions.assertEquals(UsernameValidation.OK, userBuilder.setUsername("usEr123"));
