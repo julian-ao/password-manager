@@ -36,7 +36,7 @@ public interface DatabaseTalker {
      * 
      * @return true if the username was unique and the user was stores successfully
      */
-    public void insertUser(String username, String password);
+    public boolean insertUser(User user);
 
 
     /*
@@ -60,7 +60,7 @@ public interface DatabaseTalker {
      */
     public ArrayList<Profile> getProfiles(String username, String password);
 
-    public void insertProfile(String username, Profile profile);
+    public boolean insertProfile(String username, Profile profile);
 
     public void deleteProfile(String username, Profile profile);
 }

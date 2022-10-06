@@ -53,31 +53,31 @@ public class CSVDatabaseTalker implements DatabaseTalker{
     }
 
     //if the user allready exists, insertUser() does nothing and returns false, if it does not exists, the user is added to the database
-    public boolean insertUser(String username, String password){
-        if(!userExists(username)){
+    public void insertUser(User user){
+        if(!userExists(user.getUsername())){
             try{
                 Map<String, String> users = getUsers();
                 FileOutputStream fos = new FileOutputStream(this.file);
     
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-                for(Map.Entry user : users.entrySet()){
-                    bw.write(user.getKey() + "," + user.getValue());
+                for(Map.Entry u : users.entrySet()){
+                    bw.write(u.getKey() + "," + u.getValue());
                     bw.newLine();
                 }
-                bw.write(username + "," + password);
+                bw.write(user.getUsername() + "," + user.getPassword());
                 bw.close();
             }catch (Exception e){
                 e.printStackTrace();
-                return false;
+                
             }
-            return true;
+            
         }else{
-            return false;
+            
         }
     }
 
     //deletes user and returns true if the user existed, if not return false
-    public boolean deleteUser(String username){
+    public void deleteUser(String username){
         if(userExists(username)){
             try{
                 Map<String, String> users = getUsers();
@@ -92,11 +92,11 @@ public class CSVDatabaseTalker implements DatabaseTalker{
                 bw.close();
             }catch(Exception e){
                 e.printStackTrace();
-                return false;
+                
             }
-            return true;
+            
         }else{
-            return false;
+            
         }
     }
 
@@ -107,5 +107,19 @@ public class CSVDatabaseTalker implements DatabaseTalker{
         }else{
             return false;
         }
+    }
+
+
+    @Override
+    public void insertProfile(String username, Profile profile) {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void deleteProfile(String username, Profile profile) {
+        // TODO Auto-generated method stub
+        
     }
 }

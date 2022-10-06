@@ -1,6 +1,7 @@
 package app.database;
 
 import java.util.ArrayList;
+import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.DataBindingException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -24,6 +25,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }finally{
+            
         }
     }
 
@@ -41,11 +44,13 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
         return false;
+        }finally{
+
         }
     }
 
     @Override
-    public void insertUser(String username, String password) {
+    public void insertUser(User user) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -54,8 +59,10 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             for (int i = 0; i < users.length; i++) {
                 newUsers[i] = users[i];
             }
-            newUsers[users.length] = new User(username, password);
+            newUsers[users.length] = user;
             mapper.writeValue(jsonFile, newUsers);
+        }finally{
+            
         }
     }
 
@@ -74,6 +81,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
             mapper.writeValue(jsonFile, newUsers);
+        }finally{
+            
         }
     }
 
@@ -91,6 +100,8 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                 }
             }
 
+        }finally{
+            
         }
         return null;
     }
@@ -102,28 +113,34 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             User[] users = mapper.readValue(jsonFile, User[].class);
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
-                    if (user.getPassword().equals(password)) {
-                        user.addProfile(profile);
-                    }
+                    user.addProfile(profile);
                 }
             }
             mapper.writeValue(jsonFile, users);
+        }finally{
+            
         }
     }
 
     @Override
-    public void deleteProfile(String username, String profileName) {
+    public void deleteProfile(String username, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
-                    if (user.getPassword().equals(password)) {
-                        user.deleteProfile(profileName);
-                    }
+                    user.removeProfile(profile);
+
                 }
             }
             mapper.writeValue(jsonFile, users);
+        }finally{
+            
         }
+    }
+
+    @Override
+    public void deleteProfile(String username, Profile profile){
+
     }
 }
