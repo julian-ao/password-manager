@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.animation.RotateTransition;
 import javafx.util.Duration;
+import javafx.scene.image.Image;
+import javafx.scene.control.PasswordField;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,9 @@ public class PasswordManagerController{
     protected Stage stage;
     protected Scene scene;
     protected Parent root;
+
+    protected Image eyeOpenImage = new Image("file:src/main/resources/temporaryImageFolder/eye-open.png");
+    protected Image eyeClosedImage = new Image("file:src/main/resources/temporaryImageFolder/eye-closed.png");
 
     protected void switchScene(ActionEvent event, String sceneName) throws IOException {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -38,6 +44,39 @@ public class PasswordManagerController{
         stage.show();
     }
 
+    /*
+     * 
+     * passwordEye shows or hides the password in the passwordTextField and passwordPasswordField
+     * 
+     * @param textfield the textfield that is used to show the password
+     * @param passwordfield the passwordfield that is used to hide the password
+     * @param imageview the imageview that is used to show the eye
+     * 
+     */
+    protected void passwordEye(TextField textField, PasswordField passwordField, ImageView imageView) {
+        if (textField.isVisible()) {
+            passwordField.setText(textField.getText());
+            textField.setVisible(false);
+            passwordField.setVisible(true);
+
+            imageView.setImage(eyeOpenImage);
+        } else {
+            textField.setText(passwordField.getText());
+            textField.setVisible(true);
+            passwordField.setVisible(false);
+
+            imageView.setImage(eyeClosedImage);
+        }
+    }
+
+    /*
+     * 
+     * rotateNode animates a node by rotatating it
+     * 
+     * @param element the element that is to be rotated
+     * @param clockwise whether the element should be rotated clockwise or not
+     * 
+     */
     protected void rotateNode(Node element, boolean clockwise) {
         element.setRotate(0);
         RotateTransition rotateTransition = new RotateTransition();
@@ -53,6 +92,13 @@ public class PasswordManagerController{
         rotateTransition.play();
     }
 
+    /*
+     * 
+     * setBorderRed sets the border of a node to red
+     * 
+     * @param element the element that is to be set to red
+     * 
+     */
     protected void setBorderRed(Node element) {
         element.setStyle("-fx-border-color: #FE8383");
     }
