@@ -1,13 +1,13 @@
-package app.database;
+package core;
 
-public class User {
+public class UserCore {
     private String username;
     private String password;//!!!!MIDTLERTIDIG!!!!!
     private int salt;
     private byte[] hashedPassword;
 
 
-    public User(String username, String password){
+    public UserCore(String username, String password){
         this.username = username;
         this.password = password;
     }

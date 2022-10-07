@@ -1,6 +1,6 @@
-package app.database;
+package core;
 
-public class Profile {
+public class ProfileCore {
     private String url;
     private String email;
     private String profileUsername;

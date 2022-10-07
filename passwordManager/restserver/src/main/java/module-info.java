@@ -1,0 +1,3 @@
+module restserver {
+    exports restserver; 
+}
