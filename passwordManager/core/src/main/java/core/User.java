@@ -1,13 +1,13 @@
 package core;
 
-public class UserCore {
+public class User {
     private String username;
     private String password;//!!!!MIDTLERTIDIG!!!!!
     private int salt;
     private byte[] hashedPassword;
 
 
-    public UserCore(String username, String password){
+    public User(String username, String password){
         this.username = username;
         this.password = password;
     }

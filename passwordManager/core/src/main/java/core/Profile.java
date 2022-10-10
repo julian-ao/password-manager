@@ -1,6 +1,6 @@
 package core;
 
-public class ProfileCore {
+public class Profile {
     private String url;
     private String email;
     private String profileUsername;

@@ -1,16 +1,15 @@
-package ui.userbuilder;
+package core.userbuilder;
 
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import ui.database.*;
-import ui.userbuilder.UserBuilder;
-import ui.userbuilder.UsernameValidation;
+import core.userbuilder.UserBuilder;
+import core.database.*;
 
 public class UserBuilderTest {
     
-    DatabaseTalkerUi databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
+    DatabaseTalker databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
     UserBuilder userBuilder = new UserBuilder(databaseTalker);
 
 

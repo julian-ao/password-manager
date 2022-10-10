@@ -1,12 +1,12 @@
 package ui;
 
-import ui.userbuilder.UserBuilder;
-import ui.userbuilder.PasswordValidation;
-import ui.userbuilder.UsernameValidation;
-
 import java.io.IOException;
 
-import ui.database.CSVDatabaseTalker;
+import core.UserSession;
+import core.userbuilder.PasswordValidation;
+import core.userbuilder.UserBuilder;
+import core.userbuilder.UsernameValidation;
+import core.database.CSVDatabaseTalker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

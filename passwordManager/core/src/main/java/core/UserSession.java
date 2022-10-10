@@ -1,19 +1,17 @@
-package ui;
+package core;
 
 import java.util.ArrayList;
 
-import ui.database.CSVDatabaseTalker;
-import ui.database.DatabaseTalkerUi;
-import core.ProfileCore;
-import core.UserCore;
+import core.database.CSVDatabaseTalker;
+import core.database.DatabaseTalker;
 
 public class UserSession {
-    private UserCore user;
-    private ArrayList<ProfileCore> profiles;
-    private DatabaseTalkerUi databaseTalker;
+    private User user;
+    private ArrayList<Profile> profiles;
+    private DatabaseTalker databaseTalker;
     private static UserSession onlyInstance = new UserSession(new CSVDatabaseTalker("src/main/resources/ui/Users.csv"));
 
-    private UserSession(DatabaseTalkerUi databaseTalker){
+    private UserSession(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
     }
 
@@ -23,13 +21,13 @@ public class UserSession {
     
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
-            this.user = new UserCore(username, password);
+            this.user = new User(username, password);
             this.profiles = databaseTalker.getProfiles(username, password);
             return true;
         }else return false;
     }
 
-    public ArrayList<ProfileCore> getProfiles(){
+    public ArrayList<Profile> getProfiles(){
         return this.databaseTalker.getProfiles(user.getUsername(), user.getPassword());
     }
 

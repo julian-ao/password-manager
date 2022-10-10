@@ -1,4 +1,4 @@
-package ui.userbuilder;
+package core.userbuilder;
 
 public enum PasswordValidation{
     OK, //password is ok

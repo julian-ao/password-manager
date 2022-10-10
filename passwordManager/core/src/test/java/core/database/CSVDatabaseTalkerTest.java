@@ -1,14 +1,14 @@
-package ui.database;
+package core.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-import ui.database.DatabaseTalkerUi;
+import core.database.DatabaseTalker;
 import org.junit.jupiter.api.Test;
 
 
 public class CSVDatabaseTalkerTest {
-    DatabaseTalkerUi databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
+    DatabaseTalker databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
 
     @Test
     public void userExistsTest(){

@@ -18,11 +18,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.File;
 
-import java.io.IOException; 
+import java.io.IOException;
 
+import core.UserSession;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import ui.UserSession;
 
 public class LoginPageController extends PasswordManagerController {
 
