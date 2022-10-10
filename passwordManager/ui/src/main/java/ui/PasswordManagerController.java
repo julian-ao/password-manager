@@ -82,9 +82,9 @@ public class PasswordManagerController{
         RotateTransition rotateTransition = new RotateTransition();
         rotateTransition.setDuration(Duration.millis(100));
         if (clockwise) {
-            rotateTransition.setByAngle(5);
+            rotateTransition.setByAngle(3);
         } else {
-            rotateTransition.setByAngle(-5);
+            rotateTransition.setByAngle(-3);
         }
         rotateTransition.setCycleCount(4);
         rotateTransition.setAutoReverse(true);
