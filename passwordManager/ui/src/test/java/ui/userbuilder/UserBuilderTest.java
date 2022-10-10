@@ -10,7 +10,7 @@ import ui.userbuilder.UsernameValidation;
 
 public class UserBuilderTest {
     
-    DatabaseTalker databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
+    DatabaseTalkerUi databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
     UserBuilder userBuilder = new UserBuilder(databaseTalker);
 
 
