@@ -159,14 +159,13 @@ public class JsonDatabaseTalker implements DatabaseTalker {
     }
 
     private boolean isSameProfile(Profile profile1, Profile profile2) {
-        if (profile1.getEmail().equals(profile2.getEmail())) {
-            if (profile1.getProfileUsername().equals(profile2.getProfileUsername())) {
-                if (profile1.getEncryptedPassword().equals(profile2.getEncryptedPassword())) {
-                    if (profile1.getUrl().equals(profile2.getUrl())) {
-                        return true;
-                    }
-                }
-            }
+        if (
+                profile1.getEmail().equals(profile2.getEmail()) &&
+                profile1.getProfileUsername().equals(profile2.getProfileUsername()) &&
+                profile1.getEncryptedPassword().equals(profile2.getEncryptedPassword()) &&
+                profile1.getUrl().equals(profile2.getUrl())
+        ) {
+            return true;
         }
         return false;
     }
