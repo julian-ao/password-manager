@@ -20,7 +20,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
      */
     public JsonDatabaseTalker(String jsonFile){
         this.jsonFile = new File(jsonFile);
-        if (this.jsonFile.length() == 0) {
+        if (this.jsonFile.length() == 0) { // if file is empty, create a list of users
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<User> users = new ArrayList<User>();
             try {
