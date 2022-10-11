@@ -18,11 +18,11 @@ public class JsonDatabaseTalkerTest {
 
     public JsonDatabaseTalkerTest(){
         // if file exist from before. Delete it and create new empty file
-        File file = new File("src/main/resources/app/testUsers.json");
+        File file = new File("src/main/resources/ui/TestUsers.json");
         if (file.exists()) {
             file.delete();
         }
-        File jsonFile = new File("src/main/resources/app/testUsers.json");
+        File jsonFile = new File("src/main/resources/ui/TestUsers.json");
         try {
             jsonFile.createNewFile();
         } catch (IOException e) {

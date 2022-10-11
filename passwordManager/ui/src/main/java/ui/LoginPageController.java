@@ -55,7 +55,7 @@ public class LoginPageController extends PasswordManagerController {
 
     @FXML
     private void onLoginButtonClick(ActionEvent event) throws IOException {
-        UserSession userSession;
+        UserSession userSession;//!
 
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
