@@ -6,7 +6,17 @@ GOAL FOR THIS WEEK .....
 
 Example text: \
 
-For the core logic we had to extend the Event-class so that it can handle categorized events and weekly events. Also implement methods to handle more spesific start and end time for the events. We deleted the classes with JsonSimple, and used serializers and deserializers to convert Java objects to Json strings and reversed. The methods for reading and writing are currently reading and writing all events to and from the json file, but methods for reading and writing specific weeks will be added.
+For the core logic we had to extend the Event-class so that it can handle categorized events and weekly
+events. Also implement methods to handle more spesific start and end time for the events. We deleted the
+classes with JsonSimple, and used serializers and deserializers to convert Java objects to Json strings
+and reversed. The methods for reading and writing are currently reading and writing all events to and
+from the json file, but methods for reading and writing specific weeks will be added.
+
+JSON:
+
+All users, and their individual data, are stored within a JSON file. We used the Jackson library to
+serialize and deserialize Java objects to JSON strings and vice versa. The JSON file is stored in the
+/src/main/resources/ui/ folder.
 
 ## ui
 
