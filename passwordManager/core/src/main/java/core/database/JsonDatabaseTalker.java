@@ -14,9 +14,13 @@ public class JsonDatabaseTalker implements DatabaseTalker {
     // json lagres i ././resources/app/Users.json
     private File jsonFile;// = "src/main/resources/ui/Users.json";
 
-    public JsonDatabaseTalker(String jsonFile) {
+    /**
+     * Constructor for JsonDatabaseTalker
+     * @param jsonFile the path to the json file
+     */
+    public JsonDatabaseTalker(String jsonFile){
         this.jsonFile = new File(jsonFile);
-        if (this.jsonFile.length() == 0) { // If file is empty. Create a list of users
+        if (this.jsonFile.length() == 0) {
             ObjectMapper mapper = new ObjectMapper();
             ArrayList<User> users = new ArrayList<User>();
             try {
@@ -27,6 +31,11 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * userExists checks if a user with a given username exists
+     * @param username username of a user
+     * @return true if a user with the username exists in the database
+     */
     @Override
     public boolean userExists(String username) {
         // TODO Auto-generated method stub
@@ -47,6 +56,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * checkPassword checks if the password matches the username in the json file
+     * @param username username of a user
+     * @param password password of a user
+     * @return true if the user exists and the password is correct, false otherwise
+     */
     @Override
     public boolean checkPassword(String username, String password) {
         // TODO Auto-generated method stub
@@ -69,6 +84,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * insertUser stores a new user in the json file
+     * @param username the username of the new user
+     * @param password the password of the new user
+     * @return true if the username was unique and the user was stored successfully
+     */
     @Override
     public boolean insertUser(User user) {
         // TODO Auto-generated method stub
@@ -93,6 +114,11 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * deleteUser deletes a user from the json file
+     * @param username the username of the user to be deleted
+     * @return true if the user was deleted successfully, false otherwise
+     */
     @Override
     public void deleteUser(String username) {
         // TODO Auto-generated method stub
@@ -115,6 +141,11 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * getProfiles gets all profiles of a user
+     * @param username the username of the user
+     * @return an ArrayList of profiles or null if the user does not exist
+     */
     @Override
     public ArrayList<Profile> getProfiles(String username) {
         // TODO Auto-generated method stub
@@ -135,6 +166,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         return null;
     }
 
+    /**
+     * insertProfile adds a new profile for a user
+     * @param username the username of the user
+     * @param profile the profile to be added to the user
+     * @return true if the profile was inserted successfully, false otherwise
+     */
     @Override
     public boolean insertProfile(String username, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
@@ -161,6 +198,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         }
     }
 
+    /**
+     * isSameProfile checks if a profile is the same as another profile
+     * @param profile1 the first profile
+     * @param profile2 the second profile
+     * @return true if the values of the profiles are the same, false otherwise
+     */
     private boolean isSameProfile(Profile profile1, Profile profile2) {
         if (
                 profile1.getEmail().equals(profile2.getEmail()) &&
@@ -173,6 +216,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
         return false;
     }
 
+    /**
+     * deleteProfile deletes a profile from a user
+     * @param username the username of the user
+     * @param profile the profile to be deleted
+     * @return true if the profile was deleted successfully, false otherwise
+     */
     @Override
     public void deleteProfile(String username, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
