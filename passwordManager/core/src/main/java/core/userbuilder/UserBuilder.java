@@ -1,4 +1,4 @@
-package ui.userbuilder;
+package core.userbuilder;
 
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -6,18 +6,18 @@ import java.security.KeyStore.Entry;
 import java.util.HashMap;
 import java.util.Map;
 
-import ui.database.DatabaseTalkerUi;
-import core.UserCore;
+import core.database.DatabaseTalker;
+import core.User;
 
 public class UserBuilder {
     private String username;
     private String password;
-    private DatabaseTalkerUi databaseTalker;
+    private DatabaseTalker databaseTalker;
     private Map<Predicate<String>, UsernameValidation> usernameValidation;
     private Map<Predicate<String>, PasswordValidation> passwordValidation;
 
 
-    public UserBuilder(DatabaseTalkerUi databaseTalker){
+    public UserBuilder(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
 
         usernameValidation = new HashMap<Predicate<String>, UsernameValidation>();
@@ -102,11 +102,11 @@ public class UserBuilder {
      * 
      * @return User this is only possible if the username and password has passed the checks
      */
-    public UserCore buildUser(){
+    public User buildUser(){
         if(this.username == null || this.password == null){
             return null;
         }
-        return new UserCore(this.username, this.password);
+        return new User(this.username, this.password);
     }
 
 }

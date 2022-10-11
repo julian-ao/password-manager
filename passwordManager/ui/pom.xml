@@ -3,16 +3,15 @@
     <artifactId>modules-ui</artifactId>
 
     <parent>
-        <groupId>gr2123</groupId>
+        <groupId>gr2216</groupId>
         <artifactId>passwordManager</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <dependencies>
-
         <dependency>
-            <groupId>gr2123</groupId>
+            <groupId>gr2216</groupId>
             <artifactId>modules-core</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -82,17 +81,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <includes>
-                        <include>Sample.java</include>
-                    </includes>
-
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -109,9 +97,6 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <stripDebug>true</stripDebug>
                     <noManPages>true</noManPages>
-                    <launcher>getfit</launcher>
-                    <jlinkImageName>getfit</jlinkImageName>
-                    <jlinkZipName>getfit</jlinkZipName>
 
                 </configuration>
             </plugin>
@@ -173,26 +158,4 @@
 
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>noTest</id>
-            <activation>
-                <property>
-                    <name>noTestUI</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

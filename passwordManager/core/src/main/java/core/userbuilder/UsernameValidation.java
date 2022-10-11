@@ -1,4 +1,4 @@
-package ui.userbuilder;
+package core.userbuilder;
 
 public enum UsernameValidation{
     OK, //username is ok

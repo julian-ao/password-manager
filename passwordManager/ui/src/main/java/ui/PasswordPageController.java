@@ -5,6 +5,7 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import core.UserSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;

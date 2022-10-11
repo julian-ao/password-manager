@@ -1,6 +1,6 @@
-package restserver;
+package localpersistence;
 
-public class Dummy {
+public class App {
     public static void main(String[] args) {
         System.out.println("Hello, world!");
     }

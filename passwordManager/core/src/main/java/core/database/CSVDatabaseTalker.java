@@ -1,4 +1,4 @@
-package ui.database;
+package core.database;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,11 +9,11 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import core.ProfileCore;
+import core.Profile;
 
 
 
-public class CSVDatabaseTalker implements DatabaseTalkerUi{
+public class CSVDatabaseTalker implements DatabaseTalker{
 
     private File file;
 
@@ -39,9 +39,9 @@ public class CSVDatabaseTalker implements DatabaseTalkerUi{
     }
 
 
-    public ArrayList<ProfileCore> getProfiles(String username, String password){
+    public ArrayList<Profile> getProfiles(String username, String password){
         if(checkPassword(username, password)){
-            return new ArrayList<ProfileCore>();
+            return new ArrayList<Profile>();
         }
         return null;
     }
@@ -59,7 +59,7 @@ public class CSVDatabaseTalker implements DatabaseTalkerUi{
             try{
                 Map<String, String> users = getUsers();
                 FileOutputStream fos = new FileOutputStream(this.file);
-    
+     
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
                 for(Map.Entry user : users.entrySet()){
                     bw.write(user.getKey() + "," + user.getValue());
