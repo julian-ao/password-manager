@@ -157,8 +157,16 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             
         }
     }
-    private booolean isSameProfile(Profile profile1, Profile profile2){
-        
+    private boolean isSameProfile(Profile profile1, Profile profile2){
+        if (profile1.getEmail().equals(profile2.getEmail())) {
+            if (profile1.getProfileUsername().equals(profile2.getProfileUsername())) {
+                if (profile1.getEncryptedPassword().equals(profile2.getEncryptedPassword())) {
+                    if (profile1.getUrl().equals(profile2.getUrl())) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -173,10 +181,9 @@ public class JsonDatabaseTalker implements DatabaseTalker{
                     ArrayList<Profile> profiles = user.getProfiles();
                     for(Profile p : profiles){
                         if(isSameProfile(p, profile)){
-                            user.removeProfile(p);
+                            user.removeProfile(p); // vi kommer oss hit
                         }
                     }
-
                 }
             }
             mapper.writeValue(jsonFile, users);
