@@ -107,6 +107,7 @@ public class JsonDatabaseTalkerTest {
 
     @Test
     public void deleteProfileTest(){
+        
         ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
         Profile profile = profiles.get(0);
         System.out.print("profile is: ");

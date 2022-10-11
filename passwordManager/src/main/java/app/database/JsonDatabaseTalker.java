@@ -157,6 +157,10 @@ public class JsonDatabaseTalker implements DatabaseTalker{
             
         }
     }
+    private booolean isSameProfile(Profile profile1, Profile profile2){
+        
+        return false;
+    }
 
     @Override
     public void deleteProfile(String username, Profile profile) {
@@ -166,7 +170,13 @@ public class JsonDatabaseTalker implements DatabaseTalker{
 
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
-                    user.removeProfile(profile);
+                    ArrayList<Profile> profiles = user.getProfiles();
+                    for(Profile p : profiles){
+                        if(isSameProfile(p, profile)){
+                            user.removeProfile(p);
+                        }
+                    }
+
                 }
             }
             mapper.writeValue(jsonFile, users);
