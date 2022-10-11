@@ -9,7 +9,7 @@ import core.database.*;
 
 public class UserBuilderTest {
     
-    DatabaseTalker databaseTalker = new CSVDatabaseTalker("src/main/resources/ui/testUsers.csv");
+    DatabaseTalker databaseTalker = new JsonDatabaseTalker("src/main/resources/ui/TestUsers.json");
     UserBuilder userBuilder = new UserBuilder(databaseTalker);
 
 

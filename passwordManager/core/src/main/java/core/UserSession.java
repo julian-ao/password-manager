@@ -2,8 +2,8 @@ package core;
 
 import java.util.ArrayList;
 
-import core.database.CSVDatabaseTalker;
 import core.database.DatabaseTalker;
+import core.database.JsonDatabaseTalker;
 import core.userbuilder.PasswordValidation;
 import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
@@ -11,8 +11,8 @@ import core.userbuilder.UsernameValidation;
 public class UserSession {
     private User user;
     private ArrayList<Profile> profiles;
-    private DatabaseTalker databaseTalker;
-    private static UserSession onlyInstance = new UserSession(new CSVDatabaseTalker("src/main/resources/ui/Users.csv"));
+    private static DatabaseTalker databaseTalker = new JsonDatabaseTalker("src/main/resources/ui/Users.json");
+    private static UserSession onlyInstance = new UserSession(databaseTalker);
     private UserBuilder userBuilder;
 
     private UserSession(DatabaseTalker databaseTalker){
@@ -52,7 +52,7 @@ public class UserSession {
     }
 
     public String userValidator(String username, String password, String passwordRepeat){
-        UserBuilder userBuilder = new UserBuilder(new CSVDatabaseTalker("src/main/resources/ui/Users.csv"));
+        UserBuilder userBuilder = new UserBuilder(databaseTalker);
             userBuilder.setUsername(username);
             userBuilder.setPassword(password);
 
