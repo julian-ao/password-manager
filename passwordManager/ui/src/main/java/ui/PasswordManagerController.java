@@ -1,6 +1,6 @@
 package ui;
 
-import core.database.CSVDatabaseTalker;
+//import core.database.CSVDatabaseTalker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -44,14 +44,11 @@ public class PasswordManagerController{
         stage.show();
     }
 
-    /*
-     * 
+    /**
      * passwordEye shows or hides the password in the passwordTextField and passwordPasswordField
-     * 
      * @param textfield the textfield that is used to show the password
      * @param passwordfield the passwordfield that is used to hide the password
      * @param imageview the imageview that is used to show the eye
-     * 
      */
     protected void passwordEye(TextField textField, PasswordField passwordField, ImageView imageView) {
         if (textField.isVisible()) {
@@ -69,13 +66,10 @@ public class PasswordManagerController{
         }
     }
 
-    /*
-     * 
+    /**
      * rotateNode animates a node by rotatating it
-     * 
      * @param element the element that is to be rotated
      * @param clockwise whether the element should be rotated clockwise or not
-     * 
      */
     protected void rotateNode(Node element, boolean clockwise) {
         element.setRotate(0);
@@ -92,12 +86,9 @@ public class PasswordManagerController{
         rotateTransition.play();
     }
 
-    /*
-     * 
+    /**
      * setBorderRed sets the border of a node to red
-     * 
      * @param element the element that is to be set to red
-     * 
      */
     protected void setBorderRed(Node element) {
         element.setStyle("-fx-border-color: #FE8383");

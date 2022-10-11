@@ -16,7 +16,6 @@ public class UserBuilder {
     private Map<Predicate<String>, UsernameValidation> usernameValidation;
     private Map<Predicate<String>, PasswordValidation> passwordValidation;
 
-
     public UserBuilder(DatabaseTalker databaseTalker){
         this.databaseTalker = databaseTalker;
 
@@ -55,17 +54,11 @@ public class UserBuilder {
         return PasswordValidation.OK;
     }
 
-    /*
+    /**
      * setUsername sets the username if it clears all the checks
-     * 
-     * 
      * @param username the username which is to be checked for use
-     * 
-     * 
      * @return UsernameValidation see UsernameValidation type in UsernameValidation.java for further refrence
      */
-
-
     public UsernameValidation setUsername(String username){
         UsernameValidation response = validateUsername(username);
         if(response == UsernameValidation.OK){
@@ -76,15 +69,9 @@ public class UserBuilder {
         return response;
     }
 
-
-    /*
-     * 
+    /**
      * setPassword sets the password if it is valid
-     * 
-     * 
      * @param password the password which is to be set
-     * 
-     * 
      * @return PasswordValidation see PasswordValidation.java for further reference
      */
     public PasswordValidation setPassword(String password){
@@ -97,9 +84,8 @@ public class UserBuilder {
         return response;
     }
 
-    /*
-     * 
-     * 
+    /**
+     * buildUser builds the user if the username and password are valid
      * @return User this is only possible if the username and password has passed the checks
      */
     public User buildUser(){
