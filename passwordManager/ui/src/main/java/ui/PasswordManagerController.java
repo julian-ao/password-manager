@@ -1,6 +1,6 @@
 package ui;
 
-import core.database.CSVDatabaseTalker;
+//import core.database.CSVDatabaseTalker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

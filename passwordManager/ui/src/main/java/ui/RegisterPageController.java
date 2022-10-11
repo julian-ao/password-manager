@@ -3,9 +3,6 @@ package ui;
 import java.io.IOException;
 
 import core.UserSession;
-import core.userbuilder.PasswordValidation;
-import core.userbuilder.UserBuilder;
-import core.userbuilder.UsernameValidation;
 import core.database.CSVDatabaseTalker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +16,6 @@ import javafx.scene.text.Text;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 
-
 public class RegisterPageController extends PasswordManagerController {
 
     @FXML
@@ -30,9 +26,9 @@ public class RegisterPageController extends PasswordManagerController {
 
     @FXML
     private PasswordField passwordPasswordField, repeatPasswordPasswordField;
-    
+
     @FXML
-    private ImageView eyeImageView1,eyeImageView2;
+    private ImageView eyeImageView1, eyeImageView2;
 
     // ----- //
 
@@ -51,7 +47,7 @@ public class RegisterPageController extends PasswordManagerController {
     private void eyeImageViewClick2() {
         passwordEye(repeatPasswordTextField, repeatPasswordPasswordField, eyeImageView2);
     }
-    
+
     @FXML
     private void onRegisterBackButtonClick(ActionEvent event) throws IOException {
         switchScene(event, "login.fxml");
@@ -72,35 +68,13 @@ public class RegisterPageController extends PasswordManagerController {
         // if all fields are filled
         if (username != "" && password != "" && passwordRepeat != "") {
 
-            UserBuilder userBuilder = new UserBuilder(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
-            userBuilder.setUsername(username);
-            userBuilder.setPassword(password);
+            UserSession userSession = UserSession.getInstance();
+            String validationResult = userSession.userValidator(username, password, passwordRepeat);
 
-            UsernameValidation usernameValidation = userBuilder.setUsername(username);
-            PasswordValidation passwordValidation = userBuilder.setPassword(password);
-
-            // if nothing wrong with username and password
-            if (usernameValidation == UsernameValidation.OK && passwordValidation == PasswordValidation.OK) {
-
-                // if password inputs match
-                if (password.equals(passwordRepeat)) {
-                    UserSession userSession = UserSession.getInstance();
-                    System.out.println("registering user");
-                    if (userSession.registerUser(username, password)) {
-                        switchScene(event, "login.fxml");
-                    }
-                } else {
-                    visualFeedbackText.setText("Passwords do not match");
-                }
+            if (validationResult.equals("OK")) {
+                switchScene(event, "login.fxml");
             } else {
-
-                if (usernameValidation == UsernameValidation.alreadyTaken) {
-                    visualFeedbackText.setText("Username already taken");
-                } else if (usernameValidation != UsernameValidation.OK) {
-                    visualFeedbackText.setText("Username must be between 3 and 30 characters long and contain only letters and numbers");
-                } else {
-                    visualFeedbackText.setText("Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character");
-                }
+                visualFeedbackText.setText(validationResult);
             }
         } else {
             visualFeedbackText.setText("Please fill in all fields");
