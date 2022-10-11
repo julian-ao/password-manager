@@ -52,7 +52,7 @@ public class UserSession {
     }
 
     public String userValidator(String username, String password, String passwordRepeat){
-        UserBuilder userBuilder = new UserBuilder(new CSVDatabaseTalker("src/main/resources/app/Users.csv"));
+        UserBuilder userBuilder = new UserBuilder(new CSVDatabaseTalker("src/main/resources/ui/Users.csv"));
             userBuilder.setUsername(username);
             userBuilder.setPassword(password);
 
@@ -64,11 +64,11 @@ public class UserSession {
 
                 // if password inputs match
                 if (password.equals(passwordRepeat)) {
-                    UserSession userSession = UserSession.getInstance();
                     System.out.println("registering user");
-                    if (userSession.registerUser(username, password)) {
+                    if (this.registerUser(username, password)) {
                         return "OK";
-                    }else{
+                    }
+                    else{
                         return "Unexpected";
                     }
                 } else {

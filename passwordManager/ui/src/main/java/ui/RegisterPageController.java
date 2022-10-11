@@ -3,7 +3,6 @@ package ui;
 import java.io.IOException;
 
 import core.UserSession;
-import core.database.CSVDatabaseTalker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
