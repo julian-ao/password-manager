@@ -1,16 +1,35 @@
 package app.database;
 
 import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.nio.file.*;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
 public class JsonDatabaseTalkerTest {
-    DatabaseTalker jsonDatabaseTalker = new JsonDatabaseTalker("src/main/resources/app/testUsers.json");
+
+    DatabaseTalker jsonDatabaseTalker; // = new JsonDatabaseTalker("src/main/resources/app/testUsers.json");
 
 
     public JsonDatabaseTalkerTest(){
+        // if file exist from before. Delete it and create new empty file
+        File file = new File("src/main/resources/app/testUsers.json");
+        if (file.exists()) {
+            file.delete();
+        }
+        File jsonFile = new File("src/main/resources/app/testUsers.json");
+        try {
+            jsonFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        jsonDatabaseTalker = new JsonDatabaseTalker("src/main/resources/app/testUsers.json");
+
+        // Insert a user into the json file
         Profile profile1 = new Profile("google.bror", "bob@bob.mail", "profile1", "password1");
         Profile profile2 = new Profile("face.bror", "bob@bob.mail", "profile2", "password2");
         Profile profile3 = new Profile("twitt.bror", "bob@bob.mail", "profile3", "password3");
@@ -69,9 +88,31 @@ public class JsonDatabaseTalkerTest {
     public void insertProfileTest(){
         Profile profile = new Profile("nettside.no", "sondrkol@it.no", "sondrkol", "passord");
         jsonDatabaseTalker.insertProfile("user1", profile);
-        ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1", "password1");
+        ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
         assertEquals(true, hasProfile(profiles, profile));
 
     }
 
+    @Test
+    public void checkPasswordTest() {
+        assertEquals(true, jsonDatabaseTalker.checkPassword("user1", "password1"));
+        assertEquals(false, jsonDatabaseTalker.checkPassword("user1", "password2"));
+    }
+
+    @Test
+    public void getProfilesTest(){
+        ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
+        assertEquals(4, profiles.size());
+    }
+
+    @Test
+    public void deleteProfileTest(){
+        ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
+        Profile profile = profiles.get(0);
+        System.out.print("profile is: ");
+        System.out.print(profile);
+        assertEquals(true, hasProfile(profiles, profile));
+        jsonDatabaseTalker.deleteProfile("user1", profile);
+        assertEquals(false, hasProfile(profiles, profile));
+    }
 }

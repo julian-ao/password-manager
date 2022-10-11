@@ -2,6 +2,7 @@ package app.database;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.io.IOException;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +13,15 @@ public class JsonDatabaseTalker implements DatabaseTalker{
 
     public JsonDatabaseTalker(String jsonFile){
         this.jsonFile = new File(jsonFile);
+        if (this.jsonFile.length() == 0) { // If file is empty. Create a list of users
+            ObjectMapper mapper = new ObjectMapper();
+            ArrayList<User> users = new ArrayList<User>();
+            try {
+                mapper.writeValue(this.jsonFile, users);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -103,16 +113,14 @@ public class JsonDatabaseTalker implements DatabaseTalker{
     }
 
     @Override
-    public ArrayList<Profile> getProfiles(String username, String password) {
+    public ArrayList<Profile> getProfiles(String username) {
         // TODO Auto-generated method stub
         ObjectMapper mapper = new ObjectMapper();
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
-                    if (user.getPassword().equals(password)) {
-                        return user.getProfiles();
-                    }
+                    return user.getProfiles();
                 }
             }
 
@@ -155,17 +163,17 @@ public class JsonDatabaseTalker implements DatabaseTalker{
         ObjectMapper mapper = new ObjectMapper();
         try {
             User[] users = mapper.readValue(jsonFile, User[].class);
+
             for (User user : users) {
                 if (user.getUsername().equals(username)) {
                     user.removeProfile(profile);
-
                 }
             }
             mapper.writeValue(jsonFile, users);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
-            
+
         }
     }
 }

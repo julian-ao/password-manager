@@ -17,13 +17,13 @@ public class UserSession {
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
             user = new User(username, password);
-            this.profiles = databaseTalker.getProfiles(username, password);
+            this.profiles = databaseTalker.getProfiles(username);
             return true;
         }else return false;
     }
 
     public ArrayList<Profile> getProfiles(){
-        return this.databaseTalker.getProfiles(user.getUsername(), user.getPassword());
+        return this.databaseTalker.getProfiles(user.getUsername());
     }
 
     public boolean registerUser(String username, String password){
