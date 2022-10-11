@@ -1,0 +1,3 @@
+module localpersistence {
+    exports localpersistence; 
+}
