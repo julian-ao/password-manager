@@ -114,6 +114,7 @@ public class JsonDatabaseTalkerTest {
         System.out.print(profile);
         assertEquals(true, hasProfile(profiles, profile));
         jsonDatabaseTalker.deleteProfile("user1", profile);
+        profiles = jsonDatabaseTalker.getProfiles("user1");
         assertEquals(false, hasProfile(profiles, profile));
     }
 }
