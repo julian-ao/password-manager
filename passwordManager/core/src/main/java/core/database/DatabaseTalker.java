@@ -3,6 +3,7 @@ package core.database;
 import core.Profile;
 import core.User;
 import java.util.ArrayList;
+import core.Profile;
 
 public interface DatabaseTalker {
 

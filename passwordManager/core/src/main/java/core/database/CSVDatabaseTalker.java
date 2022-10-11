@@ -57,7 +57,7 @@ public class CSVDatabaseTalker implements DatabaseTalker{
             try{
                 Map<String, String> users = getUsers();
                 FileOutputStream fos = new FileOutputStream(this.file);
-    
+     
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
                 for(Map.Entry u : users.entrySet()){
                     bw.write(u.getKey() + "," + u.getValue());
