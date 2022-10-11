@@ -1,5 +1,7 @@
 package core.database;
 
+import core.Profile;
+import core.User;
 import java.util.ArrayList;
 import core.Profile;
 
@@ -15,7 +17,6 @@ public interface DatabaseTalker {
      * @return true if a user with the username exists in the database
      */
     public boolean userExists(String username);
-
 
     /*
      * checkPassword checks if the password matches the username in the database
@@ -38,7 +39,7 @@ public interface DatabaseTalker {
      * 
      * @return true if the username was unique and the user was stores successfully
      */
-    public boolean insertUser(String username, String password);
+    public boolean insertUser(User user);
 
 
     /*
@@ -49,7 +50,7 @@ public interface DatabaseTalker {
      * 
      * @return true if the user existed and the user was deleted
      */
-    public boolean deleteUser(String username);
+    public void deleteUser(String username);
 
 
     /*
@@ -60,5 +61,34 @@ public interface DatabaseTalker {
      * 
      * @return a list of profile objects that has been stored by the user
      */
-    public ArrayList<Profile> getProfiles(String username, String password);
+    public ArrayList<Profile> getProfiles(String username);
+
+
+    /*
+     * 
+     * insertProfile stores a new profile
+     * 
+     * 
+     * @param username the user which the profile should be stored with
+     * @param profile the new profile object that is to be saved
+     * 
+     * @return boolean telling wether the operation was succesful or not
+     * 
+     */
+    public boolean insertProfile(String username, Profile profile);
+
+
+    /*
+     * deleteProfile deletes a profile
+     * 
+     * 
+     * 
+     * @param username the username that owns the profile
+     * 
+     * @param profile the profile which is to be deleted
+     * 
+     * 
+     * 
+     */
+    public void deleteProfile(String username, Profile profile);
 }
