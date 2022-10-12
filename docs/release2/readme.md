@@ -10,11 +10,11 @@ As of Release 2, we have now a functional web application that allows users to c
 ## Architecture
 
 We have now split the application into two layers, Core, UI. The Core layer contains the logic of the application and the UI layer contains the user interface. We do have a third layer, which is the Prestistence layer, but we have not yet seperated it from the core layer. The prestistence layer will be seperated in the next release, where we will also implement the functionality to create, edit and delete passwords. The prestistence we have chosen to use is a JSON file, which will be stored on the users computer. The reason for this is that we want to keep the application as simple as possible, and we do not want to use a database. Jackson is the library we use to convert the JSON file to Java objects and vice versa. The architecture of the application is shown in the image below.
-'''[Architecture diagram]'''
+![img.png](../images/release2_classDiagram.png)
 
 ### Core
 
-<!--blablabla hva som er i core og hva vi har gjort der-->
+The main class in the core module is the UserSession class. the UserSession class delegates all the requests from the UI to either itself, or to other classes. The UserBuilder class contains methods to validate username and password for a new user, it does this by checking against a series of predicates and returns a response code. UserSession then takes this response code and sends an appropriate string with and response messsage. this being "OK" if all checks were passed. the User and Profile classes serves purely as dataclasses and does not have any functionality besides getters and setters.
 
 ### Prestistence
 
