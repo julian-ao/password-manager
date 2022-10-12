@@ -13,23 +13,23 @@ import java.util.ArrayList;
 
 public class JsonDatabaseTalkerTest {
 
-    DatabaseTalker jsonDatabaseTalker; // = new JsonDatabaseTalker("src/main/resources/app/testUsers.json");
+    DatabaseTalker jsonDatabaseTalker;
 
 
     public JsonDatabaseTalkerTest(){
         // if file exist from before. Delete it and create new empty file
-        File file = new File("src/main/resources/ui/TestUsers.json");
+        File file = new File("src/main/resources/core/TestUsers.json");
         if (file.exists()) {
             file.delete();
         }
-        File jsonFile = new File("src/main/resources/ui/TestUsers.json");
+        File jsonFile = new File("src/main/resources/core/TestUsers.json");
         try {
             jsonFile.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        jsonDatabaseTalker = new JsonDatabaseTalker("src/main/resources/app/testUsers.json");
+        jsonDatabaseTalker = new JsonDatabaseTalker("src/main/resources/core/TestUsers.json");
 
         // Insert a user into the json file
         Profile profile1 = new Profile("google.bror", "bob@bob.mail", "profile1", "password1");

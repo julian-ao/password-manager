@@ -10,7 +10,6 @@ import core.userbuilder.UsernameValidation;
 
 public class UserSession {
     private User user;
-    private ArrayList<Profile> profiles;
     private static DatabaseTalker databaseTalker = new JsonDatabaseTalker("src/main/resources/ui/Users.json");
     private static UserSession onlyInstance = new UserSession(databaseTalker);
     private UserBuilder userBuilder;
@@ -26,13 +25,33 @@ public class UserSession {
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
             this.user = new User(username, password);
-            this.profiles = databaseTalker.getProfiles(username);
+            user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
             return true;
-        }else return false;
+        }else 
+        return false;
     }
 
     public ArrayList<Profile> getProfiles(){
         return this.databaseTalker.getProfiles(user.getUsername());
+    }
+
+
+    public void overridePath(String path){
+        databaseTalker = new JsonDatabaseTalker(path);
+    }
+
+
+    public ArrayList<ArrayList<String>> getProfilesNativeTypes(){
+        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        ArrayList<Profile> profiles = getProfiles();
+        for(Profile profile : profiles){
+            ArrayList<String> p = new ArrayList<String>();
+            p.add(profile.getProfileUsername());
+            p.add(profile.getEmail());
+            p.add(profile.getEncryptedPassword());
+            result.add(p);
+        }
+        return result;
     }
 
     public boolean registerUser(String username, String password){
@@ -84,5 +103,16 @@ public class UserSession {
                     return "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character";
                 }
             }
+    }
+
+    public void insertProfile(String username, String email, String password){
+        Profile p = new Profile("empty.url", email, username, password);
+        this.databaseTalker.insertProfile(user.getUsername(), p);
+        user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+    }
+
+
+    public DatabaseTalker getDatabaseTalker(){
+        return this.databaseTalker;
     }
 }

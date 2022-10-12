@@ -2,11 +2,31 @@
     {
         "username": "Admin",
         "password": "Admin1!",
-        "profiles": []
-    },
-    {
-        "username": "Admin1",
-        "password": "Admin1!",
-        "profiles": []
+        "profiles": [
+            {
+                "url": "empty.url",
+                "email": "1",
+                "profileUsername": "2",
+                "encryptedPassword": "3"
+            },
+            {
+                "url": "empty.url",
+                "email": "3",
+                "profileUsername": "2",
+                "encryptedPassword": "1"
+            },
+            {
+                "url": "empty.url",
+                "email": "1",
+                "profileUsername": "3",
+                "encryptedPassword": "2"
+            },
+            {
+                "url": "empty.url",
+                "email": "3",
+                "profileUsername": "1",
+                "encryptedPassword": "2"
+            }
+        ]
     }
 ]
