@@ -14,11 +14,11 @@ public class UserSession {
     private static UserSession onlyInstance = new UserSession(databaseTalker);
     private UserBuilder userBuilder;
 
-    private UserSession(DatabaseTalker databaseTalker){
+    private UserSession(DatabaseTalker databaseTalker) {
         this.databaseTalker = databaseTalker;
     }
 
-    public static UserSession getInstance(){
+    public static UserSession getInstance() {
         return onlyInstance;
     }
     
@@ -33,11 +33,11 @@ public class UserSession {
             this.user = new User(username, password);
             user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
             return true;
-        }else 
-        return false;
+        } else
+            return false;
     }
 
-    public ArrayList<Profile> getProfiles(){
+    public ArrayList<Profile> getProfiles() {
         return this.databaseTalker.getProfiles(user.getUsername());
     }
 
@@ -71,11 +71,10 @@ public class UserSession {
         return this.databaseTalker.insertUser(new User(username, password));
     }
 
-
-
-    public String getUsername(){
+    public String getUsername() {
         return user.getUsername();
     }
+
     /*
      * logOut sets the user to null
      */
@@ -94,37 +93,36 @@ public class UserSession {
      */
     public String userValidator(String username, String password, String passwordRepeat){
         UserBuilder userBuilder = new UserBuilder(databaseTalker);
-            userBuilder.setUsername(username);
-            userBuilder.setPassword(password);
+        userBuilder.setUsername(username);
+        userBuilder.setPassword(password);
 
-            UsernameValidation usernameValidation = userBuilder.setUsername(username);
-            PasswordValidation passwordValidation = userBuilder.setPassword(password);
+        UsernameValidation usernameValidation = userBuilder.setUsername(username);
+        PasswordValidation passwordValidation = userBuilder.setPassword(password);
 
-            // if nothing wrong with username and password
-            if (usernameValidation == UsernameValidation.OK && passwordValidation == PasswordValidation.OK) {
+        // if nothing wrong with username and password
+        if (usernameValidation == UsernameValidation.OK && passwordValidation == PasswordValidation.OK) {
 
-                // if password inputs match
-                if (password.equals(passwordRepeat)) {
-                    System.out.println("registering user");
-                    if (this.registerUser(username, password)) {
-                        return "OK";
-                    }
-                    else{
-                        return "Unexpected";
-                    }
+            // if password inputs match
+            if (password.equals(passwordRepeat)) {
+                System.out.println("registering user");
+                if (this.registerUser(username, password)) {
+                    return "OK";
                 } else {
-                    return "Passwords do not match";
+                    return "Unexpected";
                 }
             } else {
-
-                if (usernameValidation == UsernameValidation.alreadyTaken) {
-                    return "Username already taken";
-                } else if (usernameValidation != UsernameValidation.OK) {
-                    return "Username must be between 3 and 30 characters long and contain only letters and numbers";
-                } else {
-                    return "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character";
-                }
+                return "Passwords do not match";
             }
+        } else {
+
+            if (usernameValidation == UsernameValidation.alreadyTaken) {
+                return "Username already taken";
+            } else if (usernameValidation != UsernameValidation.OK) {
+                return "Username must be between 3 and 30 characters long and contain only letters and numbers";
+            } else {
+                return "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character";
+            }
+        }
     }
 
     public void insertProfile(String username, String email, String password){
