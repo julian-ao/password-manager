@@ -2,7 +2,6 @@ package core.userbuilder;
 
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.security.KeyStore.Entry;
 import java.util.HashMap;
 import java.util.Map;
 
