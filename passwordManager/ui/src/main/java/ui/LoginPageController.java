@@ -53,9 +53,19 @@ public class LoginPageController extends PasswordManagerController {
         super.passwordEye(passwordTextField, passwordPasswordField, eyeImageView);
     }
 
+    /**
+     * onLoginButtonClick handles the loginbutton click, if the fields are filled in
+     * it passes the username and password to the userSession class to attempt a
+     * login, if it can't login or the password and/or username
+     * is not filled in; The function shows the appropriate response to the user.
+     * 
+     * @param event ActionEvent object to be used in the switchScene method.
+     * @throws IOException if there is a problem opening the new scene
+     * 
+     */
     @FXML
     private void onLoginButtonClick(ActionEvent event) throws IOException {
-        UserSession userSession;//!
+        UserSession userSession;// !
 
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
@@ -66,7 +76,7 @@ public class LoginPageController extends PasswordManagerController {
         if (username != "" && password != "") {
             userSession = UserSession.getInstance();
             if (userSession.login(username, password)) {
-                ((Stage)usernameTextField.getScene().getWindow()).setUserData(userSession);
+                ((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
                 switchScene(event, "passwords.fxml");
             }
             visualFeedbackText.setText("Wrong username or password");

@@ -55,7 +55,13 @@ public class PasswordPageController extends PasswordManagerController {
             passwordList.getChildren().add(i);
         }
     }
-
+    /**
+     * passwordComponent sets up a component used in the list view
+     * @param name name displayed in the password Component
+     * @param password password displayed
+     * @param email email displayed
+     * @return A GridPane object used to place in the listview 
+     */
     private GridPane passwordComponent(String name, String password, String email) {
         GridPane gridPane = new GridPane();
         gridPane.setPrefHeight(90);
@@ -78,23 +84,26 @@ public class PasswordPageController extends PasswordManagerController {
 
         return gridPane;
     }
-
+    /**
+     * Tells the userSession to log out and switches the scene back to the login page
+     * @param event ActionEvent object used in the switchScene method
+     * @throws IOException if the switchScene does not work
+     */
     @FXML
     private void onLogOutButtonClick(ActionEvent event) throws IOException {
-        // TODO
-        // log out?
-        // userSession.logOut()?
+        userSession.logOut();
         super.switchScene(event, "login.fxml");
     }
 
-    @FXML
-    private void onAddPasswordButtonClick(ActionEvent event) throws IOException {
 
+    @FXML
+    private void onAddPasswordButtonClick(){
         addLoginOverlay.setVisible(true);
     }
 
+    
     @FXML
-    private void onAddLoginCloseButton(ActionEvent event) throws IOException {
+    private void onAddLoginCloseButton(){
         addLoginTitleTextField.setText("");
         addLoginUsernameTextField.setText("");
         addLoginPasswordTextField.setText("");

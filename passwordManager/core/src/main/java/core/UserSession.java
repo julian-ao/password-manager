@@ -22,6 +22,12 @@ public class UserSession {
         return onlyInstance;
     }
     
+    /**
+     * login function attempts to login
+     * @param username the username provided for login attempt
+     * @param password the password provided for login attempt
+     * @return true if the login was successful, and false if is was not
+     */
     public boolean login(String username, String password){
         if(databaseTalker.checkPassword(username, password)){
             this.user = new User(username, password);
@@ -54,6 +60,13 @@ public class UserSession {
         return result;
     }
 
+
+    /**
+     * registerUser attempts to register a new user in our database/storage
+     * @param username the username to register
+     * @param password the passsword to register
+     * @return true if the registration is successful and the user is stored, false if it is not
+     */
     public boolean registerUser(String username, String password){
         return this.databaseTalker.insertUser(new User(username, password));
     }
@@ -70,6 +83,15 @@ public class UserSession {
         this.user = null;
     }
 
+    /**
+     * 
+     * @param username a username to check
+     * @param password a password to check
+     * @param passwordRepeat repeated password provided by the user
+     * @return a string which contains the message explaining what why the username/password 
+     * is not accepted, if the username and passwords are accepted, 
+     * and the passwordreapeat == password, the function return "OK"
+     */
     public String userValidator(String username, String password, String passwordRepeat){
         UserBuilder userBuilder = new UserBuilder(databaseTalker);
             userBuilder.setUsername(username);

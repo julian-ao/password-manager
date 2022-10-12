@@ -52,6 +52,14 @@ public class RegisterPageController extends PasswordManagerController {
         switchScene(event, "login.fxml");
     }
 
+    /**
+     * onCreateUserButtonClick sends the fields in the register page form to the
+     * usersession for validation, if they are validated, a new user is stored and
+     * the user is sent back to the loginpage
+     * 
+     * @param event ActionEvent object used in the switchScene method
+     * @throws IOException if the fxml file cant be opened
+     */
     @FXML
     private void onCreateUserButtonClick(ActionEvent event) throws IOException {
         String username = usernameTextField.getText();

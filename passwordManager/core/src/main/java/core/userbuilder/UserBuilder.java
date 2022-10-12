@@ -35,7 +35,11 @@ public class UserBuilder {
                 Pattern.matches(".{0,100}[!\"#$%&].{0,100}", x))
             , PasswordValidation.diversityError);
     }
-
+    /**
+     * checks is a username is a valid one
+     * @param username the username to be validated
+     * @return UsernameValidation enum which contains the response code
+     */
     private UsernameValidation validateUsername(String username){
         for(Map.Entry<Predicate<String>, UsernameValidation> entry : usernameValidation.entrySet()){
             if(entry.getKey().test(username)){
@@ -45,6 +49,11 @@ public class UserBuilder {
         return UsernameValidation.OK;
     }
 
+    /**
+     * checks if a password is a valid one
+     * @param password the password to be validated
+     * @return PasswordValidation enum which contains the response code
+     */
     private PasswordValidation validatePassword(String password){
         for(Map.Entry<Predicate<String>, PasswordValidation> entry : passwordValidation.entrySet()){
             if(entry.getKey().test(password)){
