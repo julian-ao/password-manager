@@ -26,8 +26,7 @@ serialize and deserialize Java objects to JSON strings and vice versa. The JSON 
 
 We have created a desktop application using JavaFX. The UI is divided into three main parts, the login page, the register page and the password page. We have made a controller and a fxml-file for each page and a main controller to switch between the pages (*PasswordManagerController.java*).
 
-We hare redisigned 
-We have updated the visual design for the whole application
+We have redisigned the Figma design of our app to make it more user friendly and consistent. The updated design can be seen in the applicion description [here](../../passwordManager/readme.md).
 
 ---
 
