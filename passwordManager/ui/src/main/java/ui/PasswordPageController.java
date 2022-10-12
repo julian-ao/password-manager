@@ -1,7 +1,5 @@
 package ui;
 
-
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -46,8 +44,7 @@ public class PasswordPageController extends PasswordManagerController {
         updatePasswords();
     }
 
-
-    private void updatePasswords(){
+    private void updatePasswords() {
         passwordList.getChildren().clear();
         ArrayList<ArrayList<String>> data = userSession.getProfilesNativeTypes();
         ArrayList<GridPane> passwords = new ArrayList<GridPane>();
@@ -62,15 +59,15 @@ public class PasswordPageController extends PasswordManagerController {
     private GridPane passwordComponent(String name, String password, String email) {
         GridPane gridPane = new GridPane();
         gridPane.setPrefHeight(90);
-        gridPane.setPrefWidth(750);
+        gridPane.setPrefWidth(730);
 
         Text nameText = new Text(name);
         nameText.setStyle("-fx-font: 40 system;");
-        nameText.setWrappingWidth(375);
+        nameText.setWrappingWidth(365);
 
         Text passwordText = new Text(password);
         passwordText.setStyle("-fx-font: 40 system;-fx-text-alignment: right;");
-        passwordText.setWrappingWidth(375);
+        passwordText.setWrappingWidth(365);
 
         Text emailText = new Text(email);
         emailText.setStyle("-fx-font: 25 system;");
@@ -93,8 +90,6 @@ public class PasswordPageController extends PasswordManagerController {
     @FXML
     private void onAddPasswordButtonClick(ActionEvent event) throws IOException {
 
-
-        
         addLoginOverlay.setVisible(true);
     }
 
@@ -104,13 +99,13 @@ public class PasswordPageController extends PasswordManagerController {
         addLoginUsernameTextField.setText("");
         addLoginPasswordTextField.setText("");
 
-
         addLoginOverlay.setVisible(false);
     }
 
     @FXML
     private void onAddLoginButton(ActionEvent event) throws IOException {
-        userSession.insertProfile(addLoginUsernameTextField.getText(), addLoginTitleTextField.getText(), addLoginPasswordTextField.getText());
+        userSession.insertProfile(addLoginUsernameTextField.getText(), addLoginTitleTextField.getText(),
+                addLoginPasswordTextField.getText());
 
         addLoginTitleTextField.setText("");
         addLoginUsernameTextField.setText("");
