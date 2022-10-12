@@ -2,7 +2,6 @@ package core.database;
 
 import org.junit.jupiter.api.Test;
 import java.io.File;
-import java.nio.file.*;
 import java.io.IOException;
 import core.Profile;
 import core.User;

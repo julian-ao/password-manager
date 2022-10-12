@@ -2,27 +2,16 @@ package ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
-import javafx.animation.RotateTransition;
-import javafx.util.Duration;
-import javafx.scene.transform.Rotate;
 import javafx.scene.control.PasswordField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.File;
 
 import java.io.IOException;
 
 import core.UserSession;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class LoginPageController extends PasswordManagerController {
 
