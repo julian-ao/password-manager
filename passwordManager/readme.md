@@ -7,7 +7,7 @@ application and all their stored passwords will be encrypted.
 
 ## Login page
 On the application, the user will first be met with a login page.
-There they can either log in to an existing account or register a new
+There they can either log in to an existing account or create a new
 one. 
 
 ![img.png](images/img.png)

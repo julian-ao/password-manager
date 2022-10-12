@@ -1,71 +1,65 @@
-**Title: Validation** \
-**Priority: Low** \
-**Estimate: One Week**
+# Updated userstories for release 2
 
-**User Story**
+## User Story 1: Login
 
-- **As an** New user
+Priority: High
+
+- **As a** returning user
+- **I want** to be able to login
+- **So that** I can see my stored passwords
+
+### Acceptance Criteria
+
+- **Given** that the login inerface exists
+- **When** I open the application
+- **Then** I can fill in username and password to login
+
+---
+
+## User Story 2: New Account
+
+Priority: High
+
+- **As a** new user
+- **I want** to be able to create a new account
+- **So that** I can log in
+
+### Acceptance Criteria
+
+- **Given** that I can see and click the create account button
+- **When** I open the application
+- **Then** I can fill in the form and create an account
+
+---
+
+## New userstories:
+
+## User Story 3: Validation
+
+Priority: High
+
+- **As a** new user
 - **I want** to get feedback on the input I give the app
 - **So that** I know why the app is not doing what I expect it to do
 
-**Acceptance Criteria**
+### Acceptance Criteria 3
 
-- **Given** 
+- **Given** either the login- or register page
 - **When** I type something that the app does not accept
 - **Then** I will get appropriate feedback on what was wrong with my input
 
 ---
 
-**Title: ProfileCreation** \
-**Priority: High** \
-**Estimate: One Week**
+## User Story 4: Profile Creation
 
-**User Story**
+Priority: High
 
-- **As an** Logged in user
-- **I want** to be able to create an store a new password
-- **So that** I can later use the app to get the password
+- **As a** logged in user
+- **I want** to be able to create and store a new profile
+- **So that** I can later use the app to get the profile
 
-**Acceptance Criteria**
+### Acceptance Criteria 4
 
-- **Given** 
-- **When** I create a new password/profile
+- **Given** that I can see all my stored profiles
+- **When** I create a new profile
 - **Then** I will be able to retrieve the password after closing and opening the app
-
----
-
-**Title: Profiles** \
-**Priority: High** \
-**Estimate: One Week**
-
-**User Story**
-
-- **As an** Logged in user
-- **I want** to be able to see all my passwords/profiles that are associated with my account
-- **So that** I can use them when logging in to websites
-
-**Acceptance Criteria**
-
-- **Given** 
-- **When** Log in to the app
-- **Then** I will see a list of all the passwords/profiles that I have stored
-
----
-
-**Title: GeneratePassword** \
-**Priority: Low** \
-**Estimate: One day**
-
-**User Story**
-
-- **As an** Logged in user, storing a new profile on the app
-- **I want** to be able to generate a secure password
-- **So that** I can be sure that the passwords I use on other platforms are secure
-
-**Acceptance Criteria**
-
-- **Given** 
-- **When** Create a new password/profile
-- **Then** I will have the option of generating a secure password
-
----

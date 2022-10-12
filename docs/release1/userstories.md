@@ -1,33 +1,33 @@
-**Title: Login** \
-**Priority: High** \
-**Estimate: One Weeks**
+# Userstories
 
-**User Story**
+**Title: Login**
+**Priority: High**
 
-- **As an** user
+### User Story 1
+
+- **As a** returning user
 - **I want** to be able to login
-- **So that** i can see my passwords
+- **So that** I can see my stored passwords
 
-**Acceptance Criteria**
+### Acceptance Criteria
 
-- **Given** The login inerface exists
+- **Given** that the login inerface exists
 - **When** I open the application
 - **Then** I can fill in username and password to login
 
 ---
 
-**Title: New Account** \
-**Priority: High** \
-**Estimate: One week**
+**Title: New Account**
+**Priority: High**
 
-**User Story**
+### User Story 2
 
-- **As an** new user
-- **I want** to be able to register
-- **So that** i can log in
+- **As a** new user
+- **I want** to be able to create a new account
+- **So that** I can log in
 
-**Acceptance Criteria**
+### Acceptance Criteria 2
 
-- **Given** I can see and click the create account button
+- **Given** that I can see and click the create account button
 - **When** I open the application
 - **Then** I can fill in the form and create an account
