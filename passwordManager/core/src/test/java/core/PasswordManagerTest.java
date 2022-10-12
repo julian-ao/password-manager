@@ -8,5 +8,6 @@ public class PasswordManagerTest {
     @Test
     public void testApp() {
         Assertions.assertEquals(2, 2, "De er ikke lik hverandre");
+
     }
 }
