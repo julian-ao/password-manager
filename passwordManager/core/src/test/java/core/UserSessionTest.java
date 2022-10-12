@@ -12,6 +12,11 @@ public class UserSessionTest {
   File file = new File("src/main/resources/core/TestUsers.json");
 
   public UserSessionTest() {
+    this.initDatabase();
+  }
+
+  public void initDatabase() {
+    file.delete();
     userSession.overridePath(file.toString());
   }
 
@@ -33,6 +38,7 @@ public class UserSessionTest {
 
   @Test
   public void insertProfileTest() {
+    this.initDatabase();
     userSession.getDatabaseTalker().insertUser(new User("Admin", "Admin1!"));
 
     userSession.login("Admin", "Admin1!");
@@ -49,6 +55,7 @@ public class UserSessionTest {
 
   @Test
   public void loginTest() {
+    this.initDatabase();
     User user1 = new User("User1", "password1");
     User user2 = new User("User2", "password2");
 
@@ -65,6 +72,7 @@ public class UserSessionTest {
 
   @Test
   public void registerUserTest() {
+    this.initDatabase();
     assertEquals(false, userSession.login("user1", "password1"));
     userSession.registerUser("user1", "password1");
     assertEquals(true, userSession.login("user1", "password1"));
@@ -73,6 +81,7 @@ public class UserSessionTest {
 
   @Test
   public void userValidatorTest() {
+    this.initDatabase();
     userSession.registerUser("user1", "Password1");
     assertEquals(
         "Passwords do not match",
