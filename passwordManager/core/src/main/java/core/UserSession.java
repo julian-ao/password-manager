@@ -111,10 +111,8 @@ public class UserSession {
     PasswordValidation passwordValidation = userBuilder.setPassword(password);
 
     // if nothing wrong with username and password
-    if (
-        usernameValidation == UsernameValidation.OK
-        && passwordValidation == PasswordValidation.OK
-    ) {
+    if (usernameValidation == UsernameValidation.OK
+        && passwordValidation == PasswordValidation.OK) {
       // if password inputs match
       if (password.equals(passwordRepeat)) {
         System.out.println("registering user");
@@ -131,9 +129,13 @@ public class UserSession {
       if (usernameValidation == UsernameValidation.alreadyTaken) {
         return "Username already taken";
       } else if (usernameValidation != UsernameValidation.OK) {
-        return "Username must be between 3 and 30 characters long and contain only letters and numbers";
+        String s1 = "Username must be between 5 and 20 characters ";
+        String s2 = "Username must contain only letters and numbers";
+        return s1 + s2;
       } else {
-        return "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character";
+        String s1 = "Password must be between 8 and 20 characters ";
+        String s2 = "Password must contain at least one uppercase letter ";
+        return s1 + s2;
       }
     }
   }
@@ -142,7 +144,7 @@ public class UserSession {
    * insertProfile inserts a profile into the database.
 
    * @param username the username of the profile
-   * @param email the email of the profile
+   * @param email    the email of the profile
    * @param password the password of the profile
    */
   public void insertProfile(String username, String email, String password) {
