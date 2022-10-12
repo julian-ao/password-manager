@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.scene.control.TextField;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +12,8 @@ import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 /**
  * the PasswordManagerController is the super class of all our other
