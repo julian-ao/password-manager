@@ -10,7 +10,6 @@ import core.userbuilder.UsernameValidation;
 
 public class UserSession {
     private User user;
-    private ArrayList<Profile> profiles;
     private static DatabaseTalker databaseTalker = new JsonDatabaseTalker("src/main/resources/ui/Users.json");
     private static UserSession onlyInstance = new UserSession(databaseTalker);
     private UserBuilder userBuilder;
@@ -22,11 +21,17 @@ public class UserSession {
     public static UserSession getInstance() {
         return onlyInstance;
     }
-
-    public boolean login(String username, String password) {
-        if (databaseTalker.checkPassword(username, password)) {
+    
+    /**
+     * login function attempts to login
+     * @param username the username provided for login attempt
+     * @param password the password provided for login attempt
+     * @return true if the login was successful, and false if is was not
+     */
+    public boolean login(String username, String password){
+        if(databaseTalker.checkPassword(username, password)){
             this.user = new User(username, password);
-            this.profiles = databaseTalker.getProfiles(username);
+            user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
             return true;
         } else
             return false;
@@ -36,7 +41,33 @@ public class UserSession {
         return this.databaseTalker.getProfiles(user.getUsername());
     }
 
-    public boolean registerUser(String username, String password) {
+
+    public void overridePath(String path){
+        databaseTalker = new JsonDatabaseTalker(path);
+    }
+
+
+    public ArrayList<ArrayList<String>> getProfilesNativeTypes(){
+        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        ArrayList<Profile> profiles = getProfiles();
+        for(Profile profile : profiles){
+            ArrayList<String> p = new ArrayList<String>();
+            p.add(profile.getProfileUsername());
+            p.add(profile.getEmail());
+            p.add(profile.getEncryptedPassword());
+            result.add(p);
+        }
+        return result;
+    }
+
+
+    /**
+     * registerUser attempts to register a new user in our database/storage
+     * @param username the username to register
+     * @param password the passsword to register
+     * @return true if the registration is successful and the user is stored, false if it is not
+     */
+    public boolean registerUser(String username, String password){
         return this.databaseTalker.insertUser(new User(username, password));
     }
 
@@ -51,7 +82,16 @@ public class UserSession {
         this.user = null;
     }
 
-    public String userValidator(String username, String password, String passwordRepeat) {
+    /**
+     * 
+     * @param username a username to check
+     * @param password a password to check
+     * @param passwordRepeat repeated password provided by the user
+     * @return a string which contains the message explaining what why the username/password 
+     * is not accepted, if the username and passwords are accepted, 
+     * and the passwordreapeat == password, the function return "OK"
+     */
+    public String userValidator(String username, String password, String passwordRepeat){
         UserBuilder userBuilder = new UserBuilder(databaseTalker);
         userBuilder.setUsername(username);
         userBuilder.setPassword(password);
@@ -83,5 +123,16 @@ public class UserSession {
                 return "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character";
             }
         }
+    }
+
+    public void insertProfile(String username, String email, String password){
+        Profile p = new Profile("empty.url", email, username, password);
+        this.databaseTalker.insertProfile(user.getUsername(), p);
+        user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+    }
+
+
+    public DatabaseTalker getDatabaseTalker(){
+        return this.databaseTalker;
     }
 }

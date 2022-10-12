@@ -11,8 +11,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonDatabaseTalker implements DatabaseTalker {
-    // json lagres i ././resources/app/Users.json
-    private File jsonFile;// = "src/main/resources/ui/Users.json";
+    // json lagres i ././resources/core/Users.json
+    private File jsonFile;
 
     /**
      * Constructor for JsonDatabaseTalker
