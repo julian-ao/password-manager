@@ -1,5 +1,9 @@
 # Fines
 
+This is a overview for us to keep track on who is late on the meetings.
+20kr for each 10min late. 
+This is written and signed on the group contract by all members.
+
 | Date  | Julian | Kenneth        | Kolberg | Alfnes |
 |-------|--------|----------------|---------|--------|
 | 15.09 | 0      | 40kr           | 0       | 0      |
