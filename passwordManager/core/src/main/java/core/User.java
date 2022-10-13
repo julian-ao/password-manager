@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class User {
   private String username;
   // !!!!MIDTLERTIDIG!!!!!
-  private String password;
+  private String aaa;
   private ArrayList<Profile> profiles;
   private int salt;
   private byte[] hashedPassword;
