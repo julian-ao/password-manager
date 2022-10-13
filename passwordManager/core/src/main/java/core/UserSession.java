@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class UserSession {
   private User user;
   private static DatabaseTalker databaseTalker = new JsonDatabaseTalker(
-      "../localpersistence/src/resources/localpersistance/Users.json");
+      "../localpersistence/src/main/resources/localpersistance/Users.json");
   private static UserSession onlyInstance = new UserSession(databaseTalker);
   private UserBuilder userBuilder;
 

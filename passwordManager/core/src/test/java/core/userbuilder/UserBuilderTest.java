@@ -9,7 +9,7 @@ import core.database.*;
 public class UserBuilderTest {
 
   DatabaseTalker databaseTalker = new JsonDatabaseTalker(
-      "../localpersistence/src/resources/localpersistance/TestUsers.json");
+      "../localpersistence/src/main/resources/localpersistance/TestUsers.json");
   UserBuilder userBuilder = new UserBuilder(databaseTalker);
 
   @Test

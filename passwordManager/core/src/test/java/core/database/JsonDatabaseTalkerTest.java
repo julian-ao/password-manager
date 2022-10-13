@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class JsonDatabaseTalkerTest {
 
   DatabaseTalker jsonDatabaseTalker;
-  String path = "../localpersistence/src/resources/localpersistance/TestUsers.json";
+  String path = "../localpersistence/src/main/resources/localpersistance/TestUsers.json";
   File file = new File(path);
 
   public JsonDatabaseTalkerTest() {
