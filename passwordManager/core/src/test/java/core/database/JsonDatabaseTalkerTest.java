@@ -13,11 +13,10 @@ import java.util.ArrayList;
 public class JsonDatabaseTalkerTest {
 
   DatabaseTalker jsonDatabaseTalker;
+  String path = "../localpersistence/src/resources/localpersistance/TestUsers.json";
+  File file = new File(path);
 
   public JsonDatabaseTalkerTest() {
-    String path = "../localpersistence/src/resources/localpersistance/TestUsers.json";
-    // if file exist from before. Delete it and create new empty file
-    File file = new File(path);
     if (file.exists()) {
       file.delete();
     }
@@ -57,6 +56,7 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void insertUserTest() {
+
     User newUser = new User("user2", "password2");
     jsonDatabaseTalker.insertUser(newUser);
     assertEquals(true, jsonDatabaseTalker.userExists(newUser.getUsername()));
