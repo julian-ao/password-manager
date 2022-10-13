@@ -30,6 +30,7 @@ stages:          # List of stages for jobs, and their order of execution
 validate:       # This job runs in the build stage, which runs first.
   stage: build
   script: cd passwordManager && mvn validate
+  allow_failure: false
   only:
     - merge_requests
   except:
@@ -39,6 +40,7 @@ validate:       # This job runs in the build stage, which runs first.
 compile:
   stage: build
   script: cd passwordManager && mvn compile
+  allow_failure: false
   only:
     - merge_requests
   except:
@@ -55,6 +57,7 @@ test:
   stage: test
   needs: ["compile"]
   script: cd passwordManager && mvn test
+  allow_failure: false
   only:
     - merge_requests
   except:
@@ -75,7 +78,7 @@ test-coverage-minimum:
   stage: coverage
   needs: ["compile"]
   script: cd passwordManager && mvn verify
-  allow_failure: true
+  allow_failure: false
   only:
     - merge_requests
   except:
