@@ -17,7 +17,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * Constructor for JsonDatabaseTalker.
-
+   * 
    * @param jsonFile the path to the json file
    */
   public JsonDatabaseTalker(String jsonFile) {
@@ -35,7 +35,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * userExists checks if a user with a given username exists.
-
+   * 
    * @param username username of a user
    * @return true if a user with the username exists in the database
    */
@@ -60,7 +60,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * checkPassword checks if the password matches the username in the json file.
-
+   * 
    * @param username username of a user
    * @param password password of a user
    * @return true if the user exists and the password is correct, false otherwise
@@ -87,7 +87,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * insertUser stores a new user in the json file.
-
+   * 
    * @param user the user to be stored
    * @return true if the username was unique and the user was stored successfully
    */
@@ -117,7 +117,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * deleteUser deletes a user from the json file.
-
+   * 
    * @param username the username of the user to be deleted
    */
   @Override
@@ -142,7 +142,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * getProfiles gets all profiles of a user.
-
+   * 
    * @param username the username of the user
    * @return an ArrayList of profiles or null if the user does not exist
    */
@@ -166,7 +166,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * insertProfile adds a new profile for a user.
-
+   * 
    * @param username the username of the user
    * @param profile  the profile to be added to the user
    * @return true if the profile was inserted successfully, false otherwise
@@ -197,7 +197,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * isSameProfile checks if a profile is the same as another profile.
-
+   * 
    * @param profile1 the first profile
    * @param profile2 the second profile
    * @return true if the values of the profiles are the same, false otherwise
@@ -214,7 +214,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
 
   /**
    * deleteProfile deletes a profile from a user.
-
+   * 
    * @param username the username of the user
    * @param profile  the profile to be deleted
    */
