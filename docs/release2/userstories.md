@@ -64,6 +64,7 @@ Priority: High
 - **When** I create a new profile
 - **Then** I will be able to retrieve the password after closing and opening the app
 
+---
 
 ## User Story 5: Profile Creation
 
