@@ -1,11 +1,12 @@
 package core;
 
+import java.util.ArrayList;
+
 import core.database.DatabaseTalker;
 import core.database.JsonDatabaseTalker;
 import core.userbuilder.PasswordValidation;
 import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
-import java.util.ArrayList;
 
 /**
  * UserSession is a class that is used to manage the user session.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class UserSession {
   private User user;
   private static DatabaseTalker databaseTalker = new JsonDatabaseTalker(
-      "src/main/resources/core/Users.json");
+      "../localpersistence/src/resources/localpersistance/Users.json");
   private static UserSession onlyInstance = new UserSession(databaseTalker);
   private UserBuilder userBuilder;
 
@@ -111,7 +112,7 @@ public class UserSession {
     PasswordValidation passwordValidation = userBuilder.setPassword(password);
 
     String message = null;
-    if (password != passwordRepeat) {
+    if (!password.equals(passwordRepeat)) {
       message = "Passwords does not match";
     }
     switch (usernameValidation) {
