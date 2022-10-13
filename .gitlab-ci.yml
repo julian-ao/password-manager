@@ -105,30 +105,6 @@ checkstyle:
   except:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
-<<<<<<< HEAD
-
-spotbugs:
-  stage: bugs
-  needs: ["compile"]
-  script: cd passwordManager && mvn install -DnoTestUI=true && mvn spotbugs:check -DnoTestUI=true
-  allow_failure: true
-  only:
-    - merge_requests
-  except:
-    variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "dev"
-
-clean_install:
-  stage: dist
-  script: cd passwordManager && mvn clean install
-  allow_failure: false
-  only:
-    - merge_requests
-  except:
-    variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
-=======
->>>>>>> origin/master
 
 spotbugs:
   stage: bugs
