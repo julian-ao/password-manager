@@ -186,13 +186,11 @@ public class JsonDatabaseTalker implements DatabaseTalker {
       if (isAdded) {
         mapper.writeValue(jsonFile, users);
         return true;
-      } else {
-        return false;
       }
     } catch (Exception e) {
       e.printStackTrace();
-      return false;
     }
+    return false;
   }
 
   /**
