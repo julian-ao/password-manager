@@ -25,7 +25,6 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - coverage
   - quality
-  - dist
 
 validate:       # This job runs in the build stage, which runs first.
   stage: build
@@ -36,6 +35,22 @@ validate:       # This job runs in the build stage, which runs first.
   except:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
+
+install:
+  stage: build
+  script: cd passwordManager && mvn clean install
+  allow_failure: false
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
+  artifacts:
+    paths:
+      - passwordManager/core/target/classes/*
+      - passwordManager/localpersistence/target/classes/*
+      - passwordManager/ui/target/classes/*
+    expire_in: 10 minutes
 
 compile:
   stage: build
@@ -106,14 +121,3 @@ checkstyle:
   except:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
-
-dist:
-  stage: dist
-  script: cd passwordManager && mvn install
-  allow_failure: false
-  rules:
-    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
-      when: always
-  artifacts:
-    paths:
-      - passwordManager/ui/target/dist/*
