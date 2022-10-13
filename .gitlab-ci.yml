@@ -76,7 +76,7 @@ test:
 
 test-coverage-minimum:
   stage: coverage
-  needs: ["clean_inst"]
+  needs: ["compile", "test"]
   script: cd passwordManager && mvn verify
   allow_failure: false
   only:
@@ -87,7 +87,7 @@ test-coverage-minimum:
 
 test-coverage-80:
   stage: coverage
-  needs: ["clean_inst"]
+  needs: ["compile", "test"]
   script: cd passwordManager && mvn verify -Dminimum=0.8
   allow_failure: true
   only:
