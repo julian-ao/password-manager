@@ -43,7 +43,7 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#usernameTextField");
     write("Admin");
     Assertions.assertEquals("Admin", ((TextField) lookup("#usernameTextField").query()).getText());
-    press(KeyCode.TAB);
+    clickOn("#passwordPasswordField");
     write("Admin1!");
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordPasswordField").query()).getText());
@@ -69,7 +69,7 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#usernameTextField");
     write("Admin");
     Assertions.assertEquals("Admin", ((TextField) lookup("#usernameTextField").query()).getText());
-    press(KeyCode.TAB);
+    clickOn("#passwordPasswordField");
     write("Admin1");
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1", ((TextField) lookup("#passwordPasswordField").query()).getText());
@@ -95,7 +95,7 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#usernameTextField");
     write("Admin");
     Assertions.assertEquals("Admin", ((TextField) lookup("#usernameTextField").query()).getText());
-    press(KeyCode.TAB);
+    clickOn("#passwordPasswordField");
     write("Admin1!");
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordPasswordField").query()).getText());
@@ -125,7 +125,7 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#usernameTextField");
     write("Admin1");
     Assertions.assertEquals("Admin1", ((TextField) lookup("#usernameTextField").query()).getText());
-    press(KeyCode.TAB);
+    clickOn("#passwordPasswordField");
     write("Admin1");
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1", ((TextField) lookup("#passwordPasswordField").query()).getText());
