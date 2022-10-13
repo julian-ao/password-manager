@@ -88,11 +88,13 @@ public class JsonDatabaseTalkerTest {
     jsonDatabaseTalker.insertProfile("user1", profile);
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
     assertEquals(true, hasProfile(profiles, profile));
+    assertEquals(false, jsonDatabaseTalker.insertProfile("user1231423", new Profile("", "", "", "")));
 
   }
 
   @Test
   public void checkPasswordTest() {
+    jsonDatabaseTalker.insertUser(new User("user1", "password1"));
     assertEquals(true, jsonDatabaseTalker.checkPassword("user1", "password1"));
     assertEquals(false, jsonDatabaseTalker.checkPassword("user1", "password2"));
   }
@@ -100,7 +102,11 @@ public class JsonDatabaseTalkerTest {
   @Test
   public void getProfilesTest() {
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
+
     assertEquals(4, profiles.size());
+    ArrayList<Profile> profiles1 = jsonDatabaseTalker.getProfiles("use1241r1");
+    assertEquals(null, profiles1);
+
   }
 
   @Test
@@ -111,6 +117,7 @@ public class JsonDatabaseTalkerTest {
     assertEquals(true, hasProfile(profiles, profile));
     jsonDatabaseTalker.deleteProfile("user1", profile);
     profiles = jsonDatabaseTalker.getProfiles("user1");
+    jsonDatabaseTalker.deleteProfile("notuser", profile);
     assertEquals(false, hasProfile(profiles, profile));
   }
 }
