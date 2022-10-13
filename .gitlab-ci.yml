@@ -107,7 +107,7 @@ checkstyle:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
 
-clean_inst: 
+clean_install: 
   stage: dist
   script: cd passwordManager && mvn clean install
   allow_failure: false
