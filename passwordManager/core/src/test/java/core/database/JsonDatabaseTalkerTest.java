@@ -102,7 +102,11 @@ public class JsonDatabaseTalkerTest {
   @Test
   public void getProfilesTest() {
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
+
     assertEquals(4, profiles.size());
+    ArrayList<Profile> profiles1 = jsonDatabaseTalker.getProfiles("use1241r1");
+    assertEquals(null, profiles1);
+
   }
 
   @Test
@@ -113,6 +117,7 @@ public class JsonDatabaseTalkerTest {
     assertEquals(true, hasProfile(profiles, profile));
     jsonDatabaseTalker.deleteProfile("user1", profile);
     profiles = jsonDatabaseTalker.getProfiles("user1");
+    jsonDatabaseTalker.deleteProfile("notuser", profile);
     assertEquals(false, hasProfile(profiles, profile));
   }
 }
