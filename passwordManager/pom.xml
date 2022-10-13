@@ -140,25 +140,18 @@
                     </executions>
                 </plugin>
 
-                <!-- Run the spotbugs code quality tool -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.5.0.0</version>
-                    <configuration>
-                        <xmlOutput>false</xmlOutput>
-                        <htmlOutput>true</htmlOutput>
-                        <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>spotbugs-check</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <version>4.4.1</version>
+                    <dependencies>
+                        <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                        <dependency>
+                            <groupId>com.github.spotbugs</groupId>
+                            <artifactId>spotbugs</artifactId>
+                            <version>4.4.2</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
