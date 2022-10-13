@@ -63,3 +63,18 @@ Priority: High
 - **Given** that I can see all my stored profiles
 - **When** I create a new profile
 - **Then** I will be able to retrieve the password after closing and opening the app
+
+
+## User Story 5: Profile Creation
+
+Priority: High
+
+- **As a** user
+- **I want** the app to be aesthetically sound
+- **So that** so that i will be pleased with the style
+
+### Acceptance Criteria 5
+
+- **Given** that I have opened the app
+- **When** look at the gui
+- **Then** I will find it nice looking
