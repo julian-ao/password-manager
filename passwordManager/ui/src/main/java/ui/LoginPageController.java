@@ -1,15 +1,15 @@
 package ui;
 
 import core.UserSession;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.scene.text.Text;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import java.io.IOException;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginPageController extends PasswordManagerController {
 
@@ -31,6 +31,9 @@ public class LoginPageController extends PasswordManagerController {
 
   // ----- //
 
+  /**
+   * initialize sets the eye image to the open eye image.
+   */
   @FXML
   public void initialize() {
     eyeImageView.setImage(super.eyeOpenImage);
