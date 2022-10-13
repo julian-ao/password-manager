@@ -20,4 +20,7 @@
     <Match>
         <Bug pattern="MS_EXPOSE_REP"/>
     </Match>
+    <Match>
+        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE"/>
+    </Match>
 </FindBugsFilter>
