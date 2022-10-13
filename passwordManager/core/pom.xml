@@ -79,6 +79,11 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
 
+            <!-- Run the spotbugs code quality tool -->
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+            </plugin>
 
             <plugin>
                 <groupId>org.jacoco</groupId>
