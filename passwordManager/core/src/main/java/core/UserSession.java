@@ -1,11 +1,12 @@
 package core;
 
+import java.util.ArrayList;
+
 import core.database.DatabaseTalker;
 import core.database.JsonDatabaseTalker;
 import core.userbuilder.PasswordValidation;
 import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
-import java.util.ArrayList;
 
 /**
  * UserSession is a class that is used to manage the user session.
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class UserSession {
   private User user;
   private static DatabaseTalker databaseTalker = new JsonDatabaseTalker(
-      "src/main/resources/ui/Users.json");
+      "../localpersistence/src/resources/localpersistance/Users.json");
   private static UserSession onlyInstance = new UserSession(databaseTalker);
   private UserBuilder userBuilder;
 
@@ -27,7 +28,7 @@ public class UserSession {
 
   /**
    * login function attempts to login.
-
+   * 
    * @param username the username provided for login attempt
    * @param password the password provided for login attempt
    * @return true if the login was successful, and false if is was not
@@ -52,7 +53,7 @@ public class UserSession {
 
   /**
    * getProfiles returns the profiles of the user.
-
+   * 
    * @return the profiles of the user
    */
   public ArrayList<ArrayList<String>> getProfilesNativeTypes() {
@@ -70,7 +71,7 @@ public class UserSession {
 
   /**
    * registerUser attempts to register a new user in our database/storage.
-
+   * 
    * @param username the username to register
    * @param password the passsword to register
    * @return true if the registration is successful and the user is stored, false
@@ -93,7 +94,7 @@ public class UserSession {
 
   /**
    * userValidator that validates the user input for username and password.
-
+   * 
    * @param username       a username to check
    * @param password       a password to check
    * @param passwordRepeat repeated password provided by the user
@@ -110,39 +111,54 @@ public class UserSession {
     UsernameValidation usernameValidation = userBuilder.setUsername(username);
     PasswordValidation passwordValidation = userBuilder.setPassword(password);
 
-    // if nothing wrong with username and password
-    if (usernameValidation == UsernameValidation.OK
-        && passwordValidation == PasswordValidation.OK) {
-      // if password inputs match
-      if (password.equals(passwordRepeat)) {
-        System.out.println("registering user");
-        if (this.registerUser(username, password)) {
-          return "OK";
-        } else {
-          return "Unexpected";
-        }
-      } else {
-        return "Passwords do not match";
-      }
-    } else {
-
-      if (usernameValidation == UsernameValidation.alreadyTaken) {
-        return "Username already taken";
-      } else if (usernameValidation != UsernameValidation.OK) {
-        String s1 = "Username must be between 5 and 20 characters ";
-        String s2 = "Username must contain only letters and numbers";
-        return s1 + s2;
-      } else {
-        String s1 = "Password must be between 8 and 20 characters ";
-        String s2 = "Password must contain at least one uppercase letter ";
-        return s1 + s2;
-      }
+    String message = null;
+    if (!password.equals(passwordRepeat)) {
+      message = "Passwords does not match";
     }
+    switch (usernameValidation) {
+      case OK:
+        switch (passwordValidation) {
+          case OK:
+            if (message == null) {
+              message = "OK";
+            }
+            break;
+          case diversityError:
+            message = "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
+            break;
+          case tooShort:
+            message = "Password is too short";
+            break;
+          case tooLong:
+            message = "Password is too long";
+            break;
+          default:
+            message = "something went wrong with the validator";
+            break;
+        }
+        break;
+      case alreadyTaken:
+        message = "Username is allready taken";
+        break;
+      case invalidCharacters:
+        message = "Username must only contain letters and digits";
+        break;
+      case tooShort:
+        message = "Username is too short";
+        break;
+      case tooLong:
+        message = "Username is too long";
+        break;
+      default:
+        message = "something went wrong with the validator";
+        break;
+    }
+    return message;
   }
 
   /**
    * insertProfile inserts a profile into the database.
-
+   * 
    * @param username the username of the profile
    * @param email    the email of the profile
    * @param password the password of the profile
