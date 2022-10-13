@@ -57,7 +57,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   /**
    * passwordComponent sets up a component used in the list view.
-   * 
+
    * @param name     name displayed in the password Component
    * @param password password displayed
    * @param email    email displayed
@@ -89,14 +89,13 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Tells the userSession to log out and switches the scene back to the login
    * page.
-   * 
+
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the switchScene does not work
    */
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     userSession.logOut();
-
     super.switchScene(event, "login.fxml");
   }
 

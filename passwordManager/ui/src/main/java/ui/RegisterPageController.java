@@ -1,7 +1,7 @@
 package ui;
 
-import java.io.IOException;
 import core.UserSession;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;

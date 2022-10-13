@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserSessionTest {
   UserSession userSession = UserSession.getInstance();
-  File file = new File("../localpersistence/src/main/resources/localpersistance/TestUsers.json");
+  File file = new File("../localpersistence/src/resources/localpersistance/TestUsers.json");
 
   public UserSessionTest() {
     this.initDatabase();

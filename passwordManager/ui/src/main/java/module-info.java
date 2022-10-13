@@ -5,6 +5,4 @@ module ui {
   requires java.net.http;
 
   opens ui to javafx.graphics, javafx.fxml;
-
-  exports ui;
 }
