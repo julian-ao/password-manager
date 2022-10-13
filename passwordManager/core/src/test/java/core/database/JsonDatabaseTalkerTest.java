@@ -88,6 +88,7 @@ public class JsonDatabaseTalkerTest {
     jsonDatabaseTalker.insertProfile("user1", profile);
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
     assertEquals(true, hasProfile(profiles, profile));
+    assertEquals(false, jsonDatabaseTalker.insertProfile("user1231423", new Profile("", "", "", "")));
 
   }
 
