@@ -49,8 +49,6 @@ public class UserSessionTest {
     ArrayList<ArrayList<String>> profilesStr1 = userSession.getProfilesNativeTypes();
     assertEquals(true, profiles1.size() > profiles.size());
 
-    System.out.println();
-
   }
 
   @Test

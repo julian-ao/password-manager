@@ -24,7 +24,6 @@ public class JsonDatabaseTalkerTest {
     try {
       jsonFile.createNewFile();
     } catch (IOException e) {
-      System.out.println("An error occurred.");
       e.printStackTrace();
     }
     jsonDatabaseTalker = new JsonDatabaseTalker(path);
@@ -109,8 +108,6 @@ public class JsonDatabaseTalkerTest {
 
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
     Profile profile = profiles.get(0);
-    System.out.print("profile is: ");
-    System.out.print(profile);
     assertEquals(true, hasProfile(profiles, profile));
     jsonDatabaseTalker.deleteProfile("user1", profile);
     profiles = jsonDatabaseTalker.getProfiles("user1");
