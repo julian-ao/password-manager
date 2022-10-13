@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserSessionTest {
   UserSession userSession = UserSession.getInstance();
-  File file = new File("src/main/resources/core/TestUsers.json");
+  File file = new File("../localpersistence/src/resources/localpersistance/TestUsers.json");
 
   public UserSessionTest() {
     this.initDatabase();
@@ -48,8 +48,6 @@ public class UserSessionTest {
     ArrayList<Profile> profiles1 = userSession.getProfiles();
     ArrayList<ArrayList<String>> profilesStr1 = userSession.getProfilesNativeTypes();
     assertEquals(true, profiles1.size() > profiles.size());
-
-    System.out.println();
 
   }
 
