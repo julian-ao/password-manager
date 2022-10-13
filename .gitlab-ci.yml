@@ -119,7 +119,7 @@ spotbugs:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "dev"
 
-clean_inst: 
+clean_install:
   stage: dist
   script: cd passwordManager && mvn clean install
   allow_failure: false
