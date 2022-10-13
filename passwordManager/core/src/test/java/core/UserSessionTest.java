@@ -81,25 +81,24 @@ public class UserSessionTest {
 
   @Test
   public void userValidatorTest() {
+
     this.initDatabase();
     userSession.registerUser("user1", "Password1");
-    assertEquals(
-        "Passwords do not match",
-        userSession.userValidator("someuser", "Password1!", "Password1!a"));
-    assertEquals(
-        "Username already taken",
-        userSession.userValidator("user1", "Password1!", "Password1!"));
-    assertEquals(
-        "Username must be between 3 and 30 characters long and contain only letters and numbers",
-        userSession.userValidator("us", "Password1!", "Password1!"));
-    assertEquals(
-        "Username must be between 3 and 30 characters long and contain only letters and numbers",
-        userSession.userValidator("us", "Password1!", "Password"));
-    assertEquals(
-        "Password must be between 6 and 30 characters long and contain at least one lowercase letter, one uppercase letter, one number and one special character",
-        userSession.userValidator("user123", "Pa", "Pa"));
-    assertEquals(
-        "OK",
-        userSession.userValidator("someuser", "Password1!", "Password1!"));
+
+    String[][] tests = {
+        { "OK", "User", "Password1!", "Password1!" },
+        { "Username is allready taken", "user1", "Password1!", "Password1!" },
+        { "Username must only contain letters and digits", "User#", "Password1!", "Password1!" },
+        { "Username is too short", "Us", "Password1!", "Password1!" },
+        { "Username is too long", "Verylongussernametotriggersomemessage", "Password1!", "Password1!" },
+        { "Password must contain: uppercase letter, lowercase letter, digit and a symbol", "User", "passwo", "passwo" },
+        { "Password is too short", "User", "Pa1!", "Pa1!" },
+        { "Password is too long", "User", "Very!#longpasswordthatisabove30whichisthelimit",
+            "Verylongpasswordthatisabove30whichisthelimit" },
+        { "Passwords does not match", "User", "Password1!", "Password1!2" }
+    };
+    for (String[] test : tests) {
+      assertEquals(test[0], userSession.userValidator(test[1], test[2], test[3]));
+    }
   }
 }
