@@ -1,12 +1,11 @@
 package core;
 
-import java.util.ArrayList;
-
 import core.database.DatabaseTalker;
 import core.database.JsonDatabaseTalker;
 import core.userbuilder.PasswordValidation;
 import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
+import java.util.ArrayList;
 
 /**
  * UserSession is a class that is used to manage the user session.
@@ -28,7 +27,7 @@ public class UserSession {
 
   /**
    * login function attempts to login.
-   * 
+
    * @param username the username provided for login attempt
    * @param password the password provided for login attempt
    * @return true if the login was successful, and false if is was not
@@ -53,7 +52,7 @@ public class UserSession {
 
   /**
    * getProfiles returns the profiles of the user.
-   * 
+
    * @return the profiles of the user
    */
   public ArrayList<ArrayList<String>> getProfilesNativeTypes() {
@@ -71,7 +70,7 @@ public class UserSession {
 
   /**
    * registerUser attempts to register a new user in our database/storage.
-   * 
+
    * @param username the username to register
    * @param password the passsword to register
    * @return true if the registration is successful and the user is stored, false
@@ -94,7 +93,7 @@ public class UserSession {
 
   /**
    * userValidator that validates the user input for username and password.
-   * 
+
    * @param username       a username to check
    * @param password       a password to check
    * @param passwordRepeat repeated password provided by the user
@@ -158,7 +157,7 @@ public class UserSession {
 
   /**
    * insertProfile inserts a profile into the database.
-   * 
+
    * @param username the username of the profile
    * @param email    the email of the profile
    * @param password the password of the profile
