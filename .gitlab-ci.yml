@@ -37,16 +37,6 @@ validate:       # This job runs in the build stage, which runs first.
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
 
-clean_inst:       # This job runs in the build stage, which runs first.
-  stage: build
-  script: cd passwordManager && mvn clean install
-  allow_failure: false
-  only:
-    - merge_requests
-  except:
-    variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
-
 compile:
   stage: build
   script: cd passwordManager && mvn compile
@@ -111,6 +101,16 @@ checkstyle:
   needs: ["compile"]
   script: cd passwordManager && mvn checkstyle:check
   allow_failure: true
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
+
+clean_inst: 
+  stage: dist
+  script: cd passwordManager && mvn clean install
+  allow_failure: false
   only:
     - merge_requests
   except:
