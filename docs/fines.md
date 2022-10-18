@@ -14,3 +14,5 @@ This is written and signed on the group contract by all members.
 | 10.10 | 0      | 0              | 20kr    | 0      |
 | 11.10 | 40kr   | 0              | 60kr    | 0      |
 | 12.10 | 20kr   | 0              | 0       | 0      |
+| 13.10 | 0      | 0              | 0       | 0      |
+| 18.10 | 0      | 0              | 0       | 0      |
