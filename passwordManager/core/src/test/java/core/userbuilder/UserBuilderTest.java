@@ -3,7 +3,7 @@ package core.userbuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import core.userbuilder.UserBuilder;
+import core.User;
 import core.database.*;
 
 public class UserBuilderTest {
@@ -14,6 +14,7 @@ public class UserBuilderTest {
 
   @Test
   public void testUsernameValidation() {
+    databaseTalker.insertUser(new User("user1", "password"));
     Assertions.assertEquals(UsernameValidation.tooShort, userBuilder.setUsername("a"));
     Assertions.assertEquals(UsernameValidation.alreadyTaken, userBuilder.setUsername("user1"));
     Assertions.assertEquals(UsernameValidation.tooLong,
