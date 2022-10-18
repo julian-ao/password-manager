@@ -76,7 +76,7 @@ test:
 test-coverage-minimum:
   stage: coverage
   needs: ["test"]
-  script: cd passwordManager && mvn verify
+  script: cd passwordManager && mvn verify -DnoTestUI=true
   allow_failure: false
   only:
     - merge_requests
@@ -87,7 +87,7 @@ test-coverage-minimum:
 test-coverage-80:
   stage: coverage
   needs: ["test"]
-  script: cd passwordManager && mvn verify -Dminimum=0.8
+  script: cd passwordManager && mvn verify -Dminimum=0.8 -DnoTestUI=true
   allow_failure: true
   only:
     - merge_requests
