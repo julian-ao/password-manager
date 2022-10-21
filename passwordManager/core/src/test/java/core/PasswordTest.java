@@ -8,7 +8,7 @@ public class PasswordTest {
     public void PasswordScoreTest() {
         Password password1 = new Password("password");
         Password password2 = new Password("Password123!");
-        Password password3 = new Password("Password123!@123123123");
+        Password password3 = new Password("PAssword123!@123123123");
         
         Assertions.assertEquals(1, password1.getScore());
         Assertions.assertEquals(2, password2.getScore());

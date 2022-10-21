@@ -42,16 +42,11 @@ public class Password {
                 specialCharacters++;
             }
         }
-        if (length >= 14 && (upperCase >= 1 && lowerCase >= 1 && numbers >= 1 && specialCharacters >= 1)) {
+        if (length >= 14 && (upperCase >= 2 && lowerCase >= 2 && numbers >= 2 && specialCharacters >= 2)) {
             this.score = 3;
         } else if (
-            length >= 8
-            && ((upperCase >= 1 && lowerCase >= 1) 
-            || (lowerCase >= 1 && numbers >= 1)
-            || (upperCase >= 1 && numbers >= 1)
-            || (upperCase >= 1 && specialCharacters >= 1)
-            || (lowerCase >= 1 && specialCharacters >= 1)
-            )) {
+            length >= 6
+            && (upperCase >= 1 && lowerCase >= 1 && numbers >= 1 && specialCharacters >= 1)) {
             this.score = 2;
         } else {
             this.score = 1;
