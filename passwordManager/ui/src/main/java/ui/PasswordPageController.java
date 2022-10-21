@@ -13,13 +13,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * FXML Controller class for the password page.
+ */
 public class PasswordPageController extends PasswordManagerController {
 
   @FXML
   private FlowPane passwordList;
 
   @FXML
-  private Pane passwordListPage, addLoginOverlay;
+  private Pane passwordListPage;
+
+  @FXML
+  private Pane addLoginOverlay;
 
   @FXML
   private Button addLoginCloseButton;
@@ -28,13 +34,23 @@ public class PasswordPageController extends PasswordManagerController {
   private Text signedInAsText;
 
   @FXML
-  private TextField addLoginTitleTextField, addLoginUsernameTextField, addLoginPasswordTextField;
+  private TextField addLoginTitleTextField;
+
+  @FXML
+  private TextField addLoginUsernameTextField;
+
+  @FXML
+  private TextField addLoginPasswordTextField;
 
   @FXML
   private Rectangle addLoginBlur;
 
   private UserSession userSession;
 
+  /**
+   * initialize sets the signed in as text to the username of the user
+   * and updates the passwords based on the used session.
+   */
   @FXML
   public void initialize() {
     userSession = UserSession.getInstance();

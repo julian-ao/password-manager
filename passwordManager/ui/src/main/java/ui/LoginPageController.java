@@ -11,13 +11,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * FXML Controller class for the login page.
+ */
 public class LoginPageController extends PasswordManagerController {
 
   @FXML
-  private TextField usernameTextField, passwordTextField;
+  private TextField usernameTextField;
 
   @FXML
-  private Button loginButton, registerButton;
+  private TextField passwordTextField;
+
+  @FXML
+  private Button loginButton;
+
+  @FXML
+  private Button registerButton;
 
   @FXML
   private Text visualFeedbackText;
