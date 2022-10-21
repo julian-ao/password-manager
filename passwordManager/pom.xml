@@ -161,5 +161,6 @@
         <module>core</module>
         <module>ui</module>
         <module>localpersistence</module>
+        <module>restserver</module>
     </modules>
 </project>
