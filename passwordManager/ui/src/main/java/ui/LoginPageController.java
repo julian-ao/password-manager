@@ -37,9 +37,6 @@ public class LoginPageController extends PasswordManagerController {
   @FXML
   private ImageView eyeImageView;
 
-
-  // ----- //
-
   /**
    * initialize sets the eye image to the open eye image.
    */

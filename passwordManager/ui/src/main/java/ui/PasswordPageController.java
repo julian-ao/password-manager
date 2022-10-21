@@ -34,6 +34,9 @@ public class PasswordPageController extends PasswordManagerController {
   private Text signedInAsText;
 
   @FXML
+  private Text visualFeedbackText;
+
+  @FXML
   private TextField addLoginTitleTextField;
 
   @FXML
@@ -115,29 +118,48 @@ public class PasswordPageController extends PasswordManagerController {
     super.switchScene(event, "login.fxml");
   }
 
+  /**
+   * Opens the add login overlay.
+   */
   @FXML
   private void onAddPasswordButtonClick() {
+    addLoginTitleTextField.setText("");
+    addLoginUsernameTextField.setText("");
+    addLoginPasswordTextField.setText("");
+
+    addLoginUsernameTextField.setStyle("-fx-border-color: #A6A6A6");
+    addLoginTitleTextField.setStyle("-fx-border-color: #A6A6A6");
+    addLoginPasswordTextField.setStyle("-fx-border-color: #A6A6A6");
+
     addLoginOverlay.setVisible(true);
   }
 
+  /**
+   * Closes the add login overlay.
+   */
   @FXML
   private void onAddLoginCloseButton() {
-    addLoginTitleTextField.setText("");
-    addLoginUsernameTextField.setText("");
-    addLoginPasswordTextField.setText("");
-
+    visualFeedbackText.setVisible(false);
     addLoginOverlay.setVisible(false);
   }
 
+  /**
+   * Adds a login to the database and updates the list view.
+   */
   @FXML
   private void onAddLoginButton(ActionEvent event) throws IOException {
-    userSession.insertProfile(addLoginUsernameTextField.getText(), addLoginTitleTextField.getText(),
-        addLoginPasswordTextField.getText());
+    if (addLoginUsernameTextField.getText() == "" || addLoginTitleTextField.getText() == "" || addLoginPasswordTextField.getText() == "") {
+      visualFeedbackText.setVisible(true);
+      addLoginUsernameTextField.setStyle("-fx-border-color: #FE8383");
+      addLoginTitleTextField.setStyle("-fx-border-color: #FE8383");
+      addLoginPasswordTextField.setStyle("-fx-border-color: #FE8383");
+      super.rotateNode(visualFeedbackText, false);
+    } else {
+      userSession.insertProfile(addLoginUsernameTextField.getText(), addLoginTitleTextField.getText(), addLoginPasswordTextField.getText());
 
-    addLoginTitleTextField.setText("");
-    addLoginUsernameTextField.setText("");
-    addLoginPasswordTextField.setText("");
-    addLoginOverlay.setVisible(false);
-    updatePasswords();
+      visualFeedbackText.setVisible(false);
+      addLoginOverlay.setVisible(false);
+      updatePasswords();
+    }
   }
 }
