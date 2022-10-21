@@ -9,21 +9,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * FXML Controller class for the login page.
+ */
 public class RegisterPageController extends PasswordManagerController {
 
   @FXML
-  private TextField usernameTextField, passwordTextField, repeatPasswordTextField;
+  private TextField usernameTextField;
+
+  @FXML
+  private TextField passwordTextField;
+
+  @FXML
+  private TextField repeatPasswordTextField;
 
   @FXML
   private Text visualFeedbackText;
 
   @FXML
-  private PasswordField passwordPasswordField, repeatPasswordPasswordField;
+  private PasswordField passwordPasswordField;
 
   @FXML
-  private ImageView eyeImageView1, eyeImageView2;
+  private PasswordField repeatPasswordPasswordField;
 
-  // ----- //
+  @FXML
+  private ImageView eyeImageView1;
+
+  @FXML
+  private ImageView eyeImageView2;
 
   @FXML
   public void initialize() {
@@ -50,7 +63,7 @@ public class RegisterPageController extends PasswordManagerController {
    * onCreateUserButtonClick sends the fields in the register page form to the
    * usersession for validation, if they are validated, a new user is stored and
    * the user is sent back to the loginpage.
-   * 
+
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the fxml file cant be opened
    */
