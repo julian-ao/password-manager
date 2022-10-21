@@ -18,7 +18,6 @@ public class PasswordTest {
     @Test
     public void PasswordRandomTest() {
         Password generatedPassword = new Password();
-        generatedPassword.randomPassword();
         Assertions.assertEquals(3, generatedPassword.getScore());
     }
 }
