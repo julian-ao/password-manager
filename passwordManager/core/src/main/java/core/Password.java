@@ -7,8 +7,8 @@ public class Password {
     private int score;
 
     public Password() {
-        this.password = "";
-        this.score = 0;
+        randomPassword();;
+        this.score = getScore();
     }
 
     public Password(String password) {
