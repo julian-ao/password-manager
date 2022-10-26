@@ -93,8 +93,8 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void checkPasswordTest() {
-    jsonDatabaseTalker.insertUser(new User("user1", "password1"));
-    assertEquals(true, jsonDatabaseTalker.checkPassword("user1", "password1"));
+    jsonDatabaseTalker.insertUser(new User("user1", "Password1!"));
+    assertEquals(true, jsonDatabaseTalker.checkPassword("user1", "Password1!"));
     assertEquals(false, jsonDatabaseTalker.checkPassword("user1", "password2"));
   }
 
