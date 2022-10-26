@@ -1,0 +1,3 @@
+module client {
+  exports client;
+}
