@@ -38,6 +38,10 @@ public class PasswordPageController extends PasswordManagerController {
 
   private Password passwordObj;
 
+  /**
+   * initialize sets the signed in as text to the username of the user
+   * and updates the passwords based on the used session.
+   */
   @FXML
   public void initialize() {
     userSession = UserSession.getInstance();
