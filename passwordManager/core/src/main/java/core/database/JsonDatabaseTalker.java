@@ -89,7 +89,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
    * insertUser stores a new user in the json file.
 
    * @param user the user to be stored
-   * @return true if the username was unique and the user was stored successfully
+   * @return true if the username is unique and the user is stored successfully
    */
   @Override
   public boolean insertUser(User user) {

@@ -16,7 +16,7 @@ public class JsonDatabaseTalkerTest {
   String path = "../localpersistence/src/resources/localpersistance/TestUsers.json";
   File file = new File(path);
 
-  public JsonDatabaseTalkerTest() {
+  private void resetFile() {
     if (file.exists()) {
       file.delete();
     }
@@ -27,6 +27,10 @@ public class JsonDatabaseTalkerTest {
       e.printStackTrace();
     }
     jsonDatabaseTalker = new JsonDatabaseTalker(path);
+  }
+
+  public JsonDatabaseTalkerTest() {
+    resetFile();
 
     // Insert a user into the json file
     Profile profile1 = new Profile("google.bror", "bob@bob.mail", "profile1", "password1");
@@ -48,6 +52,8 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void userExistsTest() {
+    resetFile();
+    jsonDatabaseTalker.insertUser(new User("user1", "password1"));
     assertEquals(true, jsonDatabaseTalker.userExists("user1"));
     assertEquals(false, jsonDatabaseTalker.userExists("NOTAUSER"));
 
@@ -55,7 +61,7 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void insertUserTest() {
-
+    resetFile();
     User newUser = new User("user2", "password2");
     jsonDatabaseTalker.insertUser(newUser);
     assertEquals(true, jsonDatabaseTalker.userExists(newUser.getUsername()));
@@ -63,6 +69,7 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void deleteUserTest() {
+    resetFile();
     User newUser = new User("user2", "password2");
     jsonDatabaseTalker.insertUser(newUser);
     assertEquals(true, jsonDatabaseTalker.userExists(newUser.getUsername()));
@@ -84,6 +91,8 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void insertProfileTest() {
+    resetFile();
+    jsonDatabaseTalker.insertUser(new User("user1", "password1"));
     Profile profile = new Profile("nettside.no", "sondrkol@it.no", "sondrkol", "passord");
     jsonDatabaseTalker.insertProfile("user1", profile);
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
@@ -93,6 +102,7 @@ public class JsonDatabaseTalkerTest {
 
   @Test
   public void checkPasswordTest() {
+    resetFile();
     jsonDatabaseTalker.insertUser(new User("user1", "password1"));
     assertEquals(true, jsonDatabaseTalker.checkPassword("user1", "password1"));
     assertEquals(false, jsonDatabaseTalker.checkPassword("user1", "password2"));

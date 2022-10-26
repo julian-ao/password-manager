@@ -1,6 +1,7 @@
 package ui;
 
 import core.UserSession;
+import core.Password;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class PasswordPageController extends PasswordManagerController {
   private Button addLoginCloseButton;
 
   @FXML
-  private Text signedInAsText;
+  private Text signedInAsText, passwordStrengthText;
 
   @FXML
   private Text visualFeedbackText;
@@ -56,6 +57,8 @@ public class PasswordPageController extends PasswordManagerController {
   private Rectangle addLoginBlur;
 
   private UserSession userSession;
+
+  private Password passwordObj;
 
   /**
    * initialize sets the signed in as text to the username of the user
@@ -172,6 +175,36 @@ public class PasswordPageController extends PasswordManagerController {
       visualFeedbackText.setVisible(false);
       addLoginOverlay.setVisible(false);
       updatePasswords();
+    }
+  }
+
+  @FXML
+  private void onGeneratePasswordButtonClick() {
+    passwordObj = new Password();
+    String randomPassword = passwordObj.getPassword();
+    addLoginPasswordTextField.setText(randomPassword);
+  }
+
+  /**
+   * Checks the strength of the password and displays a message to the user.
+   */
+  @FXML
+  private void displayPasswordStrength() {
+    String password = addLoginPasswordTextField.getText();
+    passwordObj = new Password(password);
+    int score = passwordObj.getScore();
+    if (password.equals("")) {
+      passwordStrengthText.setText("");
+    }
+    else if (score == 1) {
+      passwordStrengthText.setText("Weak password");
+      passwordStrengthText.setFill(javafx.scene.paint.Color.RED);
+    } else if (score == 2) {
+      passwordStrengthText.setText("Medium password");
+      passwordStrengthText.setFill(javafx.scene.paint.Color.ORANGE);
+    } else if (score == 3) {
+      passwordStrengthText.setText("Strong password");
+      passwordStrengthText.setFill(javafx.scene.paint.Color.GREEN);
     }
   }
 }
