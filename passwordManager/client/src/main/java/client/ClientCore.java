@@ -1,10 +1,17 @@
 package client;
 
-import client.uservalidator;
+import client.uservalidator.*;
 
 public class ClientCore {
+
+  private RestTalker restTalker;
+
+  public ClientCore() {
+    this.restTalker = new RestTalker();
+  }
+
   public String userValidator(String username, String password, String passwordRepeat) {
-    UserValidator userValidator = new UserBuilder(databaseTalker);
+    UserValidator userValidator = new UserValidator(restTalker);
 
     UsernameValidation usernameValidation = userValidator.validateUsername(username);
     PasswordValidation passwordValidation = userValidator.validatePassword(password);

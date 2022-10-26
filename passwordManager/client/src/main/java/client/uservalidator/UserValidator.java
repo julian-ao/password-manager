@@ -1,6 +1,6 @@
-package client.userbuilder;
+package client.uservalidator;
 
-import core.database.DatabaseTalker;
+import client.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class UserValidator {
   private String username;
   private String password;
-  private DatabaseTalker databaseTalker;
+  private RestTalker restTalker;
   private Map<Predicate<String>, UsernameValidation> usernameValidation;
   private Map<Predicate<String>, PasswordValidation> passwordValidation;
 
@@ -22,15 +22,15 @@ public class UserValidator {
    * @param databaseTalker the databaseTalker used to check if the username is
    *                       already taken
    */
-  public UserBuilder(DatabaseTalker databaseTalker) {
-    this.databaseTalker = databaseTalker;
+  public UserValidator(RestTalker restTalker) {
+    this.restTalker = restTalker;
 
     usernameValidation = new HashMap<Predicate<String>, UsernameValidation>();
     usernameValidation.put((x) -> x.length() < 3, UsernameValidation.tooShort);
     usernameValidation.put((x) -> x.length() > 30, UsernameValidation.tooLong);
     usernameValidation.put((x) -> !Pattern.matches("[a-zA-Z0-9]{0,10000}", x),
         UsernameValidation.invalidCharacters);
-    usernameValidation.put((x) -> databaseTalker.userExists(x),
+    usernameValidation.put((x) -> restTalker.userExists(x),
         UsernameValidation.alreadyTaken);
 
     passwordValidation = new HashMap<Predicate<String>, PasswordValidation>();

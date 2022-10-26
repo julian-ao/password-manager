@@ -1,4 +1,4 @@
-package client.userbuilder;
+package client.uservalidator;
 
 /**
  * UsernameValidation is a class that represents different
