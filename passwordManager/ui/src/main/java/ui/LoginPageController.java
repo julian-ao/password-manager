@@ -11,6 +11,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
+import java.util.concurrent.ExecutionException;
+
 /**
  * FXML Controller class for the login page.
  */
@@ -43,6 +51,13 @@ public class LoginPageController extends PasswordManagerController {
   @FXML
   public void initialize() {
     eyeImageView.setImage(super.eyeOpenImage);
+
+    System.out.println("---------------------------Starting Login Page---------------------------");
+    System.out.println("");
+    System.out.println("LoginPageController initialized");
+
+    // Http request to "/test" and give it parameters "test" and "test2" and print
+    // the response
   }
 
   @FXML
@@ -55,7 +70,7 @@ public class LoginPageController extends PasswordManagerController {
    * it passes the username and password to the userSession class to attempt a
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
-
+   * 
    * @param event ActionEvent object to be used in the switchScene method.
    * @throws IOException if there is a problem opening the new scene
    * 
