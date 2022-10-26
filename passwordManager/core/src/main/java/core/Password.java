@@ -35,8 +35,10 @@ public class Password {
         return this.score;
     }
 
+    /**
+     * Generates a random 16 characther long password with ascii characters from 33 to 122
+    */ 
     public void randomPassword() {
-        // Generates a random password with ascii characters from 33 to 122, that is 16 characters long
         while (calcScore() < 3) {
             this.password = new Random().ints(16, 33, 122).collect(StringBuilder::new,
                 StringBuilder::appendCodePoint, StringBuilder::append)
@@ -44,6 +46,10 @@ public class Password {
         }
     }
 
+    /**
+     * Calculates the strength of the password
+     * @return int the score of the password from 1 to 3
+     */
     public int calcScore() {
         int length = this.password.length();
         int upperCase = 0;
