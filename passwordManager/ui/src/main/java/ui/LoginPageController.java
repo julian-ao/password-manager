@@ -1,6 +1,7 @@
 package ui;
 
 import core.UserSession;
+import client.RestTalker;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,13 +52,6 @@ public class LoginPageController extends PasswordManagerController {
   @FXML
   public void initialize() {
     eyeImageView.setImage(super.eyeOpenImage);
-
-    System.out.println("---------------------------Starting Login Page---------------------------");
-    System.out.println("");
-    System.out.println("LoginPageController initialized");
-
-    // Http request to "/test" and give it parameters "test" and "test2" and print
-    // the response
   }
 
   @FXML
@@ -77,6 +71,10 @@ public class LoginPageController extends PasswordManagerController {
    */
   @FXML
   private void onLoginButtonClick(ActionEvent event) throws IOException {
+
+    RestTalker restTalker = new RestTalker();
+    restTalker.test();
+
     UserSession userSession;
 
     String username = usernameTextField.getText();

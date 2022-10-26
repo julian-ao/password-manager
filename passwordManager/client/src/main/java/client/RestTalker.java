@@ -3,6 +3,15 @@ package client;
 import java.util.Map;
 
 public class RestTalker {
+
+  public void RestTalker() {
+    
+  }
+
+  public String test() {
+    return "test";
+  }
+
   public boolean login(String username, String password) {
     return false;
   }
