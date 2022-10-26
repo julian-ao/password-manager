@@ -5,11 +5,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -82,24 +89,29 @@ public class PasswordPageController extends PasswordManagerController {
    * @param email    email displayed
    * @return A GridPane object used to place in the listview
    */
-  private GridPane passwordComponent(String name, String password, String email) {
+  private GridPane passwordComponent(String username, String title, String password) {
     GridPane gridPane = new GridPane();
-    gridPane.setPrefHeight(90);
-    gridPane.setPrefWidth(730);
+    gridPane.setPadding(new Insets(15, 0, 20, 0));  
+    gridPane.setBorder(new Border(new BorderStroke(Color.web("#A6A6A6"), 
+            Color.web("#A6A6A6"), Color.web("#A6A6A6"), Color.web("#A6A6A6"),
+            BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+            CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));
 
-    Text nameText = new Text(name);
-    nameText.setStyle("-fx-font: 40 system;");
-    nameText.setWrappingWidth(365);
+    Text titleText = new Text(title);
+    titleText.setStyle("-fx-font: 40 system;");
+    titleText.setWrappingWidth(345);
+
+    Text usernameText = new Text(username);
+    usernameText.setStyle("-fx-font: 25 system;-fx-text-fill: red;");
+    usernameText.setFill(Color.web("#A6A6A6"));
 
     Text passwordText = new Text(password);
-    passwordText.setStyle("-fx-font: 40 system;-fx-text-alignment: right;");
-    passwordText.setWrappingWidth(365);
+    passwordText.setStyle("-fx-font: 25 system;-fx-text-alignment: right;");
+    passwordText.setFill(Color.web("#A6A6A6"));
+    passwordText.setWrappingWidth(345);
 
-    Text emailText = new Text(email);
-    emailText.setStyle("-fx-font: 25 system;");
-
-    gridPane.add(nameText, 0, 0);
-    gridPane.add(emailText, 0, 1);
+    gridPane.add(titleText, 0, 0);
+    gridPane.add(usernameText, 0, 1);
     gridPane.add(passwordText, 1, 1);
 
     return gridPane;
