@@ -135,6 +135,9 @@ public class PasswordPageController extends PasswordManagerController {
     addLoginPasswordTextField.setText(randomPassword);
   }
 
+  /**
+   * Checks the strength of the password and displays a message to the user.
+   */
   @FXML
   private void displayPasswordStrength() {
     String password = addLoginPasswordTextField.getText();
