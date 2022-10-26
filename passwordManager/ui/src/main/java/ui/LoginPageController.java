@@ -11,15 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.util.concurrent.ExecutionException;
-
 /**
  * FXML Controller class for the login page.
  */
@@ -73,7 +64,7 @@ public class LoginPageController extends PasswordManagerController {
   private void onLoginButtonClick(ActionEvent event) throws IOException {
 
     RestTalker restTalker = new RestTalker();
-    restTalker.test();
+    System.out.println(restTalker.test());
 
     UserSession userSession;
 
