@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RegisterPageController">
-   <Pane fx:id="registerPage" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;">
+   <Pane fx:id="registerPage" prefHeight="600.0" prefWidth="900.0">
       <children>
          <Button fx:id="registerBackButton" layoutX="27.0" layoutY="27.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#onRegisterBackButtonClick" prefHeight="60.0" prefWidth="102.0" style="-fx-background-color: white; -fx-border-color: #81AAE9;" text="Back" textFill="#81aae9">
             <font>

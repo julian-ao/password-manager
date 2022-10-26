@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * PasswordManagerApp is the main class of the PasswordManager application.
+ */
 public class PasswordManagerApp extends Application {
 
   /**
