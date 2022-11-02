@@ -151,7 +151,7 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#createUserButton");
 
-    // Log in
+    // Log in.
     clickOn("#usernameTextField");
     write("Admin1");
     
