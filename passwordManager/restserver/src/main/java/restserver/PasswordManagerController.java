@@ -50,4 +50,11 @@ public class PasswordManagerController {
           return param1 + " " + param2;
       }
 
+      // Get test that logs the parameters
+      @GetMapping("/test1")
+      public @ResponseBody
+      String getTest() {
+          return "test11";
+      }
+
     }

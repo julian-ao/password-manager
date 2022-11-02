@@ -42,27 +42,6 @@ public class RestTalker {
         this.port = 8080;
     }
 
-  public String test() {
-    // Create a new HttpClient to /test endpoint
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder()
-        .uri(URI.create(url + ":" + port + "/api/v1/entries/test"))
-        .build();
-    // Send the request and get the response
-    HttpResponse<String> response = null;
-    try {
-      response = client.send(request, BodyHandlers.ofString());
-    } catch (IOException | InterruptedException e) {
-      e.printStackTrace();
-    }
-    // Check the response code
-    if (response.statusCode() == OK_CODE) {
-      return response.body();
-    } else {
-      return "Error";
-    }
-  }
-
   /**
    * Elementary synchronous get request.
    *
@@ -102,6 +81,18 @@ public class RestTalker {
 
     return client.sendAsync(request, BodyHandlers.ofString());
   }
+
+  public String test() {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/test1");
+      return response.body() + " Success";
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+
 
   public boolean login(String username, String password) {
     return false;
