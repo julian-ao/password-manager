@@ -58,14 +58,16 @@ public class UserSession {
   public ArrayList<ArrayList<String>> getProfilesNativeTypes() {
     ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
     ArrayList<Profile> profiles = getProfiles();
-    for (Profile profile : profiles) {
-      ArrayList<String> p = new ArrayList<String>();
-      p.add(profile.getProfileUsername());
-      p.add(profile.getEmail());
-      p.add(profile.getEncryptedPassword());
-      result.add(p);
+    if(profiles != null) {
+      for (Profile profile : profiles) {
+        ArrayList<String> p = new ArrayList<String>();
+        p.add(profile.getProfileUsername());
+        p.add(profile.getEmail());
+        p.add(profile.getEncryptedPassword());
+        result.add(p);
+      }
+      return result;
     }
-    return result;
   }
 
   /**
