@@ -47,6 +47,8 @@ public class UserSessionTest {
     userSession.insertProfile("user", "stuff", "more stuffv");
     ArrayList<Profile> profiles1 = userSession.getProfiles();
     ArrayList<ArrayList<String>> profilesStr1 = userSession.getProfilesNativeTypes();
+    
+    assertEquals(profilesStr1.size(), profilesStr.size() + 1);
     assertEquals(true, profiles1.size() > profiles.size());
 
   }

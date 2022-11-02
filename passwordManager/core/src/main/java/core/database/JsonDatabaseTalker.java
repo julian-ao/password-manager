@@ -161,7 +161,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return null;
+    return new ArrayList<Profile>();
   }
 
   /**
