@@ -82,10 +82,21 @@ public class RestTalker {
     return client.sendAsync(request, BodyHandlers.ofString());
   }
 
-  public String test() {
+  public String test1() {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/test1");
-      return response.body() + " Success";
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+  // Test2 is a test that sends a get request with parameters
+  public String test2( String param1, String param2) {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/test?param1=" + param1 + "&param2=" + param2);
+      return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       return "error";

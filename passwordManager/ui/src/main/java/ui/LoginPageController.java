@@ -64,7 +64,8 @@ public class LoginPageController extends PasswordManagerController {
   private void onLoginButtonClick(ActionEvent event) throws IOException {
 
     RestTalker restTalker = new RestTalker();
-    System.out.println(restTalker.test());
+    System.out.println(restTalker.test1());
+    System.out.println(restTalker.test2("hello", "world"));
 
     UserSession userSession;
 
