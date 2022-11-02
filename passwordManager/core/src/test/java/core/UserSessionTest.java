@@ -92,7 +92,7 @@ public class UserSessionTest {
         { "Password must contain: uppercase letter, lowercase letter, digit and a symbol", "User", "passwo", "passwo" },
         { "Password is too short", "User", "Pa1!", "Pa1!" },
         { "Password is too long", "User", "Very!#longpasswordthatisabove30whichisthelimit",
-            "Verylongpasswordthatisabove30whichisthelimit" },
+            "Very!#longpasswordthatisabove30whichisthelimit" },
         { "Passwords does not match", "User", "Password1!", "Password1!2" }
     };
     for (String[] test : tests) {
