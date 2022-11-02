@@ -123,7 +123,8 @@ public class UserSession {
             }
             break;
           case diversityError:
-            message = "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
+            message =
+              "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
             break;
           case tooShort:
             message = "Password is too short";

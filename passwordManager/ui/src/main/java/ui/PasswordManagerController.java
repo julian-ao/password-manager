@@ -24,8 +24,12 @@ public class PasswordManagerController {
   protected Scene scene;
   protected Parent root;
 
-  protected Image eyeOpenImage = new Image("file:src/main/resources/temporaryImageFolder/eye-open.png");
-  protected Image eyeClosedImage = new Image("file:src/main/resources/temporaryImageFolder/eye-closed.png");
+  protected Image eyeOpenImage = new Image(
+      "file:src/main/resources/temporaryImageFolder/eye-open.png"
+    );
+  protected Image eyeClosedImage = new Image(
+      "file:src/main/resources/temporaryImageFolder/eye-closed.png"
+    );
 
   /**
    * switchScene switches the vies to a different page, for example when going to
@@ -54,7 +58,9 @@ public class PasswordManagerController {
    * @param passwordfield the passwordfield that is used to hide the password
    * @param imageview     the imageview that is used to show the eye
    */
-  protected void passwordEye(TextField textField, PasswordField passwordField, ImageView imageView) {
+  protected void passwordEye(
+      TextField textField, PasswordField passwordField, ImageView imageView
+  ) {
     if (textField.isVisible()) {
       passwordField.setText(textField.getText());
       textField.setVisible(false);
