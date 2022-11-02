@@ -66,8 +66,8 @@ public class UserSession {
         p.add(profile.getEncryptedPassword());
         result.add(p);
       }
-      return result;
     }
+    return result;
   }
 
   /**
