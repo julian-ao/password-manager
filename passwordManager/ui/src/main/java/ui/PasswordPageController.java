@@ -168,9 +168,9 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onAddLoginButton(ActionEvent event) throws IOException {
     if (
-        addLoginUsernameTextField.getText() == "" 
-        || addLoginTitleTextField.getText() == "" 
-        || addLoginPasswordTextField.getText() == ""
+        addLoginUsernameTextField.getText().equals("")
+        || addLoginTitleTextField.getText().equals("")
+        || addLoginPasswordTextField.getText().equals("")
     ) {
       visualFeedbackText.setVisible(true);
       addLoginUsernameTextField.setStyle("-fx-border-color: #FE8383");
