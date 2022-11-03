@@ -11,11 +11,18 @@ The prosject is gitpod ready and can be found [here](https://gitpod.stud.ntnu.no
 ### Building the project
 
 You will need to have Java 16 installed on your computer. You can download it [here](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html).
-Write `cd passwordManager` in the terminal to get to the root folder. Then write `mvn clean install` to build the project.
+
+1. Write `cd passwordManager` in the terminal to get to the root folder. 
+
+2. Then write `mvn clean install` to build the project.
+
+3. Write `cd restserver` to get to the restserver folder.
+
+4. Then write `mvn spring-boot:run` to run the restserver.
 
 ### Running the project
 
-Navigate to **passwordManager/ui** and write `mvn javafx:run` in the terminal to run the project.
+Open a new terminal and navigate to **passwordManager/ui** and write `mvn javafx:run` in the terminal to run the project.
 
 ## Structure
 

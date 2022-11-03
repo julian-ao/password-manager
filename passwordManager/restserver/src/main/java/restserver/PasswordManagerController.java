@@ -1,4 +1,4 @@
-package restserestrver;
+package restserver;
 
 import core.UserSession;
 import core.User;
@@ -37,9 +37,31 @@ public class PasswordManagerController {
       * @param userEntry the name of the profile
       * @return the entries for the given profile
       */
-      @GetMapping("/{userName}")
+      @GetMapping("/username")
       public @ResponseBody
-      String getUserEntry(@PathVariable String userName) {
+      String getUserEntry() {
           return userSession.getUsername();
       }
+
+      // Get test that logs the parameters
+      @GetMapping("/test")
+      public @ResponseBody
+      String getTest(@RequestParam String param1, @RequestParam String param2) {
+          return param1 + " " + param2;
+      }
+
+      // Get test that logs the parameters
+      @GetMapping("/test1")
+      public @ResponseBody
+      String getTest() {
+          return "test11";
+      }
+
+      // Post test that logs the parameters
+      @PostMapping("/test3")
+      public @ResponseBody
+      String postTest(@RequestBody String body) {
+          return body;
+      }
+
     }
