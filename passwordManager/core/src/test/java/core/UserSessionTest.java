@@ -25,23 +25,6 @@ public class UserSessionTest {
     userSession.overridePath(file.toString());
   }
 
-
-
-  //public UserSessionTest() {
-  //  this.initDatabase();
-  //}
-//
-  //public void initDatabase() {
-  //  file.delete();
-  //  userSession.overridePath(file.toString());
-  //}
-//
-  //protected void finalize() {
-  //  file.delete();
-  //}
-
-
-
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
       if (p.getUrl().equals(profile.getUrl()) &&
@@ -56,7 +39,6 @@ public class UserSessionTest {
 
   @Test
   public void insertProfileTest() {
-    //this.initDatabase();
     resetFile();
     userSession.getDatabaseTalker().insertUser(new User("Admin", "Admin1!"));
 
@@ -69,12 +51,10 @@ public class UserSessionTest {
     
     assertEquals(profilesStr1.size(), profilesStr.size() + 1);
     assertEquals(true, profiles1.size() > profiles.size());
-
   }
 
   @Test
   public void loginTest() {
-   // this.initDatabase();
     resetFile();
     User user1 = new User("User1", "password1");
     User user2 = new User("User2", "password2");
@@ -92,7 +72,6 @@ public class UserSessionTest {
 
   @Test
   public void registerUserTest() {
-    //this.initDatabase();
     resetFile();
 
     assertEquals(false, userSession.login("user1", "password1"));
@@ -103,9 +82,8 @@ public class UserSessionTest {
 
   @Test
   public void userValidatorTest() {
-   // this.initDatabase();
     resetFile();
-    
+
     userSession.registerUser("user1", "Password1");
 
     String[][] tests = {
