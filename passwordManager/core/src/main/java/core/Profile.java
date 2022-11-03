@@ -44,6 +44,11 @@ public class Profile {
     this.encryptedPassword = encryptedPassword;
   }
 
+  public void setRandomEncryptedPassword() {
+    // random password
+    this.encryptedPassword = new Password().getPassword();
+  }
+
   public String getUrl() {
     return this.url;
   }
