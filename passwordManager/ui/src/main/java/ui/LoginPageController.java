@@ -66,6 +66,7 @@ public class LoginPageController extends PasswordManagerController {
     RestTalker restTalker = new RestTalker();
     System.out.println(restTalker.test1());
     System.out.println(restTalker.test2("hello", "world"));
+    System.out.println(restTalker.test3("postTest"));
 
     UserSession userSession;
 

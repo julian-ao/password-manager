@@ -57,4 +57,11 @@ public class PasswordManagerController {
           return "test11";
       }
 
+      // Post test that logs the parameters
+      @PostMapping("/test3")
+      public @ResponseBody
+      String postTest(@RequestBody String body) {
+          return body;
+      }
+
     }
