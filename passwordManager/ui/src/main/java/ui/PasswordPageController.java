@@ -40,7 +40,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   @FXML
   private Text signedInAsText;
-
+  
   @FXML
   private Text passwordStrengthText;
 
@@ -98,7 +98,8 @@ public class PasswordPageController extends PasswordManagerController {
     gridPane.setPadding(new Insets(15, 0, 20, 0));  
     gridPane.setBorder(new Border(new BorderStroke(Color.web("#A6A6A6"), 
             Color.web("#A6A6A6"), Color.web("#A6A6A6"), Color.web("#A6A6A6"),
-            BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
+            BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID,
+            BorderStrokeStyle.NONE,
             CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));
 
     Text titleText = new Text(title);
@@ -166,14 +167,22 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onAddLoginButton(ActionEvent event) throws IOException {
-    if (addLoginUsernameTextField.getText() == "" || addLoginTitleTextField.getText() == "" || addLoginPasswordTextField.getText() == "") {
+    if (
+        addLoginUsernameTextField.getText().equals("")
+        || addLoginTitleTextField.getText().equals("")
+        || addLoginPasswordTextField.getText().equals("")
+    ) {
       visualFeedbackText.setVisible(true);
       addLoginUsernameTextField.setStyle("-fx-border-color: #FE8383");
       addLoginTitleTextField.setStyle("-fx-border-color: #FE8383");
       addLoginPasswordTextField.setStyle("-fx-border-color: #FE8383");
       super.rotateNode(visualFeedbackText, false);
     } else {
-      userSession.insertProfile(addLoginUsernameTextField.getText(), addLoginTitleTextField.getText(), addLoginPasswordTextField.getText());
+      userSession.insertProfile(
+          addLoginUsernameTextField.getText(),
+          addLoginTitleTextField.getText(),
+          addLoginPasswordTextField.getText()
+      );
 
       visualFeedbackText.setVisible(false);
       addLoginOverlay.setVisible(false);

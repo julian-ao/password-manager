@@ -3,6 +3,7 @@ package core;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -11,17 +12,17 @@ public class UserSessionTest {
   UserSession userSession = UserSession.getInstance();
   File file = new File("../localpersistence/src/resources/localpersistance/TestUsers.json");
 
-  public UserSessionTest() {
-    this.initDatabase();
-  }
-
-  public void initDatabase() {
-    file.delete();
+  private void resetFile() {
+    if (file.exists()) {
+      file.delete();
+    }
+    File jsonFile = new File(file.toString());
+    try {
+      jsonFile.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     userSession.overridePath(file.toString());
-  }
-
-  protected void finalize() {
-    file.delete();
   }
 
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
@@ -38,7 +39,7 @@ public class UserSessionTest {
 
   @Test
   public void insertProfileTest() {
-    this.initDatabase();
+    resetFile();
     userSession.getDatabaseTalker().insertUser(new User("Admin", "Admin1!"));
 
     userSession.login("Admin", "Admin1!");
@@ -47,13 +48,14 @@ public class UserSessionTest {
     userSession.insertProfile("user", "stuff", "more stuffv");
     ArrayList<Profile> profiles1 = userSession.getProfiles();
     ArrayList<ArrayList<String>> profilesStr1 = userSession.getProfilesNativeTypes();
+    
+    assertEquals(profilesStr1.size(), profilesStr.size() + 1);
     assertEquals(true, profiles1.size() > profiles.size());
-
   }
 
   @Test
   public void loginTest() {
-    this.initDatabase();
+    resetFile();
     User user1 = new User("User1", "password1");
     User user2 = new User("User2", "password2");
 
@@ -70,7 +72,8 @@ public class UserSessionTest {
 
   @Test
   public void registerUserTest() {
-    this.initDatabase();
+    resetFile();
+
     assertEquals(false, userSession.login("user1", "password1"));
     userSession.registerUser("user1", "password1");
     assertEquals(true, userSession.login("user1", "password1"));
@@ -79,8 +82,8 @@ public class UserSessionTest {
 
   @Test
   public void userValidatorTest() {
+    resetFile();
 
-    this.initDatabase();
     userSession.registerUser("user1", "Password1");
 
     String[][] tests = {
