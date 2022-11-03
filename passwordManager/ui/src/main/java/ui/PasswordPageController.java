@@ -1,7 +1,7 @@
 package ui;
 
-import core.UserSession;
 import core.Password;
+import core.UserSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -20,7 +19,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -41,7 +39,10 @@ public class PasswordPageController extends PasswordManagerController {
   private Button addLoginCloseButton;
 
   @FXML
-  private Text signedInAsText, passwordStrengthText;
+  private Text signedInAsText;
+
+  @FXML
+  private Text passwordStrengthText;
 
   @FXML
   private Text visualFeedbackText;
@@ -198,8 +199,7 @@ public class PasswordPageController extends PasswordManagerController {
     int score = passwordObj.getScore();
     if (password.equals("")) {
       passwordStrengthText.setText("");
-    }
-    else if (score == 1) {
+    } else if (score == 1) {
       passwordStrengthText.setText("Weak password");
       passwordStrengthText.setFill(javafx.scene.paint.Color.RED);
     } else if (score == 2) {
