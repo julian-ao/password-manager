@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -18,7 +19,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
@@ -56,8 +56,6 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private TextField addLoginPasswordTextField;
 
-  @FXML
-  private Rectangle addLoginBlur;
 
   private UserSession userSession;
 
@@ -151,6 +149,7 @@ public class PasswordPageController extends PasswordManagerController {
     addLoginPasswordTextField.setStyle("-fx-border-color: #A6A6A6");
 
     addLoginOverlay.setVisible(true);
+    passwordListPage.setEffect(new GaussianBlur(50));
   }
 
   /**
@@ -160,6 +159,7 @@ public class PasswordPageController extends PasswordManagerController {
   private void onAddLoginCloseButton() {
     visualFeedbackText.setVisible(false);
     addLoginOverlay.setVisible(false);
+    passwordListPage.setEffect(null);
   }
 
   /**
@@ -186,6 +186,7 @@ public class PasswordPageController extends PasswordManagerController {
 
       visualFeedbackText.setVisible(false);
       addLoginOverlay.setVisible(false);
+      passwordListPage.setEffect(null);
       updatePasswords();
     }
   }
