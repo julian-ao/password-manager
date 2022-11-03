@@ -1,6 +1,7 @@
 package ui;
 
 import core.UserSession;
+import client.RestTalker;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 /**
  * FXML Controller class for the login page.
  */
@@ -55,13 +55,19 @@ public class LoginPageController extends PasswordManagerController {
    * it passes the username and password to the userSession class to attempt a
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
-
+   * 
    * @param event ActionEvent object to be used in the switchScene method.
    * @throws IOException if there is a problem opening the new scene
    * 
    */
   @FXML
   private void onLoginButtonClick(ActionEvent event) throws IOException {
+
+    RestTalker restTalker = new RestTalker();
+    System.out.println(restTalker.test1());
+    System.out.println(restTalker.test2("hello", "world"));
+    System.out.println(restTalker.test3("postTest"));
+
     UserSession userSession;
 
     String username = usernameTextField.getText();
