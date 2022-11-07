@@ -272,29 +272,30 @@
           </executions>
 
         </plugin>
-
-                <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.5.0.0</version>
-                    <configuration>
-                        <xmlOutput>false</xmlOutput>
-                        <htmlOutput>true</htmlOutput>
-                        <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>spotbugs-check</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+        <!--
+          <plugin>
+              <groupId>com.github.spotbugs</groupId>
+              <artifactId>spotbugs-maven-plugin</artifactId>
+              <version>4.5.0.0</version>
+              <configuration>
+                  <xmlOutput>false</xmlOutput>
+                  <htmlOutput>true</htmlOutput>
+                  <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
+              </configuration>
+              <executions>
+                  <execution>
+                      <id>spotbugs-check</id>
+                      <phase>verify</phase>
+                      <goals>
+                          <goal>check</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+        -->
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <modules>
 
