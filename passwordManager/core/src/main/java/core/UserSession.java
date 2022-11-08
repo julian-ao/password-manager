@@ -58,12 +58,14 @@ public class UserSession {
   public ArrayList<ArrayList<String>> getProfilesNativeTypes() {
     ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
     ArrayList<Profile> profiles = getProfiles();
-    for (Profile profile : profiles) {
-      ArrayList<String> p = new ArrayList<String>();
-      p.add(profile.getProfileUsername());
-      p.add(profile.getEmail());
-      p.add(profile.getEncryptedPassword());
-      result.add(p);
+    if(profiles != null) {
+      for (Profile profile : profiles) {
+        ArrayList<String> p = new ArrayList<String>();
+        p.add(profile.getProfileUsername());
+        p.add(profile.getEmail());
+        p.add(profile.getEncryptedPassword());
+        result.add(p);
+      }
     }
     return result;
   }
@@ -123,7 +125,8 @@ public class UserSession {
             }
             break;
           case diversityError:
-            message = "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
+            message =
+              "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
             break;
           case tooShort:
             message = "Password is too short";

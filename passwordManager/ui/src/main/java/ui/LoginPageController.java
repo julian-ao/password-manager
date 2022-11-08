@@ -76,7 +76,7 @@ public class LoginPageController extends PasswordManagerController {
       password = passwordPasswordField.getText();
     }
 
-    if (username != "" && password != "") {
+    if (!username.equals("") && !password.equals("")) {
       userSession = UserSession.getInstance();
       if (userSession.login(username, password)) {
         ((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);

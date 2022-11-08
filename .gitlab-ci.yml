@@ -25,6 +25,7 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - coverage
   - quality
+  - bugs
 
 validate:       # This job runs in the build stage, which runs first.
   stage: build
@@ -105,3 +106,14 @@ checkstyle:
   except:
     variables:
       - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master"
+
+spotbugs:
+  stage: bugs
+  needs: ["compile"]
+  script: cd passwordManager && mvn install -DnoTestUI=true && mvn spotbugs:check -DnoTestUI=true
+  allow_failure: true
+  only:
+    - merge_requests
+  except:
+    variables:
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "master" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "dev"
