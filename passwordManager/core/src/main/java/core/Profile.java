@@ -51,6 +51,10 @@ public class Profile {
     this.encryptedPassword = new Password().getPassword();
   }
 
+  public void setParent(String parent) {
+    this.parent = parent;
+  }
+
   public String getParent() {
     return this.parent;
   }

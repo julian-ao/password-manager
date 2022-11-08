@@ -3,6 +3,7 @@ package localpersistence;
 import core.*;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -110,7 +111,7 @@ public class JsonTalker {
 
   public void deleteProfile(Profile profile) {
     loadData();
-    Profile toDelete;
+    Profile toDelete = null;
     for (Profile p : profiles) {
       if (isSameProfile(p, profile)) {
         toDelete = p;
