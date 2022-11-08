@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 public class JavaFxTest extends ApplicationTest {
@@ -60,7 +59,7 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#loginButton");  
 
-    Assertions.assertEquals(lookup("#YourPasswords").query().toString(), "Text[id=YourPasswords, text=\"Your Passwords\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
   }
 
   // Login with wrong password
@@ -112,7 +111,7 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#loginButton");
 
-    Assertions.assertEquals(lookup("#YourPasswords").query().toString(), "Text[id=YourPasswords, text=\"Your Passwords\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
 
     clickOn("#logOutButton");
     Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());    
@@ -161,7 +160,7 @@ public class JavaFxTest extends ApplicationTest {
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordPasswordField").query()).getText());
 
     clickOn("#loginButton");
-    Assertions.assertEquals(lookup("#YourPasswords").query().toString(), "Text[id=YourPasswords, text=\"Your Passwords\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
   
   }
 }
