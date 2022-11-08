@@ -25,16 +25,14 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-open.png"
-    );
+      "file:src/main/resources/temporaryImageFolder/eye-open.png");
   protected Image eyeClosedImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-closed.png"
-    );
+      "file:src/main/resources/temporaryImageFolder/eye-closed.png");
 
   /**
    * switchScene switches the vies to a different page, for example when going to
    * the registerpage, or when logging out.
-
+   * 
    * @param event     the event is used to get the window object
    * @param sceneName the path of the fxml file to be switched to
    * @throws IOException if the fxml file cant be opened
@@ -53,14 +51,13 @@ public class PasswordManagerController {
   /**
    * passwordEye shows or hides the password in the passwordTextField and
    * passwordPasswordField.
-
+   * 
    * @param textfield     the textfield that is used to show the password
    * @param passwordfield the passwordfield that is used to hide the password
    * @param imageview     the imageview that is used to show the eye
    */
   protected void passwordEye(
-      TextField textField, PasswordField passwordField, ImageView imageView
-  ) {
+      TextField textField, PasswordField passwordField, ImageView imageView) {
     if (textField.isVisible()) {
       passwordField.setText(textField.getText());
       textField.setVisible(false);
@@ -78,7 +75,7 @@ public class PasswordManagerController {
 
   /**
    * rotateNode animates a node by rotatating it.
-
+   * 
    * @param element   the element that is to be rotated
    * @param clockwise whether the element should be rotated clockwise or not
    */
@@ -99,7 +96,7 @@ public class PasswordManagerController {
 
   /**
    * setBorderRed sets the border of a node to red.
-
+   * 
    * @param element the element that is to be set to red
    */
   protected void setBorderRed(Node element) {

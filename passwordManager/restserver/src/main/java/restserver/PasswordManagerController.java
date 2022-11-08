@@ -1,5 +1,7 @@
 package restserver;
 
+import core.database.DatabaseTalker;
+import core.database.JsonDatabaseTalker;
 import core.UserSession;
 import core.User;
 import org.json.JSONArray;
@@ -68,5 +70,22 @@ public class PasswordManagerController {
     HashMap<String, String> map = new HashMap<>();
     map.put("test", id);
     return new JSONObject(map).toString();
+  }
+
+  private static DatabaseTalker databaseTalker =
+  new JsonDatabaseTalker("../localpersistence/src/resources/localpersistance/Users.json");
+
+  private User user;
+
+  @GetMapping(value = "/login")
+  public @ResponseBody String getProfiles(@RequestParam String username,
+      @RequestParam String password) {
+    if (databaseTalker.checkPassword(username, password)) {
+      this.user = new User(username, password);
+      user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+      return "Found User";
+    } else {
+      return "Invalid username or password";
+    }
   }
 }

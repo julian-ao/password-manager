@@ -1,5 +1,5 @@
 package client;
-
+ 
 import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -182,7 +182,15 @@ public class RestTalker {
 
 
   public boolean login(String username, String password) {
-    return false;
+    try {
+      HttpResponse<String> response =
+          this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
+      return response.body().equals("Found User");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   public Map<String, String> getProfiles(String username) {

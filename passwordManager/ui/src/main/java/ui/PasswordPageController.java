@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the password page.
@@ -71,13 +72,16 @@ public class PasswordPageController extends PasswordManagerController {
 
     signedInAsText.setText("Signed in as: " + userSession.getUsername());
     updatePasswords();
+
+    // sysout get userdata from window
+  
   }
 
   private void updatePasswords() {
     passwordList.getChildren().clear();
     ArrayList<ArrayList<String>> data = userSession.getProfilesNativeTypes();
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-    for (ArrayList<String> elem : data) { // temporary dummy data
+    for (ArrayList<String> elem : data) {
       passwords.add(passwordComponent(elem.get(0), elem.get(1), elem.get(2)));
     }
     for (GridPane i : passwords) {

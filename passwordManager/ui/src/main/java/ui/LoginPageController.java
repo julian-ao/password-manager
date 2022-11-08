@@ -4,7 +4,7 @@ import core.UserSession;
 import client.RestTalker;
 import java.io.IOException;
 import java.util.HashMap;
-
+ 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -69,6 +69,8 @@ public class LoginPageController extends PasswordManagerController {
     System.out.println(restTalker.test1());
     System.out.println(restTalker.test3("postTest"));
     System.out.println(restTalker.test4("TestID"));
+    System.out.println(restTalker.login("Admin", "Admin1!"));
+    
 
     UserSession userSession;
 
@@ -80,8 +82,10 @@ public class LoginPageController extends PasswordManagerController {
 
     if (!username.equals("") && !password.equals("")) {
       userSession = UserSession.getInstance();
-      if (userSession.login(username, password)) {
-        ((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
+
+      if (restTalker.login(username, password)) {
+        userSession.login(username, password);
+        //((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
         switchScene(event, "passwords.fxml");
       }
       visualFeedbackText.setText("Wrong username or password");
