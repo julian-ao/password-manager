@@ -1,6 +1,8 @@
 package localpersistence;
 
 import core.*;
+
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -9,41 +11,53 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class JsonTalker {
+public class JsonTalker implements DatabaseTalker {
 
   private File usersFile;
   private File profilesFile;
-  private ArrayList<User> users;
-  private ArrayList<Profile> profiles;
+  private List<User> users;
+  private List<Profile> profiles;
 
   public JsonTalker(Path path) {
     this.usersFile = new File(path.toString() + "/users.json");
     this.profilesFile = new File(path.toString() + "/profiles.json");
   }
 
-  private void loadData() {
+  private void loadData() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     try {
       users = new ArrayList<User>(Arrays.asList(mapper.readValue(usersFile, User[].class)));
       profiles = new ArrayList<Profile>(
           Arrays.asList(mapper.readValue(profilesFile, Profile[].class)));
     } catch (Exception e) {
-      // !Handle this
+      throw new IOException(e.getMessage());
     }
   }
 
-  private void storeData() {
+  private void storeData() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     try {
       mapper.writeValue(usersFile, users.toArray());
       mapper.writeValue(profilesFile, profiles.toArray());
     } catch (Exception e) {
-      // !Handle this
+      throw new IOException(e.getMessage());
+    }
+
+  }
+
+  public void resetFiles() {
+    try {
+      users = new ArrayList<>();
+      profiles = new ArrayList<>();
+      storeData();
+    } catch (Exception e) {
+      // BRRRRRRR
     }
   }
 
-  public boolean userExists(String username) {
+  public boolean userExists(String username) throws IOException {
     loadData();
 
     for (User u : users) {
@@ -54,7 +68,7 @@ public class JsonTalker {
     return false;
   }
 
-  public ArrayList<Profile> getProfiles(String username) {
+  public ArrayList<Profile> getProfiles(String username) throws IOException {
     loadData();
     if (!userExists(username)) {
       return null;
@@ -72,8 +86,9 @@ public class JsonTalker {
 
   }
 
-  public boolean checkPassword(String username, String password) {// !password should be bytearray when hashing gets
-                                                                  // implemented
+  public boolean checkPassword(String username, String password) throws IOException {// !password should be bytearray
+                                                                                     // when hashing gets
+    // implemented
     loadData();
     for (User u : users) {
       if (u.getUsername().equals(username)) {
@@ -85,21 +100,29 @@ public class JsonTalker {
     return false;
   }
 
-  public void insertUser(User user) {
+  public boolean insertUser(User user) throws IOException {
     loadData();
     users.add(user);
-    storeData();
+    try {
+      storeData();
+    } catch (Exception e) {
+      return false;
+    }
+    return true;
   }
 
-  public void insertProfile(Profile profile) {
+  public boolean insertProfile(String string, Profile profile) throws IOException {
+    boolean success = false;
     loadData();
     if (userExists(profile.getParent())) {
       profiles.add(profile);
+      success = true;
     }
     storeData();
+    return success;
   }
 
-  private boolean isSameProfile(Profile p1, Profile p2) {
+  private boolean isSameProfile(Profile p1, Profile p2) throws IOException {
     loadData();
     return p1.getEmail().equals(p2.getEmail()) &&
         p1.getProfileUsername().equals(p2.getProfileUsername()) &&
@@ -109,7 +132,7 @@ public class JsonTalker {
 
   }
 
-  public void deleteProfile(Profile profile) {
+  public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
     Profile toDelete = null;
     for (Profile p : profiles) {
@@ -122,5 +145,16 @@ public class JsonTalker {
 
     }
     storeData();
+  }
+
+  public void deleteUser(String username) throws IOException {
+    loadData();
+    for (User u : users) {
+      if (u.getUsername().equals(username)) {
+        users.remove(u);
+        break;
+      }
+    }
+    profiles = profiles.stream().filter((x) -> !x.getParent().equals(username)).toList();
   }
 }
