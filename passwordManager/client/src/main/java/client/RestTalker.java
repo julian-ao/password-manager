@@ -124,22 +124,14 @@ public class RestTalker {
     return client.sendAsync(request, BodyHandlers.ofString());
   }
 
+/*
+ * ------------------------------------------NEXT IS REQ CODE-----------------------------------------------------
+ */
+
+
   public String test1() {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/test1");
-      return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
-      e.printStackTrace();
-      return "error";
-    }
-  }
-
-  // Test2 is a test that sends a get request with parameters
-  public String test2(String param1, String param2) {
-    try {
-      HttpResponse<String> response =
-          this.get("/api/v1/entries/test?param1=" + param1 + "&param2=" + param2);
       return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
@@ -152,6 +144,33 @@ public class RestTalker {
   public String test3(String param1) {
     try {
       HttpResponse<String> response = this.post("/api/v1/entries/test3", param1);
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+    // Test2 is a test that sends a get request with parameters
+    public String test2(String param1, String param2) {
+      try {
+        HttpResponse<String> response =
+            this.get("/api/v1/entries/test?param1=" + param1 + "&param2=" + param2);
+        return response.body();
+      } catch (URISyntaxException | InterruptedException | ExecutionException
+          | ServerResponseException e) {
+        e.printStackTrace();
+        return "error";
+      }
+    }
+  
+
+  public String test4(String param) {
+    String id = param;
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/test4?param=" + id);
+      // Gets json {test: id} in toString format
       return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {

@@ -11,6 +11,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>gr2216</groupId>
+            <artifactId>modules-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>json</artifactId>
             <version>1.2.0.2-jre16</version>

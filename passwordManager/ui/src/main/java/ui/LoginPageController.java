@@ -3,6 +3,8 @@ package ui;
 import core.UserSession;
 import client.RestTalker;
 import java.io.IOException;
+import java.util.HashMap;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -65,8 +67,8 @@ public class LoginPageController extends PasswordManagerController {
 
     RestTalker restTalker = new RestTalker();
     System.out.println(restTalker.test1());
-    System.out.println(restTalker.test2("hello", "world"));
     System.out.println(restTalker.test3("postTest"));
+    System.out.println(restTalker.test4("TestID"));
 
     UserSession userSession;
 
