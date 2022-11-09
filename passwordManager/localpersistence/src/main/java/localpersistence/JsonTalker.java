@@ -23,6 +23,22 @@ public class JsonTalker implements DatabaseTalker {
   public JsonTalker(Path path) {
     this.usersFile = new File(path.toString() + "/users.json");
     this.profilesFile = new File(path.toString() + "/profiles.json");
+    if (!this.usersFile.exists()) {
+      try {
+        usersFile.createNewFile();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    if (!this.profilesFile.exists()) {
+      try {
+        profilesFile.createNewFile();
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
   }
 
   private void loadData() throws IOException {
@@ -122,8 +138,7 @@ public class JsonTalker implements DatabaseTalker {
     return success;
   }
 
-  private boolean isSameProfile(Profile p1, Profile p2) throws IOException {
-    loadData();
+  private boolean isSameProfile(Profile p1, Profile p2) {
     return p1.getEmail().equals(p2.getEmail()) &&
         p1.getProfileUsername().equals(p2.getProfileUsername()) &&
         p1.getEncryptedPassword().equals(p2.getEncryptedPassword()) &&
@@ -134,16 +149,7 @@ public class JsonTalker implements DatabaseTalker {
 
   public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
-    Profile toDelete = null;
-    for (Profile p : profiles) {
-      if (isSameProfile(p, profile)) {
-        toDelete = p;
-      }
-    }
-    if (toDelete != null) {
-      profiles.remove(toDelete);
-
-    }
+    profiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
     storeData();
   }
 
@@ -156,5 +162,6 @@ public class JsonTalker implements DatabaseTalker {
       }
     }
     profiles = profiles.stream().filter((x) -> !x.getParent().equals(username)).toList();
+    storeData();
   }
 }

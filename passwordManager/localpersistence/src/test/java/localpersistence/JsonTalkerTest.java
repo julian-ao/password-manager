@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class JsonTalkerTest {
 
   JsonTalker jsonTalker;
-  String path = "../localpersistence/src/resources/localpersistance/TestUsers";
+  String path = "../localpersistence/src/resources/localpersistance/test";
   File file = new File(path);
 
   private void resetFile() {
@@ -22,6 +22,18 @@ public class JsonTalkerTest {
     jsonTalker = new JsonTalker(jsonFile.toPath());
 
     jsonTalker.resetFiles();
+  }
+
+  private void user1Profiles() {
+    try {
+      jsonTalker.insertProfile("tmp", new Profile("www.w.w", "s@.n.n", "brukernavn", "pass", "user1"));
+      jsonTalker.insertProfile("tmp", new Profile("www.w.w", "s@.n.n", "brukernavn1", "pass", "user1"));
+      jsonTalker.insertProfile("tmp", new Profile("www.w.w", "s@.n.n", "brukernavn2", "pass", "user1"));
+      jsonTalker.insertProfile("tmp", new Profile("www.w.w", "s@.n.n", "brukernavn3", "pass", "user1"));
+
+    } catch (Exception e) {
+
+    }
   }
 
   public JsonTalkerTest() {
@@ -136,6 +148,7 @@ public class JsonTalkerTest {
   @Test
   public void getProfilesTest() {
     ArrayList<Profile> profiles;
+    user1Profiles();
     try {
       profiles = jsonTalker.getProfiles("user1");
       assertEquals(4, profiles.size());
@@ -149,6 +162,7 @@ public class JsonTalkerTest {
   public void deleteProfileTest() {
 
     ArrayList<Profile> profiles;
+    user1Profiles();
     try {
       profiles = jsonTalker.getProfiles("user1");
       Profile profile = profiles.get(0);
