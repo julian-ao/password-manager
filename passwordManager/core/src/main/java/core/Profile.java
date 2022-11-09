@@ -8,6 +8,7 @@ public class Profile {
   private String email;
   private String profileUsername;
   private String encryptedPassword;
+  private String parent;
 
   public Profile() {
 
@@ -15,17 +16,18 @@ public class Profile {
 
   /**
    * Profile is a constructor for the Profile class.
-
+   * 
    * @param url               the url of the profile
    * @param email             the email of the profile
    * @param profileUsername   the username of the profile
    * @param encryptedPassword the encrypted password of the profile
    */
-  public Profile(String url, String email, String profileUsername, String encryptedPassword) {
+  public Profile(String url, String email, String profileUsername, String encryptedPassword, String parent) {
     this.url = url;
     this.email = email;
     this.profileUsername = profileUsername;
     this.encryptedPassword = encryptedPassword;
+    this.parent = parent;
   }
 
   public void setUrl(String url) {
@@ -47,6 +49,14 @@ public class Profile {
   public void setRandomEncryptedPassword() {
     // random password
     this.encryptedPassword = new Password().getPassword();
+  }
+
+  public void setParent(String parent) {
+    this.parent = parent;
+  }
+
+  public String getParent() {
+    return this.parent;
   }
 
   public String getUrl() {
