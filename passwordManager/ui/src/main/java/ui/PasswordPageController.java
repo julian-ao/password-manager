@@ -227,6 +227,13 @@ public class PasswordPageController extends PasswordManagerController {
       }
     });
 
+    trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        // TODO
+      }
+    });
+
     clipboardContent.putString(password);
     clipboard.setContent(clipboardContent);
     
@@ -367,3 +374,4 @@ public class PasswordPageController extends PasswordManagerController {
     }
   }
 }
+
