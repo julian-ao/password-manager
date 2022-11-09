@@ -2,8 +2,8 @@ package restserver;
 
 import core.database.DatabaseTalker;
 import core.database.JsonDatabaseTalker;
-import core.UserSession;
 import core.User;
+import core.Profile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -30,19 +30,6 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api/v1/entries")
 public class PasswordManagerController {
-
-  private UserSession userSession = UserSession.getInstance();
-
-  /**
-   * Gets the entries for a given profile.
-   *
-   * @param userEntry the name of the profile
-   * @return the entries for the given profile
-   */
-  @GetMapping("/username")
-  public @ResponseBody String getUserEntry() {
-    return userSession.getUsername();
-  }
 
   // Get test that logs the parameters
   @GetMapping("/test1")
@@ -83,6 +70,11 @@ public class PasswordManagerController {
     if (databaseTalker.checkPassword(username, password)) {
       this.user = new User(username, password);
       user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+
+      // Get the profiles and return them as a JSON array
+      ArrayList<Profile> profiles = databaseTalker.getProfiles(user.getUsername());
+
+
       return "Found User";
     } else {
       return "Invalid username or password";

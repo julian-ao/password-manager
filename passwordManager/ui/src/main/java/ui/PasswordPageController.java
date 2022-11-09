@@ -59,8 +59,9 @@ public class PasswordPageController extends PasswordManagerController {
 
 
   private UserSession userSession;
-
   private Password passwordObj;
+
+  private String data;
 
   /**
    * initialize sets the signed in as text to the username of the user
@@ -75,6 +76,11 @@ public class PasswordPageController extends PasswordManagerController {
 
     // sysout get userdata from window
   
+  }
+
+  public void setData(String data) {
+    this.data = data;
+    System.out.println("data: " + data);
   }
 
   private void updatePasswords() {
@@ -136,7 +142,7 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     userSession.logOut();
-    super.switchScene(event, "login.fxml");
+    super.switchScene(event, "login.fxml", "");
   }
 
   /**
@@ -144,6 +150,9 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onAddPasswordButtonClick() {
+    System.out.println("add password button clicked");
+    System.out.println("data:" + data);
+
     addLoginTitleTextField.setText("");
     addLoginUsernameTextField.setText("");
     addLoginPasswordTextField.setText("");

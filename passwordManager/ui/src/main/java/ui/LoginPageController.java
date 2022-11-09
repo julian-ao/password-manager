@@ -86,7 +86,7 @@ public class LoginPageController extends PasswordManagerController {
       if (restTalker.login(username, password)) {
         userSession.login(username, password);
         //((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
-        switchScene(event, "passwords.fxml");
+        switchScene(event, "passwords.fxml", "Password");
       }
       visualFeedbackText.setText("Wrong username or password");
     } else {
@@ -103,6 +103,6 @@ public class LoginPageController extends PasswordManagerController {
 
   @FXML
   private void onRegisterButtonClick(ActionEvent event) throws IOException {
-    super.switchScene(event, "register.fxml");
+    super.switchScene(event, "register.fxml", "Register");
   }
 }

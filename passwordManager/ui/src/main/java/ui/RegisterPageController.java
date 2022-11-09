@@ -56,7 +56,7 @@ public class RegisterPageController extends PasswordManagerController {
 
   @FXML
   private void onRegisterBackButtonClick(ActionEvent event) throws IOException {
-    switchScene(event, "login.fxml");
+    switchScene(event, "login.fxml", "");
   }
 
   /**
@@ -86,7 +86,7 @@ public class RegisterPageController extends PasswordManagerController {
       String validationResult = userSession.userValidator(username, password, passwordRepeat);
 
       if (validationResult.equals("OK")) {
-        switchScene(event, "login.fxml");
+        switchScene(event, "login.fxml", "");
         userSession.registerUser(username, password);
       } else {
         visualFeedbackText.setText(validationResult);

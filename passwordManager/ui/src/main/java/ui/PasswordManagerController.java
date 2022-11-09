@@ -37,9 +37,15 @@ public class PasswordManagerController {
    * @param sceneName the path of the fxml file to be switched to
    * @throws IOException if the fxml file cant be opened
    */
-  protected void switchScene(ActionEvent event, String sceneName) throws IOException {
+  protected void switchScene(ActionEvent event, String sceneName, String data) throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
+    root = loader.load();
+
+    if(sceneName.equals("passwords.fxml")) {
+      PasswordPageController nextController = loader.getController();
+      nextController.setData(data);
+    }
     stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    root = FXMLLoader.load(getClass().getResource(sceneName));
     scene = new Scene(root);
     stage.setScene(scene);
     String title = sceneName.substring(0, sceneName.length() - 5);
