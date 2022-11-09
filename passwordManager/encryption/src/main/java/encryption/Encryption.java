@@ -121,8 +121,8 @@ public class Encryption {// CBC
 
     // Each plaintext P[i] is equal to decrypt(C[i]) xor C[i-1]. For i > 0
     for (int i = (cipherText.length - 1) / blockSize; i > 0; i--) {
-      byte[] localResult = twoFish
-          .decrypt(Arrays.copyOfRange(cipherText, i * blockSize, i * blockSize + blockSize), key);
+      byte[] localResult = twoFish.decrypt(Arrays.copyOfRange(cipherText, i * blockSize, i * blockSize + blockSize),
+          key);
       localResult = ByteArrayUtils.bytesXor(localResult,
           Arrays.copyOfRange(cipherText, (i - 1) * blockSize, (i - 1) * blockSize + blockSize));
       for (int j = 0; j < blockSize; j++) {

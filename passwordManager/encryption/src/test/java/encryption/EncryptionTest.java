@@ -1,8 +1,10 @@
 package encryption;
 
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import encryption.Encrypted;
+import encryption.Encryption;
+import encryption.HexStringUtils;
 
 public class EncryptionTest {
   @Test

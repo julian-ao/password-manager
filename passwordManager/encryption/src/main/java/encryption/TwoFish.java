@@ -36,22 +36,19 @@ public class TwoFish {
 
   /**
    * 
-   * MDSmatrix and RSD are transformations used in the algorithm.
-   * RSD is used in the keyschedule
-   * MDS is used on the internal state every round
+   * MDSmatrix and RSD are transformations used in the algorithm. RSD is used in
+   * the keyschedule MDS is used on the internal state every round
    */
 
   private static final byte[][] MDSmatrix = { { (byte) 0x01, (byte) 0xef, (byte) 0x5b, (byte) 0x5b },
-      { (byte) 0x5b, (byte) 0xef, (byte) 0xef, (byte) 0x01 },
-      { (byte) 0xef, (byte) 0x5b, (byte) 0x01, (byte) 0xef },
+      { (byte) 0x5b, (byte) 0xef, (byte) 0xef, (byte) 0x01 }, { (byte) 0xef, (byte) 0x5b, (byte) 0x01, (byte) 0xef },
       { (byte) 0xef, (byte) 0x01, (byte) 0xef, (byte) 0x5b } };
 
   private static final byte[][] RSD = {
       { (byte) 0x01, (byte) 0xa4, (byte) 0x55, (byte) 0x87, (byte) 0x5a, (byte) 0x58, (byte) 0xdb, (byte) 0x9e },
       { (byte) 0xa4, (byte) 0x56, (byte) 0x82, (byte) 0xf3, (byte) 0x1e, (byte) 0xc6, (byte) 0x68, (byte) 0xe5 },
       { (byte) 0x02, (byte) 0xa1, (byte) 0xfc, (byte) 0xc1, (byte) 0x47, (byte) 0xae, (byte) 0x3d, (byte) 0x19 },
-      { (byte) 0xa4, (byte) 0x55, (byte) 0x87, (byte) 0x5a, (byte) 0x58, (byte) 0xdb, (byte) 0x9e,
-          (byte) 0x03 } };
+      { (byte) 0xa4, (byte) 0x55, (byte) 0x87, (byte) 0x5a, (byte) 0x58, (byte) 0xdb, (byte) 0x9e, (byte) 0x03 } };
 
   private byte[] sbox0 = new byte[256];
   private byte[] sbox1 = new byte[256];
@@ -63,9 +60,8 @@ public class TwoFish {
   private static final byte MDSMinPoly = 0b01101001;
 
   /**
-   * right rotates the 4 rightmost bits in a byte
-   * example ROR(xxxx1011, 2) = 00001110
-   * the four upper bits are discarded
+   * right rotates the 4 rightmost bits in a byte example ROR(xxxx1011, 2) =
+   * 00001110 the four upper bits are discarded
    * 
    * 
    * @param x      the byte which contains the 4 bits to be rotated
@@ -170,8 +166,7 @@ public class TwoFish {
 
   /**
    * this function is the same as a*b when a and b is in GF(2^8) with reducing
-   * polynomial: minPoly.
-   * NOTE: this function does not commute
+   * polynomial: minPoly. NOTE: this function does not commute
    * 
    * 
    * 
@@ -276,9 +271,9 @@ public class TwoFish {
 
   /**
    * the g function substitutes bytes and performs a transformation on the bytes
-   * s_boxBytes substitutes bytes
-   * MDSMultiply is a spesific instance of matrixVectorMultiplyGF28 function, with
-   * a hardcoded reducing polynomial and transformation
+   * s_boxBytes substitutes bytes MDSMultiply is a spesific instance of
+   * matrixVectorMultiplyGF28 function, with a hardcoded reducing polynomial and
+   * transformation
    * 
    * @param bytes the byte array input
    * @return an integer output
@@ -478,8 +473,8 @@ public class TwoFish {
     // keymaterial used for sboxes
     int[] S = new int[k];
     for (int i = 0; i < k; i++) {
-      S[k - 1 - i] = ByteArrayUtils.bytesToIntBigEndian(
-          matrixVectorMultiplyGF28(RSD, Arrays.copyOfRange(key, i * 8, i * 8 + 8), RSMinPoly));
+      S[k - 1 - i] = ByteArrayUtils
+          .bytesToIntBigEndian(matrixVectorMultiplyGF28(RSD, Arrays.copyOfRange(key, i * 8, i * 8 + 8), RSMinPoly));
     }
 
     // setting up keydependent substitution boxes

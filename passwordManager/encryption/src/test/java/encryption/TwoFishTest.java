@@ -1,6 +1,6 @@
 package encryption;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,7 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import encryption.HexStringUtils;
+import encryption.TwoFish;
 
 public class TwoFishTest {
   TwoFish twoFish = new TwoFish();
@@ -24,9 +27,8 @@ public class TwoFishTest {
       /*
        * throw new IllegalStateException(
        * "Encryption does not match expected result: \n" +
-       * HexStringUtils.byteArrayToHexString(ctResult1)
-       * + " : "
-       * + HexStringUtils.byteArrayToHexString(ct1));
+       * HexStringUtils.byteArrayToHexString(ctResult1) + " : " +
+       * HexStringUtils.byteArrayToHexString(ct1));
        */
     }
   }
@@ -66,12 +68,11 @@ public class TwoFishTest {
   public void testKeySchedule() {
     TwoFish twoFish = new TwoFish();
     int[] result = twoFish.testKeySchedule(new byte[16]);
-    int[] expected = { 0x52C54DDE, 0x11F0626D, 0x7CAC9D4A, 0x4D1B4AAA, 0xB7B83A10, 0x1E7D0BEB, 0xEE9C341F,
-        0xCFE14BE4, 0xF98FFEF9, 0x9C5B3C17, 0x15A48310, 0x342A4D81, 0x424D89FE, 0xC14724A7, 0x311B834C,
-        0xFDE87320, 0x3302778F, 0x26CD67B4, 0x7A6C6362, 0xC2BAF60E, 0x3411B994, 0xD972C87F, 0x84ADB1EA,
-        0xA7DEE434, 0x54D2960F, 0xA2F7CAA8, 0xA6B8FF8C, 0x8014C425, 0x6A748D1C, 0xEDBAF720, 0x928EF78C,
-        0x0338EE13, 0x9949D6BE, 0xC8314176, 0x07C07D68, 0xECAE7EA7, 0x1FE71844, 0x85C05C89, 0xF298311E,
-        0x696EA672 };
+    int[] expected = { 0x52C54DDE, 0x11F0626D, 0x7CAC9D4A, 0x4D1B4AAA, 0xB7B83A10, 0x1E7D0BEB, 0xEE9C341F, 0xCFE14BE4,
+        0xF98FFEF9, 0x9C5B3C17, 0x15A48310, 0x342A4D81, 0x424D89FE, 0xC14724A7, 0x311B834C, 0xFDE87320, 0x3302778F,
+        0x26CD67B4, 0x7A6C6362, 0xC2BAF60E, 0x3411B994, 0xD972C87F, 0x84ADB1EA, 0xA7DEE434, 0x54D2960F, 0xA2F7CAA8,
+        0xA6B8FF8C, 0x8014C425, 0x6A748D1C, 0xEDBAF720, 0x928EF78C, 0x0338EE13, 0x9949D6BE, 0xC8314176, 0x07C07D68,
+        0xECAE7EA7, 0x1FE71844, 0x85C05C89, 0xF298311E, 0x696EA672 };
 
     assert (Arrays.equals(result, expected));
   }
