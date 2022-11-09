@@ -1,6 +1,7 @@
 package ui;
 
 import core.Password;
+import core.Profile;
 import core.UserSession;
 
 import java.io.IOException;
@@ -230,7 +231,12 @@ public class PasswordPageController extends PasswordManagerController {
     trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        // TODO
+        // TODO get profile and delete it
+        String usernameToDelete = usernameText.getText();
+        String titleToDelete = titleText.getText();
+        String passwordToDelete = passwordText.getText();
+        String userToDelete = userSession.getUsername();
+        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
       }
     });
 
@@ -343,6 +349,19 @@ public class PasswordPageController extends PasswordManagerController {
       passwordListPage.setEffect(null);
       updatePasswords();
     }
+  }
+
+  /**
+   * Delete password
+   */
+  @FXML
+  private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
+    // TODO
+    Profile profileToDelete = new Profile("empty.url", title, username, password);
+    userSession.deleteProfile(user, profileToDelete);
+    updatePasswords();
+    
+
   }
 
   @FXML
