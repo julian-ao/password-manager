@@ -356,12 +356,16 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
-    // TODO
-    Profile profileToDelete = new Profile("empty.url", title, username, password);
-    userSession.deleteProfile(user, profileToDelete);
+    // TODO Make this better
+    ArrayList profileListToDeleteFrom = userSession.getProfiles();
+    // find profile to delete
+    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
+      Profile profile = (Profile) profileListToDeleteFrom.get(i);
+      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
+        userSession.deleteProfile(user, profile);
+      }
+    }
     updatePasswords();
-    
-
   }
 
   @FXML

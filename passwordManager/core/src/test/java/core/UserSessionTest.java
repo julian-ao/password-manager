@@ -63,7 +63,7 @@ public class UserSessionTest {
     ArrayList<ArrayList<String>> profilesStr = userSession.getProfilesNativeTypes();
 
 
-    Profile profileToDelete = new Profile("empty.url", "google", "user", "passord");
+    Profile profileToDelete = new Profile("empty.url", "google", "user", "passord", "Admin");
     userSession.insertProfile("user", "google", "passord");
 
     userSession.deleteProfile("Admin", profileToDelete);
