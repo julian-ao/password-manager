@@ -12,9 +12,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <name>encryption-for-itp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>encryption</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
