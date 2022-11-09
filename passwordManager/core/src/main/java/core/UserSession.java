@@ -166,8 +166,20 @@ public class UserSession {
    * @param password the password of the profile
    */
   public void insertProfile(String username, String email, String password) {
+    // TODO: endre email til title
     Profile p = new Profile("empty.url", email, username, password);
     this.databaseTalker.insertProfile(user.getUsername(), p);
+    user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+  }
+
+  /**
+   * deleteProfile deletes a profile from the database.
+
+   * @param username the username of the user
+   * @param profile the profile to delete
+   */
+  public void deleteProfile(String username, Profile profile) {
+    this.databaseTalker.deleteProfile(username, profile);
     user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
   }
 
