@@ -220,8 +220,6 @@ public class JsonDatabaseTalker implements DatabaseTalker {
   @Override
   public boolean deleteProfile(String username, Profile profile) {
 
-    System.out.println("-------------------- Trying Delete Profile --------------------");
-
     ObjectMapper mapper = new ObjectMapper();
     boolean isDeleted = false;
     try {
@@ -235,7 +233,6 @@ public class JsonDatabaseTalker implements DatabaseTalker {
           ArrayList<Profile> profiles = user.getProfiles();
           for (Profile p : profiles) {
             if (isSameProfile(p, profile)) {
-              System.out.println("Found profile to be deleted");
               toBeRemoved = p;
             }
           }

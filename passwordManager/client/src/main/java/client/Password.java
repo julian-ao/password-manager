@@ -1,4 +1,4 @@
-package core;
+package client;
 
 import java.security.SecureRandom;
 
@@ -49,15 +49,15 @@ public class Password {
    */
   public void randomPassword() {
     while (calcScore() < 3) {
-      this.password = rand.ints(16, 33, 122).collect(StringBuilder::new,
-          StringBuilder::appendCodePoint, StringBuilder::append)
+      this.password = rand.ints(16, 33, 122)
+          .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
           .toString();
     }
   }
 
   /**
    * Calculates the strength of the password.
-
+   * 
    * @return int the score of the password from 1 to 3
    */
   public int calcScore() {
@@ -79,18 +79,14 @@ public class Password {
       }
     }
 
-    if (length >= 14 
-        &&
-        (upperCase >= 2 && lowerCase >= 2 && numbers >= 2 && specialCharacters >= 2)) {
+    if (length >= 14
+        && (upperCase >= 2 && lowerCase >= 2 && numbers >= 2 && specialCharacters >= 2)) {
       this.score = 3;
-    } else if (
-        length >= 6 
-        && ((upperCase >= 1 
-        && (lowerCase >= 1 || numbers >= 1 || specialCharacters >= 1))
-        || (lowerCase >= 1 && (numbers >= 1 || specialCharacters >= 1 || upperCase >= 1))
-        || (numbers >= 1 && (specialCharacters >= 1 || upperCase >= 1 || lowerCase >= 1))
-        || (specialCharacters >= 1 && (upperCase >= 1 || lowerCase >= 1 || numbers >= 1)))
-    ) {
+    } else if (length >= 6
+        && ((upperCase >= 1 && (lowerCase >= 1 || numbers >= 1 || specialCharacters >= 1))
+            || (lowerCase >= 1 && (numbers >= 1 || specialCharacters >= 1 || upperCase >= 1))
+            || (numbers >= 1 && (specialCharacters >= 1 || upperCase >= 1 || lowerCase >= 1))
+            || (specialCharacters >= 1 && (upperCase >= 1 || lowerCase >= 1 || numbers >= 1)))) {
       this.score = 2;
     } else {
       this.score = 1;

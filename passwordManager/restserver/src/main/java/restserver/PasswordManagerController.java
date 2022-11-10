@@ -175,18 +175,6 @@ public class PasswordManagerController {
       @RequestParam String password, @RequestParam String passwordRepeat) {
     return userValidator(username, password, passwordRepeat);
   }
-
-
-      /* 
-    ArrayList profileListToDeleteFrom = userSession.getProfiles();
-    // find profile to delete
-    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
-      Profile profile = (Profile) profileListToDeleteFrom.get(i);
-      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
-        userSession.deleteProfile(user, profile);
-      }
-    }
-    */
   //Delete profile
   @PostMapping(value = "/deleteProfile")
   public @ResponseBody String deleteProfile(@RequestBody String body) {

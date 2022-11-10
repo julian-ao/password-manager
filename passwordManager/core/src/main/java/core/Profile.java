@@ -39,12 +39,7 @@ public class Profile {
   public void setEncryptedPassword(String encryptedPassword) {
     this.encryptedPassword = encryptedPassword;
   }
-
-  public void setRandomEncryptedPassword() {
-    // random password
-    this.encryptedPassword = new Password().getPassword();
-  }
-
+  
   public void setParent(String parent) {
     this.parent = parent;
   }
