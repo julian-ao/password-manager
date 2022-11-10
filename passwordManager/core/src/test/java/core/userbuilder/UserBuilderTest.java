@@ -3,6 +3,7 @@ package core.userbuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import core.Profile;
 import core.User;
 import core.database.*;
 
@@ -22,7 +23,7 @@ public class UserBuilderTest {
     Assertions.assertEquals(UsernameValidation.invalidCharacters, userBuilder.setUsername("invInMyName++"));
     Assertions.assertEquals(UsernameValidation.OK, userBuilder.setUsername("usEr123"));
   }
-
+ 
   @Test
   public void testPasswordValidation() {
     Assertions.assertEquals(PasswordValidation.tooShort, userBuilder.setPassword("1aA#"));
