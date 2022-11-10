@@ -1,8 +1,6 @@
 package ui;
 
 import core.Password;
-import core.Profile;
-import core.UserSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,7 +102,6 @@ public class PasswordPageController extends PasswordManagerController {
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    System.out.println("data: " + restTalker.getProfiles());
     JSONArray jsonArray = new JSONArray(restTalker.getProfiles());
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
@@ -347,7 +344,7 @@ public class PasswordPageController extends PasswordManagerController {
         addProfilePasswordTextField.getText()
       );
 
-      System.out.println("------Registered profile------");
+      System.out.println("Profile added!");
 
       
       visualFeedbackText.setVisible(false);
@@ -362,18 +359,13 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
-    // TODO Make this better
-    /* 
-    ArrayList profileListToDeleteFrom = userSession.getProfiles();
-    // find profile to delete
-    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
-      Profile profile = (Profile) profileListToDeleteFrom.get(i);
-      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
-        userSession.deleteProfile(user, profile);
-      }
+    System.out.println("Deleting password...");
+    if (restTalker.deleteProfile(user, title, username, password)) {
+      System.out.println("Password deleted!");
+      updatePasswords();
+    } else {
+      System.out.println("------Failed to delete profile------");
     }
-    updatePasswords();
-    */
   }
 
   @FXML

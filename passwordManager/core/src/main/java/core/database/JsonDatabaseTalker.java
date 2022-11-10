@@ -110,9 +110,8 @@ public class JsonDatabaseTalker implements DatabaseTalker {
     } catch (Exception e) {
       e.printStackTrace();
       return false;
-    } finally {
-      return true;
     }
+    return true;
   }
 
   /**
@@ -206,7 +205,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
     if (profile1.getEmail().equals(profile2.getEmail())
         && profile1.getProfileUsername().equals(profile2.getProfileUsername())
         && profile1.getEncryptedPassword().equals(profile2.getEncryptedPassword())
-        && profile1.getUrl().equals(profile2.getUrl())) {
+      ) {
       return true;
     }
     return false;
@@ -219,8 +218,12 @@ public class JsonDatabaseTalker implements DatabaseTalker {
    * @param profile  the profile to be deleted
    */
   @Override
-  public void deleteProfile(String username, Profile profile) {
+  public boolean deleteProfile(String username, Profile profile) {
+
+    System.out.println("-------------------- Trying Delete Profile --------------------");
+
     ObjectMapper mapper = new ObjectMapper();
+    boolean isDeleted = false;
     try {
       User[] users = mapper.readValue(jsonFile, User[].class);
 
@@ -232,6 +235,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
           ArrayList<Profile> profiles = user.getProfiles();
           for (Profile p : profiles) {
             if (isSameProfile(p, profile)) {
+              System.out.println("Found profile to be deleted");
               toBeRemoved = p;
             }
           }
@@ -239,10 +243,16 @@ public class JsonDatabaseTalker implements DatabaseTalker {
       }
       if (toBeRemoved != null && toBeRemovedFrom != null) {
         toBeRemovedFrom.removeProfile(toBeRemoved); // vi kommer oss hit
+        isDeleted = true;
+      } else {
+        System.out.println("Could not find profile to be deleted");
       }
       mapper.writeValue(jsonFile, users);
+
+      return isDeleted;
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return false;
   }
 }

@@ -142,7 +142,6 @@ public class JsonTalker implements DatabaseTalker {
     return p1.getEmail().equals(p2.getEmail()) &&
         p1.getProfileUsername().equals(p2.getProfileUsername()) &&
         p1.getEncryptedPassword().equals(p2.getEncryptedPassword()) &&
-        p1.getUrl().equals(p2.getUrl()) &&
         p1.getParent().equals(p2.getParent());
 
   }

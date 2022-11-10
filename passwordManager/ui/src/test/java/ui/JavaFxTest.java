@@ -25,7 +25,7 @@ public class JavaFxTest extends ApplicationTest {
     String url = "../localpersistence/src/resources/localpersistance/Users.json";
 
     // move everything inside the main persistence file to the temp file by deleting the temp file and renaming the main file
-    // then create a new main file that contains "[]" 
+    // then create a new main file
     File tempFile = new File(tempUrl);
     File mainFile = new File(url);
     if (tempFile.exists()) {
@@ -45,10 +45,8 @@ public class JavaFxTest extends ApplicationTest {
     stage.show();
   }
 
-  // Log "Test is finished" to the console when all tests are done
   @Override
   public void stop() {
-    System.out.println("Test is finished");
 
     // delete main file and rename temp file to main file
     String tempUrl = "../localpersistence/src/resources/localpersistance/TempUsers.json";

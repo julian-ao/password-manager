@@ -64,10 +64,6 @@ public class LoginPageController extends PasswordManagerController {
   private void onLoginButtonClick(ActionEvent event) throws IOException {
 
     RestTalker restTalker = new RestTalker();
-    System.out.println(restTalker.test1());
-    System.out.println(restTalker.test3("postTest"));
-    System.out.println(restTalker.test4("TestID"));
-    System.out.println(restTalker.login("Admin", "Admin1!"));
 
     String username = usernameTextField.getText();
     String password = passwordTextField.getText();

@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import org.json.JSONObject;
 
 
 public class RestTalker {
@@ -213,7 +214,10 @@ public class RestTalker {
   //post request to create a new user, sends JSON object {"username": username, "password": password}
   public boolean registerUser(String username, String password) {
     try {
-      HttpResponse<String> response = this.post("/api/v1/entries/register", "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}");
+      JSONObject obj = new JSONObject();
+      obj.put("username", username);
+      obj.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/register", obj.toString());
       return response.body().equals("Success");
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
@@ -225,7 +229,11 @@ public class RestTalker {
   //post request to create a new user, sends JSON object {"username": username, "password": password, "email": email}
   public boolean insertProfile(String username, String email, String password) {
     try {
-      HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"email\": \"" + email + "\"}");
+      JSONObject json = new JSONObject();
+      json.put("username", username);
+      json.put("email", email);
+      json.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
       return response.body().equals("Success");
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
@@ -257,6 +265,23 @@ public class RestTalker {
         | ServerResponseException e) {
       e.printStackTrace();
       return "error";
+    }
+  }
+
+  //delete profile
+  public boolean deleteProfile(String user, String title, String username, String password) {
+    try {
+      JSONObject json = new JSONObject();
+      json.put("user", user);
+      json.put("title", title);
+      json.put("username", username);
+      json.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
     }
   }
 

@@ -17,39 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/v1/entries")
 public class PasswordManagerController {
-
-  // Get test that logs the parameters
-  @GetMapping("/test1")
-  public @ResponseBody String getTest() {
-    return "test11";
-  }
-
-  // Post test that logs the parameters
-  @PostMapping("/test3")
-  public @ResponseBody String postTest(@RequestBody String body) {
-    return body;
-  }
-
-  // Get test that logs the parameters
-  @GetMapping("/test")
-  public @ResponseBody String getTest(@RequestParam String param1, @RequestParam String param2) {
-    return param1 + " " + param2;
-  }
-
-
-  // Test4 gets a hashmap from the body and hashmap {test: test} where test is a value from the body
-  @GetMapping(value = "/test4", produces = "application/json")
-  public @ResponseBody String getTest4(@RequestParam String param) {
-    String id = param;
-    HashMap<String, String> map = new HashMap<>();
-    map.put("test", id);
-    return new JSONObject(map).toString();
-  }
 
   private String url = "../localpersistence/src/resources/localpersistance/Users.json";
 
@@ -124,7 +95,7 @@ public class PasswordManagerController {
     String email = jsonObject.getString("email");
     String password = jsonObject.getString("password");
     if (databaseTalker.insertProfile(user.getUsername(),
-        new Profile("empty.url", email, username, password, user.getUsername()))) {
+        new Profile(email, username, password, user.getUsername()))) {
       return "Success";
     } else {
       return "Failure";
@@ -205,4 +176,29 @@ public class PasswordManagerController {
     return userValidator(username, password, passwordRepeat);
   }
 
+
+      /* 
+    ArrayList profileListToDeleteFrom = userSession.getProfiles();
+    // find profile to delete
+    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
+      Profile profile = (Profile) profileListToDeleteFrom.get(i);
+      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
+        userSession.deleteProfile(user, profile);
+      }
+    }
+    */
+  //Delete profile
+  @PostMapping(value = "/deleteProfile")
+  public @ResponseBody String deleteProfile(@RequestBody String body) {
+    DatabaseTalker databaseTalker = new JsonDatabaseTalker(url);
+    JSONObject jsonObject = new JSONObject(body);
+    String username = jsonObject.getString("username");
+    String title = jsonObject.getString("title");
+    String password = jsonObject.getString("password");
+    if (databaseTalker.deleteProfile(user.getUsername(), new Profile(username, title, password, user.getUsername()))) {
+      return "Success";
+    } else {
+      return "Failure";
+    }
+  }
 }

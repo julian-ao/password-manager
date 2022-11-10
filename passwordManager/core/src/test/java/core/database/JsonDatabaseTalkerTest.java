@@ -33,10 +33,10 @@ public class JsonDatabaseTalkerTest {
     resetFile();
 
     // Insert a user into the json file
-    Profile profile1 = new Profile("google.bror", "bob@bob.mail", "profile1", "password1", "user1");
-    Profile profile2 = new Profile("face.bror", "bob@bob.mail", "profile2", "password2", "user1");
-    Profile profile3 = new Profile("twitt.bror", "bob@bob.mail", "profile3", "password3", "user1");
-    Profile profile4 = new Profile("nsa.bror", "bob@bob.mail", "profile4", "password4", "user1");
+    Profile profile1 = new Profile( "bob@bob.mail", "profile1", "password1", "user1");
+    Profile profile2 = new Profile( "bob@bob.mail", "profile2", "password2", "user1");
+    Profile profile3 = new Profile( "bob@bob.mail", "profile3", "password3", "user1");
+    Profile profile4 = new Profile( "bob@bob.mail", "profile4", "password4", "user1");
     User user = new User("user1", "password1");
 
     ArrayList<Profile> profiles = new ArrayList<Profile>();
@@ -79,7 +79,7 @@ public class JsonDatabaseTalkerTest {
 
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
-      if (p.getUrl().equals(profile.getUrl()) &&
+      if (
           p.getEmail().equals(profile.getEmail()) &&
           p.getProfileUsername().equals(profile.getProfileUsername()) &&
           p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
@@ -93,7 +93,7 @@ public class JsonDatabaseTalkerTest {
   public void insertProfileTest() {
     resetFile();
     jsonDatabaseTalker.insertUser(new User("user1", "password1"));
-    Profile profile = new Profile("nettside.no", "sondrkol@it.no", "sondrkol", "passord", "user1");
+    Profile profile = new Profile( "sondrkol@it.no", "sondrkol", "passord", "user1");
     jsonDatabaseTalker.insertProfile("user1", profile);
     ArrayList<Profile> profiles = jsonDatabaseTalker.getProfiles("user1");
     assertEquals(true, hasProfile(profiles, profile));
