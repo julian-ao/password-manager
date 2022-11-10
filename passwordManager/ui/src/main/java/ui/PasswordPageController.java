@@ -1,10 +1,14 @@
 package ui;
 
 import core.Password;
-import core.UserSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -79,12 +83,12 @@ public class PasswordPageController extends PasswordManagerController {
   private Scene scene;
 
 
-  private UserSession userSession;
   private Password passwordObj;
 
   private String data;
   final Clipboard clipboard = Clipboard.getSystemClipboard();
   final ClipboardContent  clipboardContent = new ClipboardContent();
+  private RestTalker restTalker = new RestTalker();
 
   /**
    * initialize sets the signed in as text to the username of the user
@@ -92,13 +96,9 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    userSession = UserSession.getInstance();
-
     logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-
-    signedInAsText.setText("Signed in as: " + userSession.getUsername());
-    updatePasswords();
-
+    String username = restTalker.getUsername();
+    signedInAsText.setText("Signed in as: " + username);
     // sysout get userdata from window
   
   }
@@ -106,14 +106,16 @@ public class PasswordPageController extends PasswordManagerController {
   public void setData(String data) {
     this.data = data;
     System.out.println("data: " + data);
+    updatePasswords();
   }
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    ArrayList<ArrayList<String>> data = userSession.getProfilesNativeTypes();
+    System.out.println("data: " + data);
+    JSONArray jsonArray = new JSONArray(data);
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-    for (ArrayList<String> elem : data) {
-      passwords.add(profileComponent(elem.get(0), elem.get(1), elem.get(2)));
+    for (Object elem : jsonArray) {
+      passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"), ((JSONObject) elem).getString("password")));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);
@@ -278,7 +280,7 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Tells the userSession to log out and switches the scene back to the login
+   * Tells the restTalker to log out and switches the scene back to the login
    * page.
 
    * @param event ActionEvent object used in the switchScene method
@@ -286,7 +288,8 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
-    userSession.logOut();
+    System.out.println("Logging out...");
+    restTalker.logout();
     super.switchScene(event, "login.fxml", "");
   }
 
@@ -333,12 +336,15 @@ public class PasswordPageController extends PasswordManagerController {
       addProfilePasswordTextField.setStyle("-fx-border-color: #FE8383");
       super.rotateNode(visualFeedbackText, false);
     } else {
-      userSession.insertProfile(
-          addProfileUsernameTextField.getText(),
-          addProfileTitleTextField.getText(),
-          addProfilePasswordTextField.getText()
+      restTalker.insertProfile(
+        addProfileTitleTextField.getText(),
+        addProfileUsernameTextField.getText(),
+        addProfilePasswordTextField.getText()
       );
 
+      System.out.println("------Registered profile------");
+
+      
       visualFeedbackText.setVisible(false);
       addProfileOverlay.setVisible(false);
       passwordListPage.setEffect(null);

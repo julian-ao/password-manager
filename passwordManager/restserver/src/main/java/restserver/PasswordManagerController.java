@@ -69,15 +69,62 @@ public class PasswordManagerController {
       @RequestParam String password) {
     if (databaseTalker.checkPassword(username, password)) {
       this.user = new User(username, password);
-      user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
-
+      //! user.setProfiles(databaseTalker.getProfiles(user.getUsername()));    DETTE trenger vi ikke ??
       // Get the profiles and return them as a JSON array
       ArrayList<Profile> profiles = databaseTalker.getProfiles(user.getUsername());
-
-
-      return "Found User";
+      JSONArray jsonArray = new JSONArray();
+      for (Profile profile : profiles) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", profile.getProfileUsername());
+        jsonObject.put("title", profile.getEmail());
+        jsonObject.put("password", profile.getEncryptedPassword());
+        jsonArray.put(jsonObject);
+      }
+      return jsonArray.toString();
     } else {
-      return "Invalid username or password";
+      return "Invalid";
+    }
+  }
+
+  /*
+   * databaseTalker.insertUser(new User(username, password));
+   */
+  @PostMapping(value = "/register")
+  public @ResponseBody String postRegister(@RequestBody String body) {
+    JSONObject jsonObject = new JSONObject(body);
+    String username = jsonObject.getString("username");
+    String password = jsonObject.getString("password");
+    if (databaseTalker.insertUser(new User(username, password))) {
+      return "Success";
+    } else {
+      return "Failure";
+    }
+  }
+
+  // Get username
+  @GetMapping(value = "/username")
+  public @ResponseBody String getUsername() {
+    return user.getUsername();
+  }
+
+  // Logout
+  @GetMapping(value = "/logout")
+  public @ResponseBody String logout() {
+    user = null;
+    return "Success";
+  }
+
+  // Insert profile
+  @PostMapping(value = "/insertProfile")
+  public @ResponseBody String insertProfile(@RequestBody String body) {
+    JSONObject jsonObject = new JSONObject(body);
+    String username = jsonObject.getString("username");
+    String email = jsonObject.getString("email");
+    String password = jsonObject.getString("password");
+    if (databaseTalker.insertProfile(user.getUsername(), new Profile("empty.url", email, username, password, user.getUsername()))) {
+      return "Success";
+    } else {
+      return "Failure";
     }
   }
 }

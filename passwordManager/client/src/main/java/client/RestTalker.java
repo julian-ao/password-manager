@@ -181,15 +181,15 @@ public class RestTalker {
 
 
 
-  public boolean login(String username, String password) {
+  public String login(String username, String password) {
     try {
       HttpResponse<String> response =
           this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
-      return response.body().equals("Found User");
+      return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
       e.printStackTrace();
-      return false;
+      return "error";
     }
   }
 
@@ -198,16 +198,55 @@ public class RestTalker {
     return null;
   }
 
-  public boolean registerUser(String username, String password) {
-    return false;
+  // get username
+  public String getUsername() {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/username");
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
   }
 
-  public void insertProfile(String username, String email, String password) {
+  //post request to create a new user, sends JSON object {"username": username, "password": password}
+  public boolean registerUser(String username, String password) {
+    try {
+      HttpResponse<String> response = this.post("/api/v1/entries/register", "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}");
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 
+  //post request to create a new user, sends JSON object {"username": username, "password": password, "email": email}
+  public boolean insertProfile(String username, String email, String password) {
+    try {
+      HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", "{\"username\": \"" + username + "\", \"password\": \"" + password + "\", \"email\": \"" + email + "\"}");
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   public boolean userExists(String username) {
     return false;
+  }
+
+  public boolean logout() {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/logout");
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
 }

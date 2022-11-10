@@ -83,10 +83,11 @@ public class LoginPageController extends PasswordManagerController {
     if (!username.equals("") && !password.equals("")) {
       userSession = UserSession.getInstance();
 
-      if (restTalker.login(username, password)) {
+      String data = restTalker.login(username, password);
+      if (!data.equals("Invalid")) {
         userSession.login(username, password);
         //((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
-        switchScene(event, "passwords.fxml", "Password");
+        switchScene(event, "passwords.fxml", data);
       }
       visualFeedbackText.setText("Wrong username or password");
     } else {
