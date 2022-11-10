@@ -80,8 +80,8 @@ public class LoginPageController extends PasswordManagerController {
     if (!username.equals("") && !password.equals("")) {
 
       String data = restTalker.login(username, password);
-      if (!data.equals("Invalid")) {
-        switchScene(event, "passwords.fxml", data);
+      if (data.equals("Success")) {
+        switchScene(event, "passwords.fxml");
       }
       visualFeedbackText.setText("Wrong username or password");
     } else {
@@ -97,6 +97,6 @@ public class LoginPageController extends PasswordManagerController {
 
   @FXML
   private void onRegisterButtonClick(ActionEvent event) throws IOException {
-    super.switchScene(event, "register.fxml", "Register");
+    super.switchScene(event, "register.fxml");
   }
 }

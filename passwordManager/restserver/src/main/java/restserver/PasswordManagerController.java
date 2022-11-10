@@ -74,22 +74,25 @@ public class PasswordManagerController {
 
     if (databaseTalker.checkPassword(username, password)) {
       this.user = new User(username, password);
-      // ! user.setProfiles(databaseTalker.getProfiles(user.getUsername())); DETTE trenger vi ikke
-      // ??
-      // Get the profiles and return them as a JSON array
-      ArrayList<Profile> profiles = databaseTalker.getProfiles(user.getUsername());
-      JSONArray jsonArray = new JSONArray();
-      for (Profile profile : profiles) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username", profile.getProfileUsername());
-        jsonObject.put("title", profile.getEmail());
-        jsonObject.put("password", profile.getEncryptedPassword());
-        jsonArray.put(jsonObject);
-      }
-      return jsonArray.toString();
+      return "Success";
     } else {
-      return "Invalid";
+      return "Failure";
     }
+  }
+
+  @GetMapping(value = "/getProfiles")
+  public @ResponseBody String getProfiles() {
+    DatabaseTalker databaseTalker = new JsonDatabaseTalker(url);
+    ArrayList<Profile> profiles = databaseTalker.getProfiles(user.getUsername());
+    JSONArray jsonArray = new JSONArray();
+    for (Profile profile : profiles) {
+      JSONObject jsonObject = new JSONObject();
+      jsonObject.put("username", profile.getProfileUsername());
+      jsonObject.put("title", profile.getEmail());
+      jsonObject.put("password", profile.getEncryptedPassword());
+      jsonArray.put(jsonObject);
+    }
+    return jsonArray.toString();
   }
 
   /*

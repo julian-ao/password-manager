@@ -85,7 +85,6 @@ public class PasswordPageController extends PasswordManagerController {
 
   private Password passwordObj;
 
-  private String data;
   final Clipboard clipboard = Clipboard.getSystemClipboard();
   final ClipboardContent  clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
@@ -99,20 +98,13 @@ public class PasswordPageController extends PasswordManagerController {
     logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
     String username = restTalker.getUsername();
     signedInAsText.setText("Signed in as: " + username);
-    // sysout get userdata from window
-  
-  }
-
-  public void setData(String data) {
-    this.data = data;
-    System.out.println("data: " + data);
     updatePasswords();
   }
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    System.out.println("data: " + data);
-    JSONArray jsonArray = new JSONArray(data);
+    System.out.println("data: " + restTalker.getProfiles());
+    JSONArray jsonArray = new JSONArray(restTalker.getProfiles());
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"), ((JSONObject) elem).getString("password")));
@@ -289,8 +281,8 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     System.out.println("Logging out...");
-    restTalker.logout();
-    super.switchScene(event, "login.fxml", "");
+    restTalker.logout(); 
+    super.switchScene(event, "login.fxml");
   }
 
   /**

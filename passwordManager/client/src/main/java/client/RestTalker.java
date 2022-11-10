@@ -193,9 +193,16 @@ public class RestTalker {
     }
   }
 
-  public Map<String, String> getProfiles(String username) {
-    // Get response string
-    return null;
+  public String getProfiles() {
+    try {
+      HttpResponse<String> response =
+          this.get("/api/v1/entries/getProfiles");
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
   }
 
   // get username
