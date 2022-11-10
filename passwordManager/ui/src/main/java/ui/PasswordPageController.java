@@ -36,7 +36,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class for the password page.

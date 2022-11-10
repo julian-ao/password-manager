@@ -2,8 +2,7 @@ package ui;
 
 import client.RestTalker;
 import java.io.IOException;
-import java.util.HashMap;
- 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 /**
  * FXML Controller class for the login page.
  */
