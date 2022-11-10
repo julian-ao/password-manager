@@ -1,6 +1,5 @@
 package ui;
 
-import core.UserSession;
 import client.RestTalker;
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,7 +53,8 @@ public class LoginPageController extends PasswordManagerController {
 
   /**
    * onLoginButtonClick handles the loginbutton click, if the fields are filled in
-   * it passes the username and password to the userSession class to attempt a
+   * it passes the username and password to the restserver and if the login is
+   * successful it opens the mainpage and sends the profile to the mainpage.
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
    * 
@@ -70,9 +70,6 @@ public class LoginPageController extends PasswordManagerController {
     System.out.println(restTalker.test3("postTest"));
     System.out.println(restTalker.test4("TestID"));
     System.out.println(restTalker.login("Admin", "Admin1!"));
-    
-
-    UserSession userSession;
 
     String username = usernameTextField.getText();
     String password = passwordTextField.getText();
@@ -81,12 +78,9 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     if (!username.equals("") && !password.equals("")) {
-      userSession = UserSession.getInstance();
 
       String data = restTalker.login(username, password);
       if (!data.equals("Invalid")) {
-        userSession.login(username, password);
-        //((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
         switchScene(event, "passwords.fxml", data);
       }
       visualFeedbackText.setText("Wrong username or password");
@@ -99,7 +93,6 @@ public class LoginPageController extends PasswordManagerController {
     passwordTextField.setStyle("-fx-border-color: #FE8383");
     passwordPasswordField.setStyle("-fx-border-color: #FE8383");
     super.rotateNode(visualFeedbackText, false);
-    userSession = null;
   }
 
   @FXML

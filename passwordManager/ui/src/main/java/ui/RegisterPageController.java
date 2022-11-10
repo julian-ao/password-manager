@@ -1,6 +1,6 @@
 package ui;
 
-import core.UserSession;
+import client.RestTalker;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +44,8 @@ public class RegisterPageController extends PasswordManagerController {
     eyeImageView2.setImage(super.eyeOpenImage);
   }
 
+  RestTalker restTalker = new RestTalker();
+
   @FXML
   private void eyeImageViewClick1() {
     passwordEye(passwordTextField, passwordPasswordField, eyeImageView1);
@@ -61,7 +63,7 @@ public class RegisterPageController extends PasswordManagerController {
 
   /**
    * onCreateUserButtonClick sends the fields in the register page form to the
-   * usersession for validation, if they are validated, a new user is stored and
+   * resttalker for validation, if they are validated, a new user is stored and
    * the user is sent back to the loginpage.
 
    * @param event ActionEvent object used in the switchScene method
@@ -82,12 +84,11 @@ public class RegisterPageController extends PasswordManagerController {
     // if all fields are filled
     if (username != "" && password != "" && passwordRepeat != "") {
 
-      UserSession userSession = UserSession.getInstance();
-      String validationResult = userSession.userValidator(username, password, passwordRepeat);
+      String validationResult = restTalker.userValidator(username, password, passwordRepeat);
 
       if (validationResult.equals("OK")) {
         switchScene(event, "login.fxml", "");
-        userSession.registerUser(username, password);
+        restTalker.registerUser(username, password);
       } else {
         visualFeedbackText.setText(validationResult);
       }

@@ -249,4 +249,15 @@ public class RestTalker {
     }
   }
 
+  public String userValidator(String username, String password, String passwordRepeat) {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password=" + password + "&passwordRepeat=" + passwordRepeat);
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
 }
