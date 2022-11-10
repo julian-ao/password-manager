@@ -171,6 +171,17 @@ public class UserSession {
     user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
   }
 
+  /**
+   * deleteProfile deletes a profile from the database.
+
+   * @param username the username of the user
+   * @param profile the profile to delete
+   */
+  public void deleteProfile(String username, Profile profile) {
+    this.databaseTalker.deleteProfile(username, profile);
+    user.setProfiles(databaseTalker.getProfiles(user.getUsername()));
+  }
+
   public DatabaseTalker getDatabaseTalker() {
     return this.databaseTalker;
   }

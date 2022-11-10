@@ -1,6 +1,8 @@
 package ui;
 
 import core.Password;
+import core.Profile;
+import core.UserSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -228,6 +230,18 @@ public class PasswordPageController extends PasswordManagerController {
       }
     });
 
+    trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        // TODO get profile and delete it
+        String usernameToDelete = usernameText.getText();
+        String titleToDelete = titleText.getText();
+        String passwordToDelete = passwordText.getText();
+        String userToDelete = restTalker.getUsername();
+        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
+      }
+    });
+
     clipboardContent.putString(password);
     clipboard.setContent(clipboardContent);
     
@@ -343,6 +357,25 @@ public class PasswordPageController extends PasswordManagerController {
     }
   }
 
+  /**
+   * Delete password
+   */
+  @FXML
+  private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
+    // TODO Make this better
+    /* 
+    ArrayList profileListToDeleteFrom = userSession.getProfiles();
+    // find profile to delete
+    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
+      Profile profile = (Profile) profileListToDeleteFrom.get(i);
+      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
+        userSession.deleteProfile(user, profile);
+      }
+    }
+    updatePasswords();
+    */
+  }
+
   @FXML
   private void onGeneratePasswordButtonClick() {
     passwordObj = new Password();
@@ -372,3 +405,4 @@ public class PasswordPageController extends PasswordManagerController {
     }
   }
 }
+
