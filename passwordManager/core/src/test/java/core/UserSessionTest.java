@@ -54,6 +54,28 @@ public class UserSessionTest {
   }
 
   @Test
+  public void deleteProfileTest() {
+    resetFile();
+    userSession.getDatabaseTalker().insertUser(new User("Admin", "Admin1!"));
+
+    userSession.login("Admin", "Admin1!");
+    ArrayList<Profile> profiles = userSession.getProfiles();
+    ArrayList<ArrayList<String>> profilesStr = userSession.getProfilesNativeTypes();
+
+
+    Profile profileToDelete = new Profile("empty.url", "google", "user", "passord", "Admin");
+    userSession.insertProfile("user", "google", "passord");
+
+    userSession.deleteProfile("Admin", profileToDelete);
+    ArrayList<Profile> profiles2 = userSession.getProfiles();
+
+    ArrayList<ArrayList<String>> profilesStr2 = userSession.getProfilesNativeTypes();
+    
+    assertEquals(profilesStr2.size(), profilesStr.size());
+    assertEquals(true, profiles2.size() == profiles.size());
+  }
+
+  @Test
   public void loginTest() {
     resetFile();
     User user1 = new User("User1", "password1");
