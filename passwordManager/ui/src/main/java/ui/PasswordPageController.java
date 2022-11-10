@@ -1,11 +1,14 @@
 package ui;
 
-import core.Password;
-import core.Profile;
-import core.UserSession;
+import client.Password;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -56,7 +59,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   @FXML
   private Text signedInAsText;
-  
+
   @FXML
   private Text passwordStrengthText;
 
@@ -78,14 +81,11 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private Scene scene;
 
-
-  private UserSession userSession;
-
   private Password passwordObj;
 
   final Clipboard clipboard = Clipboard.getSystemClipboard();
-
-  final ClipboardContent  clipboardContent = new ClipboardContent();
+  final ClipboardContent clipboardContent = new ClipboardContent();
+  private RestTalker restTalker = new RestTalker();
 
   /**
    * initialize sets the signed in as text to the username of the user
@@ -93,20 +93,19 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    userSession = UserSession.getInstance();
-
     logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
-
-    signedInAsText.setText("Signed in as: " + userSession.getUsername());
+    String username = restTalker.getUsername();
+    signedInAsText.setText("Signed in as: " + username);
     updatePasswords();
   }
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    ArrayList<ArrayList<String>> data = userSession.getProfilesNativeTypes();
+    JSONArray jsonArray = new JSONArray(restTalker.getProfiles());
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
-    for (ArrayList<String> elem : data) {
-      passwords.add(profileComponent(elem.get(0), elem.get(1), elem.get(2)));
+    for (Object elem : jsonArray) {
+      passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
+          ((JSONObject) elem).getString("password")));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);
@@ -115,7 +114,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   /**
    * profileComponent sets up a component used in the list view.
-
+   * 
    * @param name     name displayed in the password Component
    * @param password password displayed
    * @param email    email displayed
@@ -125,41 +124,42 @@ public class PasswordPageController extends PasswordManagerController {
     GridPane gridPane = new GridPane();
     gridPane.setMaxWidth(720);
     // gridPane.setMinWidth(690);
-    gridPane.setPadding(new Insets(15, 20, 20, 20));  
-    /*gridPane.setBorder(new Border(new BorderStroke(Color.web("#A6A6A6"), 
-            Color.web("#A6A6A6"), Color.web("#A6A6A6"), Color.web("#A6A6A6"),
-            BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
-            CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));*/
+    gridPane.setPadding(new Insets(15, 20, 20, 20));
+    /*
+     * gridPane.setBorder(new Border(new BorderStroke(Color.web("#A6A6A6"),
+     * Color.web("#A6A6A6"), Color.web("#A6A6A6"), Color.web("#A6A6A6"),
+     * BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID,
+     * BorderStrokeStyle.NONE,
+     * CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));
+     */
 
     Text titleText = new Text(title);
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
-    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); //! fargedritten funker ikke
+    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); // ! fargedritten funker ikke
     usernameText.setTextFill(Color.web("#A6A6A6"));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web("#A6A6A6")); //! fargedritten funker ikke
+    passwordText.setTextFill(Color.web("#A6A6A6")); // ! fargedritten funker ikke
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
     copySVGPath.setContent(
-      "M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"
-    );
+        "M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z");
 
     SVGPath trashSVGPath = new SVGPath();
     trashSVGPath.setContent(
-      "M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z"
-    );
+        "M160 400C160 408.8 152.8 416 144 416C135.2 416 128 408.8 128 400V192C128 183.2 135.2 176 144 176C152.8 176 160 183.2 160 192V400zM240 400C240 408.8 232.8 416 224 416C215.2 416 208 408.8 208 400V192C208 183.2 215.2 176 224 176C232.8 176 240 183.2 240 192V400zM320 400C320 408.8 312.8 416 304 416C295.2 416 288 408.8 288 400V192C288 183.2 295.2 176 304 176C312.8 176 320 183.2 320 192V400zM317.5 24.94L354.2 80H424C437.3 80 448 90.75 448 104C448 117.3 437.3 128 424 128H416V432C416 476.2 380.2 512 336 512H112C67.82 512 32 476.2 32 432V128H24C10.75 128 0 117.3 0 104C0 90.75 10.75 80 24 80H93.82L130.5 24.94C140.9 9.357 158.4 0 177.1 0H270.9C289.6 0 307.1 9.358 317.5 24.94H317.5zM151.5 80H296.5L277.5 51.56C276 49.34 273.5 48 270.9 48H177.1C174.5 48 171.1 49.34 170.5 51.56L151.5 80zM80 432C80 449.7 94.33 464 112 464H336C353.7 464 368 449.7 368 432V128H80V432z");
 
     // COLOR
     BackgroundFill greyBackgroundFill = new BackgroundFill(Color.valueOf("#81AAE9"),
-      new CornerRadii(10), new Insets(10));
+        new CornerRadii(10), new Insets(10));
     Background greyBackground = new Background(greyBackgroundFill);
 
     BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf("#e98181"),
-      new CornerRadii(10), new Insets(10));
+        new CornerRadii(10), new Insets(10));
     Background redBackground = new Background(redBackgroundFill);
 
     // TOGETHER
@@ -175,7 +175,6 @@ public class PasswordPageController extends PasswordManagerController {
     trashRegion.setMinSize(40, 45);
     trashRegion.setMaxSize(40, 45);
 
-
     copyRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -189,9 +188,9 @@ public class PasswordPageController extends PasswordManagerController {
       public void handle(MouseEvent event) {
         scene = copyRegion.getScene();
         copyRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#3e5373"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.HAND); //Change cursor to hand
+            Color.valueOf("#3e5373"), new CornerRadii(10),
+            new Insets(10))));
+        scene.setCursor(Cursor.HAND); // Change cursor to hand
       }
     });
 
@@ -200,9 +199,9 @@ public class PasswordPageController extends PasswordManagerController {
       public void handle(MouseEvent event) {
         scene = copyRegion.getScene();
         copyRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#81AAE9"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.DEFAULT); //Change cursor to default
+            Color.valueOf("#81AAE9"), new CornerRadii(10),
+            new Insets(10))));
+        scene.setCursor(Cursor.DEFAULT); // Change cursor to default
       }
     });
 
@@ -211,9 +210,9 @@ public class PasswordPageController extends PasswordManagerController {
       public void handle(MouseEvent event) {
         scene = trashRegion.getScene();
         trashRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#753f3f"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.HAND); //Change cursor to hand
+            Color.valueOf("#753f3f"), new CornerRadii(10),
+            new Insets(10))));
+        scene.setCursor(Cursor.HAND); // Change cursor to hand
       }
     });
 
@@ -222,9 +221,9 @@ public class PasswordPageController extends PasswordManagerController {
       public void handle(MouseEvent event) {
         scene = trashRegion.getScene();
         trashRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#e98181"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.DEFAULT); //Change cursor to default
+            Color.valueOf("#e98181"), new CornerRadii(10),
+            new Insets(10))));
+        scene.setCursor(Cursor.DEFAULT); // Change cursor to default
       }
     });
 
@@ -235,14 +234,14 @@ public class PasswordPageController extends PasswordManagerController {
         String usernameToDelete = usernameText.getText();
         String titleToDelete = titleText.getText();
         String passwordToDelete = passwordText.getText();
-        String userToDelete = userSession.getUsername();
+        String userToDelete = restTalker.getUsername();
         onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
       }
     });
 
     clipboardContent.putString(password);
     clipboard.setContent(clipboardContent);
-    
+
     ColumnConstraints col1 = new ColumnConstraints();
     col1.setPercentWidth(50);
     ColumnConstraints col2 = new ColumnConstraints();
@@ -251,7 +250,7 @@ public class PasswordPageController extends PasswordManagerController {
     col3.setPercentWidth(7);
     ColumnConstraints col4 = new ColumnConstraints();
     col4.setPercentWidth(7);
-    
+
     gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 
     gridPane.add(titleText, 0, 0);
@@ -268,30 +267,30 @@ public class PasswordPageController extends PasswordManagerController {
     TextField textField = new TextField(label.getText());
     textField.setEditable(false);
     textField.setStyle(
-      "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;"
-    );
+        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;");
     // the invisible label is a hack to get the textField to size like a label.
-    Label invisibleLabel = new Label();  
+    Label invisibleLabel = new Label();
     invisibleLabel.textProperty().bind(label.textProperty());
     invisibleLabel.setVisible(false);
     textStack.getChildren().addAll(invisibleLabel, textField);
     label.textProperty().bindBidirectional(textField.textProperty());
     label.setGraphic(textStack);
     label.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-  
+
     return label;
   }
 
   /**
-   * Tells the userSession to log out and switches the scene back to the login
+   * Tells the restTalker to log out and switches the scene back to the login
    * page.
-
+   * 
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the switchScene does not work
    */
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
-    userSession.logOut();
+    System.out.println("Logging out...");
+    restTalker.logout();
     super.switchScene(event, "login.fxml");
   }
 
@@ -327,22 +326,21 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onAddProfileButton(ActionEvent event) throws IOException {
-    if (
-        addProfileUsernameTextField.getText().equals("")
+    if (addProfileUsernameTextField.getText().equals("")
         || addProfileTitleTextField.getText().equals("")
-        || addProfilePasswordTextField.getText().equals("")
-    ) {
+        || addProfilePasswordTextField.getText().equals("")) {
       visualFeedbackText.setVisible(true);
       addProfileUsernameTextField.setStyle("-fx-border-color: #FE8383");
       addProfileTitleTextField.setStyle("-fx-border-color: #FE8383");
       addProfilePasswordTextField.setStyle("-fx-border-color: #FE8383");
       super.rotateNode(visualFeedbackText, false);
     } else {
-      userSession.insertProfile(
-          addProfileUsernameTextField.getText(),
+      restTalker.insertProfile(
           addProfileTitleTextField.getText(),
-          addProfilePasswordTextField.getText()
-      );
+          addProfileUsernameTextField.getText(),
+          addProfilePasswordTextField.getText());
+
+      System.out.println("Profile added!");
 
       visualFeedbackText.setVisible(false);
       addProfileOverlay.setVisible(false);
@@ -356,16 +354,13 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
-    // TODO Make this better
-    ArrayList profileListToDeleteFrom = userSession.getProfiles();
-    // find profile to delete
-    for (int i = 0; i < profileListToDeleteFrom.size(); i++) {
-      Profile profile = (Profile) profileListToDeleteFrom.get(i);
-      if (profile.getEmail().equals(title) && profile.getProfileUsername().equals(username) && profile.getEncryptedPassword().equals(password)) {
-        userSession.deleteProfile(user, profile);
-      }
+    System.out.println("Deleting password...");
+    if (restTalker.deleteProfile(user, title, username, password)) {
+      System.out.println("Password deleted!");
+      updatePasswords();
+    } else {
+      System.out.println("------Failed to delete profile------");
     }
-    updatePasswords();
   }
 
   @FXML
@@ -397,4 +392,3 @@ public class PasswordPageController extends PasswordManagerController {
     }
   }
 }
-

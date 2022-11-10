@@ -64,5 +64,7 @@ public interface DatabaseTalker {
    * @param username the username that owns the profile
    * @param profile  the profile which is to be deleted
    */
-  public void deleteProfile(String username, Profile profile);
+  public boolean deleteProfile(String username, Profile profile);
+
+  public boolean isSameProfile(Profile profile1, Profile profile2);
 }

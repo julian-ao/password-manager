@@ -4,7 +4,6 @@ package core;
  * Profile is a class that represents a password profile.
  */
 public class Profile {
-  private String url;
   private String email;
   private String profileUsername;
   private String encryptedPassword;
@@ -22,16 +21,11 @@ public class Profile {
    * @param profileUsername   the username of the profile
    * @param encryptedPassword the encrypted password of the profile
    */
-  public Profile(String url, String email, String profileUsername, String encryptedPassword, String parent) {
-    this.url = url;
+  public Profile(String email, String profileUsername, String encryptedPassword, String parent) {
     this.email = email;
     this.profileUsername = profileUsername;
     this.encryptedPassword = encryptedPassword;
     this.parent = parent;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
   }
 
   public void setEmail(String email) {
@@ -45,22 +39,13 @@ public class Profile {
   public void setEncryptedPassword(String encryptedPassword) {
     this.encryptedPassword = encryptedPassword;
   }
-
-  public void setRandomEncryptedPassword() {
-    // random password
-    this.encryptedPassword = new Password().getPassword();
-  }
-
+  
   public void setParent(String parent) {
     this.parent = parent;
   }
 
   public String getParent() {
     return this.parent;
-  }
-
-  public String getUrl() {
-    return this.url;
   }
 
   public String getEmail() {
@@ -79,8 +64,7 @@ public class Profile {
    * toString is a method that returns a string representation of the Profile.
    */
   public String toString() {
-    return "url: " + this.url
-        + " email: " + this.email
+    return " email: " + this.email
         + " profileUsername: " + this.profileUsername
         + " encryptedPassword: " + this.encryptedPassword;
   }

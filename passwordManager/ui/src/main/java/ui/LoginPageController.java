@@ -1,8 +1,8 @@
 package ui;
 
-import core.UserSession;
 import client.RestTalker;
 import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 /**
  * FXML Controller class for the login page.
  */
@@ -52,7 +51,8 @@ public class LoginPageController extends PasswordManagerController {
 
   /**
    * onLoginButtonClick handles the loginbutton click, if the fields are filled in
-   * it passes the username and password to the userSession class to attempt a
+   * it passes the username and password to the restserver and if the login is
+   * successful it opens the mainpage and sends the profile to the mainpage.
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
    * 
@@ -64,11 +64,6 @@ public class LoginPageController extends PasswordManagerController {
   private void onLoginButtonClick(ActionEvent event) throws IOException {
 
     RestTalker restTalker = new RestTalker();
-    System.out.println(restTalker.test1());
-    System.out.println(restTalker.test2("hello", "world"));
-    System.out.println(restTalker.test3("postTest"));
-
-    UserSession userSession;
 
     String username = usernameTextField.getText();
     String password = passwordTextField.getText();
@@ -77,9 +72,9 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     if (!username.equals("") && !password.equals("")) {
-      userSession = UserSession.getInstance();
-      if (userSession.login(username, password)) {
-        ((Stage) usernameTextField.getScene().getWindow()).setUserData(userSession);
+
+      String data = restTalker.login(username, password);
+      if (data.equals("Success")) {
         switchScene(event, "passwords.fxml");
       }
       visualFeedbackText.setText("Wrong username or password");
@@ -92,7 +87,6 @@ public class LoginPageController extends PasswordManagerController {
     passwordTextField.setStyle("-fx-border-color: #FE8383");
     passwordPasswordField.setStyle("-fx-border-color: #FE8383");
     super.rotateNode(visualFeedbackText, false);
-    userSession = null;
   }
 
   @FXML

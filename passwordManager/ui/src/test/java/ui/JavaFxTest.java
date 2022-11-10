@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
-import core.UserSession;
+import client.RestTalker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -16,23 +16,47 @@ import javafx.stage.Stage;
 
 public class JavaFxTest extends ApplicationTest {
 
+  private RestTalker restTalker = new RestTalker();
 
   @Override
   public void start(Stage stage) throws IOException {
 
-    UserSession userSession = UserSession.getInstance();
-    File file = new File("../localpersistence/src/resources/localpersistance/TestUsers.json");
-    if(file.exists()){
-      file.delete();
+    String tempUrl = "../localpersistence/src/resources/localpersistance/TempUsers.json";
+    String url = "../localpersistence/src/resources/localpersistance/Users.json";
+
+    // move everything inside the main persistence file to the temp file by deleting the temp file and renaming the main file
+    // then create a new main file
+    File tempFile = new File(tempUrl);
+    File mainFile = new File(url);
+    if (tempFile.exists()) {
+      tempFile.delete();
     }
-    userSession.overridePath("../localpersistence/src/resources/localpersistance/TestUsers.json");
-    userSession.registerUser("Admin", "Admin1!");
+    mainFile.renameTo(tempFile);
+    File newMainFile = new File(url);
+    newMainFile.createNewFile();
+
+    restTalker.registerUser("Admin", "Admin1!");
+
 
     FXMLLoader fxmlLoader = new FXMLLoader(PasswordManagerApp.class.getResource("login.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 900, 600);
     stage.setTitle("Password Manager | Login");
     stage.setScene(scene);
     stage.show();
+  }
+
+  @Override
+  public void stop() {
+
+    // delete main file and rename temp file to main file
+    String tempUrl = "../localpersistence/src/resources/localpersistance/TempUsers.json";
+    String url = "../localpersistence/src/resources/localpersistance/Users.json";
+    File tempFile = new File(tempUrl);
+    File mainFile = new File(url);
+    if (mainFile.exists()) {
+      mainFile.delete();
+    }
+    tempFile.renameTo(mainFile);
   }
 
 

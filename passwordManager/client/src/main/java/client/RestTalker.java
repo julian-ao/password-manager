@@ -1,20 +1,14 @@
 package client;
 
-import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import org.json.JSONObject;
 
 
 public class RestTalker {
@@ -124,22 +118,14 @@ public class RestTalker {
     return client.sendAsync(request, BodyHandlers.ofString());
   }
 
+/*
+ * ------------------------------------------NEXT IS REQ CODE-----------------------------------------------------
+ */
+
+
   public String test1() {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/test1");
-      return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
-      e.printStackTrace();
-      return "error";
-    }
-  }
-
-  // Test2 is a test that sends a get request with parameters
-  public String test2(String param1, String param2) {
-    try {
-      HttpResponse<String> response =
-          this.get("/api/v1/entries/test?param1=" + param1 + "&param2=" + param2);
       return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
@@ -160,27 +146,143 @@ public class RestTalker {
     }
   }
 
+    // Test2 is a test that sends a get request with parameters
+    public String test2(String param1, String param2) {
+      try {
+        HttpResponse<String> response =
+            this.get("/api/v1/entries/test?param1=" + param1 + "&param2=" + param2);
+        return response.body();
+      } catch (URISyntaxException | InterruptedException | ExecutionException
+          | ServerResponseException e) {
+        e.printStackTrace();
+        return "error";
+      }
+    }
+  
 
-
-  public boolean login(String username, String password) {
-    return false;
+  public String test4(String param) {
+    String id = param;
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/test4?param=" + id);
+      // Gets json {test: id} in toString format
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
   }
 
-  public Map<String, String> getProfiles(String username) {
-    // Get response string
-    return null;
+
+
+  public String login(String username, String password) {
+    try {
+      HttpResponse<String> response =
+          this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
   }
 
+  public String getProfiles() {
+    try {
+      HttpResponse<String> response =
+          this.get("/api/v1/entries/getProfiles");
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+  // get username
+  public String getUsername() {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/username");
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+  //post request to create a new user, sends JSON object {"username": username, "password": password}
   public boolean registerUser(String username, String password) {
-    return false;
+    try {
+      JSONObject obj = new JSONObject();
+      obj.put("username", username);
+      obj.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/register", obj.toString());
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
-  public void insertProfile(String username, String email, String password) {
-
+  //post request to create a new user, sends JSON object {"username": username, "password": password, "email": email}
+  public boolean insertProfile(String username, String email, String password) {
+    try {
+      JSONObject json = new JSONObject();
+      json.put("username", username);
+      json.put("email", email);
+      json.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   public boolean userExists(String username) {
     return false;
+  }
+
+  public boolean logout() {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/logout");
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public String userValidator(String username, String password, String passwordRepeat) {
+    try {
+      HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password=" + password + "&passwordRepeat=" + passwordRepeat);
+      return response.body();
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return "error";
+    }
+  }
+
+  //delete profile
+  public boolean deleteProfile(String user, String title, String username, String password) {
+    try {
+      JSONObject json = new JSONObject();
+      json.put("user", user);
+      json.put("title", title);
+      json.put("username", username);
+      json.put("password", password);
+      HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
+      return response.body().equals("Success");
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
 }
