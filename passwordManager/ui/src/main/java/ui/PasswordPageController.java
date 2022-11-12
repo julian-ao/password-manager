@@ -371,7 +371,7 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Checks the strength of the password and displays a message to the user.
+   * Checks the strength of the password and displays it to the user.
    */
   @FXML
   private void displayPasswordStrength() {
