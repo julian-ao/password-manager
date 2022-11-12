@@ -226,12 +226,12 @@ public class RestTalker {
     }
   }
 
-  //post request to create a new user, sends JSON object {"username": username, "password": password, "email": email}
-  public boolean insertProfile(String username, String email, String password) {
+  //post request to create a new user, sends JSON object {"username": username, "password": password, "title": title}
+  public boolean insertProfile(String username, String title, String password) {
     try {
       JSONObject json = new JSONObject();
       json.put("username", username);
-      json.put("email", email);
+      json.put("title", title);
       json.put("password", password);
       HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
       return response.body().equals("Success");

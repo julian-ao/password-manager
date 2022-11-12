@@ -107,7 +107,7 @@ public class JsonTalkerTest {
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
       if (
-          p.getEmail().equals(profile.getEmail()) &&
+          p.getTitle().equals(profile.getTitle()) &&
           p.getProfileUsername().equals(profile.getProfileUsername()) &&
           p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
         return true;

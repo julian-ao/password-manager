@@ -48,7 +48,7 @@ public class PasswordManagerController {
     for (Profile profile : profiles) {
       JSONObject jsonObject = new JSONObject();
       jsonObject.put("username", profile.getProfileUsername());
-      jsonObject.put("title", profile.getEmail());
+      jsonObject.put("title", profile.getTitle());
       jsonObject.put("password", profile.getEncryptedPassword());
       jsonArray.put(jsonObject);
     }
@@ -92,10 +92,10 @@ public class PasswordManagerController {
     DatabaseTalker databaseTalker = new JsonDatabaseTalker(url);
     JSONObject jsonObject = new JSONObject(body);
     String username = jsonObject.getString("username");
-    String email = jsonObject.getString("email");
+    String title = jsonObject.getString("title");
     String password = jsonObject.getString("password");
     if (databaseTalker.insertProfile(user.getUsername(),
-        new Profile(email, username, password, user.getUsername()))) {
+        new Profile(title, username, password, user.getUsername()))) {
       return "Success";
     } else {
       return "Failure";

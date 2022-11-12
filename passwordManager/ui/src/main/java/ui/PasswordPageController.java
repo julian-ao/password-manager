@@ -117,7 +117,7 @@ public class PasswordPageController extends PasswordManagerController {
    * 
    * @param name     name displayed in the password Component
    * @param password password displayed
-   * @param email    email displayed
+   * @param title    title displayed
    * @return A GridPane object used to place in the listview
    */
   private GridPane profileComponent(String username, String title, String password) {
@@ -371,7 +371,7 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Checks the strength of the password and displays a message to the user.
+   * Checks the strength of the password and displays it to the user.
    */
   @FXML
   private void displayPasswordStrength() {
