@@ -202,7 +202,7 @@ public class JsonDatabaseTalker implements DatabaseTalker {
    * @return true if the values of the profiles are the same, false otherwise
    */
   public boolean isSameProfile(Profile profile1, Profile profile2) {
-    if (profile1.getEmail().equals(profile2.getEmail())
+    if (profile1.getTitle().equals(profile2.getTitle())
         && profile1.getProfileUsername().equals(profile2.getProfileUsername())
         && profile1.getEncryptedPassword().equals(profile2.getEncryptedPassword())
         && profile1.getParent().equals(profile2.getParent())) {
