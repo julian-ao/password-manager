@@ -11,8 +11,10 @@ import client.RestTalker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
 
 public class JavaFxTest extends ApplicationTest {
 
@@ -111,6 +113,7 @@ public class JavaFxTest extends ApplicationTest {
     Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
         "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
 
+    //
     clickOn("#logOutButton");
     Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());
   }
@@ -159,6 +162,47 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#loginButton");
     Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
         "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+  }
 
+  // Login and create profile
+  @Test
+  public void testCreateProfile() {
+    clickOn("#usernameTextField");
+    write("Admin");
+    clickOn("#passwordPasswordField");
+    write("Admin1!");
+
+    clickOn("#loginButton");
+    // create profile
+    clickOn("#addProfileButton");
+    clickOn("#addProfileTitleTextField");
+    write("google.com");
+    clickOn("#addProfileUsernameTextField");
+    write("kbrat");
+    clickOn("#addProfilePasswordTextField");
+    write("passord1");
+    clickOn("#submitProfileButton");
+    // assert profilesListView is visible and has 1 item
+    Assertions.assertEquals(true, ((ListView<GridPane>) lookup("#profilesListView").query()).isVisible());
+    // create profile
+    clickOn("#addProfileButton");
+    clickOn("#addProfileTitleTextField");
+    write("instagram.com");
+    clickOn("#addProfileUsernameTextField");
+    write("kbrat2");
+    clickOn("#addProfilePasswordTextField");
+    write("passord");
+    Assertions.assertEquals("Weak password", ((Text) lookup("#passwordStrengthText").query()).getText());
+    clickOn("#addProfilePasswordTextField");
+    write("123");
+    Assertions.assertEquals("Medium password", ((Text) lookup("#passwordStrengthText").query()).getText());
+    clickOn("#profilePasswordGenerateButton");
+    Assertions.assertEquals("Strong password", ((Text) lookup("#passwordStrengthText").query()).getText());
+    clickOn("#submitProfileButton");
+
+    Assertions.assertEquals(2, ((ListView<GridPane>) lookup("#profilesListView").query()).getItems().size());
+    GridPane listOfProfiles = ((ListView<GridPane>) lookup("#profilesListView").query()).getItems().get(0);
+    clickOn(listOfProfiles.getChildren().get(4));
+    Assertions.assertEquals(1, ((ListView<GridPane>) lookup("#profilesListView").query()).getItems().size());
   }
 }
