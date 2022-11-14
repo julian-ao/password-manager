@@ -221,7 +221,11 @@ public class PasswordPageController extends PasswordManagerController {
     trashRegion.setOnMouseExited(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent event) {
         offHover(trashRegion, lightRed);
+      }
+    });
 
+    trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent event) {
         // TODO get profile and delete it
         String usernameToDelete = usernameText.getText();
         String titleToDelete = titleText.getText();
