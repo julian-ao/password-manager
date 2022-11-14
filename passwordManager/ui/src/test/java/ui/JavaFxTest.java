@@ -21,22 +21,9 @@ public class JavaFxTest extends ApplicationTest {
   @Override
   public void start(Stage stage) throws IOException {
 
-    String tempUrl = "../localpersistence/src/resources/localpersistance/TempUsers.json";
-    String url = "../localpersistence/src/resources/localpersistance/Users.json";
-
-    // move everything inside the main persistence file to the temp file by deleting the temp file and renaming the main file
-    // then create a new main file
-    File tempFile = new File(tempUrl);
-    File mainFile = new File(url);
-    if (tempFile.exists()) {
-      tempFile.delete();
-    }
-    mainFile.renameTo(tempFile);
-    File newMainFile = new File(url);
-    newMainFile.createNewFile();
+    restTalker.doDatabaseTest();
 
     restTalker.registerUser("Admin", "Admin1!");
-
 
     FXMLLoader fxmlLoader = new FXMLLoader(PasswordManagerApp.class.getResource("login.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 900, 600);
@@ -44,21 +31,6 @@ public class JavaFxTest extends ApplicationTest {
     stage.setScene(scene);
     stage.show();
   }
-
-  @Override
-  public void stop() {
-
-    // delete main file and rename temp file to main file
-    String tempUrl = "../localpersistence/src/resources/localpersistance/TempUsers.json";
-    String url = "../localpersistence/src/resources/localpersistance/Users.json";
-    File tempFile = new File(tempUrl);
-    File mainFile = new File(url);
-    if (mainFile.exists()) {
-      mainFile.delete();
-    }
-    tempFile.renameTo(mainFile);
-  }
-
 
   // Basic login, username: Admin, password: Admin1!
   @Test
@@ -81,9 +53,10 @@ public class JavaFxTest extends ApplicationTest {
     Assertions.assertEquals(false, ((TextField) lookup("#passwordTextField").query()).isVisible());
     Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());
 
-    clickOn("#loginButton");  
+    clickOn("#loginButton");
 
-    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
+        "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
   }
 
   // Login with wrong password
@@ -135,12 +108,12 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#loginButton");
 
-    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
+        "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
 
     clickOn("#logOutButton");
-    Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());    
+    Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());
   }
-
 
   // Login in wrong then click create account
   @Test
@@ -177,14 +150,15 @@ public class JavaFxTest extends ApplicationTest {
     // Log in.
     clickOn("#usernameTextField");
     write("Admin1");
-    
+
     clickOn("#passwordPasswordField");
     write("Admin1!");
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordPasswordField").query()).getText());
 
     clickOn("#loginButton");
-    Assertions.assertEquals(lookup("#YourProfiles").query().toString(), "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
-  
+    Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
+        "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
+
   }
 }

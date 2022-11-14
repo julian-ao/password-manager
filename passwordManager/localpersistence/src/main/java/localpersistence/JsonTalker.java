@@ -21,28 +21,34 @@ public class JsonTalker implements DatabaseTalker {
   private List<Profile> profiles;
 
   public JsonTalker(Path path) {
+    ObjectMapper mapper = new ObjectMapper();
+    final ArrayList<Integer> emptyList = new ArrayList<>();
+
     this.usersFile = new File(path.toString() + "/users.json");
     this.profilesFile = new File(path.toString() + "/profiles.json");
     if (!this.usersFile.exists()) {
       try {
         usersFile.createNewFile();
+        mapper.writeValue(usersFile, emptyList.toArray());
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
     if (!this.profilesFile.exists()) {
       try {
         profilesFile.createNewFile();
+        mapper.writeValue(profilesFile, emptyList.toArray());
       } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
       }
     }
+
   }
 
   private void loadData() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
+    users = new ArrayList<>();
+    profiles = new ArrayList<>();
     try {
       users = new ArrayList<User>(Arrays.asList(mapper.readValue(usersFile, User[].class)));
       profiles = new ArrayList<Profile>(
@@ -76,12 +82,15 @@ public class JsonTalker implements DatabaseTalker {
   public boolean userExists(String username) throws IOException {
     loadData();
 
-    for (User u : users) {
-      if (u.getUsername().equals(username)) {
-        return true;
+    if (users.size() > 0) {
+      for (User u : users) {
+        if (u.getUsername().equals(username)) {
+          return true;
+        }
       }
-    }
-    return false;
+      return false;
+    } else
+      return false;
   }
 
   public ArrayList<Profile> getProfiles(String username) throws IOException {
