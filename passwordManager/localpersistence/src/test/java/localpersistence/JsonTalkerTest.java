@@ -1,5 +1,6 @@
 package localpersistence;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
@@ -149,6 +150,9 @@ public class JsonTalkerTest {
     try {
       profiles = jsonTalker.getProfiles("user1");
       assertEquals(4, profiles.size());
+
+      profiles = jsonTalker.getProfiles("NOTAUSSERTHATEXISSTSINOURDATABAASE");
+      assertEquals(profiles, null);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -171,5 +175,25 @@ public class JsonTalkerTest {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+
+  @Test
+  public void constructorTest() throws IOException {
+    File usersFile = new File(path + "/users.json");
+    File profilesFile = new File(path + "/profiles.json");
+    usersFile.createNewFile();
+    profilesFile.createNewFile();
+    DatabaseTalker jsonTalker = new JsonTalker(file.toPath());
+
+    usersFile.delete();
+    profilesFile.delete();
+
+    DatabaseTalker jsonTalker1 = new JsonTalker(file.toPath());
+  }
+
+  @Test
+  public void getUserTest() throws IOException {
+    jsonTalker.insertUser(new User("username", "hashedPassword"));
+    Assertions.assertThat(jsonTalker.getUser("username").getPassword().equals("hashedPassword"));
   }
 }
