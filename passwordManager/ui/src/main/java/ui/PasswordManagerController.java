@@ -134,7 +134,7 @@ public class PasswordManagerController {
     region.setBackground(new Background(new BackgroundFill(
           Color.valueOf(color), new CornerRadii(10),
           new Insets(10))));
-    scene.setCursor(Cursor.HAND); //Change cursor to hand
+    scene.setCursor(Cursor.DEFAULT); //Change cursor to default
   }
 
   protected void updateUserData() {
