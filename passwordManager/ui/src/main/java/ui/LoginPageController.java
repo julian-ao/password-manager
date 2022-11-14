@@ -4,11 +4,14 @@ import core.UserSession;
 import client.RestTalker;
 import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 /**
@@ -42,12 +45,13 @@ public class LoginPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    eyeImageView.setImage(super.eyeOpenImage);
+    eyeImageView.setImage(eyeOpenImage);
+    visualFeedbackText.setFill(Color.valueOf(lightRed));
   }
 
   @FXML
   private void eyeImageViewClick() {
-    super.passwordEye(passwordTextField, passwordPasswordField, eyeImageView);
+    passwordEye(passwordTextField, passwordPasswordField, eyeImageView);
   }
 
   /**
@@ -88,15 +92,15 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     visualFeedbackText.setVisible(true);
-    usernameTextField.setStyle("-fx-border-color: #FE8383");
-    passwordTextField.setStyle("-fx-border-color: #FE8383");
-    passwordPasswordField.setStyle("-fx-border-color: #FE8383");
-    super.rotateNode(visualFeedbackText, false);
+    setBorder(usernameTextField, lightRed);
+    setBorder(passwordTextField, lightRed);
+    setBorder(passwordPasswordField, lightRed);
+    rotateNode(visualFeedbackText, false);
     userSession = null;
   }
 
   @FXML
   private void onRegisterButtonClick(ActionEvent event) throws IOException {
-    super.switchScene(event, "register.fxml");
+    switchScene(event, "register.fxml");
   }
 }

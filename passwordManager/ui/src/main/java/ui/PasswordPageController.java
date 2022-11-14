@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -48,7 +47,7 @@ public class PasswordPageController extends PasswordManagerController {
   private Pane addProfileOverlay;
 
   @FXML
-  private Button addProfileCloseButton;
+  private Pane addProfileClosePane;
 
   @FXML
   private Button logOutButton;
@@ -79,11 +78,9 @@ public class PasswordPageController extends PasswordManagerController {
 
 
   private UserSession userSession;
-
   private Password passwordObj;
 
   final Clipboard clipboard = Clipboard.getSystemClipboard();
-
   final ClipboardContent  clipboardContent = new ClipboardContent();
 
   /**
@@ -95,6 +92,32 @@ public class PasswordPageController extends PasswordManagerController {
     userSession = UserSession.getInstance();
 
     logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+
+    SVGPath crossSVGPath = new SVGPath();
+    crossSVGPath.setContent(
+      "M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
+    );
+
+    BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf(lightRed),
+      new CornerRadii(10), new Insets(10));
+    Background redBackground = new Background(redBackgroundFill);
+
+    addProfileClosePane.setBackground(redBackground);
+    addProfileClosePane.setShape(crossSVGPath);
+    addProfileClosePane.setMinSize(45, 45);
+    addProfileClosePane.setMaxSize(45, 45);
+
+    addProfileClosePane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent event) {
+        onHover(addProfileClosePane, darkRed);
+      }
+    });
+
+    addProfileClosePane.setOnMouseExited(new EventHandler<MouseEvent>() {
+      public void handle(MouseEvent event) {
+        offHover(addProfileClosePane, lightRed);
+      }
+    });
 
     signedInAsText.setText("Signed in as: " + userSession.getUsername());
     updatePasswords();
@@ -123,23 +146,18 @@ public class PasswordPageController extends PasswordManagerController {
   private GridPane profileComponent(String username, String title, String password) {
     GridPane gridPane = new GridPane();
     gridPane.setMaxWidth(720);
-    // gridPane.setMinWidth(690);
-    gridPane.setPadding(new Insets(15, 20, 20, 20));  
-    /*gridPane.setBorder(new Border(new BorderStroke(Color.web("#A6A6A6"), 
-            Color.web("#A6A6A6"), Color.web("#A6A6A6"), Color.web("#A6A6A6"),
-            BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE,
-            CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));*/
+    gridPane.setPadding(new Insets(15, 20, 20, 20));
 
     Text titleText = new Text(title);
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
     usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); //! fargedritten funker ikke
-    usernameText.setTextFill(Color.web("#A6A6A6"));
+    usernameText.setTextFill(Color.web(grey));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web("#A6A6A6")); //! fargedritten funker ikke
+    passwordText.setTextFill(Color.web(grey)); //! fargedritten funker ikke
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -153,11 +171,11 @@ public class PasswordPageController extends PasswordManagerController {
     );
 
     // COLOR
-    BackgroundFill greyBackgroundFill = new BackgroundFill(Color.valueOf("#81AAE9"),
+    BackgroundFill greyBackgroundFill = new BackgroundFill(Color.valueOf(lightBlue),
       new CornerRadii(10), new Insets(10));
     Background greyBackground = new Background(greyBackgroundFill);
 
-    BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf("#e98181"),
+    BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf(lightRed),
       new CornerRadii(10), new Insets(10));
     Background redBackground = new Background(redBackgroundFill);
 
@@ -176,7 +194,6 @@ public class PasswordPageController extends PasswordManagerController {
 
 
     copyRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
-      @Override
       public void handle(MouseEvent event) {
         clipboardContent.putString(password);
         clipboard.setContent(clipboardContent);
@@ -184,46 +201,26 @@ public class PasswordPageController extends PasswordManagerController {
     });
 
     copyRegion.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      @Override
       public void handle(MouseEvent event) {
-        scene = copyRegion.getScene();
-        copyRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#3e5373"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.HAND); //Change cursor to hand
+        onHover(copyRegion, darkBlue);
       }
     });
 
     copyRegion.setOnMouseExited(new EventHandler<MouseEvent>() {
-      @Override
       public void handle(MouseEvent event) {
-        scene = copyRegion.getScene();
-        copyRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#81AAE9"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.DEFAULT); //Change cursor to default
+        offHover(copyRegion, lightBlue);
       }
     });
 
     trashRegion.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      @Override
       public void handle(MouseEvent event) {
-        scene = trashRegion.getScene();
-        trashRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#753f3f"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.HAND); //Change cursor to hand
+        onHover(trashRegion, darkRed);
       }
     });
 
     trashRegion.setOnMouseExited(new EventHandler<MouseEvent>() {
-      @Override
       public void handle(MouseEvent event) {
-        scene = trashRegion.getScene();
-        trashRegion.setBackground(new Background(new BackgroundFill(
-          Color.valueOf("#e98181"), new CornerRadii(10),
-          new Insets(10))));
-        scene.setCursor(Cursor.DEFAULT); //Change cursor to default
+        offHover(trashRegion, lightRed);
       }
     });
 
@@ -279,7 +276,7 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     userSession.logOut();
-    super.switchScene(event, "login.fxml");
+    switchScene(event, "login.fxml");
   }
 
   /**
@@ -291,9 +288,9 @@ public class PasswordPageController extends PasswordManagerController {
     addProfileUsernameTextField.setText("");
     addProfilePasswordTextField.setText("");
 
-    addProfileUsernameTextField.setStyle("-fx-border-color: #A6A6A6");
-    addProfileTitleTextField.setStyle("-fx-border-color: #A6A6A6");
-    addProfilePasswordTextField.setStyle("-fx-border-color: #A6A6A6");
+    setBorder(addProfileUsernameTextField, grey);
+    setBorder(addProfileTitleTextField, grey);
+    setBorder(addProfilePasswordTextField, grey);
 
     addProfileOverlay.setVisible(true);
     passwordListPage.setEffect(new GaussianBlur(50));
@@ -303,7 +300,7 @@ public class PasswordPageController extends PasswordManagerController {
    * Closes the add profile overlay.
    */
   @FXML
-  private void onAddProfileCloseButton() {
+  private void onAddProfileClosePane() {
     visualFeedbackText.setVisible(false);
     addProfileOverlay.setVisible(false);
     passwordListPage.setEffect(null);
@@ -320,10 +317,10 @@ public class PasswordPageController extends PasswordManagerController {
         || addProfilePasswordTextField.getText().equals("")
     ) {
       visualFeedbackText.setVisible(true);
-      addProfileUsernameTextField.setStyle("-fx-border-color: #FE8383");
-      addProfileTitleTextField.setStyle("-fx-border-color: #FE8383");
-      addProfilePasswordTextField.setStyle("-fx-border-color: #FE8383");
-      super.rotateNode(visualFeedbackText, false);
+      setBorder(addProfileUsernameTextField, lightRed);
+      setBorder(addProfileTitleTextField, lightRed);
+      setBorder(addProfilePasswordTextField, lightRed);
+      rotateNode(visualFeedbackText, false);
     } else {
       userSession.insertProfile(
           addProfileUsernameTextField.getText(),

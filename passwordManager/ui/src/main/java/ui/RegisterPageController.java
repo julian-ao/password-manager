@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -40,8 +41,9 @@ public class RegisterPageController extends PasswordManagerController {
 
   @FXML
   public void initialize() {
-    eyeImageView1.setImage(super.eyeOpenImage);
-    eyeImageView2.setImage(super.eyeOpenImage);
+    eyeImageView1.setImage(eyeOpenImage);
+    eyeImageView2.setImage(eyeOpenImage);
+    visualFeedbackText.setFill(Color.valueOf(lightRed));
   }
 
   @FXML
@@ -96,11 +98,11 @@ public class RegisterPageController extends PasswordManagerController {
     }
 
     visualFeedbackText.setVisible(true);
-    setBorderRed(usernameTextField);
-    setBorderRed(passwordTextField);
-    setBorderRed(repeatPasswordTextField);
-    setBorderRed(passwordPasswordField);
-    setBorderRed(repeatPasswordPasswordField);
+    setBorder(usernameTextField, lightRed);
+    setBorder(passwordTextField, lightRed);
+    setBorder(repeatPasswordTextField, lightRed);
+    setBorder(passwordPasswordField, lightRed);
+    setBorder(repeatPasswordPasswordField, lightRed);
     rotateNode(visualFeedbackText, false);
   }
 
