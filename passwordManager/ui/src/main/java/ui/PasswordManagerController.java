@@ -4,6 +4,8 @@ import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +13,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,9 +32,19 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-open.png");
+    "file:src/main/resources/temporaryImageFolder/eye-open.png"
+  );
   protected Image eyeClosedImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-closed.png");
+    "file:src/main/resources/temporaryImageFolder/eye-closed.png"
+  );
+
+  // Colours
+  protected String lightRed = "#e98181";
+  protected String darkRed = "#753f3f";
+  protected String lightBlue = "#81aae9";
+  protected String darkBlue = "#3e5373";
+  protected String grey = "#a6a6a6";
+
 
   /**
    * switchScene switches the vies to a different page, for example when going to
@@ -100,8 +117,24 @@ public class PasswordManagerController {
    * 
    * @param element the element that is to be set to red
    */
-  protected void setBorderRed(Node element) {
-    element.setStyle("-fx-border-color: #FE8383");
+  protected void setBorder(Node element, String colour) {
+    element.setStyle("-fx-border-color: " + colour);
+  }
+
+  public void onHover(Region region, String color){
+    scene = region.getScene();
+    region.setBackground(new Background(new BackgroundFill(
+          Color.valueOf(color), new CornerRadii(10),
+          new Insets(10))));
+    scene.setCursor(Cursor.HAND); //Change cursor to hand
+  }
+
+  public void offHover(Region region, String color){
+    scene = region.getScene();
+    region.setBackground(new Background(new BackgroundFill(
+          Color.valueOf(color), new CornerRadii(10),
+          new Insets(10))));
+    scene.setCursor(Cursor.HAND); //Change cursor to hand
   }
 
   protected void updateUserData() {
