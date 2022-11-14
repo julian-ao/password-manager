@@ -132,7 +132,7 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#registerButton");
 
-    // Register
+    // Register.
     clickOn("#usernameTextField");
     write("Admin1");
     Assertions.assertEquals("Admin1", ((TextField) lookup("#usernameTextField").query()).getText());
