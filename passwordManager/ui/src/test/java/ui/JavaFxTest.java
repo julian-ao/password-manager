@@ -110,9 +110,6 @@ public class JavaFxTest extends ApplicationTest {
 
     clickOn("#loginButton");
 
-    Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
-        "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
-
     //
     clickOn("#logOutButton");
     Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());
