@@ -67,4 +67,11 @@ public interface DatabaseTalker {
    * @param profile  the profile which is to be deleted
    */
   public void deleteProfile(String username, Profile profile) throws IOException;
+
+  /**
+   * 
+   * @param username the username of the user
+   * @return User object with all the data connected to the username
+   */
+  public User getUser(String username) throws IOException;
 }

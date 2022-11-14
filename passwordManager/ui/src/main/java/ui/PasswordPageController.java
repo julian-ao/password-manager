@@ -87,6 +87,10 @@ public class PasswordPageController extends PasswordManagerController {
   final ClipboardContent clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
 
+  public void setUserData(String username, String password) {
+    restTalker.setLoggedIn(username, password);
+  }
+
   /**
    * initialize sets the signed in as text to the username of the user
    * and updates the passwords based on the used session.
@@ -290,7 +294,6 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     System.out.println("Logging out...");
-    restTalker.logout();
     super.switchScene(event, "login.fxml");
   }
 

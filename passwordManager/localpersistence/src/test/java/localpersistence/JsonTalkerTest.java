@@ -26,10 +26,10 @@ public class JsonTalkerTest {
 
   private void user1Profiles() {
     try {
-      jsonTalker.insertProfile("tmp", new Profile( "s@.n.n", "brukernavn", "pass", "user1"));
-      jsonTalker.insertProfile("tmp", new Profile( "s@.n.n", "brukernavn1", "pass", "user1"));
-      jsonTalker.insertProfile("tmp", new Profile( "s@.n.n", "brukernavn2", "pass", "user1"));
-      jsonTalker.insertProfile("tmp", new Profile( "s@.n.n", "brukernavn3", "pass", "user1"));
+      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn", "pass", "user1", "a"));
+      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a"));
+      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a"));
+      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a"));
 
     } catch (Exception e) {
 
@@ -40,10 +40,10 @@ public class JsonTalkerTest {
     resetFile();
 
     // Insert a user into the json file
-    Profile profile1 = new Profile("bob@bob.mail", "profile1", "password1", "user1");
-    Profile profile2 = new Profile("bob@bob.mail", "profile2", "password2", "user1");
-    Profile profile3 = new Profile( "bob@bob.mail", "profile3", "password3", "user1");
-    Profile profile4 = new Profile( "bob@bob.mail", "profile4", "password4", "user1");
+    Profile profile1 = new Profile("bob@bob.mail", "profile1", "password1", "user1", "a");
+    Profile profile2 = new Profile("bob@bob.mail", "profile2", "password2", "user1", "a");
+    Profile profile3 = new Profile("bob@bob.mail", "profile3", "password3", "user1", "a");
+    Profile profile4 = new Profile("bob@bob.mail", "profile4", "password4", "user1", "a");
     User user = new User("user1", "password1");
 
     ArrayList<Profile> profiles = new ArrayList<Profile>();
@@ -51,8 +51,6 @@ public class JsonTalkerTest {
     profiles.add(profile2);
     profiles.add(profile3);
     profiles.add(profile4);
-
-    user.setProfiles(profiles);
 
     try {
       jsonTalker.insertUser(user);
@@ -106,8 +104,7 @@ public class JsonTalkerTest {
 
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
-      if (
-          p.getTitle().equals(profile.getTitle()) &&
+      if (p.getTitle().equals(profile.getTitle()) &&
           p.getProfileUsername().equals(profile.getProfileUsername()) &&
           p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
         return true;
@@ -121,7 +118,7 @@ public class JsonTalkerTest {
     resetFile();
     try {
       jsonTalker.insertUser(new User("user1", "password1"));
-      Profile profile = new Profile( "sondrkol@it.no", "sondrkol", "passord", "user1");
+      Profile profile = new Profile("sondrkol@it.no", "sondrkol", "passord", "user1", "a");
       jsonTalker.insertProfile("user1", profile);
       ArrayList<Profile> profiles = jsonTalker.getProfiles("user1");
       assertEquals(true, hasProfile(profiles, profile));

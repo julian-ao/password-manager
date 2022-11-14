@@ -7,26 +7,23 @@ import java.util.ArrayList;
  */
 public class User {
   private String username;
-  // !!!!MIDTLERTIDIG!!!!!
-  private String password;
-  private ArrayList<Profile> profiles;
   private int salt;
-  private byte[] hashedPassword;
+  private int encryptionSalt;
+  private String hashedPassword;
 
   public User() {
-    profiles = new ArrayList<Profile>();
+
   }
 
   /**
    * User is a constructor for the User class.
-
+   * 
    * @param username the username of the user
    * @param password the password of the user
    */
   public User(String username, String password) {
     this.username = username;
-    this.password = password;
-    this.profiles = new ArrayList<Profile>();
+    this.hashedPassword = password;
   }
 
   public void setUsername(String username) {
@@ -34,11 +31,15 @@ public class User {
   }
 
   public void setPassword(String password) {
-    this.password = password;
+    this.hashedPassword = password;
   }
 
-  public void setProfiles(ArrayList<Profile> profiles) {
-    this.profiles = profiles;
+  public void setSalt(int salt) {
+    this.salt = salt;
+  }
+
+  public void setEncryptionSalt(int salt) {
+    this.encryptionSalt = salt;
   }
 
   public String getUsername() {
@@ -46,19 +47,15 @@ public class User {
   }
 
   public String getPassword() {
-    return this.password;
+    return this.hashedPassword;
   }
 
-  public ArrayList<Profile> getProfiles() {
-    return this.profiles;
+  public int getSalt() {
+    return this.salt;
   }
 
-  public void addProfile(Profile profile) {
-    this.profiles.add(profile);
-  }
-
-  public void removeProfile(Profile profile) {
-    this.profiles.remove(profile);
+  public int getEncryptionSalt() {
+    return this.encryptionSalt;
   }
 
   /**
@@ -66,7 +63,7 @@ public class User {
    */
   public String toString() {
     return "username: " + this.username
-        + " password: " + this.password
-        + " profiles: " + this.profiles.toString();
+        + " hashed Password: " + this.hashedPassword
+        + " salt: " + this.salt;
   }
 }

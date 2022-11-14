@@ -7,7 +7,9 @@ import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
 import core.User;
 import core.Profile;
+import encryption.*;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/v1/entries")
@@ -27,16 +30,25 @@ public class PasswordManagerController {
 
   private String path = "../localpersistence/src/resources/localpersistance/production";
 
-  private User user;
-
   @GetMapping(value = "/login")
-  public @ResponseBody String getProfiles(@RequestParam String username, @RequestParam String password) {
+  public @ResponseBody String login(@RequestParam String username, @RequestParam String password) {
 
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
 
+    User u = null;
     try {
-      if (databaseTalker.checkPassword(username, password)) {
-        this.user = new User(username, password);
+      u = databaseTalker.getUser(username);
+    } catch (IOException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    int salt = u.getSalt();
+
+    SHA256 hash = new SHA256();
+    String hashedPasswordAttempt = hash.getHash(password, salt);
+
+    try {
+      if (databaseTalker.checkPassword(username, hashedPasswordAttempt)) {
         return "Success";
       } else {
         return "Failure";
@@ -47,21 +59,41 @@ public class PasswordManagerController {
   }
 
   @GetMapping(value = "/getProfiles")
-  public @ResponseBody String getProfiles() {
+  public @ResponseBody String getProfiles(@RequestParam String username, @RequestParam String password) {
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
     ArrayList<Profile> profiles = null;
     try {
-      profiles = databaseTalker.getProfiles(user.getUsername());
+      profiles = databaseTalker.getProfiles(username);
     } catch (IOException e) {
       return "[]";// !better handling??
     }
+    User user = null;
+    try {
+      user = databaseTalker.getUser(username);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    SHA256 hash = new SHA256();
+    String userPassword = password;
+
+    int encryptionSalt = user.getEncryptionSalt();
+
+    byte[] key = HexStringUtils.hexStringToByteArray(hash.getHash(userPassword, encryptionSalt));
     JSONArray jsonArray = new JSONArray();
-    for (Profile profile : profiles) {
-      JSONObject jsonObject = new JSONObject();
-      jsonObject.put("username", profile.getProfileUsername());
-      jsonObject.put("title", profile.getTitle());
-      jsonObject.put("password", profile.getEncryptedPassword());
-      jsonArray.put(jsonObject);
+    if (profiles != null) {
+      for (Profile profile : profiles) {
+        JSONObject jsonObject = new JSONObject();
+
+        Encrypted encryptedPassword = new Encrypted();
+        encryptedPassword.setData(HexStringUtils.hexStringToByteArray(profile.getEncryptedPassword()));
+        encryptedPassword.setNonce(HexStringUtils.hexStringToByteArray(profile.getNonceHex()));
+
+        jsonObject.put("username", profile.getProfileUsername());
+        jsonObject.put("title", profile.getTitle());
+        jsonObject.put("password", Encryption.decrypt(encryptedPassword, key));
+        jsonArray.put(jsonObject);
+      }
     }
     return jsonArray.toString();
   }
@@ -76,8 +108,17 @@ public class PasswordManagerController {
     JSONObject jsonObject = new JSONObject(body);
     String username = jsonObject.getString("username");
     String password = jsonObject.getString("password");
+
+    SHA256 hash = new SHA256();
+    Random rand = new Random();
+    int salt = rand.nextInt();
+    int encryptionSalt = rand.nextInt();
+    User user = new User(username, hash.getHash(password, salt));
+    user.setSalt(salt);
+    user.setEncryptionSalt(encryptionSalt);
+
     try {
-      if (databaseTalker.insertUser(new User(username, password))) {
+      if (databaseTalker.insertUser(user)) {
         return "Success";
       } else {
         return "Failure";
@@ -87,31 +128,35 @@ public class PasswordManagerController {
     }
   }
 
-  // Get username
-  @GetMapping(value = "/username")
-  public @ResponseBody String getUsername() {
-    return user.getUsername();
-  }
-
-  // Logout
-  @GetMapping(value = "/logout")
-  public @ResponseBody String logout() {
-    user = null;
-    return "Success";
-  }
-
   // Insert profile
   @PostMapping(value = "/insertProfile")
   public @ResponseBody String insertProfile(@RequestBody String body) {
-
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
     JSONObject jsonObject = new JSONObject(body);
+
+    String userPassword = jsonObject.getString("parentPassword");
+    Encryption encryption = new Encryption();
+    SHA256 hash = new SHA256();
+    User user = null;
+    try {
+      user = databaseTalker.getUser(jsonObject.getString("parentUsername"));
+    } catch (JSONException e1) {
+      e1.printStackTrace();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+    int encryptionSalt = user.getEncryptionSalt();
+
+    byte[] key = HexStringUtils.hexStringToByteArray(hash.getHash(userPassword, encryptionSalt));
+
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
-    String password = jsonObject.getString("password");
+    Encrypted encryptedPassword = encryption.encrypt(jsonObject.getString("password"), key);
+
     try {
       if (databaseTalker.insertProfile(user.getUsername(),
-          new Profile(title, username, password, user.getUsername()))) {
+          new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
+              user.getUsername(), HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce())))) {
         return "Success";
       } else {
         return "Failure";
@@ -201,13 +246,23 @@ public class PasswordManagerController {
   // Delete profile
   @PostMapping(value = "/deleteProfile")
   public @ResponseBody String deleteProfile(@RequestBody String body) {
+
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
     JSONObject jsonObject = new JSONObject(body);
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
     String password = jsonObject.getString("password");
+    User user = null;
     try {
-      databaseTalker.deleteProfile(user.getUsername(), new Profile(username, title, password, user.getUsername()));
+      user = databaseTalker.getUser(jsonObject.getString("user"));
+    } catch (JSONException e1) {
+      e1.printStackTrace();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+    try {
+      databaseTalker.deleteProfile(user.getUsername(),
+          new Profile(username, title, password, user.getUsername(), "empty"));
     } catch (IOException e) {
       return "Failure";
     }
