@@ -272,6 +272,14 @@ public class PasswordManagerController {
   @PostMapping(value = "/doDatabaseTest")
   public @ResponseBody String doTestDatabase() {
     path = "../localpersistence/src/resources/localpersistance/test";
+    File usersFile = new File(path + "/users.json");
+    File profilesFile = new File(path + "/profiles.json");
+    if (usersFile.exists()) {
+      usersFile.delete();
+    }
+    if (profilesFile.exists()) {
+      profilesFile.delete();
+    }
     return "Success";
   }
 }
