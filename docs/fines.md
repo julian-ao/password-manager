@@ -19,4 +19,5 @@ This is written and signed on the group contract by all members.
 | 21.10 | 20kr   | 0              | 0       | 0      |
 | 02.11 | 0      | 0              | 0       | 0      |
 | 03.11 | 0      | 0              | 60kr    | 0      |
-| 08.11 | 10kr   | Didn't meet    | 0       | 0      |
+| 08.11 | 20kr   | Didn't meet    | 0       | 0      |
+| 14.11 | 20kr   | 20kr           | 0       | 0      |
