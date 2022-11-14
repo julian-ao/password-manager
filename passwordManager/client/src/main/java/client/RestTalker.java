@@ -59,7 +59,7 @@ public class RestTalker {
    * @throws ExecutionException      If the request completed exceptionally.
    * @throws ServerResponseException If there was an error with the server
    *                                 response.
-   */
+   */ 
   private HttpResponse<String> get(final String endpoint)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     HttpResponse<String> response = this.getAsync(endpoint).get();

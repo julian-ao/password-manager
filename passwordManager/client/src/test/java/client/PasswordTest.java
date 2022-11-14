@@ -2,7 +2,7 @@ package client;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+ 
 public class PasswordTest {
     @Test
     public void PasswordScoreTest() {
@@ -19,5 +19,16 @@ public class PasswordTest {
     public void PasswordRandomTest() {
         Password generatedPassword = new Password();
         Assertions.assertEquals(3, generatedPassword.getScore());
+    }
+
+    // test setPassword() and getPassword(string)
+    @Test
+    public void PasswordSetTest() {
+        Password password = new Password();
+        password.setPassword("password");
+        Assertions.assertEquals("password", password.getPassword());
+        password.setPassword();
+        Assertions.assertEquals(3, password.getScore());
+        Assertions.assertEquals(false, password.getPassword().equals("password"));
     }
 }
