@@ -3,7 +3,6 @@ package core.userbuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import core.Profile;
 import core.User;
 import core.database.*;
 
