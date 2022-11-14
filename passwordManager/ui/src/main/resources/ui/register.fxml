@@ -79,7 +79,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Text fx:id="visualFeedbackText" fill="#fe8383" layoutX="118.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong username or password" textAlignment="CENTER" visible="false" wrappingWidth="664.1831697225571">
+         <Text fx:id="visualFeedbackText" fill="#e98181" layoutX="118.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong username or password" textAlignment="CENTER" visible="false" wrappingWidth="664.1831697225571">
             <font>
                <Font size="17.0" />
             </font>
