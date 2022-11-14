@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 /**
  * FXML Controller class for the login page.
@@ -41,12 +42,13 @@ public class LoginPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    eyeImageView.setImage(super.eyeOpenImage);
+    eyeImageView.setImage(eyeOpenImage);
+    visualFeedbackText.setFill(Color.valueOf(lightRed));
   }
 
   @FXML
   private void eyeImageViewClick() {
-    super.passwordEye(passwordTextField, passwordPasswordField, eyeImageView);
+    passwordEye(passwordTextField, passwordPasswordField, eyeImageView);
   }
 
   /**
@@ -83,14 +85,14 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     visualFeedbackText.setVisible(true);
-    usernameTextField.setStyle("-fx-border-color: #FE8383");
-    passwordTextField.setStyle("-fx-border-color: #FE8383");
-    passwordPasswordField.setStyle("-fx-border-color: #FE8383");
-    super.rotateNode(visualFeedbackText, false);
+    setBorder(usernameTextField, lightRed);
+    setBorder(passwordTextField, lightRed);
+    setBorder(passwordPasswordField, lightRed);
+    rotateNode(visualFeedbackText, false);
   }
 
   @FXML
   private void onRegisterButtonClick(ActionEvent event) throws IOException {
-    super.switchScene(event, "register.fxml");
+    switchScene(event, "register.fxml");
   }
 }

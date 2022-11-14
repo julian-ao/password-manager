@@ -3,27 +3,22 @@ package core.userbuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import core.Profile;
 import core.User;
-import core.database.*;
 
 public class UserBuilderTest {
 
-  DatabaseTalker databaseTalker = new JsonDatabaseTalker(
-      "../localpersistence/src/resources/localpersistance/TestUsers.json");
-  UserBuilder userBuilder = new UserBuilder(databaseTalker);
+  UserBuilder userBuilder = new UserBuilder();
 
   @Test
   public void testUsernameValidation() {
-    databaseTalker.insertUser(new User("user1", "password"));
+
     Assertions.assertEquals(UsernameValidation.tooShort, userBuilder.setUsername("a"));
-    Assertions.assertEquals(UsernameValidation.alreadyTaken, userBuilder.setUsername("user1"));
     Assertions.assertEquals(UsernameValidation.tooLong,
         userBuilder.setUsername("VeryLongUsernameIDontKnowWhySomeoneWouldTryThisButHeyItNeedsToBeTested"));
     Assertions.assertEquals(UsernameValidation.invalidCharacters, userBuilder.setUsername("invInMyName++"));
     Assertions.assertEquals(UsernameValidation.OK, userBuilder.setUsername("usEr123"));
   }
- 
+
   @Test
   public void testPasswordValidation() {
     Assertions.assertEquals(PasswordValidation.tooShort, userBuilder.setPassword("1aA#"));
