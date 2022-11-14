@@ -1,5 +1,4 @@
 open module rest {
-    
 
   requires spring.boot;
   requires spring.web;
@@ -10,6 +9,7 @@ open module rest {
   requires transitive core;
   requires localpersistence;
   requires transitive org.json;
+  requires encryption;
 
   exports restserver;
 }

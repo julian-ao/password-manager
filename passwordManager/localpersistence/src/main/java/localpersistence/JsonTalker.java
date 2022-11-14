@@ -109,13 +109,14 @@ public class JsonTalker implements DatabaseTalker {
 
   }
 
-  public boolean checkPassword(String username, String password) throws IOException {// !password should be bytearray
-                                                                                     // when hashing gets
+  public boolean checkPassword(String username, String hashedPassword) throws IOException {// !password should be
+                                                                                           // bytearray
+    // when hashing gets
     // implemented
     loadData();
     for (User u : users) {
       if (u.getUsername().equals(username)) {
-        if (u.getPassword().equals(password)) {
+        if (u.getPassword().equals(hashedPassword)) {
           return true;
         }
       }
@@ -148,14 +149,15 @@ public class JsonTalker implements DatabaseTalker {
   private boolean isSameProfile(Profile p1, Profile p2) {
     return p1.getTitle().equals(p2.getTitle()) &&
         p1.getProfileUsername().equals(p2.getProfileUsername()) &&
-        p1.getEncryptedPassword().equals(p2.getEncryptedPassword()) &&
         p1.getParent().equals(p2.getParent());
 
   }
 
   public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
-    profiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
+
+    List<Profile> newProfiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
+    profiles = newProfiles;
     storeData();
   }
 
@@ -169,5 +171,20 @@ public class JsonTalker implements DatabaseTalker {
     }
     profiles = profiles.stream().filter((x) -> !x.getParent().equals(username)).toList();
     storeData();
+  }
+
+  public User getUser(String username) throws IOException {
+    loadData();
+    User user = new User();
+    for (User u : users) {
+      if (u.getUsername().equals(username)) {
+        user.setUsername(username);
+        user.setPassword(u.getPassword());
+        user.setSalt(u.getSalt());
+        user.setEncryptionSalt(u.getEncryptionSalt());
+      }
+    }
+    storeData();
+    return user;
   }
 }

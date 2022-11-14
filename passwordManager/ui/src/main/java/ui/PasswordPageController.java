@@ -87,6 +87,12 @@ public class PasswordPageController extends PasswordManagerController {
   final ClipboardContent clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
 
+  public void setUserData(String username, String password) {
+    restTalker.setLoggedIn(username, password);
+    signedInAsText.setText("Signed in as: " + username);
+    updatePasswords();
+  }
+
   /**
    * initialize sets the signed in as text to the username of the user
    * and updates the passwords based on the used session.
@@ -97,11 +103,10 @@ public class PasswordPageController extends PasswordManagerController {
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
-      "M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"
-    );
+        "M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z");
 
     BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf(lightRed),
-      new CornerRadii(10), new Insets(10));
+        new CornerRadii(10), new Insets(10));
     Background redBackground = new Background(redBackgroundFill);
 
     addProfileClosePane.setBackground(redBackground);
@@ -120,10 +125,7 @@ public class PasswordPageController extends PasswordManagerController {
         offHover(addProfileClosePane, lightRed);
       }
     });
-    
-    String username = restTalker.getUsername();
-    signedInAsText.setText("Signed in as: " + username);
-    updatePasswords();
+
   }
 
   private void updatePasswords() {
@@ -156,12 +158,12 @@ public class PasswordPageController extends PasswordManagerController {
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
-    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); //! fargedritten funker ikke
+    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); // ! fargedritten funker ikke
     usernameText.setTextFill(Color.web(grey));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web(grey)); //! fargedritten funker ikke
+    passwordText.setTextFill(Color.web(grey)); // ! fargedritten funker ikke
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -174,11 +176,11 @@ public class PasswordPageController extends PasswordManagerController {
 
     // COLOR
     BackgroundFill greyBackgroundFill = new BackgroundFill(Color.valueOf(lightBlue),
-      new CornerRadii(10), new Insets(10));
+        new CornerRadii(10), new Insets(10));
     Background greyBackground = new Background(greyBackgroundFill);
 
     BackgroundFill redBackgroundFill = new BackgroundFill(Color.valueOf(lightRed),
-      new CornerRadii(10), new Insets(10));
+        new CornerRadii(10), new Insets(10));
     Background redBackground = new Background(redBackgroundFill);
 
     // TOGETHER
@@ -287,7 +289,6 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   private void onLogOutButtonClick(ActionEvent event) throws IOException {
     System.out.println("Logging out...");
-    restTalker.logout();
     super.switchScene(event, "login.fxml");
   }
 

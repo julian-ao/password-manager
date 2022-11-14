@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>modules-rest</artifactId>
- 
+
     <parent>
         <groupId>gr2216</groupId>
         <artifactId>passwordManager</artifactId>
@@ -32,6 +32,12 @@
         <dependency>
             <groupId>gr2216</groupId>
             <artifactId>modules-localpersistence</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>gr2216</groupId>
+            <artifactId>modules-encryption</artifactId>
             <version>1.0.0</version>
         </dependency>
 

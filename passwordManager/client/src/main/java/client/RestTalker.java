@@ -24,6 +24,9 @@ public class RestTalker {
    */
   private final int port;
 
+  private String loggedInUsername;
+  private String loggedInPassword;
+
   /**
    * Constructs a LogClient from a builder.
    *
@@ -33,6 +36,15 @@ public class RestTalker {
   public RestTalker() {
     this.url = "http://localhost";
     this.port = 8080;
+  }
+
+  public void setLoggedIn(String username, String password) {
+    this.loggedInPassword = password;
+    this.loggedInUsername = username;
+  }
+
+  public String getUsername() {
+    return this.loggedInUsername;
   }
 
   /**
@@ -133,18 +145,8 @@ public class RestTalker {
 
   public String getProfiles() {
     try {
-      HttpResponse<String> response = this.get("/api/v1/entries/getProfiles");
-      return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
-      return "error";
-    }
-  }
-
-  // get username
-  public String getUsername() {
-    try {
-      HttpResponse<String> response = this.get("/api/v1/entries/username");
+      HttpResponse<String> response = this
+          .get("/api/v1/entries/getProfiles?username=" + this.loggedInUsername + "&password=" + this.loggedInPassword);
       return response.body();
     } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
@@ -175,17 +177,9 @@ public class RestTalker {
       json.put("username", username);
       json.put("title", title);
       json.put("password", password);
+      json.put("parentUsername", loggedInUsername);
+      json.put("parentPassword", loggedInPassword);
       HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
-      return response.body().equals("Success");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
-      return false;
-    }
-  }
-
-  public boolean logout() {
-    try {
-      HttpResponse<String> response = this.get("/api/v1/entries/logout");
       return response.body().equals("Success");
     } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
@@ -209,6 +203,7 @@ public class RestTalker {
     try {
       JSONObject json = new JSONObject();
       json.put("user", user);
+      json.put("userPassword", loggedInPassword);
       json.put("title", title);
       json.put("username", username);
       json.put("password", password);
