@@ -246,7 +246,6 @@ public class PasswordManagerController {
   // Delete profile
   @PostMapping(value = "/deleteProfile")
   public @ResponseBody String deleteProfile(@RequestBody String body) {
-
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
     JSONObject jsonObject = new JSONObject(body);
     String username = jsonObject.getString("username");
@@ -263,6 +262,7 @@ public class PasswordManagerController {
     try {
       databaseTalker.deleteProfile(user.getUsername(),
           new Profile(username, title, password, user.getUsername(), "empty"));
+      System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
     } catch (IOException e) {
       return "Failure";
     }

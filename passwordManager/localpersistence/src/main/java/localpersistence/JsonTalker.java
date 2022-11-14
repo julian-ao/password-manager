@@ -149,14 +149,15 @@ public class JsonTalker implements DatabaseTalker {
   private boolean isSameProfile(Profile p1, Profile p2) {
     return p1.getTitle().equals(p2.getTitle()) &&
         p1.getProfileUsername().equals(p2.getProfileUsername()) &&
-        p1.getEncryptedPassword().equals(p2.getEncryptedPassword()) &&
         p1.getParent().equals(p2.getParent());
 
   }
 
   public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
-    profiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
+
+    List<Profile> newProfiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
+    profiles = newProfiles;
     storeData();
   }
 
