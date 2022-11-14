@@ -20,3 +20,4 @@ This is written and signed on the group contract by all members.
 | 02.11 | 0      | 0              | 0       | 0      |
 | 03.11 | 0      | 0              | 60kr    | 0      |
 | 08.11 | 10kr   | Didn't meet    | 0       | 0      |
+| 14.11 | 0      | 0              | 0       | 0      |
