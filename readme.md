@@ -14,11 +14,13 @@ You will need to have Java 16 installed on your computer. You can download it [h
 
 1. Write `cd passwordManager` in the terminal to get to the root folder. 
 
-2. Then write `mvn clean install` to build the project.
+2. Write `cd restserver` to get to the restserver folder.
 
-3. Write `cd restserver` to get to the restserver folder.
+3. Then write `mvn spring-boot:run` to run the restserver.
 
-4. Then write `mvn spring-boot:run` to run the restserver.
+4. Open a new terminal and write `cd passwordManager` to get to the root folder.
+
+5. Write `mvn clean install` to build the project.
 
 ### Running the project
 

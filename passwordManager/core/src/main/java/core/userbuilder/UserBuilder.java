@@ -1,7 +1,6 @@
 package core.userbuilder;
 
 import core.User;
-import core.database.DatabaseTalker;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -13,26 +12,22 @@ import java.util.regex.Pattern;
 public class UserBuilder {
   private String username;
   private String password;
-  private DatabaseTalker databaseTalker;
   private Map<Predicate<String>, UsernameValidation> usernameValidation;
   private Map<Predicate<String>, PasswordValidation> passwordValidation;
 
   /**
    * UserBuilder is a constructor for the UserBuilder class.
-
+   * 
    * @param databaseTalker the databaseTalker used to check if the username is
    *                       already taken
    */
-  public UserBuilder(DatabaseTalker databaseTalker) {
-    this.databaseTalker = databaseTalker;
+  public UserBuilder() {
 
     usernameValidation = new HashMap<Predicate<String>, UsernameValidation>();
     usernameValidation.put((x) -> x.length() < 3, UsernameValidation.tooShort);
     usernameValidation.put((x) -> x.length() > 30, UsernameValidation.tooLong);
     usernameValidation.put((x) -> !Pattern.matches("[a-zA-Z0-9]{0,10000}", x),
         UsernameValidation.invalidCharacters);
-    usernameValidation.put((x) -> databaseTalker.userExists(x),
-        UsernameValidation.alreadyTaken);
 
     passwordValidation = new HashMap<Predicate<String>, PasswordValidation>();
     passwordValidation.put((x) -> x.length() < 6, PasswordValidation.tooShort);
@@ -46,7 +41,7 @@ public class UserBuilder {
 
   /**
    * checks is a username is a valid one.
-
+   * 
    * @param username the username to be validated
    * @return UsernameValidation enum which contains the response code
    */
@@ -61,7 +56,7 @@ public class UserBuilder {
 
   /**
    * checks if a password is a valid one.
-
+   * 
    * @param password the password to be validated
    * @return PasswordValidation enum which contains the response code
    */
@@ -76,7 +71,7 @@ public class UserBuilder {
 
   /**
    * setUsername sets the username if it clears all the checks.
-
+   * 
    * @param username the username which is to be checked for use
    * @return UsernameValidation see UsernameValidation type in
    *         UsernameValidation.java for further refrence
@@ -93,7 +88,7 @@ public class UserBuilder {
 
   /**
    * setPassword sets the password if it is valid.
-
+   * 
    * @param password the password which is to be set
    * @return PasswordValidation see PasswordValidation.java for further reference
    */
@@ -109,7 +104,7 @@ public class UserBuilder {
 
   /**
    * buildUser builds the user if the username and password are valid.
-
+   * 
    * @return User this is only possible if the username and password has passed
    *         the checks
    */

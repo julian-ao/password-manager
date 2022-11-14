@@ -309,6 +309,8 @@
 
     <module>client</module>
 
+    <module>encryption</module>
+
   </modules>
 
 </project>

@@ -78,7 +78,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-            
+
             <!-- Run the spotbugs code quality tool -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -101,8 +101,20 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+
                     </execution>
                 </executions>
+                <!-- Profile and User classes are excludeed since they only contain simple getters and setters-->
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            core/Profile.class
+                        </exclude>
+                        <exclude>
+                            core/User.class
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
 
