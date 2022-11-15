@@ -116,6 +116,9 @@ public class PasswordManagerController {
     user.setEncryptionSalt(encryptionSalt);
 
     try {
+      if (databaseTalker.userExists(username)) {
+        return "Failure";
+      }
       if (databaseTalker.insertUser(user)) {
         return "Success";
       } else {
@@ -257,7 +260,7 @@ public class PasswordManagerController {
     } catch (IOException e1) {
       e1.printStackTrace();
     }
-    try {
+    try { 
       databaseTalker.deleteProfile(user.getUsername(),
           new Profile(username, title, password, user.getUsername(), "empty"));
       System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
