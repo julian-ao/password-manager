@@ -47,6 +47,10 @@ public class RestTalker {
     return this.loggedInUsername;
   }
 
+  public String getUrl() {
+    return this.url;
+  }
+
   /**
    * Elementary synchronous get request.
    *
@@ -59,7 +63,7 @@ public class RestTalker {
    * @throws ExecutionException      If the request completed exceptionally.
    * @throws ServerResponseException If there was an error with the server
    *                                 response.
-   */ 
+   */
   private HttpResponse<String> get(final String endpoint)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     HttpResponse<String> response = this.getAsync(endpoint).get();
@@ -81,7 +85,8 @@ public class RestTalker {
   private CompletableFuture<HttpResponse<String>> getAsync(final String endpoint) throws URISyntaxException {
     HttpClient client = HttpClient.newBuilder().build();
 
-    HttpRequest request = HttpRequest.newBuilder().GET().uri(new URI(this.url + ":" + this.port + endpoint)).build();
+    HttpRequest request = HttpRequest.newBuilder().GET().uri(new URI(this.getUrl() + ":" + this.port + endpoint))
+        .build();
 
     return client.sendAsync(request, BodyHandlers.ofString());
   }
@@ -123,7 +128,7 @@ public class RestTalker {
     HttpClient client = HttpClient.newBuilder().build();
 
     HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.ofString(payload))
-        .uri(new URI(this.url + ":" + this.port + endpoint)).build();
+        .uri(new URI(this.getUrl() + ":" + this.port + endpoint)).build();
 
     return client.sendAsync(request, BodyHandlers.ofString());
   }
