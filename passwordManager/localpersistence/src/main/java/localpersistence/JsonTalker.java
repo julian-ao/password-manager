@@ -26,7 +26,11 @@ public class JsonTalker implements DatabaseTalker {
     this.profilesFile = new File(path.toString() + "/profiles.json");
     if (!this.usersFile.exists()) {
       try {
-        usersFile.createNewFile();
+        if (usersFile.createNewFile()) {
+          System.out.print("File created successfully");
+        } else {
+          System.out.print("File already exists");
+        }
         mapper.writeValue(usersFile, emptyList.toArray());
       } catch (IOException e) {
         e.printStackTrace();
