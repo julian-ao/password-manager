@@ -39,11 +39,11 @@ public class PasswordManagerController {
   );
 
   // Colours
-  protected String lightRed = "#e98181";
-  protected String darkRed = "#753f3f";
-  protected String lightBlue = "#81aae9";
-  protected String darkBlue = "#3e5373";
-  protected String grey = "#a6a6a6";
+  protected final String lightRed = "#e98181";
+  protected final String darkRed = "#753f3f";
+  protected final String lightBlue = "#81aae9";
+  protected final String darkBlue = "#3e5373";
+  protected final String grey = "#a6a6a6";
 
 
   /**
@@ -113,14 +113,21 @@ public class PasswordManagerController {
   }
 
   /**
-   * setBorderRed sets the border of a node to red.
-   * 
-   * @param element the element that is to be set to red
+   * setBorderRed sets the border of a node.
+
+   * @param element the element thats border is to be set
+   * @param colour  the colour of the border
    */
   protected void setBorder(Node element, String colour) {
     element.setStyle("-fx-border-color: " + colour);
   }
 
+  /**
+   * onHover changes the background color and sets the cursor to hand.
+
+   * @param region the region that is to be changed
+   * @param color  the color that the background should be changed to
+   */
   public void onHover(Region region, String color){
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
@@ -129,6 +136,12 @@ public class PasswordManagerController {
     scene.setCursor(Cursor.HAND); //Change cursor to hand
   }
 
+  /**
+   * offHover changes the background color and sets the cursor to default.
+
+   * @param region the region that is to be changed
+   * @param color  the color that the background should be changed to
+   */
   public void offHover(Region region, String color){
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(

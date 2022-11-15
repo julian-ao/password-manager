@@ -19,6 +19,7 @@ implement the functionality to create, edit and delete passwords. The prestisten
 which will be stored on the users computer. The reason for this is that we want to keep the application as simple as
 possible, and we do not want to use a database. Jackson is the library we use to convert the JSON file to Java objects
 and vice versa. The architecture of the application is shown in the image below.
+
 ![img.png](../images/release2_classDiagram.png)
 
 ### Core
@@ -84,7 +85,7 @@ also used the GitLab merge request feature to ensure that we do not push directl
 Pair programming is an essential part of our workflow, we pair program to ensure that we understand the code and to
 learn from each other. It is also helpful to cooperate with someone else when solving a difficult problem.
 
-We have two weekly meetings where we discuss our progress and what we need to do to finish the project, those meetings
+We have two weekly meetings where we discuss our progress and what we need to do to finish the release, those meetings
 also consists of us coding together for several hours. If we see that two times a week is not enough, we will add more
 meetings. To ensure that most of us is present at the meetings, we have made an contract that we gives fines to each
 person that are late to the meetings, this has worked very well since it is an more motivating factor to be on time to
