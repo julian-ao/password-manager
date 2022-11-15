@@ -282,4 +282,13 @@ public class PasswordManagerController {
     }
     return "Success";
   }
+
+  @PostMapping(value = "/doPrdDB")
+  public @ResponseBody String doPrdDB() {
+    path = "../localpersistence/src/resources/localpersistance/production";
+    File usersFile = new File(path + "/users.json");
+    File profilesFile = new File(path + "/profiles.json");
+    return "Success";
+  }
+
 }
