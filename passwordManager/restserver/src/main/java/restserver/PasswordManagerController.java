@@ -29,6 +29,7 @@ import java.util.Random;
 public class PasswordManagerController {
 
   private String path = "../localpersistence/src/resources/localpersistance/production";
+  private Random rand = new Random();
 
   @GetMapping(value = "/login")
   public @ResponseBody String login(@RequestParam String username, @RequestParam String password) {
@@ -42,7 +43,13 @@ public class PasswordManagerController {
       // TODO Auto-generated catch block
       e1.printStackTrace();
     }
-    int salt = u.getSalt();
+    int salt = 0;
+    if (u != null) {
+      salt = u.getSalt();
+
+    } else {
+      return "Failure";
+    }
 
     SHA256 hash = new SHA256();
     String hashedPasswordAttempt = hash.getHash(password, salt);
@@ -70,14 +77,20 @@ public class PasswordManagerController {
     User user = null;
     try {
       user = databaseTalker.getUser(username);
+
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     SHA256 hash = new SHA256();
     String userPassword = password;
+    int encryptionSalt;
+    if (user != null) {
+      encryptionSalt = user.getEncryptionSalt();
 
-    int encryptionSalt = user.getEncryptionSalt();
+    } else {
+      return "Failure";
+    }
 
     byte[] key = HexStringUtils.hexStringToByteArray(hash.getHash(userPassword, encryptionSalt));
     JSONArray jsonArray = new JSONArray();
@@ -110,7 +123,6 @@ public class PasswordManagerController {
     String password = jsonObject.getString("password");
 
     SHA256 hash = new SHA256();
-    Random rand = new Random();
     int salt = rand.nextInt();
     int encryptionSalt = rand.nextInt();
     User user = new User(username, hash.getHash(password, salt));
@@ -145,7 +157,12 @@ public class PasswordManagerController {
     } catch (IOException e1) {
       e1.printStackTrace();
     }
-    int encryptionSalt = user.getEncryptionSalt();
+    int encryptionSalt = 0;
+    if (user != null) {
+      encryptionSalt = user.getEncryptionSalt();
+    } else {
+      return "Failure";
+    }
 
     byte[] key = HexStringUtils.hexStringToByteArray(hash.getHash(userPassword, encryptionSalt));
 
@@ -259,10 +276,13 @@ public class PasswordManagerController {
     } catch (IOException e1) {
       e1.printStackTrace();
     }
+
     try {
-      databaseTalker.deleteProfile(user.getUsername(),
-          new Profile(username, title, password, user.getUsername(), "empty"));
-      System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
+      if (user != null) {
+        databaseTalker.deleteProfile(user.getUsername(),
+            new Profile(username, title, password, user.getUsername(), "empty"));
+        System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
+      }
     } catch (IOException e) {
       return "Failure";
     }
@@ -275,10 +295,14 @@ public class PasswordManagerController {
     File usersFile = new File(path + "/users.json");
     File profilesFile = new File(path + "/profiles.json");
     if (usersFile.exists()) {
-      usersFile.delete();
+      if (!usersFile.delete()) {
+        return "Failure";
+      }
     }
     if (profilesFile.exists()) {
-      profilesFile.delete();
+      if (!profilesFile.delete()) {
+        return "Failure";
+      }
     }
     return "Success";
   }

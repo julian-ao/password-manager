@@ -1,26 +1,38 @@
 <FindBugsFilter>
     <Match>
-        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
     </Match>
     <Match>
-        <Bug pattern="UUF_UNUSED_FIELD"/>
+        <Bug pattern="UUF_UNUSED_FIELD" />
     </Match>
     <Match>
-        <Bug pattern="URF_UNREAD_FIELD"/>
+        <Bug pattern="URF_UNREAD_FIELD" />
     </Match>
     <Match>
-        <Bug pattern="UWF_UNWRITTEN_FIELD"/>
+        <Bug pattern="UWF_UNWRITTEN_FIELD" />
     </Match>
     <Match>
-        <Bug pattern="EI_EXPOSE_REP"/>
+        <Bug pattern="EI_EXPOSE_REP" />
     </Match>
     <Match>
-        <Bug pattern="EI_EXPOSE_REP2"/>
+        <Bug pattern="EI_EXPOSE_REP2" />
     </Match>
     <Match>
-        <Bug pattern="MS_EXPOSE_REP"/>
+        <Bug pattern="MS_EXPOSE_REP" />
     </Match>
     <Match>
-        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE"/>
+        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE" />
+    </Match>
+    <Match>
+        <Class name="encryption.SHA256" />
+        <Method name="getHash" />
+        <Bug pattern="NP_NULL_ON_SOME_PATH_EXCEPTION" />
+        <!--Had to try/catch a function which will never throw the excpetion caught as long as java supports UTF-8 encoding.-->
+    </Match>
+    <Match>
+        <Class name="encryption.TwoFish" />
+        <Method name="multiplyGF28" />
+        <Bug pattern="ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT" />
+        <!--Its a unsigned rightshift, why is this reported as a bug?-->
     </Match>
 </FindBugsFilter>
