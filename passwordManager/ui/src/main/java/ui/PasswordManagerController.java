@@ -136,8 +136,4 @@ public class PasswordManagerController {
           new Insets(10))));
     scene.setCursor(Cursor.DEFAULT); //Change cursor to default
   }
-
-  protected void updateUserData() {
-
-  }
 }

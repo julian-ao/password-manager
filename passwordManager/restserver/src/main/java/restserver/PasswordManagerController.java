@@ -39,7 +39,6 @@ public class PasswordManagerController {
     try {
       u = databaseTalker.getUser(username);
     } catch (IOException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     int salt = u.getSalt();
@@ -71,7 +70,6 @@ public class PasswordManagerController {
     try {
       user = databaseTalker.getUser(username);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     SHA256 hash = new SHA256();
