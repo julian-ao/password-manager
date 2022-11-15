@@ -9,8 +9,6 @@ functional, where it is not yet possible to delete and edit passwords nor it is 
 safely, it is still a great step forward in the development of the application. We have also splitted the sourcecode
 into diffrent files and modules, which makes it easier to work with the code.
 
----
-
 ## Architecture
 
 We have now split the application into tree layers, Core,  UI and Presistence. The Core layer contains the logic of the application and the UI layer contains the user interface.
@@ -45,8 +43,6 @@ switch between the pages (*PasswordManagerController.java*).
 We have redisigned the Figma design of our app to make it more user friendly and consistent. The updated design can be
 seen in the applicion description [here](../../passwordManager/readme.md).
 
----
-
 ## Code quality
 
 For this release we implemented a few Maven plugins to ensure better code quality. We used the following tools to
@@ -67,14 +63,6 @@ but it would result in a warning.
 
 We use Checkstyle to make sure that our code adheres to a certain coding standard. Our configuration file can be found
 in the **/passwordManager/config/checkstyle** folder. We use the Google Java Style Guide as our coding standard.
-
-<!--mvn kommando for å kjøre checkstyle-->
-
-<!--### Spotbugs
-
-We use Spotbugs to analyze our Java code for bugs.-->
-
----
 
 ## Workflow and workhabits
 
