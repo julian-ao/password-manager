@@ -4,9 +4,9 @@
 
 <!-- A quick summary of the new features in this release. -->
 As of Release 2, we have now a functional web application that allows users to create an account and password.
-The application also allows users to create and view their passwords in a list format. Altough the application is not yet fully 
+The application also allows users to create and view their passwords in a list format. Altough the application is not yet fully
 functional, where it is not yet possible to delete and edit passwords nor it is a application that encrypts passwords
-safely, it is still a great step forward in the development of the application. We have also splitted the sourcecode 
+safely, it is still a great step forward in the development of the application. We have also splitted the sourcecode
 into diffrent files and modules, which makes it easier to work with the code.
 
 ---
@@ -16,8 +16,8 @@ into diffrent files and modules, which makes it easier to work with the code.
 We have now split the application into tree layers, Core,  UI and Presistence. The Core layer contains the logic of the application and the UI layer contains the user interface.
 We do have a third layer, which is the Prestistence layer, but we have not yet seperated it from the core layer. The prestistence layer will be seperated in the next release, where we will also
 implement the functionality to create, edit and delete passwords. The prestistence we have chosen to use is a JSON file,
-which will be stored on the users computer. The reason for this is that we want to keep the application as simple as 
-possible, and we do not want to use a database. Jackson is the library we use to convert the JSON file to Java objects 
+which will be stored on the users computer. The reason for this is that we want to keep the application as simple as
+possible, and we do not want to use a database. Jackson is the library we use to convert the JSON file to Java objects
 and vice versa. The architecture of the application is shown in the image below.
 ![img.png](../images/release2_classDiagram.png)
 
@@ -37,8 +37,8 @@ serialize and deserialize Java objects to JSON strings and vice versa. The JSON 
 
 ### UI
 
-We have created a desktop application using JavaFX. The UI is divided into three main parts, the login page, the 
-register page and the password page. We have made a controller and a fxml-file for each page and a main controller to 
+We have created a desktop application using JavaFX. The UI is divided into three main parts, the login page, the
+register page and the password page. We have made a controller and a fxml-file for each page and a main controller to
 switch between the pages (*PasswordManagerController.java*).
 
 We have redisigned the Figma design of our app to make it more user friendly and consistent. The updated design can be
@@ -60,7 +60,6 @@ If the test coverage of a class was under 60%, it would not be sufficient
 for release 2. If it was between 60% and 80%, it would be sufficient,
 but it would result in a warning.
 
-
 <!--mvn kommando for å kjøre jacoco-->
 
 ### Checkstyle
@@ -69,7 +68,6 @@ We use Checkstyle to make sure that our code adheres to a certain coding standar
 in the **/passwordManager/config/checkstyle** folder. We use the Google Java Style Guide as our coding standard.
 
 <!--mvn kommando for å kjøre checkstyle-->
-
 
 <!--### Spotbugs
 
@@ -92,7 +90,7 @@ meetings. To ensure that most of us is present at the meetings, we have made an 
 person that are late to the meetings, this has worked very well since it is an more motivating factor to be on time to
 the meetings.
 
-# Pipeline Jobs
+## Pipeline Jobs
 
 In this repo we have a pipeline that runs a series of jobs to ensure that only valid code is merged into the main branch.
 The jobs run an assortment of maven goals and will give feedback if something goes wrong. The following jobs are run:
