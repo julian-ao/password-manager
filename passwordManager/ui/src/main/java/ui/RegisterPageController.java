@@ -1,7 +1,12 @@
 package ui;
 
 import client.RestTalker;
+import client.ServerResponseException;
+
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -86,11 +91,21 @@ public class RegisterPageController extends PasswordManagerController {
     // if all fields are filled
     if (username != "" && password != "" && passwordRepeat != "") {
 
-      String validationResult = restTalker.userValidator(username, password, passwordRepeat);
+      String validationResult;
+      try {
+        validationResult = restTalker.userValidator(username, password, passwordRepeat);
+      } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+        e.printStackTrace();
+        validationResult = "Server error";
+      }
 
       if (validationResult.equals("OK")) {
         switchScene(event, "login.fxml");
-        restTalker.registerUser(username, password);
+        try {
+          restTalker.registerUser(username, password);
+        } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+          e.printStackTrace();
+        }
       } else {
         visualFeedbackText.setText(validationResult);
       }
