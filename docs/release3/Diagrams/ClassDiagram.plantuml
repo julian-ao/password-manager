@@ -1,0 +1,176 @@
+@startuml
+class PasswordManagerController{
+-String path
++String login(String, String)
++String getProfiles(String, String)
++String postRegister(String)
++String insertProfile(String)
++String userValidator(String, String, String)
++String getUserValidator(String, String, String)
++String deleteProfile(String)
++String doTestDatabase()
++String doPrdDB()
+}
+
+
+class JsonTalker{
+-File usersFile
+-File profilesFile
+-List<User> users
+-List<Profile> profiles
++JsonTalker(String)
+-void loadData()
+-void storeData()
++void resetFiles()
++boolean userExists(String)
++List<Profile> getProfiles(String)
++boolean checkPassword(String, String)
++boolean insertUser(User)
++boolean insertProfile(String, Profile)
+-boolean isSameProfile(Profile, Profile)
++void deleteProfile(String, Profile)
++User getUser(String)
+
+}
+
+class Encryption{
+-int blockSize
+-byte[] addPaddding
+-byte[] removePadding
++Encrypted encrypt(String, byte[])
++String decrypt(Encrypted, byte[])
+}
+
+
+class TwoFish{
+-int left0
+-int left1
+-int right0
+-int right1
+-int[] keyWords
+-byte[] sbox0
+-byte[] sbox1
+-byte[] sbox2
+-byte[] sbox3
+-byte ROR(byte, int)
+-byte q0(byte)
+-byte q1(byte)
+-byte addGF28(byte,byte)
+-byte multiplyGF28(byte,byte,byte)
+-byte[] matrixVectorMultiplyGF28(byte[][], byte[], byte)
+-void inputWhiten()
+-void outputWhiten()
+-int[] fFunction(int,int,int)
+-int gFunction(byte[])
+-void roundEncrypt(int)
+-void roundDecrypt(int)
+-void flip()
+-int hFunction(int, int[], int)
+-int intRotateLeft(int, int)
+-void expaandKeyWords(int[], int[])
+-void keySchedule(byte[])
+-void getInput(byte[])
+-byte[] getOutput()
++byte[] encrypt(byte[], byte[])
++byte[] decrypt(byte[], byte[])
+}
+
+
+
+class HexStringUtils{
++byte[] textToBytes(String)
++String bytesToText(byte[])
++byte[] hexStringToBytes(String)
++String bytesToHexString(byte[])
+
+}
+
+class SHA256{
+-int[]
+-void compress(int[])
++byte[] getHash(byte[])
++String getHash(String, int)
+
+}
+
+
+
+class ByteArrayUtils{
++int bytesToIntBigEndian(byte[])
++int bytesToIntLittleEndian(byte[])
++byte[] intToBytesBigEndian(int)
++byte[] intToBytesLittleEndian(byte[])
+}
+
+
+class Encrypted{
+-byte[] data
+-byte[] nonce
+}
+
+
+class Profile{
+-String title
+-String profileUssername
+-String encryptedPassword
+-String nonceHex
+-String parent
+}
+
+
+class User{
+-String username
+-int salt
+-int encryptionSalt
+-String hashedPassword
+}
+
+
+enum PasswordValidation{
+OK
+diversityError
+tooShort
+tooLong
+}
+
+
+
+enum UsernameValidation{
+OK
+alreadyTaken
+invalidCharacters
+tooShort
+tooLong
+}
+
+
+
+class UserBuilder{
+-String username
+-String password
+-Map<Predicate<String>, UsernameValidation> usernameValidation;
+-Map<Predicate<String>, PasswordValidation> passwordValidation;
+-UsernameValidation validateUsername(String)
+-PasswordValidation validatePassword(String)
++UsernameValidation setUsername(String)
++PasswordValidation setPassword(String)
+}
+
+
+TwoFish --> Encryption
+Encryption --> PasswordManagerController
+JsonTalker --> PasswordManagerController
+SHA256 --> PasswordManagerController
+ByteArrayUtils --> TwoFish
+HexStringUtils --> Encryption
+HexStringUtils --> SHA256
+PasswordValidation --> UserBuilder
+UsernameValidation --> UserBuilder
+Profile --> JsonTalker
+User --> JsonTalker
+UserBuilder --> PasswordManagerController
+User --> PasswordManagerController
+Profile --> PasswordManagerController
+Encrypted --> PasswordManagerController
+Encrypted --> Encryption
+@enduml
