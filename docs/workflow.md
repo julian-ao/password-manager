@@ -8,52 +8,90 @@ Each issue has a description of what needs to be done, and a number that we use 
 
 Issue labels has been heavily used to keep track of what types of issues we have. We have used the following labels (the names speak for themselves):
 
-- `Backend`
 - `Frontend`
+- `Backend`
+- `Database`
 - `Documentation`
 - `Testing`
 - `Bugfix`
 - `Code quality`
-- `Database`
 - `Priority`
 
 ## Commits & commit messages
 
-<!-- 
+Our commit messages are structured in a way that makes it easy to see what has been done in each commit. We have taken alot of inspiration from the Conventional Commits standard. We have used the following structure:
 
-We have used the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard for our commit messages. This means that every commit message has a header, body and footer. The header has a type, scope and subject.
+- `header` - a short description of what has been done in the commit
+- `body` - a longer and more descriptive description of what has been done in the commit
+- `footer` - a list of issue numbers that the commit either relates to or closes, and the author/s of the commit
 
-The subject is a short description of the commit. It should be written in the imperative, and not capitalized. It should not be longer than 50 characters.
-
-The body is optional, and can be used to further explain what the commit does. It should not be longer than 72 characters.
-
-The footer is optional, and can be used to reference issues that the commit closes. It should be written like this: `Closes #<issue number>`.
--->
+All group members has used a VS code plugin where we can see the body of the commit inline in the code editor. This simplifies teamwork when two or more members work together. 
 
 ## Branches & merging
 
 We have mainly used one branch for each issue. Each branch in the repository has a name that starts with the issue number, so that we can easily see what issue the branch is related to. The branch name also contains a short description of what the branch is about.
 
-An important principle that we have followed is that we have one safe branch: master. There is not possible to work directly in the master branch and push to it. The master branch is only updated by merging from other branches. 
+An important principle that we have followed is that we have one safe branch: master. There is not possible to work directly in the master branch and push to it. The master branch is only updated by merging from other branches. A merge request is created after a branch is ready to be merged into the master branch. The merge request is reviewed by at least one other team member before it is merged.
+
+## Code quality
+
+We have implemented a few Maven plugins to ensure better code quality, formatting and test coverage. The maven commands for running each of the tools can be found in the **/passwordManager/pom.xml** file. <!-- ! Remove this? -->
+
+We used the following tools:
+
+### Jacoco
+
+We use Jacoco to check the test coverage of our project.
+After Jacoco has been run we are left with a html report where
+we see the percentage of the test coverage in each module.
+If the test coverage of a class was under 60%, it would not be sufficient
+for the pipeline. If it was between 60% and 80%, it would be sufficient,
+but it would result in a warning.
+
+### Checkstyle
+
+We use Checkstyle to make sure that our code adheres to a certain coding standard. Our configuration file can be found
+in the **/passwordManager/config/checkstyle** folder. We use the Google Java Style Guide as our coding standard.
+
+### Spotbugs
+
+We use Spotbugs to find bugs in our project. Spotbugs is a static analysis tool that looks for common bugs in Java code We also added Spotbugs to the pipeline, so that it will run every time the code is pushed to the repository. This will ensure that the code is bug free before it is merged to the master branch.
 
 ## Pipeline
 
 We have used the GitLab CI/CD
 **pipeline** to run our tests and check our code quality so that we cannot merge without a quality check. We have also used the GitLab merge request feature to ensure that we do not push directly to the master branch.
 
-## Code quality
+The [pipeline](../../.gitlab-ci.yml) consists of the following stages:
 
-<!-- Plugins -->
+- `build`
+  - `validate` - validates the project is correct and all necessary information is available. Merge blocked if this fails.
+  - `compile` - compiles the source code of the project. Merge blocked if this fails.
+
+- `test`
+  - `test` - runs all the tests in the project. Merge blocked if this fails.
+
+- `coverage`
+  - `test-coverage-minimum` - runs all the tests in the project and checks if the test coverage is above 60%. Merge blocked if this fails.
+  - `test-coverage-80` - runs all the tests in the project and checks if the test coverage is above 80%. Merge warning if this fails.
+
+- `quality`
+  - `checkstyle` - runs checkstyle on the project. Merge warning if this fails.
+
+- `bugs`
+  - `spotbugs` - runs spotbugs on the project. Merge warning if this fails.
 
 ## Pair programming
 
-Pair programming is an essential part of our workflow, we pair program to ensure that we understand the code and to learn from each other. It is also helpful to cooperate with someone else when solving a difficult problem.
+Pair programming is a technique we have used for a big fraction of our code. Although pair programming increases the time each person spends on the same task, we believe it  increases the quality of the code drastically.
+
+Our use of pair programming has also ensured that all members of the group have worked together on all parts/modules of the project. This has been a great way to ensure that everyone has a good understanding of the project as a whole.
 
 ## Planning
 
-We have two weekly meetings where we discuss our progress and what we need to do to finish the project, those meetings also consists of us coding together for several hours. If we see that two times a week is not enough, we will add more meetings. To ensure that most of us is present at each meeting, we have made a contract that we gives fines to each person that are late to the meetings, this has worked very well since it is a more motivating factor to be on time to the meetings.
+<!-- TODO -->
 
-## Maven
+We have two weekly meetings where we discuss our progress and what we need to do to finish the project, those meetings also consists of us coding together for several hours. If we see that two times a week is not enough, we will add more meetings. To ensure that most of us is present at each meeting, we have made a contract that we gives fines to each person that are late to the meetings, this has worked very well since it is a more motivating factor to be on time to the meetings.
 
 <!-- Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
 

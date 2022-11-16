@@ -56,13 +56,15 @@ The UI has had a few functionalities added, as a few changes in the design, as w
 
 - Other minor improvements and bug fixes was also made, such as the window beeing blurred when the "add profile overlay" is visible, and the possibility to mark the text of the profiles.
 
-## Code quality
+## Code quality plugins
 
-For this release we implemented a new Maven plugin to ensure better code quality:
+For this release we implemented a new Maven plugin to ensure better code quality.
+
+A more in-depth description of the Maven plugins we have used in the project is in the [workflow.md](../workflow.md) file.
 
 ### Spotbugs
 
-Spotbugs is a static analysis tool that looks for bugs in Java code. It is a plugin for Maven, and can be added to the pom.xml file. We also added Spotbugs to the pipeline, so that it will run every time the code is pushed to the repository. This will ensure that the code is bug free before it is merged to the master branch.
+Spotbugs is a static analysis tool that looks for bugs in Java code. We have Spotbugs running in every module, so that the project as a whole is bug free. <!-- Rephrase -->
 
 ## Testing
 
