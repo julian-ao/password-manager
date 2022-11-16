@@ -3,9 +3,6 @@ package client;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Assertions;
 
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
@@ -19,7 +16,10 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 
 public class RestTalkerTest {
 
@@ -29,113 +29,144 @@ public class RestTalkerTest {
 
   @BeforeEach
   public void startWireMockServer() {
-      WireMockConfiguration mockConfig = WireMockConfiguration.wireMockConfig().port(8080);
-      mockServer = new WireMockServer(mockConfig.portNumber());
-      mockServer.start();
-      WireMock.configureFor("localhost", mockConfig.portNumber());
-      restTalker = new RestTalker();
+    WireMockConfiguration mockConfig = WireMockConfiguration.wireMockConfig().port(8080);
+    mockServer = new WireMockServer(mockConfig.portNumber());
+    mockServer.start();
+    WireMock.configureFor("localhost", mockConfig.portNumber());
+    restTalker = new RestTalker();
   }
 
   @AfterEach
-    public void stopWireMockServer() {
-        mockServer.stop();
+  public void stopWireMockServer() {
+    mockServer.stop();
+  }
+
+  // tests login
+  @Test
+  public void login() {
+    String username = "Admin";
+    String password = "Admin1!";
+    String body = "Success";
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(body)));
+
+    try {
+      assertEquals(true, restTalker.login("Admin", "Admin1!"));
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
     }
 
-    @Test
-    public void testLogClient() {
+    // restTalker.registerUser("Admin", "Admin1!");
+    // Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
+  }
 
-        String body =
-                "{\"title\": \"Example title\",\"comment\": \"Example comment\",\"date\": \"2021-10-25\",\"feeling\": \"7\",\"duration\": \"3600\",\"distance\": \"3\",\"maxHeartRate\": \"150\",\"exerciseCategory\": \"STRENGTH\",\"exerciseSubCategory\": \"PULL\"}";
-        stubFor(get(urlEqualTo("/api/v1/entries/0"))
-                .willReturn(aResponse().withStatus(200)
-                        .withHeader("Content-Type", "application/json")
-                        .withBody(body)));
-        try {
-            HashMap<String, String> entry = logClient.getLogEntry("0");
-            assertEquals("Example title", entry.get("title"));
-            assertEquals("Example comment", entry.get("comment"));
-            assertEquals("2021-10-25", entry.get("date"));
-            assertEquals("7", entry.get("feeling"));
-            assertEquals("3600", entry.get("duration"));
-            assertEquals("3", entry.get("distance"));
-            assertEquals("150", entry.get("maxHeartRate"));
-            assertEquals("STRENGTH", entry.get("exerciseCategory"));
-            assertEquals("PULL", entry.get("exerciseSubCategory"));
-
-        } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-            e.printStackTrace();
-            fail();
-        }
-
+  // test register
+  @Test
+  public void register() {
+    String body = "Success";
+    stubFor(post(urlEqualTo("/api/v1/entries/register")).willReturn(
+        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+    try {
+      assertEquals(true, restTalker.registerUser("Admin", "Admin1!"));
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
     }
-/* 
-  @Test
-  public void test() {
-    restTalker.doDatabaseTest();
-    restTalker.registerUser("Admin", "Admin1!");
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
   }
 
-  // insert profile
+  // get profiles
   @Test
-  public void test2() {
-    restTalker.doDatabaseTest();
-    restTalker.registerUser("Admin", "Admin1!");
-    restTalker.login("Admin", "Admin1!");
-    restTalker.setLoggedIn("Admin", "Admin1!");
-    Assertions.assertEquals(true, restTalker.insertProfile("Admin", "Facebook", "Facebook1!"));
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
-  }
+  public void getProfiles() {
+    String username = "Admin";
+    String password = "Admin1!";
+    String body = "Success";
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(body)));
 
-  // delete profile
-  @Test
-  public void test3() {
-    restTalker.doDatabaseTest();
-    restTalker.registerUser("Admin", "Admin1!");
-    restTalker.login("Admin", "Admin1!");
-    restTalker.setLoggedIn("Admin", "Admin1!");
-    restTalker.insertProfile("Admin", "Facebook", "Facebook1!");
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
-    Assertions.assertEquals(true, restTalker.deleteProfile("Admin", "Facebook", "Facebook", "Facebook1!"));
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
-  }
-
-  // user validator
-  @Test
-  public void test4() {
-    restTalker.doDatabaseTest();
-    restTalker.registerUser("Admin", "Admin1!");
-    restTalker.login("Admin", "Admin1!");
-    restTalker.setLoggedIn("Admin", "Admin1!");
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
-    Assertions.assertEquals("Username is allready taken", restTalker.userValidator("Admin", "Admin1!", "Admin1!"));
-  }
-
-  // get profile and get username test
-  @Test
-  public void test5() {
-    restTalker.doDatabaseTest();
-    restTalker.registerUser("Admin", "Admin1!");
-    restTalker.login("Admin", "Admin1!");
-    restTalker.setLoggedIn("Admin", "Admin1!");
-    restTalker.insertProfile("Admin", "Facebook", "Facebook1!");
-    Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
-    Assertions.assertEquals("[{\"password\":\"Facebook1!\",\"title\":\"Facebook\",\"username\":\"Admin\"}]",
-        restTalker.getProfiles());
-    Assertions.assertEquals("Admin", restTalker.getUsername());
-  }
-
-  @Test
-  public void badUrlTest() {
-    class BadRestTalker extends RestTalker {
-      @Override
-      public String getUrl() {
-        return "someverybadurlthat does not exists";
-      }
+    stubFor(get(
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+                .withBody("[]")));
+    try {
+      assertEquals(true, restTalker.login("Admin", "Admin1!"));
+      assertEquals("[]", restTalker.getProfiles());
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
     }
-    BadRestTalker badRestTalker = new BadRestTalker();
-    assertEquals("error", badRestTalker.login("user", "user3"));
-
   }
-  */
+
+  // test insert profile
+  @Test
+  public void insertProfile() {
+    String username = "Admin";
+    String password = "Admin1!";
+    String body = "Success";
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(body)));
+    stubFor(post(urlEqualTo("/api/v1/entries/insertProfile")).willReturn(
+        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+    try {
+      assertEquals(true, restTalker.login("Admin", "Admin1!"));
+      assertEquals(true, restTalker.insertProfile("Admin", "Title", "Password"));
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
+
+  // test uservalidator
+  @Test
+  public void userValidatorTest() {
+
+    String username = "Admin";
+    String password = "Admin1!";
+    String passwordRepeat = "Admin1!";
+    String body = "OK";
+    stubFor(get(urlEqualTo("/api/v1/entries/userValidator?username=" + username + "&password="
+        + password + "&passwordRepeat=" + passwordRepeat))
+            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+                .withBody(body)));
+    try {
+      assertEquals("OK", restTalker.userValidator("Admin", "Admin1!", "Admin1!"));
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
+
+  // test profile delete
+  @Test
+  public void deleteProfileTest() {
+    String user = "Admin";
+    String title = "Title";
+    String password = "Password";
+    String username = "Admin";
+    String body = "Success";
+
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(body)));
+
+    stubFor(post(urlEqualTo("/api/v1/entries/deleteProfile")).willReturn(
+        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+
+    try {
+      assertEquals(true, restTalker.login("Admin", "Password"));
+      assertEquals(true, restTalker.deleteProfile(user, title, username, password));
+    } catch (URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      fail();
+    }
+  }
 }

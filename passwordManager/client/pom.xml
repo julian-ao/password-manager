@@ -11,11 +11,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>gr2216</groupId>
-            <artifactId>modules-core</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>json</artifactId>
             <version>1.2.0.2-jre16</version>
@@ -89,26 +84,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>noTest</id>
-            <activation>
-                <property>
-                    <name>noTestClient</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
