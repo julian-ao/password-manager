@@ -6,23 +6,35 @@ For this release we have created a REST-API with springboot and implemented the 
 
 <!-- !IMAGE -->
 
-### New architecture
+## Architecture
 
-<!-- New architecture. Why and how we implemented it this way-->
+The complete architecture of the project is documented in the project-architecture folder's [readme file](../project-architecture\readme.md).
 
-<!-- Image or link to orchitecture -->
-
-<!-- Changes to each module vvv -->
+## Updated modules
 
 ### Restserver
 
-<!-- How the restserver works -->
+<!-- Changes in restserver -->
 
 ### Encryption
 
-<!-- How the encryption works -->
+<!-- Changes in encryption -->
+
+### Core??
+
+<!-- Changes in core -->
+
+### Client?
+
+<!-- Changes in client -->
+
+### Local persistence?
+
+<!-- Changes in persistence -->
 
 ### UI
+
+<!-- Changes in UI -->
 
 The UI has had a few functionalities added, as a few changes in the design, as well as a few bug fixes:
 
@@ -44,8 +56,6 @@ The UI has had a few functionalities added, as a few changes in the design, as w
 
 - Other minor improvements and bug fixes was also made, such as the window beeing blurred when the "add profile overlay" is visible, and the possibility to mark the text of the profiles.
 
-<!-- Eye images from png to svg? -->
-
 ## Code quality
 
 For this release we implemented a new Maven plugin to ensure better code quality:
@@ -53,6 +63,12 @@ For this release we implemented a new Maven plugin to ensure better code quality
 ### Spotbugs
 
 Spotbugs is a static analysis tool that looks for bugs in Java code. It is a plugin for Maven, and can be added to the pom.xml file. We also added Spotbugs to the pipeline, so that it will run every time the code is pushed to the repository. This will ensure that the code is bug free before it is merged to the master branch.
+
+## Testing
+
+<!-- Changes in testing -->
+
+<!-- improved testing, ui testing -->
 
 ## Pipeline Jobs
 
@@ -73,12 +89,35 @@ List of stages witch jobs, and their order of execution:
 
 - `quality`
   - `checkstyle` - runs checkstyle on the project. Merge warning if this fails.
-  
-- `bugs`
+
+- `bugs` *(new)*
   - `spotbugs` - runs spotbugs on the project. Merge warning if this fails.
+
+[This](../../.gitlab-ci.yml) pipeline still run on every merge request to the master branch.
 
 ## Workflow
 
-Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
+The complete documentation for the project workflow is in the [workflow.md](../workflow.md) file.
 
-For this release we had atleast two meetings a week, where we discuss our progress and what we need to do to finish the project. Those meetings also consists of us coding together for several hours.
+<!--
+
+I tillegg til dokumentasjon i samsvar med tidligere krav skal dere denne gangen lage UML diagram som forelest.
+
+!-  Et pakkedigram for løsningen
+!- Et klassediagram for viktigste deler av systemet
+!- Et sekvensdiagram for et viktig brukstilfelle, som viser koblingen mellom brukerinteraksjon og hva som skjer inni systemet inkl. REST-kall.
+
+!- Dokumentasjon av REST-tjenesten, altså (format for) forespørslene som støttes.
+
+*- dokumentasjon for hver release må plasseres i en egen mappe, så den tredje innleveringsdokumentasjonen må plasseres i gr22nn/docs/release3
+
+I tillegg til overnevnte krav vil alle tidligere krav også være viktige, så se over tidligere kriterier, og bruk dem også!
+
+Innlevering 2:
+
+- dokumentasjon (readme filer og kommentarer) må oppdateres
+*- dokumentasjon for hver release må plasseres i en egen mappe, så den andre innleveringsdokumentasjonen må plasseres i gr22nn/docs/release2
+!- dokumentere arkitektur med minst et diagram (bruk PlantUML) i tillegg til teksten i readme
+?- dokumentere valg knyttet til arbeidsvaner, arbeidsflyt og kodekvalitet (f.eks. tilnærming til testing, verktøy for sjekking av kodekvalitet og innstillinger for dem)
+
+-->
