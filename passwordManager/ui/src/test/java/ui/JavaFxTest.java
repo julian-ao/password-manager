@@ -76,7 +76,6 @@ public class JavaFxTest extends ApplicationTest {
               .withBody("[]")));
   }
 
-  /* 
   // Basic login, username: Admin, password: Admin1!
   @Test
   public void testLogin() {
@@ -240,7 +239,7 @@ public class JavaFxTest extends ApplicationTest {
         "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
 
   }
-*/
+
   // Login and create profile
   @Test
   public void testCreateProfile() {
