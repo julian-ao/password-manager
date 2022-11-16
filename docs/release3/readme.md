@@ -18,6 +18,21 @@ The complete architecture of the project is documented in the project-architectu
 
 ### Encryption
 
+The encryption module contains the encryption algorithm and the hashing algorithm. All UserPasswords are stored as salted hashes so a database leak won´t compromise are users passwords. All profilePasswords are encrypted using a hash of their users passwords as a key, again this means that no stored data can be used to access users passwords. We have not however configured spring to use TLS, so our users passwords are not really safe.
+
+- The encryption utilises an implementation of the TwoFish block cipher algorithm and cipher block chaining. The encryption takes in an arbitrary length byte array and encrypts it using a key, it can then later be decrypted using the same key. The encryption also uses a "nonce" or "number used once" to introduce more confusion into the encryption. This is done so the same plaintext won't be encrypted to the same ciphertext.
+
+- The hash algorithm takes in an arbitrary length byte array and produces the hash for the data, the hashing algorithm is an implementation of the SHA256 algorithm.
+
+### Local Persistence
+The new local persistence uses two tables in seperate files, each profile now has a reference to its parent user instead of being nested inside its parent user. This is similar to a foreign key in more traditional database systems like SQL.
+
+
+- Example of a stored user in our database. The salts are used to generate different hashes, and the password is hashed
+![User Json Example](../images/release3_user_json_example.png)
+
+- Exaample of a stored profile in our database. The password is encrypted using the parent users password. Nonce is used in the encryption(see encryption)
+- ![Profile Json Example](../images/release3_profile_json_example.png)
 <!-- Changes in encryption -->
 
 ### Core??
