@@ -33,7 +33,7 @@ public class RestTalkerTest {
     mockServer = new WireMockServer(mockConfig.portNumber());
     mockServer.start();
     WireMock.configureFor("localhost", mockConfig.portNumber());
-    restTalker = new RestTalker();
+    restTalker = new RestTalker("http://localhost", mockServer.port());
   }
 
   @AfterEach

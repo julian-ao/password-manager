@@ -136,6 +136,8 @@ public class PasswordPageController extends PasswordManagerController {
     JSONArray jsonArray;
     try {
       jsonArray = new JSONArray(restTalker.getProfiles());
+      System.out.println("wWWWWWWWWWWWWWWWWWWW");
+      System.out.println(jsonArray);
     } catch (JSONException | URISyntaxException | InterruptedException | ExecutionException
         | ServerResponseException e) {
       e.printStackTrace();

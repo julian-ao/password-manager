@@ -37,6 +37,10 @@ public class RestTalker {
     this.url = "http://localhost";
     this.port = 8080;
   }
+  public RestTalker(String serverUrl, int serverPort) {
+    this.url = serverUrl;
+    this.port = serverPort;
+  }
 
   public void setLoggedIn(String username, String password) {
     this.loggedInPassword = password;
