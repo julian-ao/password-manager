@@ -28,6 +28,15 @@ You will need to have Java 16 installed on your computer. You can download it [h
 
 Open a new terminal and navigate to **passwordManager/ui** and write `mvn javafx:run` in the terminal to run the project.
 
+### Installing the application
+
+**Dependencies**
+[WiX Toolset 3.0](https://wixtoolset.org/docs/wix3/)
+
+Go to the directory `passwordManager/ui`. Then write in terminal: `mvn compile javafx:jlink jpackage:jpackage`.
+After the command has completed, the executable to the application will be found in `passwordManager/ui/target/dist`.
+
+
 ## Structure
 
 Folder structure:
