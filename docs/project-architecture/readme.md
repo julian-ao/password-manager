@@ -4,11 +4,16 @@
 
 This project contains six modules in total: core, local persistence, ui, client, restserver & encryption. Each module contains these source directories:
 
-**src/main/java** contains code for the module
+<!-- rephrase: -->
+<!-- **src/main/java** contains code for the module
 **src/test/java** contains test code for the module
 
 The ui module contains this in addition to the above:
-**src/main/resources** contains all FXML files
+**src/main/resources** contains all FXML files -->
+
+<!-- New architecture. Why and how we implemented it this way-->
+
+<!-- Image or link to orchitecture -->
 
 ### Core
 
