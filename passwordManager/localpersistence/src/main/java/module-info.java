@@ -1,6 +1,6 @@
 module localpersistence {
 
-  requires core;
+  requires transitive core;
   requires com.fasterxml.jackson.databind;
 
   exports localpersistence;

@@ -17,9 +17,6 @@ public class UserBuilder {
 
   /**
    * UserBuilder is a constructor for the UserBuilder class.
-   *
-   * @param databaseTalker the databaseTalker used to check if the username is
-   *                       already taken
    */
   public UserBuilder() {
 

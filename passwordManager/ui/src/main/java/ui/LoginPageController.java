@@ -87,7 +87,8 @@ public class LoginPageController extends PasswordManagerController {
         if (restTalker.login(username, password)) {
           login(username, password, "passwords.fxml", event);
         }
-      } catch (URISyntaxException | ServerResponseException | InterruptedException | ExecutionException e) {
+      } catch (URISyntaxException | ServerResponseException 
+        | InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
       visualFeedbackText.setText("Wrong username or password");
@@ -103,10 +104,10 @@ public class LoginPageController extends PasswordManagerController {
   }
 
   private void login(
-    String username, 
-    String password, 
-    String sceneName, 
-    ActionEvent event) throws IOException {
+      String username,
+      String password,
+      String sceneName,
+      ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
     root = loader.load();
 

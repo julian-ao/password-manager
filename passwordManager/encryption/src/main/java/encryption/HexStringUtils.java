@@ -1,8 +1,8 @@
 package encryption;
 
 /**
- * HexStringUtils is a class that contains methods for converting between hex
- * strings and byte arrays.
+ * HexStringUtils is a class that contains methods for converting between hex strings and byte
+ * arrays.
  */
 public class HexStringUtils {
 
@@ -37,8 +37,8 @@ public class HexStringUtils {
   }
 
   /**
-   * hexStringToByteArray converts between hexstring and byte array. example:
-   * "89ABCDEF" -> {0x89, 0xAB, 0xCD, 0xEF} Code stolen from
+   * hexStringToByteArray converts between hexstring and byte array. example: "89ABCDEF" -> {0x89,
+   * 0xAB, 0xCD, 0xEF} Code stolen from
    * https://stackoverflow.com/questions/140131/convert-a-string-representation-of
    * -a-hex-dump-to-a-byte-array-using-java.
    */
@@ -47,10 +47,8 @@ public class HexStringUtils {
     int len = s.length();
     byte[] data = new byte[len / 2];
     for (int i = 0; i < len; i += 2) {
-      data[i / 2] = (byte) ((
-        Character.digit(s.charAt(i), 
-        16) << 4) + Character.digit(s.charAt(i + 1), 16
-        ));
+      data[i / 2] =
+          (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
     }
     return data;
   }
