@@ -32,11 +32,9 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-open.png"
-  );
+      "file:src/main/resources/temporaryImageFolder/eye-open.png");
   protected Image eyeClosedImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-closed.png"
-  );
+      "file:src/main/resources/temporaryImageFolder/eye-closed.png");
 
   // Colours
   protected String lightRed = "#e98181";
@@ -44,7 +42,6 @@ public class PasswordManagerController {
   protected String lightBlue = "#81aae9";
   protected String darkBlue = "#3e5373";
   protected String grey = "#a6a6a6";
-
 
   /**
    * switchScene switches the vies to a different page, for example when going to
@@ -121,19 +118,19 @@ public class PasswordManagerController {
     element.setStyle("-fx-border-color: " + colour);
   }
 
-  protected void onHover(Region region, String color){
+  protected void onHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
-          Color.valueOf(color), new CornerRadii(10),
-          new Insets(10))));
-    scene.setCursor(Cursor.HAND); //Change cursor to hand
+        Color.valueOf(color), new CornerRadii(10),
+        new Insets(10))));
+    scene.setCursor(Cursor.HAND); // Change cursor to hand
   }
 
-  protected void offHover(Region region, String color){
+  protected void offHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
-          Color.valueOf(color), new CornerRadii(10),
-          new Insets(10))));
-    scene.setCursor(Cursor.DEFAULT); //Change cursor to default
+        Color.valueOf(color), new CornerRadii(10),
+        new Insets(10))));
+    scene.setCursor(Cursor.DEFAULT); // Change cursor to default
   }
 }

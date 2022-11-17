@@ -65,7 +65,8 @@ public class PasswordManagerController {
   }
 
   @GetMapping(value = "/getProfiles")
-  public @ResponseBody String getProfiles(@RequestParam String username, @RequestParam String password) {
+  public @ResponseBody String getProfiles(@RequestParam String username,
+      @RequestParam String password) {
     DatabaseTalker databaseTalker = new JsonTalker(new File(path).toPath());
     ArrayList<Profile> profiles = null;
     try {
@@ -97,7 +98,8 @@ public class PasswordManagerController {
         JSONObject jsonObject = new JSONObject();
 
         Encrypted encryptedPassword = new Encrypted();
-        encryptedPassword.setData(HexStringUtils.hexStringToByteArray(profile.getEncryptedPassword()));
+        encryptedPassword
+            .setData(HexStringUtils.hexStringToByteArray(profile.getEncryptedPassword()));
         encryptedPassword.setNonce(HexStringUtils.hexStringToByteArray(profile.getNonceHex()));
 
         jsonObject.put("username", profile.getProfileUsername());
@@ -170,9 +172,10 @@ public class PasswordManagerController {
     Encrypted encryptedPassword = encryption.encrypt(jsonObject.getString("password"), key);
 
     try {
-      if (databaseTalker.insertProfile(user.getUsername(),
-          new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
-              user.getUsername(), HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce())))) {
+      if (databaseTalker.insertProfile(
+          new Profile(title, username,
+              HexStringUtils.byteArrayToHexString(encryptedPassword.getData()), user.getUsername(),
+              HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce())))) {
         return "Success";
       } else {
         return "Failure";
@@ -185,13 +188,12 @@ public class PasswordManagerController {
   /**
    * userValidator that validates the user input for username and password.
    * 
-   * @param username       a username to check
-   * @param password       a password to check
+   * @param username a username to check
+   * @param password a password to check
    * @param passwordRepeat repeated password provided by the user
-   * @return a string which contains the message explaining what why the
-   *         username/password is not accepted, if the username and passwords are
-   *         accepted, and the passwordRepeat == password, the function return
-   *         "OK"
+   * @return a string which contains the message explaining what why the username/password is not
+   *         accepted, if the username and passwords are accepted, and the passwordRepeat ==
+   *         password, the function return "OK"
    */
   public String userValidator(String username, String password, String passwordRepeat) {
 
@@ -215,47 +217,48 @@ public class PasswordManagerController {
       e.printStackTrace();
     }
     switch (usernameValidation) {
-    case OK:
-      switch (passwordValidation) {
       case OK:
-        if (message == null) {
-          message = "OK";
+        switch (passwordValidation) {
+          case OK:
+            if (message == null) {
+              message = "OK";
+            }
+            break;
+          case diversityError:
+            message =
+                "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
+            break;
+          case tooShort:
+            message = "Password is too short";
+            break;
+          case tooLong:
+            message = "Password is too long";
+            break;
+          default:
+            message = "something went wrong with the validator";
+            break;
         }
         break;
-      case diversityError:
-        message = "Password must contain: uppercase letter, lowercase letter, digit and a symbol";
+      case invalidCharacters:
+        message = "Username must only contain letters and digits";
         break;
       case tooShort:
-        message = "Password is too short";
+        message = "Username is too short";
         break;
       case tooLong:
-        message = "Password is too long";
+        message = "Username is too long";
         break;
       default:
         message = "something went wrong with the validator";
         break;
-      }
-      break;
-    case invalidCharacters:
-      message = "Username must only contain letters and digits";
-      break;
-    case tooShort:
-      message = "Username is too short";
-      break;
-    case tooLong:
-      message = "Username is too long";
-      break;
-    default:
-      message = "something went wrong with the validator";
-      break;
     }
     return message;
   }
 
   // Uservalidator
   @GetMapping(value = "/userValidator")
-  public @ResponseBody String getUserValidator(@RequestParam String username, @RequestParam String password,
-      @RequestParam String passwordRepeat) {
+  public @ResponseBody String getUserValidator(@RequestParam String username,
+      @RequestParam String password, @RequestParam String passwordRepeat) {
     return userValidator(username, password, passwordRepeat);
   }
 
@@ -277,9 +280,10 @@ public class PasswordManagerController {
     try {
       if (user != null) {
         databaseTalker.deleteProfile(user.getUsername(),
-        new Profile(username, title, password, user.getUsername(), "empty"));
-    System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
-    }
+            new Profile(username, title, password, user.getUsername(), "empty"));
+        System.out.println("Deleted profile: " + username + " " + title + " " + password + " "
+            + user.getUsername());
+      }
     } catch (IOException e) {
       return "Failure";
     }

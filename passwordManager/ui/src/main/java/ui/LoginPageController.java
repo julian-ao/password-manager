@@ -103,10 +103,10 @@ public class LoginPageController extends PasswordManagerController {
   }
 
   private void login(
-    String username, 
-    String password, 
-    String sceneName, 
-    ActionEvent event) throws IOException {
+      String username,
+      String password,
+      String sceneName,
+      ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
     root = loader.load();
 

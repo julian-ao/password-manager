@@ -90,7 +90,7 @@ public class PasswordPageController extends PasswordManagerController {
   private RestTalker restTalker = new RestTalker();
 
   /**
-   * Set login  data.
+   * Set login data.
    */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
@@ -105,9 +105,8 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   public void initialize() {
     logOutButton.setBackground(
-      new Background(
-        new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)
-        ));
+        new Background(
+            new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
@@ -244,7 +243,6 @@ public class PasswordPageController extends PasswordManagerController {
 
     trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent event) {
-        // TODO get profile and delete it
         String usernameToDelete = usernameText.getText();
         String titleToDelete = titleText.getText();
         String passwordToDelete = passwordText.getText();
@@ -281,8 +279,7 @@ public class PasswordPageController extends PasswordManagerController {
     TextField textField = new TextField(label.getText());
     textField.setEditable(false);
     textField.setStyle(
-        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;"
-        );
+        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;");
     // the invisible label is a hack to get the textField to size like a label.
     Label invisibleLabel = new Label();
     invisibleLabel.textProperty().bind(label.textProperty());
@@ -370,18 +367,17 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Delete password.
    *
-   * @param userToDelete the user to delete
-   * @param titleToDelete the title to delete
+   * @param userToDelete     the user to delete
+   * @param titleToDelete    the title to delete
    * @param usernameToDelete the username to delete
    * @param passwordToDelete the password to delete
    */
   @FXML
   private void onDeletePasswordButtonClick(
-    String user, 
-    String title, 
-    String username, 
-    String password
-    ) {
+      String user,
+      String title,
+      String username,
+      String password) {
     System.out.println("Deleting password...");
     try {
       if (restTalker.deleteProfile(user, title, username, password)) {

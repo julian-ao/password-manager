@@ -55,16 +55,15 @@ public interface DatabaseTalker {
    * insertProfile stores a new profile.
    * 
    * @param username the user which the profile should be stored with
-   * @param profile  the new profile object that is to be saved
+   * @param profile the new profile object that is to be saved
    * @return boolean telling wether the operation was succesful or not
    */
-  public boolean insertProfile(String username, Profile profile) throws IOException;
+  public boolean insertProfile(Profile profile) throws IOException;
 
   /**
    * deleteProfile deletes a profile.
    * 
-   * @param username the username that owns the profile
-   * @param profile  the profile which is to be deleted
+   * @param profile the profile which is to be deleted
    */
   public void deleteProfile(String username, Profile profile) throws IOException;
 

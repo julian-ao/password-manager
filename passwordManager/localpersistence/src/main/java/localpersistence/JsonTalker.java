@@ -1,16 +1,19 @@
 package localpersistence;
 
-import core.*;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-
+import core.Profile;
+import core.User;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * This class is responsible for reading and writing to the JSON file.
+ */
 public class JsonTalker implements DatabaseTalker {
 
   private File usersFile;
@@ -18,6 +21,12 @@ public class JsonTalker implements DatabaseTalker {
   private List<User> users;
   private List<Profile> profiles;
 
+
+  /**
+   * Constructor for JsonTalker.
+
+   * @param path the path to the JSON fil
+   */
   public JsonTalker(Path path) {
     ObjectMapper mapper = new ObjectMapper();
     final ArrayList<Integer> emptyList = new ArrayList<>();
@@ -57,8 +66,8 @@ public class JsonTalker implements DatabaseTalker {
     profiles = new ArrayList<>();
     try {
       users = new ArrayList<User>(Arrays.asList(mapper.readValue(usersFile, User[].class)));
-      profiles = new ArrayList<Profile>(
-          Arrays.asList(mapper.readValue(profilesFile, Profile[].class)));
+      profiles =
+          new ArrayList<Profile>(Arrays.asList(mapper.readValue(profilesFile, Profile[].class)));
     } catch (Exception e) {
       throw new IOException(e.getMessage());
     }
@@ -75,63 +84,62 @@ public class JsonTalker implements DatabaseTalker {
 
   }
 
+  /**
+   * This method is responsible for adding empty profiles to the database.
+   */
   public void resetFiles() {
     try {
       users = new ArrayList<>();
       profiles = new ArrayList<>();
       storeData();
     } catch (Exception e) {
-      // BRRRRRRR
+      e.printStackTrace();
     }
   }
 
+  /**
+    * Checks if a user with a given username exists.
+
+    * @param username of a user
+   */
   public boolean userExists(String username) throws IOException {
     loadData();
-
-    if (users.size() > 0) {
-      for (User u : users) {
-        if (u.getUsername().equals(username)) {
-          return true;
-        }
-      }
-      return false;
-    } else
-      return false;
+    return users.stream().anyMatch(u -> u.getUsername().equals(username));
   }
 
+  
+  /**
+   * This method return every profile that is stored in the database to the user.
+
+   * @param username username to be checked
+   */
   public ArrayList<Profile> getProfiles(String username) throws IOException {
     loadData();
     if (!userExists(username)) {
       return null;
     }
 
-    ArrayList<Profile> result = new ArrayList<Profile>();
-
-    for (Profile p : profiles) {
-      if (p.getParent().equals(username)) {
-        result.add(p);
-      }
-    }
-
-    return result;
-
+    return new ArrayList<Profile>(profiles.stream()
+        .filter(p -> p.getParent().equals(username))
+        .collect(Collectors.toList()));
   }
 
-  public boolean checkPassword(String username, String hashedPassword) throws IOException {// !password should be
-                                                                                           // bytearray
-    // when hashing gets
-    // implemented
+  /**
+   * Checks if password is correct for a given user.
+
+   * @param username username to be checked
+   * @param hashedPassword hashed password to be checked
+   */
+  public boolean checkPassword(String username, String hashedPassword) throws IOException {
     loadData();
-    for (User u : users) {
-      if (u.getUsername().equals(username)) {
-        if (u.getPassword().equals(hashedPassword)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return users.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(hashedPassword));
   }
 
+  /**
+   * This method is responsible for adding a new user to the database.
+
+   * @param user user to be added
+   */
   public boolean insertUser(User user) throws IOException {
     loadData();
     users.add(user);
@@ -143,7 +151,12 @@ public class JsonTalker implements DatabaseTalker {
     return true;
   }
 
-  public boolean insertProfile(String string, Profile profile) throws IOException {
+  /**
+   * This method is responsible for adding a new profile to the database.
+
+   * @param profile profile to be added
+   */
+  public boolean insertProfile(Profile profile) throws IOException {
     boolean success = false;
     loadData();
     if (userExists(profile.getParent())) {
@@ -155,16 +168,17 @@ public class JsonTalker implements DatabaseTalker {
   }
 
   private boolean isSameProfile(Profile p1, Profile p2) {
-    return p1.getTitle().equals(p2.getTitle()) &&
-        p1.getProfileUsername().equals(p2.getProfileUsername()) &&
-        p1.getParent().equals(p2.getParent());
+    return p1.getTitle().equals(p2.getTitle())
+        && p1.getProfileUsername().equals(p2.getProfileUsername())
+        && p1.getParent().equals(p2.getParent());
 
   }
 
   public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
 
-    List<Profile> newProfiles = profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
+    List<Profile> newProfiles =
+        profiles.stream().filter((x) -> !isSameProfile(x, profile)).toList();
     profiles = newProfiles;
     storeData();
   }

@@ -24,12 +24,11 @@ public class Profile {
    * @param nonce             the nonce used to encrypt the password
    */
   public Profile(
-    String title, 
-    String profileUsername, 
-    String encryptedPassword, 
-    String parent, 
-    String nonce
-    ) {
+      String title,
+      String profileUsername,
+      String encryptedPassword,
+      String parent,
+      String nonce) {
     this.title = title;
     this.profileUsername = profileUsername;
     this.encryptedPassword = encryptedPassword;

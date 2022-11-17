@@ -1,4 +1,4 @@
 /**
-*This package set up the server using spring.
-*/
+ * This package set up the server using spring.
+ */
 package restserver;

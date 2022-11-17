@@ -20,7 +20,7 @@ public class PasswordManagerApp extends Application {
   @Override
   public void start(Stage stage) throws IOException {
     RestTalker restTalker = new RestTalker();
-    restTalker.doPrdDB();
+    restTalker.doPrdDb();
     FXMLLoader fxmlLoader = new FXMLLoader(PasswordManagerApp.class.getResource("login.fxml"));
     Scene scene = new Scene(fxmlLoader.load(), 900, 600);
     stage.setTitle("Password Manager | Login");

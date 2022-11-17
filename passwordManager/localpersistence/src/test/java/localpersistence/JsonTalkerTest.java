@@ -27,10 +27,10 @@ public class JsonTalkerTest {
 
   private void user1Profiles() {
     try {
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a"));
+      jsonTalker.insertProfile(new Profile("s@.n.n", "brukernavn", "pass", "user1", "a"));
+      jsonTalker.insertProfile(new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a"));
+      jsonTalker.insertProfile(new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a"));
+      jsonTalker.insertProfile(new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a"));
 
     } catch (Exception e) {
 
@@ -105,9 +105,9 @@ public class JsonTalkerTest {
 
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
-      if (p.getTitle().equals(profile.getTitle()) &&
-          p.getProfileUsername().equals(profile.getProfileUsername()) &&
-          p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
+      if (p.getTitle().equals(profile.getTitle())
+          && p.getProfileUsername().equals(profile.getProfileUsername())
+          && p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
         return true;
       }
     }
@@ -120,7 +120,7 @@ public class JsonTalkerTest {
     try {
       jsonTalker.insertUser(new User("user1", "password1"));
       Profile profile = new Profile("sondrkol@it.no", "sondrkol", "passord", "user1", "a");
-      jsonTalker.insertProfile("user1", profile);
+      jsonTalker.insertProfile(profile);
       ArrayList<Profile> profiles = jsonTalker.getProfiles("user1");
       assertEquals(true, hasProfile(profiles, profile));
     } catch (IOException e) {
@@ -172,7 +172,6 @@ public class JsonTalkerTest {
       profiles = jsonTalker.getProfiles("user1");
       assertEquals(false, hasProfile(profiles, profile));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }

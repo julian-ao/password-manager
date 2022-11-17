@@ -51,7 +51,7 @@ public class JavaFxTest extends ApplicationTest {
 
   @AfterEach
   public void stopWireMockServer() {
-      mockServer.stop();
+    mockServer.stop();
   }
 
   @Override
@@ -71,9 +71,9 @@ public class JavaFxTest extends ApplicationTest {
         .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
             .withBody(body)));
     stubFor(get(
-      urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-          .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-              .withBody("[]")));
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody("[]")));
   }
 
   // Basic login, username: Admin, password: Admin1!
@@ -88,7 +88,7 @@ public class JavaFxTest extends ApplicationTest {
     Assertions.assertEquals("", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordPasswordField").query()).getText());
 
-    // Check input and if visible 
+    // Check input and if visible
     clickOn("#eyeImageView");
     Assertions.assertEquals("Admin1!", ((TextField) lookup("#passwordTextField").query()).getText());
     Assertions.assertEquals(true, ((TextField) lookup("#passwordTextField").query()).isVisible());
@@ -103,7 +103,6 @@ public class JavaFxTest extends ApplicationTest {
     Assertions.assertEquals(lookup("#YourProfiles").query().toString(),
         "Text[id=YourProfiles, text=\"Your Profiles\", x=0.0, y=0.0, alignment=LEFT, origin=BASELINE, boundsType=LOGICAL, font=Font[name=System Regular, family=System, style=Regular, size=60.0], fontSmoothingType=GRAY, fill=0x000000ff]");
   }
-   
 
   // Login with wrong password
   @Test
@@ -165,7 +164,6 @@ public class JavaFxTest extends ApplicationTest {
     clickOn("#logOutButton");
     Assertions.assertEquals(true, ((TextField) lookup("#passwordPasswordField").query()).isVisible());
   }
-  
 
   // Login in wrong then click create account
   @Test
@@ -198,9 +196,8 @@ public class JavaFxTest extends ApplicationTest {
     String body2 = "OK";
     stubFor(get(urlEqualTo("/api/v1/entries/userValidator?username=" + username + "&password="
         + password + "&passwordRepeat=" + passwordRepeat))
-            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-                .withBody(body2)));
-
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(body2)));
 
     // Register
     clickOn("#usernameTextField");
@@ -220,10 +217,10 @@ public class JavaFxTest extends ApplicationTest {
     stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
         .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
             .withBody("Success")));
-            stubFor(get(
-              urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-                  .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-                      .withBody("[]")));
+    stubFor(get(
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody("[]")));
 
     // Log in.
     clickOn("#usernameTextField");
@@ -256,7 +253,6 @@ public class JavaFxTest extends ApplicationTest {
     stubFor(post(urlEqualTo("/api/v1/entries/insertProfile")).willReturn(
         aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
 
-
     String username1 = "kbrat";
     String password1 = "passord1!";
     String title1 = "google.com";
@@ -269,10 +265,9 @@ public class JavaFxTest extends ApplicationTest {
     profiles.put(profile);
 
     stubFor(get(
-      urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-          .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-              .withBody(profiles.toString())));
-
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(profiles.toString())));
 
     // create profile
     clickOn("#addProfileButton");
@@ -284,10 +279,9 @@ public class JavaFxTest extends ApplicationTest {
     write(password1);
     clickOn("#submitProfileButton");
 
-
     // assert profilesListView is visible and has 1 item
     Assertions.assertEquals(true, ((ListView<GridPane>) lookup("#profilesListView").query()).isVisible());
-    
+
     String username2 = "kbrat";
     String password2 = "passord";
     String title2 = "google.com";
@@ -299,10 +293,10 @@ public class JavaFxTest extends ApplicationTest {
     profiles.put(profile2);
 
     stubFor(get(
-      urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-          .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-              .withBody(profiles.toString())));
-    
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(profiles.toString())));
+
     // create profile
     clickOn("#addProfileButton");
     clickOn("#addProfileTitleTextField");
@@ -321,9 +315,9 @@ public class JavaFxTest extends ApplicationTest {
 
     profiles.remove(0);
     stubFor(get(
-      urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-          .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-              .withBody(profiles.toString())));
+        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
+            .withBody(profiles.toString())));
 
     stubFor(post(urlEqualTo("/api/v1/entries/deleteProfile")).willReturn(
         aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("Success")));

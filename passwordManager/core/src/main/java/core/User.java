@@ -1,7 +1,5 @@
 package core;
 
-import java.util.ArrayList;
-
 /**
  * User is a class that represents an user of the application.
  */
@@ -17,7 +15,7 @@ public class User {
 
   /**
    * User is a constructor for the User class.
-   * 
+
    * @param username the username of the user
    * @param password the password of the user
    */

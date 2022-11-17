@@ -75,7 +75,7 @@ public class RegisterPageController extends PasswordManagerController {
    * onCreateUserButtonClick sends the fields in the register page form to the
    * resttalker for validation, if they are validated, a new user is stored and
    * the user is sent back to the loginpage.
-
+   * 
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the fxml file cant be opened
    */
