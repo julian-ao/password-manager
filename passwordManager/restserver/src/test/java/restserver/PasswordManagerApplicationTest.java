@@ -76,18 +76,16 @@ public class PasswordManagerApplicationTest {
       ResultActions resultActions =
           mMvc.perform(post(path + "/register").contentType("application/json")
               .content("{'username':'test','password':'test'}"));
-      MvcResult result = resultActions.andReturn();
-      String content = result.getResponse().getContentAsString();
-      Assertions.assertEquals("Success", content);
+              Assertions.assertEquals("Success", resultActions.andReturn().getResponse().getContentAsString());
     } catch (Exception e) {
       fail();
     }
 
     try {
-      ResultActions resultActions = mMvc.perform(get(path + "/login?username=test&password=test"));
-      MvcResult result = resultActions.andReturn();
-      String content = result.getResponse().getContentAsString();
-      Assertions.assertEquals("Success", content);
+      ResultActions resultActions =
+          mMvc.perform(post(path + "/register").contentType("application/json")
+              .content("{'username':'test','password':'test'}"));
+      Assertions.assertEquals("Failure", resultActions.andReturn().getResponse().getContentAsString());
     } catch (Exception e) {
       fail();
     }
@@ -104,6 +102,13 @@ public class PasswordManagerApplicationTest {
 
       resultActions = mMvc.perform(get(path + "/userValidator?username=test2&password=Testtest1!&passwordRepeat=Testtest1!"));
       Assertions.assertEquals("OK", resultActions.andReturn().getResponse().getContentAsString());
+
+      resultActions = mMvc.perform(get(path + "/userValidator?username=test2!&password=Testtest1!&passwordRepeat=Testtest1!"));
+      Assertions.assertEquals("Username must only contain letters and digits", resultActions.andReturn().getResponse().getContentAsString());
+      
+      resultActions = mMvc.perform(get(path + "/userValidator?username=te&password=Testtest1!&passwordRepeat=Testtest1!"));
+      Assertions.assertEquals("Username is too short", resultActions.andReturn().getResponse().getContentAsString());
+
     } catch (Exception e) {
       fail();
     }
@@ -151,9 +156,25 @@ public class PasswordManagerApplicationTest {
     }
     try {
       ResultActions resultActions =
+          mMvc.perform(post(path + "/register").contentType("application/json")
+              .content("{'username':'test','password':'test'}"));
+      Assertions.assertEquals("Failure", resultActions.andReturn().getResponse().getContentAsString());
+    } catch (Exception e) {
+      fail();
+    }
+    try {
+      ResultActions resultActions =
           mMvc.perform(post(path + "/insertProfile").contentType("application/json")
           .content("{'username':'test','title':'test','password':'test','parentUsername':'test','parentPassword':'test'}"));
       Assertions.assertEquals("Success", resultActions.andReturn().getResponse().getContentAsString());
+    } catch (Exception e) {
+      fail();
+    }
+    try {
+      ResultActions resultActions =
+          mMvc.perform(post(path + "/insertProfile").contentType("application/json")
+          .content("{'username':'test','title':'test','password':'test','parentUsername':'testtt','parentPassword':'test'}"));
+      Assertions.assertEquals("Failure", resultActions.andReturn().getResponse().getContentAsString());
     } catch (Exception e) {
       fail();
     }
@@ -193,5 +214,6 @@ public class PasswordManagerApplicationTest {
     } catch (Exception e) {
       fail();
     }
+
   }
 }

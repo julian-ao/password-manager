@@ -154,7 +154,7 @@ public class PasswordManagerController {
     try {
       user = databaseTalker.getUser(jsonObject.getString("parentUsername"));
     } catch (IOException | JSONException e1) {
-      e1.printStackTrace();
+      return "Failure";
     }
     int encryptionSalt = 0;
     if (user != null) {
@@ -272,6 +272,7 @@ public class PasswordManagerController {
       user = databaseTalker.getUser(jsonObject.getString("user"));
     } catch (JSONException | IOException e1) {
       e1.printStackTrace();
+      return "Failure";
     }
     try {
       if (user != null) {
