@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -16,7 +15,6 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
 
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
@@ -48,17 +46,23 @@ public class RestTalkerTest {
     String password = "Admin1!";
     String body = "Success";
     stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
-        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-            .withBody(body)));
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
 
     try {
       assertEquals(true, restTalker.login("Admin", "Admin1!"));
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
 
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("Failure")));
+
+    try {
+      assertEquals(false, restTalker.login("Admin", "Admin1!"));
+    } catch (Exception e) {
+      fail();
+    }
     // restTalker.registerUser("Admin", "Admin1!");
     // Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
   }
@@ -67,12 +71,11 @@ public class RestTalkerTest {
   @Test
   public void register() {
     String body = "Success";
-    stubFor(post(urlEqualTo("/api/v1/entries/register")).willReturn(
-        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+    stubFor(post(urlEqualTo("/api/v1/entries/register"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
     try {
       assertEquals(true, restTalker.registerUser("Admin", "Admin1!"));
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
@@ -85,18 +88,14 @@ public class RestTalkerTest {
     String password = "Admin1!";
     String body = "Success";
     stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
-        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-            .withBody(body)));
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
 
-    stubFor(get(
-        urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
-            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-                .withBody("[]")));
+    stubFor(get(urlEqualTo("/api/v1/entries/getProfiles?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("[]")));
     try {
       assertEquals(true, restTalker.login("Admin", "Admin1!"));
       assertEquals("[]", restTalker.getProfiles());
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
@@ -109,15 +108,13 @@ public class RestTalkerTest {
     String password = "Admin1!";
     String body = "Success";
     stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
-        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-            .withBody(body)));
-    stubFor(post(urlEqualTo("/api/v1/entries/insertProfile")).willReturn(
-        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+    stubFor(post(urlEqualTo("/api/v1/entries/insertProfile"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
     try {
       assertEquals(true, restTalker.login("Admin", "Admin1!"));
       assertEquals(true, restTalker.insertProfile("Admin", "Title", "Password"));
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
@@ -131,14 +128,12 @@ public class RestTalkerTest {
     String password = "Admin1!";
     String passwordRepeat = "Admin1!";
     String body = "OK";
-    stubFor(get(urlEqualTo("/api/v1/entries/userValidator?username=" + username + "&password="
-        + password + "&passwordRepeat=" + passwordRepeat))
-            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-                .withBody(body)));
+    stubFor(get(urlEqualTo("/api/v1/entries/userValidator?username=" + username + "&password=" + password
+        + "&passwordRepeat=" + passwordRepeat))
+            .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
     try {
       assertEquals("OK", restTalker.userValidator("Admin", "Admin1!", "Admin1!"));
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
@@ -154,19 +149,30 @@ public class RestTalkerTest {
     String body = "Success";
 
     stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
-        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json")
-            .withBody(body)));
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
 
-    stubFor(post(urlEqualTo("/api/v1/entries/deleteProfile")).willReturn(
-        aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
+    stubFor(post(urlEqualTo("/api/v1/entries/deleteProfile"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody(body)));
 
     try {
       assertEquals(true, restTalker.login("Admin", "Password"));
-      assertEquals(true, restTalker.deleteProfile(user, title, username, password));
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
+      assertEquals(true, restTalker.deleteProfile(user, title, username, password, 0));
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();
     }
+  }
+
+  @Test
+  public void switchDatabaseTest() {
+
+    stubFor(post(urlEqualTo("/api/v1/entries/doDatabaseTest"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
+    stubFor(post(urlEqualTo("/api/v1/entries/doPrdDB"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
+
+    RestTalker restTalker = new RestTalker();
+    restTalker.doDatabaseTest();
+    restTalker.doPrdDB();
   }
 }

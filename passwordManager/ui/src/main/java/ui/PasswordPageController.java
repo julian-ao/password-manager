@@ -89,9 +89,6 @@ public class PasswordPageController extends PasswordManagerController {
   final ClipboardContent clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
 
-  /**
-   * Set login  data.
-   */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
     signedInAsText.setText("Signed in as: " + username);
@@ -105,9 +102,8 @@ public class PasswordPageController extends PasswordManagerController {
   @FXML
   public void initialize() {
     logOutButton.setBackground(
-      new Background(
-        new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)
-        ));
+        new Background(
+            new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
@@ -149,7 +145,7 @@ public class PasswordPageController extends PasswordManagerController {
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
-          ((JSONObject) elem).getString("password")));
+          ((JSONObject) elem).getString("password"), ((JSONObject) elem).get("id").toString()));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);
@@ -164,7 +160,7 @@ public class PasswordPageController extends PasswordManagerController {
    * @param title    title displayed
    * @return A GridPane object used to place in the listview
    */
-  private GridPane profileComponent(String username, String title, String password) {
+  private GridPane profileComponent(String username, String title, String password, String id) {
     GridPane gridPane = new GridPane();
     gridPane.setMaxWidth(720);
     gridPane.setPadding(new Insets(15, 20, 20, 20));
@@ -179,6 +175,9 @@ public class PasswordPageController extends PasswordManagerController {
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
     passwordText.setTextFill(Color.web(grey)); // ! fargedritten funker ikke
+
+    Text idComponent = new Text(id);
+    idComponent.setVisible(false);
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -249,7 +248,8 @@ public class PasswordPageController extends PasswordManagerController {
         String titleToDelete = titleText.getText();
         String passwordToDelete = passwordText.getText();
         String userToDelete = restTalker.getUsername();
-        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
+        String id = idComponent.getText();
+        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete, id);
       }
     });
 
@@ -281,8 +281,7 @@ public class PasswordPageController extends PasswordManagerController {
     TextField textField = new TextField(label.getText());
     textField.setEditable(false);
     textField.setStyle(
-        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;"
-        );
+        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;");
     // the invisible label is a hack to get the textField to size like a label.
     Label invisibleLabel = new Label();
     invisibleLabel.textProperty().bind(label.textProperty());
@@ -370,21 +369,21 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Delete password.
    *
-   * @param userToDelete the user to delete
-   * @param titleToDelete the title to delete
+   * @param userToDelete     the user to delete
+   * @param titleToDelete    the title to delete
    * @param usernameToDelete the username to delete
    * @param passwordToDelete the password to delete
    */
   @FXML
   private void onDeletePasswordButtonClick(
-    String user, 
-    String title, 
-    String username, 
-    String password
-    ) {
+      String user,
+      String title,
+      String username,
+      String password,
+      String id) {
     System.out.println("Deleting password...");
     try {
-      if (restTalker.deleteProfile(user, title, username, password)) {
+      if (restTalker.deleteProfile(user, title, username, password, Integer.parseInt(id))) {
         System.out.println("Password deleted!");
         updatePasswords();
       } else {
