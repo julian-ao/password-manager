@@ -8,6 +8,10 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import localpersistence.DatabaseTalker;
+import localpersistence.JsonTalker;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +25,11 @@ import core.User;
 import core.userbuilder.PasswordValidation;
 import core.userbuilder.UserBuilder;
 import core.userbuilder.UsernameValidation;
+
 import encryption.Encrypted;
 import encryption.Encryption;
 import encryption.HexStringUtils;
 import encryption.SHA256;
-import localpersistence.DatabaseTalker;
-import localpersistence.JsonTalker;
 
 /**
  * PasswordManagerController is the controller for the Password Manager application.
@@ -38,6 +41,13 @@ public class PasswordManagerController {
   private String path = "../localpersistence/src/resources/localpersistance/production";
   private Random rand = new Random();
 
+  /**
+   * Register login of a user.
+   *
+   * @param username the username of the user
+   * @param password the password of the user
+   * @return "success" if the login was successful, "failure" otherwise
+   */
   @GetMapping(value = "/login")
   public @ResponseBody String login(@RequestParam String username, @RequestParam String password) {
 
@@ -126,7 +136,7 @@ public class PasswordManagerController {
     return jsonArray.toString();
   }
 
-  /*
+  /**
    * databaseTalker.insertUser(new User(username, password));
    */
   @PostMapping(value = "/register")
@@ -201,8 +211,10 @@ public class PasswordManagerController {
     System.out.println("creating new profile id: " + id);
     try {
       if (databaseTalker.insertProfile(
-          new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
-              user.getUsername(), HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce()), id))) {
+          new Profile(title, username, 
+          HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
+              user.getUsername(),
+              HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce()), id))) {
         return "Success";
       } else {
         return "Failure";
@@ -314,7 +326,6 @@ public class PasswordManagerController {
       if (user != null) {
         databaseTalker.deleteProfile(user.getUsername(),
             new Profile(username, title, password, user.getUsername(), "empty", id));
-        System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
       }
     } catch (IOException e) {
       return "Failure";
