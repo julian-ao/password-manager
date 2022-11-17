@@ -30,11 +30,12 @@ Open a new terminal and navigate to **passwordManager/ui** and write `mvn javafx
 
 ### Installing the application
 
-**Dependencies**
-[WiX Toolset 3.0](https://wixtoolset.org/docs/wix3/)
+You need on Windows to use JPackage: [WiX Toolset 3.0](https://wixtoolset.org/docs/wix3/). If you are on Linux or Mac it should work fine without.
 
 Go to the directory `passwordManager/ui`. Then write in terminal: `mvn compile javafx:jlink jpackage:jpackage`.
 After the command has completed, the executable to the application will be found in `passwordManager/ui/target/dist`.
+
+Note the application will still only work if spring-boot is running.
 
 
 ## Structure
