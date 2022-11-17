@@ -77,8 +77,7 @@ public class Password {
   }
 
   /**
-   * Calculates the strength of the password
-   * based on the length and how many upper/lower/special
+   * Calculates the strength of the password based on the length and how many upper/lower/special
    * characters the password consist of.
    *
    * @return int the score of the password from 1 to 3

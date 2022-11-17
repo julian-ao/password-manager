@@ -89,6 +89,9 @@ public class PasswordPageController extends PasswordManagerController {
   final ClipboardContent clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
 
+  /**
+   * Set login data.
+   */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
     signedInAsText.setText("Signed in as: " + username);
@@ -169,12 +172,12 @@ public class PasswordPageController extends PasswordManagerController {
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
-    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); // ! fargedritten funker ikke
+    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;");
     usernameText.setTextFill(Color.web(grey));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web(grey)); // ! fargedritten funker ikke
+    passwordText.setTextFill(Color.web(grey));
 
     Text idComponent = new Text(id);
     idComponent.setVisible(false);
@@ -348,7 +351,8 @@ public class PasswordPageController extends PasswordManagerController {
             addProfileTitleTextField.getText(),
             addProfileUsernameTextField.getText(),
             addProfilePasswordTextField.getText());
-      } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      } catch (URISyntaxException | InterruptedException 
+        | ExecutionException | ServerResponseException e) {
         e.printStackTrace();
       }
 
@@ -380,7 +384,8 @@ public class PasswordPageController extends PasswordManagerController {
       } else {
         System.out.println("------Failed to delete profile------");
       }
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException 
+      | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
     }
   }
