@@ -198,9 +198,9 @@ public class JsonTalker implements DatabaseTalker {
     loadData();
     int max = 0;
     for (Profile p : profiles) {
-      if (p.getId() > max)
-        max = p.getId();
+      if (p.getId() >= max)
+        max = p.getId() + 1;
     }
-    return max + 1;
+    return max;
   }
 }

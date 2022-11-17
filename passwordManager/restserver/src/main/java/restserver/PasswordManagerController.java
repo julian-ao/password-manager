@@ -103,6 +103,7 @@ public class PasswordManagerController {
         jsonObject.put("username", profile.getProfileUsername());
         jsonObject.put("title", profile.getTitle());
         jsonObject.put("password", Encryption.decrypt(encryptedPassword, key));
+        jsonObject.put("id", profile.getId());
         jsonArray.put(jsonObject);
       }
     }
@@ -176,6 +177,7 @@ public class PasswordManagerController {
       e.printStackTrace();
       return "Failure";
     }
+    System.out.println("creating new profile id: " + id);
     try {
       if (databaseTalker.insertProfile(user.getUsername(),
           new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
@@ -274,7 +276,7 @@ public class PasswordManagerController {
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
     String password = jsonObject.getString("password");
-    int id = Integer.parseInt(jsonObject.getString("id"));
+    int id = Integer.parseInt(jsonObject.get("id").toString());
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("user"));

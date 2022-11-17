@@ -144,7 +144,7 @@ public class PasswordPageController extends PasswordManagerController {
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
-          ((JSONObject) elem).getString("password"), ((JSONObject) elem).getString("id")));
+          ((JSONObject) elem).getString("password"), ((JSONObject) elem).get("id").toString()));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);

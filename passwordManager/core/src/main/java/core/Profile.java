@@ -29,6 +29,7 @@ public class Profile {
     this.encryptedPassword = encryptedPassword;
     this.parent = parent;
     this.nonceHex = nonce;
+    this.id = id;
   }
 
   public void setTitle(String title) {
