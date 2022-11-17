@@ -104,4 +104,4 @@ After a pair programming session, when the commit is to be written, we have writ
 
 Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
 
-For this release we had atleast two meetings a week, where we discuss our progress and what we need to do to finish the project. Those meetings also consists of us coding together for several hours. We agreed on the main goals for this release early on and worked towards getting 
+For this release we had atleast two meetings a week, where we discuss our progress and what we need to do to finish the project. Those meetings also consists of us coding together for several hours. We agreed on the main goals for this release early on and worked towards getting those done, but of course throughout the project we hd to redesign certain parts of our program.
