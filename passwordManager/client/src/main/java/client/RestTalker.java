@@ -227,21 +227,4 @@ public class RestTalker {
         e.printStackTrace();
     }
   }
-
-  /**
-   * do Prd database.
-   */
-  public void doPrdDB() {
-    try {
-      this.post("/api/v1/entries/doPrdDB", "[]");
-    } 
-    catch (
-      URISyntaxException 
-      | InterruptedException 
-      | ExecutionException 
-      | ServerResponseException e
-      ) {
-        e.printStackTrace();
-    }
-  }
 }

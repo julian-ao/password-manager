@@ -73,6 +73,7 @@ public class PasswordManagerIntegrationTest {
     profile.put("username", "username");
     profile.put("title", "title");
     profile.put("password", "password");
+    profile.put("id", 0);
     profiles.add(profile);
     Assertions.assertEquals(profiles.toJSONString(), restTalker.getProfiles());
   }
@@ -80,20 +81,26 @@ public class PasswordManagerIntegrationTest {
   // Testing uservalidator and deleting a profile
   @Test
   public void testDeleteProfile() throws ServerResponseException, InterruptedException, ExecutionException, URISyntaxException {
+
+    Assertions.assertEquals("OK", restTalker.userValidator("test", "Test1!", "Test1!"));
+    Assertions.assertEquals("Password must contain: uppercase letter, lowercase letter, digit and a symbol", restTalker.userValidator("test", "Testtest", "Testtest"));
+    Assertions.assertEquals("Password is too short", restTalker.userValidator("test", "T3s!", "T3s!"));
+
     restTalker.registerUser("test", "test");
     restTalker.login("test", "test");
 
     Assertions.assertEquals(true, restTalker.insertProfile("username", "title", "password"));
-
+    
     JSONArray profiles = new JSONArray();
     JSONObject profile = new JSONObject();
     profile.put("username", "username");
     profile.put("title", "title");
     profile.put("password", "password");
+    profile.put("id", 0);
     profiles.add(profile);
     Assertions.assertEquals(profiles.toJSONString(), restTalker.getProfiles());
 
-    Assertions.assertEquals(true, restTalker.deleteProfile("test", "title", "username", "password"));
-    //Assertions.assertEquals("[]", restTalker.getProfiles());
+    Assertions.assertEquals(true, restTalker.deleteProfile("test", "title", "username", "password", 0));
+    Assertions.assertEquals("[]", restTalker.getProfiles());
   }
 }
