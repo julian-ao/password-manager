@@ -276,9 +276,9 @@ public class PasswordManagerController {
     try {
       if (user != null) {
         databaseTalker.deleteProfile(user.getUsername(),
-        new Profile(username, title, password, user.getUsername(), "empty"));
-    System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
-    }
+            new Profile(username, title, password, user.getUsername(), "empty"));
+        System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
+      }
     } catch (IOException e) {
       return "Failure";
     }
@@ -302,13 +302,4 @@ public class PasswordManagerController {
     }
     return "Success";
   }
-
-  @PostMapping(value = "/doPrdDB")
-  public @ResponseBody String doPrdDB() {
-    path = "../localpersistence/src/resources/localpersistance/production";
-    new File(path + "/users.json");
-    new File(path + "/profiles.json");
-    return "Success";
-  }
-
 }
