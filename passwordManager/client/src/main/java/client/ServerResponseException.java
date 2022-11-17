@@ -1,14 +1,14 @@
 package client;
 
+/**
+ * Class for dealing with server responses exceptions.
+ */
 public class ServerResponseException extends Exception {
-  /**
-   * Response code.
-   */
   private final int code;
 
   /**
    * A throwable exception pertaining to server issues.
-   * 
+   *
    * @param message the exception message.
    * @param responseCode the response code.
    */
@@ -18,6 +18,8 @@ public class ServerResponseException extends Exception {
   }
 
   /**
+   * Gets the response code.
+   *
    * @return the response code.
    */
   public int getCode() {
