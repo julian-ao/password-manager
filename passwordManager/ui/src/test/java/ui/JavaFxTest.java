@@ -262,6 +262,7 @@ public class JavaFxTest extends ApplicationTest {
     profile.put("username", username1);
     profile.put("password", password1);
     profile.put("title", title1);
+    profile.put("id", 0);
     profiles.put(profile);
 
     stubFor(get(
@@ -290,6 +291,7 @@ public class JavaFxTest extends ApplicationTest {
     profile2.put("username", username2);
     profile2.put("password", password2);
     profile2.put("title", title2);
+    profile2.put("id", 0);
     profiles.put(profile2);
 
     stubFor(get(

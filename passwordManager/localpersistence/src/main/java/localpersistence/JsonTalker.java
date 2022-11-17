@@ -193,9 +193,8 @@ public class JsonTalker implements DatabaseTalker {
    * @return true if profiles are equal, false otherwise
    */
   private boolean isSameProfile(Profile p1, Profile p2) {
-    return p1.getTitle().equals(p2.getTitle())
-        && p1.getProfileUsername().equals(p2.getProfileUsername())
-        && p1.getParent().equals(p2.getParent());
+    return p1.getId() == p2.getId();
+
   }
 
   /**
@@ -248,5 +247,16 @@ public class JsonTalker implements DatabaseTalker {
     }
     storeData();
     return user;
+  }
+
+  @Override
+  public int getNextProfileId() throws IOException {
+    loadData();
+    int max = 0;
+    for (Profile p : profiles) {
+      if (p.getId() >= max)
+        max = p.getId() + 1;
+    }
+    return max;
   }
 }

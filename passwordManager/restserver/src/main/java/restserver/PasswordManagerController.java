@@ -119,6 +119,7 @@ public class PasswordManagerController {
         jsonObject.put("username", profile.getProfileUsername());
         jsonObject.put("title", profile.getTitle());
         jsonObject.put("password", Encryption.decrypt(encryptedPassword, key));
+        jsonObject.put("id", profile.getId());
         jsonArray.put(jsonObject);
       }
     }
@@ -190,11 +191,18 @@ public class PasswordManagerController {
     String title = jsonObject.getString("title");
     Encrypted encryptedPassword = encryption.encrypt(jsonObject.getString("password"), key);
 
+    int id;
     try {
-      if (databaseTalker.insertProfile(
-          new Profile(title, username,
-              HexStringUtils.byteArrayToHexString(encryptedPassword.getData()), user.getUsername(),
-              HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce())))) {
+      id = databaseTalker.getNextProfileId();
+    } catch (IOException e) {
+      e.printStackTrace();
+      return "Failure";
+    }
+    System.out.println("creating new profile id: " + id);
+    try {
+      if (databaseTalker.insertProfile(user.getUsername(),
+          new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
+              user.getUsername(), HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce()), id))) {
         return "Success";
       } else {
         return "Failure";
@@ -294,6 +302,7 @@ public class PasswordManagerController {
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
     String password = jsonObject.getString("password");
+    int id = Integer.parseInt(jsonObject.get("id").toString());
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("user"));
@@ -304,9 +313,8 @@ public class PasswordManagerController {
     try {
       if (user != null) {
         databaseTalker.deleteProfile(user.getUsername(),
-            new Profile(username, title, password, user.getUsername(), "empty"));
-        System.out.println("Deleted profile: " + username + " " + title + " " + password + " "
-            + user.getUsername());
+            new Profile(username, title, password, user.getUsername(), "empty", id));
+        System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
       }
     } catch (IOException e) {
       return "Failure";

@@ -148,7 +148,7 @@ public class PasswordPageController extends PasswordManagerController {
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
-          ((JSONObject) elem).getString("password")));
+          ((JSONObject) elem).getString("password"), ((JSONObject) elem).get("id").toString()));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);
@@ -163,7 +163,7 @@ public class PasswordPageController extends PasswordManagerController {
    * @param title    title displayed
    * @return A GridPane object used to place in the listview
    */
-  private GridPane profileComponent(String username, String title, String password) {
+  private GridPane profileComponent(String username, String title, String password, String id) {
     GridPane gridPane = new GridPane();
     gridPane.setMaxWidth(720);
     gridPane.setPadding(new Insets(15, 20, 20, 20));
@@ -178,6 +178,9 @@ public class PasswordPageController extends PasswordManagerController {
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
     passwordText.setTextFill(Color.web(grey));
+
+    Text idComponent = new Text(id);
+    idComponent.setVisible(false);
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -247,9 +250,10 @@ public class PasswordPageController extends PasswordManagerController {
         String titleToDelete = titleText.getText();
         String passwordToDelete = passwordText.getText();
         String userToDelete = restTalker.getUsername();
+        String id = idComponent.getText();
         onDeletePasswordButtonClick(
           userToDelete, titleToDelete, usernameToDelete, passwordToDelete
-          );
+          , id);
       }
     });
 
@@ -380,10 +384,11 @@ public class PasswordPageController extends PasswordManagerController {
       String user,
       String title,
       String username,
-      String password) {
+      String password,
+      String id) {
     System.out.println("Deleting password...");
     try {
-      if (restTalker.deleteProfile(user, title, username, password)) {
+      if (restTalker.deleteProfile(user, title, username, password, Integer.parseInt(id))) {
         System.out.println("Password deleted!");
         updatePasswords();
       } else {
