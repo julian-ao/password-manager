@@ -509,7 +509,7 @@ public class TwoFish {
 
   /**
    * Decrypts the given ciphertext using the given key.
-   * 
+   *
    * @param ciphertext the cipher text is the encrypted data
    * @param key key used to encrypt,
    * @return the decrypted plaintext

@@ -62,16 +62,16 @@ public class Encryption { // CBC
     TwoFish twoFish = new TwoFish(); // class for block cipher algorithm
     Encrypted result = new Encrypted(); // result of encryption is stored as a "Encrypted" object
 
-    /**
+    /*
      * store the incoming plaintext as a byte array Padding added to plaintext, so the length is a
      * multiple of the blockSize. This is needed because the TwoFish block cipher only accepts
-     * blocks which are exactly 128 bits long
+     * blocks which are exactly 128 bits long.
      */
     byte[] plainTextBlocks = HexStringUtils.textToBytes(plaintext);
     plainTextBlocks = addPadding(plainTextBlocks, blockSize);
 
-    byte[] cipherTextBlocks = new byte[plainTextBlocks.length]; // create byte array to store the
-                                                                // encryption result
+    /* Create byte array to store the encryption result */
+    byte[] cipherTextBlocks = new byte[plainTextBlocks.length];
 
     // nonce is used so every encryption is different, even if the same plaintext is
     // encrypted multiple times

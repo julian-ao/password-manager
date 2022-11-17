@@ -1,11 +1,11 @@
 package ui;
 
-import client.RestTalker;
-import client.ServerResponseException;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
+
+import client.RestTalker;
+import client.ServerResponseException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +75,7 @@ public class RegisterPageController extends PasswordManagerController {
    * onCreateUserButtonClick sends the fields in the register page form to the
    * resttalker for validation, if they are validated, a new user is stored and
    * the user is sent back to the loginpage.
-   * 
+   *
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the fxml file cant be opened
    */
@@ -97,7 +97,12 @@ public class RegisterPageController extends PasswordManagerController {
       String validationResult;
       try {
         validationResult = restTalker.userValidator(username, password, passwordRepeat);
-      } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      } catch (
+      URISyntaxException 
+        | InterruptedException 
+        | ExecutionException 
+        | ServerResponseException e
+      ) {
         e.printStackTrace();
         validationResult = "Server error";
       }
@@ -106,7 +111,12 @@ public class RegisterPageController extends PasswordManagerController {
         switchScene(event, "login.fxml");
         try {
           restTalker.registerUser(username, password);
-        } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+        } catch (
+        URISyntaxException 
+          | InterruptedException 
+          | ExecutionException 
+          | ServerResponseException e
+        ) {
           e.printStackTrace();
         }
       } else {

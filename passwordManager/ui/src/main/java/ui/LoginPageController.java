@@ -87,7 +87,8 @@ public class LoginPageController extends PasswordManagerController {
         if (restTalker.login(username, password)) {
           login(username, password, "passwords.fxml", event);
         }
-      } catch (URISyntaxException | ServerResponseException | InterruptedException | ExecutionException e) {
+      } catch (URISyntaxException | ServerResponseException 
+      | InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
       visualFeedbackText.setText("Wrong username or password");

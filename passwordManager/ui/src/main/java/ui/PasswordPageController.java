@@ -172,12 +172,12 @@ public class PasswordPageController extends PasswordManagerController {
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
-    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); // ! fargedritten funker ikke
+    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;");
     usernameText.setTextFill(Color.web(grey));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web(grey)); // ! fargedritten funker ikke
+    passwordText.setTextFill(Color.web(grey));
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -247,7 +247,9 @@ public class PasswordPageController extends PasswordManagerController {
         String titleToDelete = titleText.getText();
         String passwordToDelete = passwordText.getText();
         String userToDelete = restTalker.getUsername();
-        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
+        onDeletePasswordButtonClick(
+          userToDelete, titleToDelete, usernameToDelete, passwordToDelete
+          );
       }
     });
 
@@ -351,7 +353,8 @@ public class PasswordPageController extends PasswordManagerController {
             addProfileTitleTextField.getText(),
             addProfileUsernameTextField.getText(),
             addProfilePasswordTextField.getText());
-      } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      } catch (URISyntaxException | InterruptedException 
+        | ExecutionException | ServerResponseException e) {
         e.printStackTrace();
       }
 
@@ -386,7 +389,8 @@ public class PasswordPageController extends PasswordManagerController {
       } else {
         System.out.println("------Failed to delete profile------");
       }
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (URISyntaxException | InterruptedException 
+      | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
     }
   }

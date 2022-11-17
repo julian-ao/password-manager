@@ -60,6 +60,11 @@ public class JsonTalker implements DatabaseTalker {
 
   }
 
+  /**
+   * Deserialize the data from the json file.
+   *
+   * @throws IOException if the file cannot be read
+   */
   private void loadData() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     users = new ArrayList<>();
@@ -73,6 +78,11 @@ public class JsonTalker implements DatabaseTalker {
     }
   }
 
+  /**
+   * This method is responsible for writing to the JSON file.
+   *
+   * @throws IOException if the file cannot be written to
+   */
   private void storeData() throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -101,6 +111,7 @@ public class JsonTalker implements DatabaseTalker {
     * Checks if a user with a given username exists.
 
     * @param username of a user
+    * @return true if the user exists, false otherwise
    */
   public boolean userExists(String username) throws IOException {
     loadData();
@@ -112,6 +123,7 @@ public class JsonTalker implements DatabaseTalker {
    * This method return every profile that is stored in the database to the user.
 
    * @param username username to be checked
+   * @return a list of profiles
    */
   public ArrayList<Profile> getProfiles(String username) throws IOException {
     loadData();
@@ -129,16 +141,21 @@ public class JsonTalker implements DatabaseTalker {
 
    * @param username username to be checked
    * @param hashedPassword hashed password to be checked
+   * @return true if password is correct, false otherwise
    */
   public boolean checkPassword(String username, String hashedPassword) throws IOException {
     loadData();
-    return users.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(hashedPassword));
+    return users.stream().anyMatch(
+      u -> u.getUsername().equals(username) 
+      && u.getPassword().equals(hashedPassword)
+      );
   }
 
   /**
    * This method is responsible for adding a new user to the database.
 
    * @param user user to be added
+   * @return true if user was added successfully, false otherwise
    */
   public boolean insertUser(User user) throws IOException {
     loadData();
@@ -155,6 +172,7 @@ public class JsonTalker implements DatabaseTalker {
    * This method is responsible for adding a new profile to the database.
 
    * @param profile profile to be added
+   * @return true if the profile was added successfully, false otherwise
    */
   public boolean insertProfile(Profile profile) throws IOException {
     boolean success = false;
@@ -167,13 +185,24 @@ public class JsonTalker implements DatabaseTalker {
     return success;
   }
 
+  /**
+   * Checks if two profiles are equal.
+   *
+   * @param p1 first profile
+   * @param p2 second profile
+   * @return true if profiles are equal, false otherwise
+   */
   private boolean isSameProfile(Profile p1, Profile p2) {
     return p1.getTitle().equals(p2.getTitle())
         && p1.getProfileUsername().equals(p2.getProfileUsername())
         && p1.getParent().equals(p2.getParent());
-
   }
 
+  /**
+   * Delete a profile from the database.
+   *
+   * @param profile profile to be deleted
+   */
   public void deleteProfile(String string, Profile profile) throws IOException {
     loadData();
 
@@ -183,6 +212,11 @@ public class JsonTalker implements DatabaseTalker {
     storeData();
   }
 
+  /**
+   * Deletes a user from the database.
+   *
+   * @param username username to be deleted
+   */
   public void deleteUser(String username) throws IOException {
     loadData();
     for (User u : users) {
@@ -195,6 +229,12 @@ public class JsonTalker implements DatabaseTalker {
     storeData();
   }
 
+  /**
+   * getUser returns the user with the given username.
+   *
+   * @param username the username of the user to be returned
+   * @return the user with the given username
+   */
   public User getUser(String username) throws IOException {
     loadData();
     User user = new User();
