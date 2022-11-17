@@ -59,7 +59,7 @@ public class Encryption { // CBC
    */
   public static Encrypted encrypt(String plaintext, byte[] key) {
 
-    TwoFish twoFish = new TwoFish(); // class for block cipher algorithm
+    final TwoFish twoFish = new TwoFish(); // class for block cipher algorithm
     Encrypted result = new Encrypted(); // result of encryption is stored as a "Encrypted" object
 
     /*
