@@ -88,6 +88,7 @@ Spotbugs is a static analysis tool that looks for bugs in Java code. We have Spo
 <!-- Changes in testing -->
 
 <!-- improved testing, ui testing -->
+Unit tests are now actually unit tests, where each unit is tested independently. We have also added integration testing which tests that the whole architecture works together. Jacoco also checks all modules for code coverage, and our tests test at least 80% of all modules.
 
 ## Pipeline Jobs
 

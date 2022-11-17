@@ -14,19 +14,15 @@ You will need to have Java 16 installed on your computer. You can download it [h
 
 1. Write `cd passwordManager` in the terminal to get to the root folder.
 
-2. Write `mvn clean install -DnoTestUI=true` to build the project for springboot.
+2. Write `mvn clean install` to build the project for springboot.
 
-3. Write `cd restserver` to get to the restserver folder.
 
-4. Then write `mvn spring-boot:run` to run the restserver.
 
-5. Open a new terminal and write `cd passwordManager` to get to the root folder.
-
-6. Write `mvn clean install` to build the project.
 
 ### Running the project
 
-Open a new terminal and navigate to **passwordManager/ui** and write `mvn javafx:run` in the terminal to run the project.
+Open a terminal and navigate to **passwordManager/restserver** and run `mvn spring-boot:run`
+Open a another terminal, navigate to **passwordManager/ui** and run `mvn javafx:run`
 
 ### Installing the application
 
