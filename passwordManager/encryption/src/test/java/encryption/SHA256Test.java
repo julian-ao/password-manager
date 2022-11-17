@@ -28,7 +28,7 @@ public class Sha256Test {
   public void testGetHash() {
 
     for (Entry<byte[], byte[]> e : expected.entrySet()) {
-      Sha256 hash = new Sha256();
+      sSha256 hash = new sSha256();
       Assertions.assertTrue(Arrays.equals(e.getValue(), hash.getHash(e.getKey())));
     }
   }
