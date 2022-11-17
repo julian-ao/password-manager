@@ -1,5 +1,4 @@
 module ui {
-  requires core;
   requires client;
   requires javafx.controls;
   requires javafx.fxml;
