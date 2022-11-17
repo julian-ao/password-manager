@@ -9,6 +9,7 @@ public class Profile {
   private String encryptedPassword;
   private String nonceHex;
   private String parent;
+  private int id;
 
   public Profile() {
 
@@ -22,7 +23,7 @@ public class Profile {
    * @param profileUsername   the username of the profile
    * @param encryptedPassword the encrypted password of the profile
    */
-  public Profile(String title, String profileUsername, String encryptedPassword, String parent, String nonce) {
+  public Profile(String title, String profileUsername, String encryptedPassword, String parent, String nonce, int id) {
     this.title = title;
     this.profileUsername = profileUsername;
     this.encryptedPassword = encryptedPassword;
@@ -50,6 +51,10 @@ public class Profile {
     this.parent = parent;
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public String getParent() {
     return this.parent;
   }
@@ -68,6 +73,10 @@ public class Profile {
 
   public String getNonceHex() {
     return this.nonceHex;
+  }
+
+  public int getId() {
+    return this.id;
   }
 
   /**
