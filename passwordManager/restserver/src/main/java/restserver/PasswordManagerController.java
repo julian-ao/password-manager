@@ -40,7 +40,6 @@ public class PasswordManagerController {
     try {
       u = databaseTalker.getUser(username);
     } catch (IOException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     int salt = 0;
@@ -79,7 +78,6 @@ public class PasswordManagerController {
       user = databaseTalker.getUser(username);
 
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     SHA256 hash = new SHA256();
@@ -130,6 +128,9 @@ public class PasswordManagerController {
     user.setEncryptionSalt(encryptionSalt);
 
     try {
+      if (databaseTalker.userExists(username)) {
+        return "Failure";
+      }
       if (databaseTalker.insertUser(user)) {
         return "Success";
       } else {
@@ -152,10 +153,8 @@ public class PasswordManagerController {
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("parentUsername"));
-    } catch (JSONException e1) {
-      e1.printStackTrace();
-    } catch (IOException e1) {
-      e1.printStackTrace();
+    } catch (IOException | JSONException e1) {
+      return "Failure";
     }
     int encryptionSalt = 0;
     if (user != null) {
@@ -271,18 +270,16 @@ public class PasswordManagerController {
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("user"));
-    } catch (JSONException e1) {
+    } catch (JSONException | IOException e1) {
       e1.printStackTrace();
-    } catch (IOException e1) {
-      e1.printStackTrace();
+      return "Failure";
     }
-
     try {
       if (user != null) {
         databaseTalker.deleteProfile(user.getUsername(),
-            new Profile(username, title, password, user.getUsername(), "empty"));
-        System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
-      }
+        new Profile(username, title, password, user.getUsername(), "empty"));
+    System.out.println("Deleted profile: " + username + " " + title + " " + password + " " + user.getUsername());
+    }
     } catch (IOException e) {
       return "Failure";
     }

@@ -120,10 +120,8 @@ public class PasswordManagerController {
   protected void setBorder(Node element, String colour) {
     element.setStyle("-fx-border-color: " + colour);
   }
-  /**
-   * set color of region when mouse is hovering over it.
-   */
-  public void onHover(Region region, String color) {
+
+  protected void onHover(Region region, String color){
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
           Color.valueOf(color), new CornerRadii(10),
@@ -131,18 +129,11 @@ public class PasswordManagerController {
     scene.setCursor(Cursor.HAND); //Change cursor to hand
   }
 
-  /**
-   * sets color of region when mouse is not hovering over it.
-   */
-  public void offHover(Region region, String color) {
+  protected void offHover(Region region, String color){
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
           Color.valueOf(color), new CornerRadii(10),
           new Insets(10))));
     scene.setCursor(Cursor.DEFAULT); //Change cursor to default
-  }
-
-  protected void updateUserData() {
-
   }
 }

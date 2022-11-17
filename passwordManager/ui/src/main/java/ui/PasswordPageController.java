@@ -1,13 +1,17 @@
 package ui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import client.Password;
 import client.RestTalker;
+import client.ServerResponseException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -134,7 +138,14 @@ public class PasswordPageController extends PasswordManagerController {
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    JSONArray jsonArray = new JSONArray(restTalker.getProfiles());
+    JSONArray jsonArray;
+    try {
+      jsonArray = new JSONArray(restTalker.getProfiles());
+    } catch (JSONException | URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return;
+    }
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
@@ -338,10 +349,14 @@ public class PasswordPageController extends PasswordManagerController {
       setBorder(addProfilePasswordTextField, lightRed);
       rotateNode(visualFeedbackText, false);
     } else {
-      restTalker.insertProfile(
-          addProfileTitleTextField.getText(),
-          addProfileUsernameTextField.getText(),
-          addProfilePasswordTextField.getText());
+      try {
+        restTalker.insertProfile(
+            addProfileTitleTextField.getText(),
+            addProfileUsernameTextField.getText(),
+            addProfilePasswordTextField.getText());
+      } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+        e.printStackTrace();
+      }
 
       System.out.println("Profile added!");
 
@@ -368,11 +383,15 @@ public class PasswordPageController extends PasswordManagerController {
     String password
     ) {
     System.out.println("Deleting password...");
-    if (restTalker.deleteProfile(user, title, username, password)) {
-      System.out.println("Password deleted!");
-      updatePasswords();
-    } else {
-      System.out.println("------Failed to delete profile------");
+    try {
+      if (restTalker.deleteProfile(user, title, username, password)) {
+        System.out.println("Password deleted!");
+        updatePasswords();
+      } else {
+        System.out.println("------Failed to delete profile------");
+      }
+    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+      e.printStackTrace();
     }
   }
 
