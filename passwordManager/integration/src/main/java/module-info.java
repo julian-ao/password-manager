@@ -1,15 +1,16 @@
-open module rest {
-
+module integration {
   requires spring.boot;
   requires spring.web;
   requires spring.boot.autoconfigure;
   requires spring.context;
   requires spring.beans;
   requires spring.core;
-  requires transitive core;
-  requires localpersistence;
-  requires transitive org.json;
-  requires encryption;
+  requires ui;
 
-  exports restserver;
+  requires client;
+  requires transitive rest;
+  requires localpersistence;
+
+  opens integration to spring.core;
+  exports integration;
 }

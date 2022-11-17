@@ -1,14 +1,17 @@
 package ui;
 
-import client.Password;
-
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import client.Password;
 import client.RestTalker;
+import client.ServerResponseException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -86,6 +89,9 @@ public class PasswordPageController extends PasswordManagerController {
   final Clipboard clipboard = Clipboard.getSystemClipboard();
   final ClipboardContent clipboardContent = new ClipboardContent();
 
+  /**
+   * Set login data.
+   */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
     signedInAsText.setText("Signed in as: " + username);
@@ -98,7 +104,9 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    logOutButton.setBackground(
+        new Background(
+            new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
@@ -129,11 +137,18 @@ public class PasswordPageController extends PasswordManagerController {
 
   private void updatePasswords() {
     profilesListView.getItems().clear();
-    JSONArray jsonArray = new JSONArray(restTalker.getProfiles());
+    JSONArray jsonArray;
+    try {
+      jsonArray = new JSONArray(restTalker.getProfiles());
+    } catch (JSONException | URISyntaxException | InterruptedException | ExecutionException
+        | ServerResponseException e) {
+      e.printStackTrace();
+      return;
+    }
     ArrayList<GridPane> passwords = new ArrayList<GridPane>();
     for (Object elem : jsonArray) {
       passwords.add(profileComponent(((JSONObject) elem).getString("title"), ((JSONObject) elem).getString("username"),
-          ((JSONObject) elem).getString("password")));
+          ((JSONObject) elem).getString("password"), ((JSONObject) elem).get("id").toString()));
     }
     for (GridPane i : passwords) {
       profilesListView.getItems().add(i);
@@ -142,13 +157,13 @@ public class PasswordPageController extends PasswordManagerController {
 
   /**
    * profileComponent sets up a component used in the list view.
-   * 
+   *
    * @param name     name displayed in the password Component
    * @param password password displayed
    * @param title    title displayed
    * @return A GridPane object used to place in the listview
    */
-  private GridPane profileComponent(String username, String title, String password) {
+  private GridPane profileComponent(String username, String title, String password, String id) {
     GridPane gridPane = new GridPane();
     gridPane.setMaxWidth(720);
     gridPane.setPadding(new Insets(15, 20, 20, 20));
@@ -157,12 +172,15 @@ public class PasswordPageController extends PasswordManagerController {
     titleText.setStyle("-fx-font: 35 system;");
 
     Label usernameText = makeSelectable(new Label(username));
-    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;"); // ! fargedritten funker ikke
+    usernameText.setStyle("-fx-text-fill: white; -fx-font: 25 system;");
     usernameText.setTextFill(Color.web(grey));
 
     Label passwordText = makeSelectable(new Label(password));
     passwordText.setStyle("-fx-font: 25 system;");
-    passwordText.setTextFill(Color.web(grey)); // ! fargedritten funker ikke
+    passwordText.setTextFill(Color.web(grey));
+
+    Text idComponent = new Text(id);
+    idComponent.setVisible(false);
 
     // IMAGE
     SVGPath copySVGPath = new SVGPath();
@@ -228,12 +246,8 @@ public class PasswordPageController extends PasswordManagerController {
 
     trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent event) {
-        // TODO get profile and delete it
-        String usernameToDelete = usernameText.getText();
-        String titleToDelete = titleText.getText();
-        String passwordToDelete = passwordText.getText();
-        String userToDelete = restTalker.getUsername();
-        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete);
+        String id = idComponent.getText();
+        onDeletePasswordButtonClick(id);
       }
     });
 
@@ -281,7 +295,7 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Tells the restTalker to log out and switches the scene back to the login
    * page.
-   * 
+   *
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the switchScene does not work
    */
@@ -332,10 +346,15 @@ public class PasswordPageController extends PasswordManagerController {
       setBorder(addProfilePasswordTextField, lightRed);
       rotateNode(visualFeedbackText, false);
     } else {
-      restTalker.insertProfile(
-          addProfileTitleTextField.getText(),
-          addProfileUsernameTextField.getText(),
-          addProfilePasswordTextField.getText());
+      try {
+        restTalker.insertProfile(
+            addProfileTitleTextField.getText(),
+            addProfileUsernameTextField.getText(),
+            addProfilePasswordTextField.getText());
+      } catch (URISyntaxException | InterruptedException 
+        | ExecutionException | ServerResponseException e) {
+        e.printStackTrace();
+      }
 
       System.out.println("Profile added!");
 
@@ -347,16 +366,27 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Delete password
+   * Delete password.
+   *
+   * @param userToDelete     the user to delete
+   * @param titleToDelete    the title to delete
+   * @param usernameToDelete the username to delete
+   * @param passwordToDelete the password to delete
    */
   @FXML
-  private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
+  private void onDeletePasswordButtonClick(
+      String id) {
     System.out.println("Deleting password...");
-    if (restTalker.deleteProfile(user, title, username, password)) {
-      System.out.println("Password deleted!");
-      updatePasswords();
-    } else {
-      System.out.println("------Failed to delete profile------");
+    try {
+      if (restTalker.deleteProfile(Integer.parseInt(id))) {
+        System.out.println("Password deleted!");
+        updatePasswords();
+      } else {
+        System.out.println("------Failed to delete profile------");
+      }
+    } catch (URISyntaxException | InterruptedException 
+      | ExecutionException | ServerResponseException e) {
+      e.printStackTrace();
     }
   }
 

@@ -12,8 +12,6 @@ public class Password {
 
   /**
    * Password constructor.
-   * 
-   * @param password the password to be used
    */
   public Password() {
     this.password = "";
@@ -21,25 +19,48 @@ public class Password {
     this.score = calcScore();
   }
 
+  /**
+   * Password constructor.
+   *
+   * @param password the password to be used
+   */
   public Password(String password) {
     this.password = password;
     this.score = calcScore();
   }
 
+  /**
+   * Generates a random password.
+   */
   public void setPassword() {
     randomPassword();
     this.score = calcScore();
   }
 
+  /**
+   * Sets the password.
+   *
+   * @param password the password to be used
+   */
   public void setPassword(String password) {
     this.password = password;
     this.score = calcScore();
   }
 
+  /**
+   * Gets the password.
+   *
+   * @return the password
+   */
   public String getPassword() {
     return this.password;
   }
 
+  /**
+   * Gets the score.
+   *
+   * @return the score
+   */
   public int getScore() {
     return this.score;
   }
@@ -56,8 +77,9 @@ public class Password {
   }
 
   /**
-   * Calculates the strength of the password.
-   * 
+   * Calculates the strength of the password based on the length and how many upper/lower/special
+   * characters the password consist of.
+   *
    * @return int the score of the password from 1 to 3
    */
   public int calcScore() {

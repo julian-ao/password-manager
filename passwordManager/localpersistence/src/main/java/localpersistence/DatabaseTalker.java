@@ -1,9 +1,10 @@
 package localpersistence;
 
+import java.io.IOException;
+
 import core.Profile;
 import core.User;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ public interface DatabaseTalker {
 
   /**
    * userExists checks if a user with a given username exists.
-   * 
+   *
    * @param username username of a user
    * @return true if a user with the username exists in the database
    */
@@ -21,7 +22,7 @@ public interface DatabaseTalker {
 
   /**
    * checkPassword checks if the password matches the username in the database.
-   * 
+   *
    * @param username username to be checked
    * @param password password to be checked against username
    * @return true if the user exists and the password is correct
@@ -30,7 +31,7 @@ public interface DatabaseTalker {
 
   /**
    * insertUser stores a new user in the databse.
-   * 
+   *
    * @param user the user to be stored
    * @return true if the username was unique and the user was stores successfully
    */
@@ -38,14 +39,14 @@ public interface DatabaseTalker {
 
   /**
    * deleteUser deletes a user from the database.
-   * 
+   *
    * @param username the username of the user that is to be deleted
    */
   public void deleteUser(String username) throws IOException;
 
   /**
    * getProfiles returns the profiles of a user.
-   * 
+   *
    * @param username the username of the user
    * @return a list of profile objects that has been stored by the user
    */
@@ -53,25 +54,31 @@ public interface DatabaseTalker {
 
   /**
    * insertProfile stores a new profile.
-   * 
-   * @param username the user which the profile should be stored with
-   * @param profile  the new profile object that is to be saved
+   *
+   * @param profile the new profile object that is to be saved
    * @return boolean telling wether the operation was succesful or not
    */
-  public boolean insertProfile(String username, Profile profile) throws IOException;
+  public boolean insertProfile(Profile profile) throws IOException;
 
   /**
    * deleteProfile deletes a profile.
-   * 
-   * @param username the username that owns the profile
-   * @param profile  the profile which is to be deleted
+   *
+   * @param profile the profile which is to be deleted
    */
   public void deleteProfile(String username, Profile profile) throws IOException;
 
   /**
-   * 
+   * Returns the user object of a given username.
+   *
    * @param username the username of the user
    * @return User object with all the data connected to the username
    */
   public User getUser(String username) throws IOException;
+
+  /**
+   * Method for receiving unused id in database.
+   *
+   * @return an id not currently used in our database
+   */
+  public int getNextProfileId() throws IOException;
 }

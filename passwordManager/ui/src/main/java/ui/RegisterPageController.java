@@ -1,7 +1,12 @@
 package ui;
 
-import client.RestTalker;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
+
+import client.RestTalker;
+import client.ServerResponseException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -39,6 +44,9 @@ public class RegisterPageController extends PasswordManagerController {
   @FXML
   private ImageView eyeImageView2;
 
+  /**
+   * Initializes the controller class.
+   */
   @FXML
   public void initialize() {
     eyeImageView1.setImage(eyeOpenImage);
@@ -67,7 +75,7 @@ public class RegisterPageController extends PasswordManagerController {
    * onCreateUserButtonClick sends the fields in the register page form to the
    * resttalker for validation, if they are validated, a new user is stored and
    * the user is sent back to the loginpage.
-
+   *
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the fxml file cant be opened
    */
@@ -86,11 +94,31 @@ public class RegisterPageController extends PasswordManagerController {
     // if all fields are filled
     if (username != "" && password != "" && passwordRepeat != "") {
 
-      String validationResult = restTalker.userValidator(username, password, passwordRepeat);
+      String validationResult;
+      try {
+        validationResult = restTalker.userValidator(username, password, passwordRepeat);
+      } catch (
+      URISyntaxException 
+        | InterruptedException 
+        | ExecutionException 
+        | ServerResponseException e
+      ) {
+        e.printStackTrace();
+        validationResult = "Server error";
+      }
 
       if (validationResult.equals("OK")) {
         switchScene(event, "login.fxml");
-        restTalker.registerUser(username, password);
+        try {
+          restTalker.registerUser(username, password);
+        } catch (
+        URISyntaxException 
+          | InterruptedException 
+          | ExecutionException 
+          | ServerResponseException e
+        ) {
+          e.printStackTrace();
+        }
       } else {
         visualFeedbackText.setText(validationResult);
       }

@@ -272,7 +272,6 @@
           </executions>
 
         </plugin>
-        <!--
           <plugin>
               <groupId>com.github.spotbugs</groupId>
               <artifactId>spotbugs-maven-plugin</artifactId>
@@ -282,17 +281,7 @@
                   <htmlOutput>true</htmlOutput>
                   <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
               </configuration>
-              <executions>
-                  <execution>
-                      <id>spotbugs-check</id>
-                      <phase>verify</phase>
-                      <goals>
-                          <goal>check</goal>
-                      </goals>
-                  </execution>
-              </executions>
           </plugin>
-        -->
       </plugins>
     </pluginManagement>
   </build>
@@ -310,6 +299,8 @@
     <module>client</module>
 
     <module>encryption</module>
+
+    <module>integration</module>
 
   </modules>
 

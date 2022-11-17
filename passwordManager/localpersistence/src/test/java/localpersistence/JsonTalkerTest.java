@@ -1,5 +1,6 @@
 package localpersistence;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
@@ -26,24 +27,33 @@ public class JsonTalkerTest {
 
   private void user1Profiles() {
     try {
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a"));
-      jsonTalker.insertProfile("tmp", new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a"));
+      jsonTalker.insertProfile(
+          new Profile("s@.n.n", "brukernavn", "pass", "user1", "a", jsonTalker.getNextProfileId()));
+      jsonTalker.insertProfile(
+          new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a", jsonTalker.getNextProfileId()));
+      jsonTalker.insertProfile(
+          new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a", jsonTalker.getNextProfileId()));
+      jsonTalker.insertProfile(
+          new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a", jsonTalker.getNextProfileId()));
 
     } catch (Exception e) {
 
     }
   }
 
-  public JsonTalkerTest() {
+  public JsonTalkerTest() throws IOException {
     resetFile();
+    JsonTalker jsonTalker = new JsonTalker(file.toPath());
 
     // Insert a user into the json file
-    Profile profile1 = new Profile("bob@bob.mail", "profile1", "password1", "user1", "a");
-    Profile profile2 = new Profile("bob@bob.mail", "profile2", "password2", "user1", "a");
-    Profile profile3 = new Profile("bob@bob.mail", "profile3", "password3", "user1", "a");
-    Profile profile4 = new Profile("bob@bob.mail", "profile4", "password4", "user1", "a");
+    Profile profile1 = new Profile("bob@bob.mail", "profile1", "password1", "user1", "a",
+        jsonTalker.getNextProfileId());
+    Profile profile2 = new Profile("bob@bob.mail", "profile2", "password2", "user1", "a",
+        jsonTalker.getNextProfileId());
+    Profile profile3 = new Profile("bob@bob.mail", "profile3", "password3", "user1", "a",
+        jsonTalker.getNextProfileId());
+    Profile profile4 = new Profile("bob@bob.mail", "profile4", "password4", "user1", "a",
+        jsonTalker.getNextProfileId());
     User user = new User("user1", "password1");
 
     ArrayList<Profile> profiles = new ArrayList<Profile>();
@@ -104,9 +114,8 @@ public class JsonTalkerTest {
 
   private boolean hasProfile(ArrayList<Profile> profiles, Profile profile) {
     for (Profile p : profiles) {
-      if (p.getTitle().equals(profile.getTitle()) &&
-          p.getProfileUsername().equals(profile.getProfileUsername()) &&
-          p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
+      if (p.getTitle().equals(profile.getTitle()) && p.getProfileUsername().equals(profile.getProfileUsername())
+          && p.getEncryptedPassword().equals(profile.getEncryptedPassword())) {
         return true;
       }
     }
@@ -118,8 +127,9 @@ public class JsonTalkerTest {
     resetFile();
     try {
       jsonTalker.insertUser(new User("user1", "password1"));
-      Profile profile = new Profile("sondrkol@it.no", "sondrkol", "passord", "user1", "a");
-      jsonTalker.insertProfile("user1", profile);
+      Profile profile = new Profile("sondrkol@it.no", "sondrkol", "passord", "user1", "a",
+          jsonTalker.getNextProfileId());
+      jsonTalker.insertProfile(profile);
       ArrayList<Profile> profiles = jsonTalker.getProfiles("user1");
       assertEquals(true, hasProfile(profiles, profile));
     } catch (IOException e) {
@@ -149,6 +159,9 @@ public class JsonTalkerTest {
     try {
       profiles = jsonTalker.getProfiles("user1");
       assertEquals(4, profiles.size());
+
+      profiles = jsonTalker.getProfiles("NOTAUSSERTHATEXISSTSINOURDATABAASE");
+      assertEquals(profiles, null);
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -168,8 +181,27 @@ public class JsonTalkerTest {
       profiles = jsonTalker.getProfiles("user1");
       assertEquals(false, hasProfile(profiles, profile));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+
+  @Test
+  public void constructorTest() throws IOException {
+    File usersFile = new File(path + "/users.json");
+    File profilesFile = new File(path + "/profiles.json");
+    usersFile.createNewFile();
+    profilesFile.createNewFile();
+    DatabaseTalker jsonTalker = new JsonTalker(file.toPath());
+
+    usersFile.delete();
+    profilesFile.delete();
+
+    DatabaseTalker jsonTalker1 = new JsonTalker(file.toPath());
+  }
+
+  @Test
+  public void getUserTest() throws IOException {
+    jsonTalker.insertUser(new User("username", "hashedPassword"));
+    Assertions.assertThat(jsonTalker.getUser("username").getPassword().equals("hashedPassword"));
   }
 }

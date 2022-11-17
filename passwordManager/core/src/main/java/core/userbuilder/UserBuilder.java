@@ -17,9 +17,6 @@ public class UserBuilder {
 
   /**
    * UserBuilder is a constructor for the UserBuilder class.
-   * 
-   * @param databaseTalker the databaseTalker used to check if the username is
-   *                       already taken
    */
   public UserBuilder() {
 
@@ -41,7 +38,7 @@ public class UserBuilder {
 
   /**
    * checks is a username is a valid one.
-   * 
+   *
    * @param username the username to be validated
    * @return UsernameValidation enum which contains the response code
    */
@@ -56,7 +53,7 @@ public class UserBuilder {
 
   /**
    * checks if a password is a valid one.
-   * 
+   *
    * @param password the password to be validated
    * @return PasswordValidation enum which contains the response code
    */
@@ -71,7 +68,7 @@ public class UserBuilder {
 
   /**
    * setUsername sets the username if it clears all the checks.
-   * 
+   *
    * @param username the username which is to be checked for use
    * @return UsernameValidation see UsernameValidation type in
    *         UsernameValidation.java for further refrence
@@ -88,7 +85,7 @@ public class UserBuilder {
 
   /**
    * setPassword sets the password if it is valid.
-   * 
+   *
    * @param password the password which is to be set
    * @return PasswordValidation see PasswordValidation.java for further reference
    */
@@ -104,7 +101,7 @@ public class UserBuilder {
 
   /**
    * buildUser builds the user if the username and password are valid.
-   * 
+   *
    * @return User this is only possible if the username and password has passed
    *         the checks
    */

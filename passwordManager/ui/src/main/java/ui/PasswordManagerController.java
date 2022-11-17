@@ -32,24 +32,21 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-    "file:src/main/resources/images/eye-open.png"
-  );
+      "file:src/main/resources/images/eye-open.png");
   protected Image eyeClosedImage = new Image(
-    "file:src/main/resources/images/eye-closed.png"
-  );
+      "file:src/main/resources/images/eye-closed.png");
 
   // Colours
-  protected final String lightRed = "#e98181";
-  protected final String darkRed = "#753f3f";
-  protected final String lightBlue = "#81aae9";
-  protected final String darkBlue = "#3e5373";
-  protected final String grey = "#a6a6a6";
-
+  protected String lightRed = "#e98181";
+  protected String darkRed = "#753f3f";
+  protected String lightBlue = "#81aae9";
+  protected String darkBlue = "#3e5373";
+  protected String grey = "#a6a6a6";
 
   /**
    * switchScene switches the vies to a different page, for example when going to
    * the registerpage, or when logging out.
-   * 
+   *
    * @param event     the event is used to get the window object
    * @param sceneName the path of the fxml file to be switched to
    * @throws IOException if the fxml file cant be opened
@@ -69,7 +66,7 @@ public class PasswordManagerController {
   /**
    * passwordEye shows or hides the password in the passwordTextField and
    * passwordPasswordField.
-   * 
+   *
    * @param textfield     the textfield that is used to show the password
    * @param passwordfield the passwordfield that is used to hide the password
    * @param imageview     the imageview that is used to show the eye
@@ -93,7 +90,7 @@ public class PasswordManagerController {
 
   /**
    * rotateNode animates a node by rotatating it.
-   * 
+   *
    * @param element   the element that is to be rotated
    * @param clockwise whether the element should be rotated clockwise or not
    */
@@ -114,7 +111,7 @@ public class PasswordManagerController {
 
   /**
    * setBorderRed sets the border of a node.
-
+   * 
    * @param element the element thats border is to be set
    * @param colour  the colour of the border
    */
@@ -124,33 +121,29 @@ public class PasswordManagerController {
 
   /**
    * onHover changes the background color and sets the cursor to hand.
-
+   * 
    * @param region the region that is to be changed
    * @param color  the color that the background should be changed to
    */
-  public void onHover(Region region, String color){
+  public void onHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
-          Color.valueOf(color), new CornerRadii(10),
-          new Insets(10))));
-    scene.setCursor(Cursor.HAND); //Change cursor to hand
+        Color.valueOf(color), new CornerRadii(10),
+        new Insets(10))));
+    scene.setCursor(Cursor.HAND); // Change cursor to hand
   }
 
   /**
    * offHover changes the background color and sets the cursor to default.
-
+   * 
    * @param region the region that is to be changed
    * @param color  the color that the background should be changed to
    */
-  public void offHover(Region region, String color){
+  public void offHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
-          Color.valueOf(color), new CornerRadii(10),
-          new Insets(10))));
-    scene.setCursor(Cursor.DEFAULT); //Change cursor to default
-  }
-
-  protected void updateUserData() {
-
+        Color.valueOf(color), new CornerRadii(10),
+        new Insets(10))));
+    scene.setCursor(Cursor.DEFAULT); // Change cursor to default
   }
 }

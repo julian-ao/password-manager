@@ -1,5 +1,8 @@
 package encryption;
 
+/**
+ * Stores encrypted data.
+ */
 public class Encrypted {
   private byte[] data;
   private byte[] nonce;

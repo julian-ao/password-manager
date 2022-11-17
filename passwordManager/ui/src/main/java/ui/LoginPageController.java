@@ -1,11 +1,18 @@
 package ui;
 
 import client.RestTalker;
-import java.io.IOException;
+import client.ServerResponseException;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
+
+import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,8 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 
 /**
  * FXML Controller class for the login page.
@@ -62,10 +67,9 @@ public class LoginPageController extends PasswordManagerController {
    * successful it opens the mainpage and sends the profile to the mainpage.
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
-   * 
+   *
    * @param event ActionEvent object to be used in the switchScene method.
    * @throws IOException if there is a problem opening the new scene
-   * 
    */
   @FXML
   private void onLoginButtonClick(ActionEvent event) throws IOException {
@@ -79,10 +83,13 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     if (!username.equals("") && !password.equals("")) {
-
-      String data = restTalker.login(username, password);
-      if (data.equals("Success")) {
-        login(username, password, "passwords.fxml", event);
+      try {
+        if (restTalker.login(username, password)) {
+          login(username, password, "passwords.fxml", event);
+        }
+      } catch (URISyntaxException | ServerResponseException 
+        | InterruptedException | ExecutionException e) {
+        e.printStackTrace();
       }
       visualFeedbackText.setText("Wrong username or password");
     } else {
@@ -96,7 +103,11 @@ public class LoginPageController extends PasswordManagerController {
     rotateNode(visualFeedbackText, false);
   }
 
-  private void login(String username, String password, String sceneName, ActionEvent event) throws IOException {
+  private void login(
+      String username,
+      String password,
+      String sceneName,
+      ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
     root = loader.load();
 
