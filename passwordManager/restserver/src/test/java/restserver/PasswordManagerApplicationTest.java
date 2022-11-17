@@ -215,6 +215,14 @@ public class PasswordManagerApplicationTest {
     } catch (Exception e) {
       fail();
     }
+    // get profile to see if it is deleted
+    try {
+      ResultActions resultActions =
+          mMvc.perform(get(path + "/getProfiles?username=test&password=test"));
+      Assertions.assertEquals("[]", resultActions.andReturn().getResponse().getContentAsString());
+    } catch (Exception e) {
+      fail();
+    }
 
   }
 }

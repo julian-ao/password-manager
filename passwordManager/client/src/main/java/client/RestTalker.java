@@ -243,27 +243,12 @@ public class RestTalker {
     return response.body();
   }
 
-  /**
-   * Delete a profile from the database.
-
-   * @param user The user who wants to delete the profile.
-   * @param title The title of the profile to be deleted.
-   * @param username The username of the profile to be deleted.
-   * @param password The password of the profile to be deleted.
-   * @return Returns true if the profile was successfully deleted.
-   * @throws URISyntaxException If the URI syntax is incorrect.
-   * @throws InterruptedException If the underlying asynchronous request was interrupted.
-   * @throws ExecutionException If the underlying asynchronous request completed exceptionally.
-   * @throws ServerResponseException If there was an error with the server response.
-   */
-  public boolean deleteProfile(String user, String title, String username, String password, int id)
+  // delete profile
+  public boolean deleteProfile(int id)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     JSONObject json = new JSONObject();
-    json.put("user", user);
+    json.put("user", loggedInUsername);
     json.put("userPassword", loggedInPassword);
-    json.put("title", title);
-    json.put("username", username);
-    json.put("password", password);
     json.put("id", id);
     HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
     return response.body().equals("Success");
@@ -275,9 +260,13 @@ public class RestTalker {
   public void doDatabaseTest() {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
-      e.printStackTrace();
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
+        e.printStackTrace();
     }
   }
 }

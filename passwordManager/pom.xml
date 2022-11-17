@@ -300,6 +300,8 @@
 
     <module>encryption</module>
 
+    <module>integration</module>
+
   </modules>
 
 </project>
