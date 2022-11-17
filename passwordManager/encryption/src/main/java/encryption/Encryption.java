@@ -112,7 +112,6 @@ public class Encryption { // CBC
 
     result.setData(cipherTextBlocks);
     return result;
-
   }
 
   /**

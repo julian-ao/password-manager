@@ -148,7 +148,6 @@ public class PasswordManagerController {
     JSONObject jsonObject = new JSONObject(body);
 
     String userPassword = jsonObject.getString("parentPassword");
-    Encryption encryption = new Encryption();
     SHA256 hash = new SHA256();
     User user = null;
     try {
@@ -167,7 +166,7 @@ public class PasswordManagerController {
 
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
-    Encrypted encryptedPassword = encryption.encrypt(jsonObject.getString("password"), key);
+    Encrypted encryptedPassword = Encryption.encrypt(jsonObject.getString("password"), key);
 
     try {
       if (databaseTalker.insertProfile(user.getUsername(),
@@ -307,8 +306,8 @@ public class PasswordManagerController {
   @PostMapping(value = "/doPrdDB")
   public @ResponseBody String doPrdDB() {
     path = "../localpersistence/src/resources/localpersistance/production";
-    File usersFile = new File(path + "/users.json");
-    File profilesFile = new File(path + "/profiles.json");
+    new File(path + "/users.json");
+    new File(path + "/profiles.json");
     return "Success";
   }
 

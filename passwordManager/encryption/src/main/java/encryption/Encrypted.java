@@ -9,6 +9,7 @@ public class Encrypted {
 
   public void setData(byte[] data) {
     this.data = data;
+    
   }
 
   public void setNonce(byte[] nonce) {
@@ -16,10 +17,10 @@ public class Encrypted {
   }
 
   public byte[] getData() {
-    return this.data;
+    return data.clone();
   }
 
   public byte[] getNonce() {
-    return this.nonce;
+    return nonce.clone();
   }
 }
