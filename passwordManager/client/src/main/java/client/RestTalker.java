@@ -37,6 +37,7 @@ public class RestTalker {
     this.url = "http://localhost";
     this.port = 8080;
   }
+
   public RestTalker(String serverUrl, int serverPort) {
     this.url = serverUrl;
     this.port = serverPort;
@@ -150,69 +151,70 @@ public class RestTalker {
    */
 
   public boolean login(String username, String password)
-    throws URISyntaxException, InterruptedException,
-            ExecutionException, ServerResponseException {
-      HttpResponse<String> response = this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
-    
-      if (response.body().equals("Success")) {
-        this.setLoggedIn(username, password);
-        return true;
-      }
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    HttpResponse<String> response = this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
 
-      return false;
+    if (response.body().equals("Success")) {
+      this.setLoggedIn(username, password);
+      return true;
+    }
+
+    return false;
   }
 
-  public String getProfiles()  throws URISyntaxException, InterruptedException,
-  ExecutionException, ServerResponseException{
-      HttpResponse<String> response = this
-          .get("/api/v1/entries/getProfiles?username=" + this.loggedInUsername + "&password=" + this.loggedInPassword);
-      return response.body();
+  public String getProfiles()
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    HttpResponse<String> response = this
+        .get("/api/v1/entries/getProfiles?username=" + this.loggedInUsername + "&password=" + this.loggedInPassword);
+    return response.body();
   }
 
   // post request to create a new user, sends JSON object {"username": username,
   // "password": password}
-  public boolean registerUser(String username, String password) throws URISyntaxException, InterruptedException,
-  ExecutionException, ServerResponseException {
-      JSONObject obj = new JSONObject();
-      obj.put("username", username);
-      obj.put("password", password);
-      HttpResponse<String> response = this.post("/api/v1/entries/register", obj.toString());
-      return response.body().equals("Success");
+  public boolean registerUser(String username, String password)
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    JSONObject obj = new JSONObject();
+    obj.put("username", username);
+    obj.put("password", password);
+    HttpResponse<String> response = this.post("/api/v1/entries/register", obj.toString());
+    return response.body().equals("Success");
   }
 
   // post request to create a new user, sends JSON object {"username": username,
   // "password": password, "title": title}
-  public boolean insertProfile(String username, String title, String password) throws URISyntaxException, InterruptedException,
-  ExecutionException, ServerResponseException{
-      JSONObject json = new JSONObject();
-      json.put("username", username);
-      json.put("title", title);
-      json.put("password", password);
-      json.put("parentUsername", loggedInUsername);
-      json.put("parentPassword", loggedInPassword);
-      HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
-      return response.body().equals("Success");
+  public boolean insertProfile(String username, String title, String password)
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    JSONObject json = new JSONObject();
+    json.put("username", username);
+    json.put("title", title);
+    json.put("password", password);
+    json.put("parentUsername", loggedInUsername);
+    json.put("parentPassword", loggedInPassword);
+    HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
+    return response.body().equals("Success");
   }
 
-  public String userValidator(String username, String password, String passwordRepeat)throws URISyntaxException, InterruptedException,
-  ExecutionException, ServerResponseException {
-      HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password="
-          + password + "&passwordRepeat=" + passwordRepeat);
-      return response.body();
+  public String userValidator(String username, String password, String passwordRepeat)
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password="
+        + password + "&passwordRepeat=" + passwordRepeat);
+    return response.body();
   }
 
   // delete profile
-  public boolean deleteProfile(String user, String title, String username, String password) throws URISyntaxException, InterruptedException,
-  ExecutionException, ServerResponseException {
-      JSONObject json = new JSONObject();
-      json.put("user", user);
-      json.put("userPassword", loggedInPassword);
-      json.put("title", title);
-      json.put("username", username);
-      json.put("password", password);
-      HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
-      return response.body().equals("Success");
+  public boolean deleteProfile(String user, String title, String username, String password, int id)
+      throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
+    JSONObject json = new JSONObject();
+    json.put("user", user);
+    json.put("userPassword", loggedInPassword);
+    json.put("title", title);
+    json.put("username", username);
+    json.put("password", password);
+    json.put("id", id);
+    HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
+    return response.body().equals("Success");
   }
+
   public void doDatabaseTest() {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
@@ -242,4 +244,4 @@ public class RestTalker {
         e.printStackTrace();
     }
   }
-} 
+}
