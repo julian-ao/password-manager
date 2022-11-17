@@ -1,5 +1,7 @@
 # Project architecture
 
+![Package Diagram](..\project-architecture\PUML-diagrams\PackageDiagram.png)
+
 ## Modules
 
 This project contains six modules in total: core, local persistence, ui, client, restserver & encryption. Each module contains these source directories:
