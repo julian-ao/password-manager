@@ -80,7 +80,7 @@ public class JsonTalker implements DatabaseTalker {
       profiles = new ArrayList<>();
       storeData();
     } catch (Exception e) {
-      // BRRRRRRR
+      e.printStackTrace();
     }
   }
 
@@ -116,10 +116,8 @@ public class JsonTalker implements DatabaseTalker {
 
   }
 
-  public boolean checkPassword(String username, String hashedPassword) throws IOException {// !password should be
-                                                                                           // bytearray
-    // when hashing gets
-    // implemented
+  public boolean checkPassword(String username, String hashedPassword) throws IOException {
+    /* !password should be bytearray when hashing gets implemented */
     loadData();
     for (User u : users) {
       if (u.getUsername().equals(username)) {
@@ -178,6 +176,9 @@ public class JsonTalker implements DatabaseTalker {
     storeData();
   }
 
+  /**
+   * get the user with the given username
+   */
   public User getUser(String username) throws IOException {
     loadData();
     User user = new User();
@@ -198,8 +199,9 @@ public class JsonTalker implements DatabaseTalker {
     loadData();
     int max = 0;
     for (Profile p : profiles) {
-      if (p.getId() >= max)
+      if (p.getId() >= max) {
         max = p.getId() + 1;
+      }
     }
     return max;
   }
