@@ -3,17 +3,18 @@ package encryption;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Encryption {// CBC
+/**
+ * Encryption is a class that contains methods for encrypting and decrypting
+ * strings.
+ */
+public class Encryption { // CBC
 
   private static final int blockSize = 16;
   private static Random random = new Random();
 
   /**
-   * @param data
-   * @param blockSize
-   * @return
+   * Encrypts a string using AES-128 in CBC mode.
    */
-
   private static byte[] addPadding(byte[] data, int blockSize) {
     int paddingAmount = blockSize - data.length % blockSize;
     if (paddingAmount == 0) {
@@ -32,8 +33,10 @@ public class Encryption {// CBC
   }
 
   /**
-   * @param data
-   * @return
+   * removes the padding from the data.
+   *
+   * @param data the data to remove padding from
+   * @return the data without padding
    */
   private static byte[] removePadding(byte[] data) {
     int paddingAmount = data[data.length - 1];
@@ -50,23 +53,21 @@ public class Encryption {// CBC
   /**
    * The encrypt function uses cipher block chaining to allow for more than 128
    * bits to be encrypted.
-   * 
-   * 
-   * 
+   *
    * @param plaintext The plaintext to be encrypted
    * @param key       Key used in the encryption
    * @return an Encrypted object, containing nonce used, and the
    */
   public static Encrypted encrypt(String plaintext, byte[] key) {
 
-    TwoFish twoFish = new TwoFish();// class for block cipher algorithm
-    Encrypted result = new Encrypted();// result of encryption is stored as a "Encrypted" object
+    TwoFish twoFish = new TwoFish(); // class for block cipher algorithm
+    Encrypted result = new Encrypted(); // result of encryption is stored as a "Encrypted" object
 
     byte[] plainTextBlocks = HexStringUtils.textToBytes(plaintext); // store the incoming plaintext as a byte array
-    plainTextBlocks = addPadding(plainTextBlocks, blockSize);// Padding added to plaintext, so the length is a
-                                                             // multiple of the blockSize. This is needed because
-                                                             // the TwoFish block cipher only accepts blocks which
-                                                             // ar e exactly 128 bits long
+    plainTextBlocks = addPadding(plainTextBlocks, blockSize);       // Padding added to plaintext, so the length is a
+                                                                    // multiple of the blockSize. This is needed because
+                                                                    // the TwoFish block cipher only accepts blocks which
+                                                                    // are exactly 128 bits long
 
     byte[] cipherTextBlocks = new byte[plainTextBlocks.length]; // create byte array to store the encryption result
 
@@ -106,6 +107,8 @@ public class Encryption {// CBC
   }
 
   /**
+   * Decrypts a string using AES-128 in CBC mode.
+   *
    * @param cipherObject Object conating the ciphertext and the nonce used in
    *                     encryption
    * @param key          key to be used in the decryption

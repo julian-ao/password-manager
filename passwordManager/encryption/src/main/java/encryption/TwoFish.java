@@ -4,12 +4,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * TwoFish is a class that implements the TwoFish encryption algorithm.
+ */
 public class TwoFish {
 
   /**
    * the first 4 integers are the state of the encryption/decryption. They start
    * as the input, are manipulated in various ways troughout the algorithm and
-   * finally they are outputted out of the encryption/decryption
+   * finally they are outputted out of the encryption/decryption.
    */
   private int left0;
   private int left1;
@@ -18,7 +21,7 @@ public class TwoFish {
 
   /**
    * the expanded key is stored in keyWords as they are used multiple places, this
-   * removes the need to pass this data troughout the algorithm
+   * removes the need to pass this data troughout the algorithm.
    */
   private int[] keyWords;
 
@@ -58,11 +61,11 @@ public class TwoFish {
 
   /**
    * right rotates the 4 rightmost bits in a byte example ROR(xxxx1011, 2) =
-   * 00001110 the four upper bits are discarded
-  
+   * 00001110 the four upper bits are discarded.
+   *
    * @param x      the byte which contains the 4 bits to be rotated
    * @param amount hwo much the 4 bits should be rotated
-   * 
+   *
    * @return byte whose 4 least significant bits are rotated
    */
   private static byte ROR(byte x, int amount) {
@@ -78,13 +81,13 @@ public class TwoFish {
   }
 
   /**
-   * Substitutes the 4 bits in a byte with the value in the sbox. 
-  
+   * Substitutes the 4 bits in a byte with the value in the sbox.
+   *
    * @param x the byte to be substituted
    * @param a a 1 or a 0, which chooses between two sets of 4 bit substitutions
    * @return the substituted byte
    */
-  private byte q(byte x, int a) {
+  private byte qSubstitute(byte x, int a) {
     byte[] t0;
     byte[] t1;
     byte[] t2;
@@ -114,25 +117,25 @@ public class TwoFish {
   }
 
   /**
-   * q0 is a substition table
-   
+   * q0 is a substition table.
+   *
    * @param x the byte to be substituted
-   * 
+   *
    * @return the substition for the given byte
    */
 
   private byte q0(byte x) {
-    return q(x, 0);
+    return qSubstitute(x, 0);
   }
 
   private byte q1(byte x) {
-    return q(x, 1);
+    return qSubstitute(x, 1);
   }
 
   /**
    * this function takes in 4 bytes and substitutes them with different
    * substitution boxes.
-  
+   *
    * @param bytes 4 bytes to be substituted
    * @return substituted bytes
    */
@@ -147,29 +150,31 @@ public class TwoFish {
   }
 
   // Galois field stuff
-  private byte addGF28(byte a, byte b) {
+  private byte addGf28(byte a, byte b) {
     return (byte) (a ^ b);
   }
 
   /**
    * this function is the same as a*b when a and b is in GF(2^8) with reducing
    * polynomial: minPoly. NOTE: this function does not commute
-   
+   *
    * @param a       left hand side operand
    * @param b       right hand side operand
    * @param minPoly reducing polynomial, where x^8 is implicit. 01010101 -->
    *                x^8+x^6+x^4+x^2+1
-   * @return
+   * @return byte a*b in GF(2^8)
    */
-  private byte multiplyGF28(byte a, byte b, byte minPoly) {
+  private byte multiplyGf28(byte a, byte b, byte minPoly) {
     byte res = 0;
     while (a != 0 && b != 0) {
-      if ((b & 0x01) != 0)
+      if ((b & 0x01) != 0) {
         res ^= a;
-      if ((a & 0x80) != 0)
+      }
+      if ((a & 0x80) != 0) {
         a = (byte) ((a << 1) ^ minPoly);
-      else
+      } else {
         a <<= 1;
+      }
       b >>>= 1;
       b = (byte) (b & 0x7f);
 
@@ -178,14 +183,14 @@ public class TwoFish {
   }
 
   public byte multiplyGF28Test(byte a, byte b, byte minPoly) {
-    return multiplyGF28(a, b, minPoly);
+    return multiplyGf28(a, b, minPoly);
   }
 
   /**
    * the function interprets a byte array as a vector over a certain galois field
    * defined by the reducing polynomial(param minPoly), with a matrix defining a
    * transformation in the vector space.
-  
+   *
    * @param matrix  matrix representing the transformation
    * @param vector  to be transformed
    * @param minPoly the reducing polynomial passed on to the multiplication
@@ -195,7 +200,7 @@ public class TwoFish {
     byte[] result = new byte[matrix.length];
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
-        result[i] = addGF28(result[i], multiplyGF28(matrix[i][j], vector[j], minPoly));
+        result[i] = addGf28(result[i], multiplyGf28(matrix[i][j], vector[j], minPoly));
       }
     }
     return result;
@@ -220,8 +225,10 @@ public class TwoFish {
     this.right1 ^= keyWords[7];
   }
 
-  private int MDSMultiply(byte[] vector) {
-    return ByteArrayUtils.bytesToIntBigEndian(matrixVectorMultiplyGF28(MDSmatrix, vector, MDSMinPoly));
+  private int mdsMultiply(byte[] vector) {
+    return ByteArrayUtils.bytesToIntBigEndian(
+      matrixVectorMultiplyGF28(MDSmatrix, vector, MDSMinPoly)
+      );
   }
 
   /**
@@ -231,10 +238,10 @@ public class TwoFish {
    * @param x0 the first input
    * @param x1 the second input
    * @param r  the round number
-   * @return the output of the function
+   * @return int[] the output of the function
    */
   private int[] fFunction(int x0, int x1, int r) {
-    x1 = (x1 << 8) | (x1 >>> (32 - 8));// rightrotate x1 8 to the left before passing it to gFunction
+    x1 = (x1 << 8) | (x1 >>> (32 - 8)); // rightrotate x1 8 to the left before passing it to gFunction
     x0 = gFunction(ByteArrayUtils.intToBytesBigEndian(x0));
     x1 = gFunction(ByteArrayUtils.intToBytesBigEndian(x1));
 
@@ -249,7 +256,7 @@ public class TwoFish {
 
   /**
    * the g function substitutes bytes and performs a transformation on the bytes
-   * s_boxBytes substitutes bytes MDSMultiply is a spesific instance of
+   * s_boxBytes substitutes bytes mdsMultiply is a spesific instance of
    * matrixVectorMultiplyGF28 function, with a hardcoded reducing polynomial and
    * transformation.
    *
@@ -258,7 +265,7 @@ public class TwoFish {
    */
   private int gFunction(byte[] bytes) {
     bytes = s_boxBytes(bytes);
-    return MDSMultiply(bytes);
+    return mdsMultiply(bytes);
   }
 
   /**
@@ -290,6 +297,9 @@ public class TwoFish {
     this.right1 = ((this.right1 >>> 1)) | ((this.right1 << 31));
   }
 
+  /**
+   * flip swaps the left and right side of the state.
+   */
   public boolean roundEncryptDecryptTest(byte[] input, byte[] key) {
     keySchedule(key);
     getInput(input);
@@ -303,19 +313,19 @@ public class TwoFish {
   }
 
   /**
-   * flips the left side with the right side
+   * flips the left side with the right side.
    */
   private void flip() {
     int tmp0 = this.left0;
-    int tmp1 = this.left1;
     this.left0 = this.right0;
-    this.left1 = this.right1;
     this.right0 = tmp0;
+    int tmp1 = this.left1;
+    this.left1 = this.right1;
     this.right1 = tmp1;
   }
 
   /**
-   * the h Function is used in the key schedule to generate more key material
+   * the h Function is used in the key schedule to generate more key material.
    *
    * @param X some integer
    * @param L some list of integers
@@ -351,22 +361,22 @@ public class TwoFish {
       }
 
       // substitute
-      result[0] = q(result[0], qMap.get(i)[0]);
-      result[1] = q(result[1], qMap.get(i)[1]);
-      result[2] = q(result[2], qMap.get(i)[2]);
-      result[3] = q(result[3], qMap.get(i)[3]);
+      result[0] = qSubstitute(result[0], qMap.get(i)[0]);
+      result[1] = qSubstitute(result[1], qMap.get(i)[1]);
+      result[2] = qSubstitute(result[2], qMap.get(i)[2]);
+      result[3] = qSubstitute(result[3], qMap.get(i)[3]);
 
       // xor
       result = ByteArrayUtils.bytesXor(result, ByteArrayUtils.intToBytesBigEndian(L[i - 1]));
 
     }
     // last substitute
-    result[0] = q(result[0], qMap.get(0)[0]);
-    result[1] = q(result[1], qMap.get(0)[1]);
-    result[2] = q(result[2], qMap.get(0)[2]);
-    result[3] = q(result[3], qMap.get(0)[3]);
+    result[0] = qSubstitute(result[0], qMap.get(0)[0]);
+    result[1] = qSubstitute(result[1], qMap.get(0)[1]);
+    result[2] = qSubstitute(result[2], qMap.get(0)[2]);
+    result[3] = qSubstitute(result[3], qMap.get(0)[3]);
 
-    result = ByteArrayUtils.intToBytesBigEndian(MDSMultiply(result));
+    result = ByteArrayUtils.intToBytesBigEndian(mdsMultiply(result));
 
     return ByteArrayUtils.bytesToIntBigEndian(result);
 
@@ -378,7 +388,7 @@ public class TwoFish {
 
   /**
    * expands the key into 40 words of key material, used for input/output
-   * whitening and for the f function
+   * whitening and for the f function.
    *
    * @param Me keyMaterial list
    * @param M0 another keyMaterial list
@@ -426,7 +436,11 @@ public class TwoFish {
     int[] S = new int[k];
     for (int i = 0; i < k; i++) {
       S[k - 1 - i] = ByteArrayUtils
-          .bytesToIntBigEndian(matrixVectorMultiplyGF28(RSD, Arrays.copyOfRange(key, i * 8, i * 8 + 8), RSMinPoly));
+          .bytesToIntBigEndian(matrixVectorMultiplyGF28(
+            RSD,
+            Arrays.copyOfRange(key, i * 8, i * 8 + 8),
+            RSMinPoly
+            ));
     }
 
     // setting up keydependent substitution boxes

@@ -1,10 +1,16 @@
 package encryption;
 
+/**
+ * HexStringUtils is a class that contains methods for converting between hex
+ * strings and byte arrays.
+ */
 public class HexStringUtils {
 
   /**
-   * @param text
-   * @return
+   * byteArrayToHexString is a method that converts a byte array to a hex string.
+   *
+   * @param text the byte array to be converted
+   * @return the hex string
    */
   public static byte[] textToBytes(String text) {
     byte[] result = new byte[text.length()];
@@ -14,6 +20,12 @@ public class HexStringUtils {
     return result;
   }
 
+  /**
+   * converts a byte array to a hex string.
+   *
+   * @param bytes the bytes to convert to hex
+   * @return String representation of the bytes
+   */
   public static String bytesToText(byte[] bytes) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < bytes.length; i++) {
@@ -24,11 +36,11 @@ public class HexStringUtils {
     return temp;
   }
 
-  /*
+  /**
    * hexStringToByteArray converts between hexstring and byte array. example:
    * "89ABCDEF" -> {0x89, 0xAB, 0xCD, 0xEF} Code stolen from
    * https://stackoverflow.com/questions/140131/convert-a-string-representation-of
-   * -a-hex-dump-to-a-byte-array-using-java
+   * -a-hex-dump-to-a-byte-array-using-java.
    */
   public static byte[] hexStringToByteArray(String s) {
     s = s.replace(" ", "");
@@ -45,6 +57,9 @@ public class HexStringUtils {
     return array[b];
   }
 
+  /**
+   * Converts a byte array to a hex string.
+   */
   public static String byteArrayToHexString(byte[] bytes) {
     StringBuilder sb = new StringBuilder();
     for (byte b : bytes) {

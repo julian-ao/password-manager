@@ -1,14 +1,10 @@
 package ui;
 
 import client.Password;
+import client.RestTalker;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,6 +31,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * FXML Controller class for the password page.
@@ -86,6 +85,12 @@ public class PasswordPageController extends PasswordManagerController {
   final ClipboardContent clipboardContent = new ClipboardContent();
   private RestTalker restTalker = new RestTalker();
 
+  /**
+   * Set log in  data.
+   *
+   * @param username
+   * @param password
+   */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
     signedInAsText.setText("Signed in as: " + username);
@@ -281,7 +286,7 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Tells the restTalker to log out and switches the scene back to the login
    * page.
-   * 
+   *
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the switchScene does not work
    */
@@ -347,7 +352,12 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Delete password
+   * Delete password.
+   *
+   * @param userToDelete the user to delete
+   * @param titleToDelete the title to delete
+   * @param usernameToDelete the username to delete
+   * @param passwordToDelete the password to delete
    */
   @FXML
   private void onDeletePasswordButtonClick(String user, String title, String username, String password) {

@@ -128,11 +128,13 @@ public class RestTalker {
     return client.sendAsync(request, BodyHandlers.ofString());
   }
 
-  /*
-   * ------------------------------------------NEXT IS REQ
-   * CODE-----------------------------------------------------
+  /**
+   * Request login to the server.
+   *
+   * @param username
+   * @param password
+   * @return
    */
-
   public String login(String username, String password) {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
@@ -142,7 +144,10 @@ public class RestTalker {
       return "error";
     }
   }
-
+  /**
+   * Request all entries from the server.
+   * @return The entries.
+   */
   public String getProfiles() {
     try {
       HttpResponse<String> response = this
@@ -154,8 +159,13 @@ public class RestTalker {
     }
   }
 
-  // post request to create a new user, sends JSON object {"username": username,
-  // "password": password}
+  /**
+   * post request to create a new user, sends JSON object {"username": username,
+   * "password": password}.
+   * @param username
+   * @param password
+   * @return
+   */
   public boolean registerUser(String username, String password) {
     try {
       JSONObject obj = new JSONObject();
@@ -169,8 +179,10 @@ public class RestTalker {
     }
   }
 
-  // post request to create a new user, sends JSON object {"username": username,
-  // "password": password, "title": title}
+  /**
+   * post request to create a new user, sends JSON object {"username": username,
+   * "password": password, "title": title}.
+   */
   public boolean insertProfile(String username, String title, String password) {
     try {
       JSONObject json = new JSONObject();
@@ -187,6 +199,14 @@ public class RestTalker {
     }
   }
 
+  /**
+   * User Validator.
+   *
+   * @param username
+   * @param password
+   * @param passwordRepeat
+   * @return
+   */
   public String userValidator(String username, String password, String passwordRepeat) {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password="
@@ -198,7 +218,11 @@ public class RestTalker {
     }
   }
 
-  // delete profile
+  /**
+   * Deletes profile from database.
+   *
+   * @return boolean if successful
+   */
   public boolean deleteProfile(String user, String title, String username, String password) {
     try {
       JSONObject json = new JSONObject();
@@ -215,6 +239,9 @@ public class RestTalker {
     }
   }
 
+  /**
+   * Test database connection.
+   */
   public void doDatabaseTest() {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
@@ -223,6 +250,9 @@ public class RestTalker {
     }
   }
 
+  /**
+   * do Prd database.
+   */
   public void doPrdDB() {
     try {
       this.post("/api/v1/entries/doPrdDB", "[]");

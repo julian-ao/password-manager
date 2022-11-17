@@ -39,6 +39,9 @@ public class RegisterPageController extends PasswordManagerController {
   @FXML
   private ImageView eyeImageView2;
 
+  /**
+   * Initializes the controller class.
+   */
   @FXML
   public void initialize() {
     eyeImageView1.setImage(eyeOpenImage);

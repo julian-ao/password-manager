@@ -31,7 +31,7 @@
     </Match>
     <Match>
         <Class name="encryption.TwoFish" />
-        <Method name="multiplyGF28" />
+        <Method name="multiplyGf28" />
         <Bug pattern="ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT" />
         <!--Its a unsigned rightshift, why is this reported as a bug?-->
     </Match>

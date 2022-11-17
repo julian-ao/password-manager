@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 //https://qvault.io/cryptography/how-sha-2-works-step-by-step-sha-256/
 
+/**
+ * SHA256 is a class that represents the SHA256 hashing algorithm.
+ */
 public class SHA256 {
   private int h0;
   private int h1;
@@ -23,7 +26,10 @@ public class SHA256 {
       0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
       0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa,
       0xa4506ceb, 0xbef9a3f7, 0xc67178f2 };
-
+  
+  /**
+   * The constructor for SHA256.
+   */
   public SHA256() {
     h0 = 0x6a09e667;
     h1 = 0xbb67ae85;
@@ -154,7 +160,7 @@ public class SHA256 {
 
   }
 
-  /*
+  /**
    * SHA256 works by reading in the input one block at a time, doing some funky
    * stuff to that block, and then using that block to manipulate its internal
    * state. This is done until there are no more blocks. Lastly the internal
@@ -162,9 +168,9 @@ public class SHA256 {
    */
   public byte[] getHash(byte[] input) {
 
-    input = pad(input);// pad data to be multiple of 64 bytes
+    input = pad(input); // pad data to be multiple of 64 bytes
 
-    for (int c = 0; c < input.length / 64; c++) {// loop trough all chuncks
+    for (int c = 0; c < input.length / 64; c++) { // loop trough all chuncks
 
       int[] w = bytesToInts(Arrays.copyOfRange(input, c * 64, c * 64 + 64));
       w = padInts(w);
@@ -180,6 +186,9 @@ public class SHA256 {
     return intsToBytes(new int[] { this.h0, this.h1, this.h2, this.h3, this.h4, this.h5, this.h6, this.h7 });
   }
 
+  /**
+   * Get the hash.
+   */
   public String getHash(String input, int salt) {
     byte[] inputBytes = null;
     try {
@@ -196,7 +205,7 @@ public class SHA256 {
     return HexStringUtils.byteArrayToHexString(result);
   }
 
-  /*
+  /**
    * the reset function resets the internal fields to their original values.
    */
   public void reset() {

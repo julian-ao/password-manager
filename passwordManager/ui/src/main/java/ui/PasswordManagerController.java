@@ -49,7 +49,7 @@ public class PasswordManagerController {
   /**
    * switchScene switches the vies to a different page, for example when going to
    * the registerpage, or when logging out.
-   * 
+   *
    * @param event     the event is used to get the window object
    * @param sceneName the path of the fxml file to be switched to
    * @throws IOException if the fxml file cant be opened
@@ -69,7 +69,7 @@ public class PasswordManagerController {
   /**
    * passwordEye shows or hides the password in the passwordTextField and
    * passwordPasswordField.
-   * 
+   *
    * @param textfield     the textfield that is used to show the password
    * @param passwordfield the passwordfield that is used to hide the password
    * @param imageview     the imageview that is used to show the eye
@@ -93,7 +93,7 @@ public class PasswordManagerController {
 
   /**
    * rotateNode animates a node by rotatating it.
-   * 
+   *
    * @param element   the element that is to be rotated
    * @param clockwise whether the element should be rotated clockwise or not
    */
@@ -114,13 +114,18 @@ public class PasswordManagerController {
 
   /**
    * setBorderRed sets the border of a node to red.
-   * 
+   *
    * @param element the element that is to be set to red
    */
   protected void setBorder(Node element, String colour) {
     element.setStyle("-fx-border-color: " + colour);
   }
-
+  /**
+   * set color of region when mouse is hovering over it.
+   *
+   * @param region
+   * @param color
+   */
   public void onHover(Region region, String color){
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
@@ -128,8 +133,13 @@ public class PasswordManagerController {
           new Insets(10))));
     scene.setCursor(Cursor.HAND); //Change cursor to hand
   }
-
-  public void offHover(Region region, String color){
+  /**
+   * sets color of region when mouse is not hovering over it.
+   *
+   * @param region
+   * @param color
+   */
+  public void offHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
           Color.valueOf(color), new CornerRadii(10),

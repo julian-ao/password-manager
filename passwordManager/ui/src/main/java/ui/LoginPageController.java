@@ -1,11 +1,14 @@
 package ui;
 
 import client.RestTalker;
+
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,8 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 
 /**
  * FXML Controller class for the login page.
@@ -62,10 +63,9 @@ public class LoginPageController extends PasswordManagerController {
    * successful it opens the mainpage and sends the profile to the mainpage.
    * login, if it can't login or the password and/or username
    * is not filled in; The function shows the appropriate response to the user.
-   * 
+   *
    * @param event ActionEvent object to be used in the switchScene method.
    * @throws IOException if there is a problem opening the new scene
-   * 
    */
   @FXML
   private void onLoginButtonClick(ActionEvent event) throws IOException {
