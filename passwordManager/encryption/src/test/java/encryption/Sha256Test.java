@@ -8,10 +8,10 @@ import java.util.Map.Entry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class sSha256Test {
+public class Sha256Test {
   private Map<byte[], byte[]> expected;
 
-  public sSha256Test() {
+  public Sha256Test() {
     expected = new HashMap<>();
 
     expected.put(HexStringUtils.hexStringToByteArray("35af563efefef97234638920"),
