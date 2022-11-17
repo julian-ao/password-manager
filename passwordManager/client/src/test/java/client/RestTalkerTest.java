@@ -55,6 +55,14 @@ public class RestTalkerTest {
       fail();
     }
 
+    stubFor(get(urlEqualTo("/api/v1/entries/login?username=" + username + "&password=" + password))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("Failure")));
+
+    try {
+      assertEquals(false, restTalker.login("Admin", "Admin1!"));
+    } catch (Exception e) {
+      fail();
+    }
     // restTalker.registerUser("Admin", "Admin1!");
     // Assertions.assertEquals("Success", restTalker.login("Admin", "Admin1!"));
   }
@@ -153,5 +161,18 @@ public class RestTalkerTest {
       e.printStackTrace();
       fail();
     }
+  }
+
+  @Test
+  public void switchDatabaseTest() {
+
+    stubFor(post(urlEqualTo("/api/v1/entries/doDatabaseTest"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
+    stubFor(post(urlEqualTo("/api/v1/entries/doPrdDB"))
+        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
+
+    RestTalker restTalker = new RestTalker();
+    restTalker.doDatabaseTest();
+    restTalker.doPrdDB();
   }
 }
