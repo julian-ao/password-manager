@@ -32,10 +32,10 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-    "file:src/main/resources/temporaryImageFolder/eye-open.png"
+    "file:src/main/resources/images/eye-open.png"
   );
   protected Image eyeClosedImage = new Image(
-    "file:src/main/resources/temporaryImageFolder/eye-closed.png"
+    "file:src/main/resources/images/eye-closed.png"
   );
 
   // Colours
