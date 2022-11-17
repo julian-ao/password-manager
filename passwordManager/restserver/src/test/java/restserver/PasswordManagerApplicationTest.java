@@ -67,6 +67,7 @@ public class PasswordManagerApplicationTest {
     } catch (Exception e) {
       fail();
     }
+
   }
 
   // Create a new user and login and uservalidator 
@@ -91,6 +92,15 @@ public class PasswordManagerApplicationTest {
     }
 
     try {
+      ResultActions resultActions = mMvc.perform(get(path + "/login?username=test&password=test"));
+      MvcResult result = resultActions.andReturn();
+      String content = result.getResponse().getContentAsString();
+      Assertions.assertEquals("Success", content);
+    } catch (Exception e) {
+      fail();
+    }
+
+    try {
       ResultActions resultActions = mMvc.perform(get(path + "/userValidator?username=test&password=T3s!&passwordRepeat=T3s!"));
       Assertions.assertEquals("Password is too short", resultActions.andReturn().getResponse().getContentAsString());
 
@@ -108,6 +118,9 @@ public class PasswordManagerApplicationTest {
       
       resultActions = mMvc.perform(get(path + "/userValidator?username=te&password=Testtest1!&passwordRepeat=Testtest1!"));
       Assertions.assertEquals("Username is too short", resultActions.andReturn().getResponse().getContentAsString());
+
+      resultActions = mMvc.perform(get(path + "/userValidator?username=test3&password=Testtsest1!&passwordRepeat=Testtest1!"));
+      Assertions.assertEquals("Passwords does not match", resultActions.andReturn().getResponse().getContentAsString());
 
     } catch (Exception e) {
       fail();
