@@ -280,16 +280,3 @@ public class RestTalker {
       e.printStackTrace();
     }
   }
-
-  /**
-   * Change the path of the database to production path.
-   */
-  public void doPrdDb() {
-    try {
-      this.post("/api/v1/entries/doPrdDB", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException
-        | ServerResponseException e) {
-      e.printStackTrace();
-    }
-  }
-}

@@ -36,15 +36,6 @@ public class PasswordManagerApplicationTest {
     }
   }
 
-  @AfterEach
-  public void resetAfter() {
-    try {
-      mMvc.perform(post(path + "/doPrdDB"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   @Test
   public void testAppMainMethod() {
     PasswordManagerApplication.main();

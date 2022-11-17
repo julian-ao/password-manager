@@ -344,18 +344,4 @@ public class PasswordManagerController {
     }
     return "Success";
   }
-
-  /**
-   * Creates two new files in the local persistence folder, one for users and one for profiles.
-   *
-   * @return string "Success" if the files are created.
-   */
-  @PostMapping(value = "/doPrdDB")
-  public @ResponseBody String doPrdDB() {
-    path = "../localpersistence/src/resources/localpersistance/production";
-    File usersFile = new File(path + "/users.json");
-    File profilesFile = new File(path + "/profiles.json");
-    return "Success";
-  }
-
 }
