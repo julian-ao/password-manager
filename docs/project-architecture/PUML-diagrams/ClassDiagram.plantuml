@@ -157,20 +157,20 @@ class UserBuilder{
 }
 
 
-TwoFish --> Encryption
-Encryption --> PasswordManagerController
-JsonTalker --> PasswordManagerController
-SHA256 --> PasswordManagerController
-ByteArrayUtils --> TwoFish
-HexStringUtils --> Encryption
-HexStringUtils --> SHA256
-PasswordValidation --> UserBuilder
-UsernameValidation --> UserBuilder
-Profile --> JsonTalker
-User --> JsonTalker
-UserBuilder --> PasswordManagerController
-User --> PasswordManagerController
-Profile --> PasswordManagerController
-Encrypted --> PasswordManagerController
-Encrypted --> Encryption
+TwoFish "1" --> "1" Encryption
+Encryption "Many" --> "1" PasswordManagerController
+JsonTalker "Many" --> "1" PasswordManagerController
+SHA256 "Many" --> "1" PasswordManagerController
+ByteArrayUtils --> TwoFish :static
+HexStringUtils --> Encryption :static
+HexStringUtils --> SHA256 :static
+PasswordValidation --> UserBuilder :static
+UsernameValidation --> UserBuilder :static
+Profile "Many" --> "1" JsonTalker
+User "Many" --> "1" JsonTalker
+UserBuilder "1" --> "1" PasswordManagerController
+User "Many" --> "1" PasswordManagerController
+Profile "Many" --> "1"PasswordManagerController
+Encrypted "Many" --> "1" PasswordManagerController
+Encrypted "Many" --> "1" Encryption
 @enduml
