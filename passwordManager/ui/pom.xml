@@ -10,11 +10,6 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>gr2216</groupId>
-            <artifactId>modules-core</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
         <dependency>
             <groupId>gr2216</groupId>

@@ -37,15 +37,6 @@ public class PasswordManagerApplicationTest {
     }
   }
 
-  @AfterEach
-  public  void resetAfter() {
-    try {
-      mMvc.perform(post(path + "/doPrdDB"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
   @Test
   public void testAppMainMethod() {
     PasswordManagerApplication.main();
@@ -224,6 +215,14 @@ public class PasswordManagerApplicationTest {
           mMvc.perform(post(path + "/deleteProfile").contentType("application/json")
           .content("{'username':'test','title':'test','password':'test','userPassword':'test','user':'test'}"));
       Assertions.assertEquals("Success", resultActions.andReturn().getResponse().getContentAsString());
+    } catch (Exception e) {
+      fail();
+    }
+    // get profile to see if it is deleted
+    try {
+      ResultActions resultActions =
+          mMvc.perform(get(path + "/getProfiles?username=test&password=test"));
+      Assertions.assertEquals("[]", resultActions.andReturn().getResponse().getContentAsString());
     } catch (Exception e) {
       fail();
     }
