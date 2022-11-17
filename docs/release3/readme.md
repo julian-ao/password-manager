@@ -16,8 +16,9 @@ The new architecture consists of a server and a client. The server application c
 
 ### Restserver
 
-The new restserver module is the base of our restserver. it handles post and get requests sent from the client and handles all database accesses, passwordchecking, encrypting/decrypting/hashing and produces the right response.
+For this release we implemented a REST-API with spring-boot. The server is set up using spring in the new restserver module. This module is dependent on localpresistence, core & encryption and handles requests from a new client module. This makes ui and core independet, and the data between them are handled by the client module (Data access layer) and the restserver (Service layer).
 
+We have chosen to use Spring because Spring is widely used by other java developers and therefore it is well documented. Spring Boot made it easier to set up the Spring server.
 
 ### Encryption
 

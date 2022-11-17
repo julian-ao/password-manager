@@ -16,9 +16,6 @@ You will need to have Java 16 installed on your computer. You can download it [h
 
 2. Write `mvn clean install` to build the project for springboot.
 
-
-
-
 ### Running the project
 
 Open a terminal and navigate to **passwordManager/restserver** and run `mvn spring-boot:run`
