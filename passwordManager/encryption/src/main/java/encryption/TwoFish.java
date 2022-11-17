@@ -72,7 +72,7 @@ public class TwoFish {
    *
    * @return byte whose 4 least significant bits are rotated
    */
-  private static byte ROR(byte x, int amount) {
+  private static byte ror(byte x, int amount) {
     byte result;
     result = (byte) ((x >> amount) & 0x0f);
     result |= x << (4 - amount);
@@ -80,8 +80,8 @@ public class TwoFish {
     return result;
   }
 
-  public static byte RORtest(byte x, int amount) {
-    return ROR(x, amount);
+  public static byte rorTest(byte x, int amount) {
+    return ror(x, amount);
   }
 
   /**
@@ -91,7 +91,7 @@ public class TwoFish {
    * @param a a 1 or a 0, which chooses between two sets of 4 bit substitutions
    * @return the substituted byte
    */
-  private byte qSubstitute(byte x, int a) {
+  private byte qqSubstitute(byte x, int a) {
     byte[] t0;
     byte[] t1;
     byte[] t2;
@@ -110,11 +110,11 @@ public class TwoFish {
     byte a0 = (byte) ((x >>> 4) & 0x0f);
     byte b0 = (byte) (x & 0x0f);
     byte a1 = (byte) ((a0 ^ b0) & 0x0f);
-    byte b1 = (byte) ((a0 ^ ROR(b0, 1) ^ ((a0 << 3) & 0x0f)) & 0x0f);
+    byte b1 = (byte) ((a0 ^ ror(b0, 1) ^ ((a0 << 3) & 0x0f)) & 0x0f);
     byte a2 = t0[a1];
     byte b2 = t1[b1];
     byte a3 = (byte) (a2 ^ b2);
-    byte b3 = (byte) ((a2 ^ ROR(b2, 1) ^ ((a2 << 3) & 0x0f)) & 0x0f);
+    byte b3 = (byte) ((a2 ^ ror(b2, 1) ^ ((a2 << 3) & 0x0f)) & 0x0f);
     byte a4 = t2[a3];
     byte b4 = t3[b3];
     return (byte) (b4 << 4 | (a4 & 0x0f));
@@ -126,7 +126,7 @@ public class TwoFish {
    * @param bytes 4 bytes to be substituted
    * @return substituted bytes
    */
-  private byte[] s_boxBytes(byte[] bytes) {
+  private byte[] ss_boxBytes(byte[] bytes) {
     assert (bytes.length == 4);
     byte[] result = new byte[4];
     result[0] = sbox0[(bytes[0]) < 0 ? ((int) (bytes[0])) + 256 : bytes[0]];
@@ -168,7 +168,7 @@ public class TwoFish {
     return res;
   }
 
-  public byte multiplyGF28Test(byte a, byte b, byte minPoly) {
+  public byte multiplyGf28Test(byte a, byte b, byte minPoly) {
     return multiplyGf28(a, b, minPoly);
   }
 
@@ -224,11 +224,11 @@ public class TwoFish {
    * @param r the round number
    * @return int[] the output of the function
    */
-  private int[] fFunction(int x0, int x1, int r) {
+  private int[] ffunction(int x0, int x1, int r) {
     x1 = (x1 << 8) | (x1 >>> (32 - 8)); // rightrotate x1 8 to the left before passing it to
     // gFunction
-    x0 = gFunction(ByteArrayUtils.intToBytesBigEndian(x0));
-    x1 = gFunction(ByteArrayUtils.intToBytesBigEndian(x1));
+    x0 = gfunction(ByteArrayUtils.intToBytesBigEndian(x0));
+    x1 = gfunction(ByteArrayUtils.intToBytesBigEndian(x1));
 
     x0 = x0 + x1;
     x1 = x1 + x0;
@@ -247,8 +247,8 @@ public class TwoFish {
    * @param bytes the byte array input
    * @return an integer output
    */
-  private int gFunction(byte[] bytes) {
-    bytes = s_boxBytes(bytes);
+  private int gfunction(byte[] bytes) {
+    bytes = ss_boxBytes(bytes);
     return mdsMultiply(bytes);
   }
 
@@ -258,10 +258,10 @@ public class TwoFish {
    * @param r the round number
    */
   private void roundEncrypt(int r) {
-    int[] fLeftSide = fFunction(this.left0, this.left1, r);
+    int[] fleftSide = ffunction(this.left0, this.left1, r);
     this.right1 = (this.right1 << 1) | ((this.right1 >>> 31));
-    this.right1 ^= fLeftSide[1];
-    this.right0 ^= fLeftSide[0];
+    this.right1 ^= fleftSide[1];
+    this.right0 ^= fleftSide[0];
     this.right0 = ((this.right0 >>> 1)) | ((this.right0 << 31));
     flip();
 
@@ -275,9 +275,9 @@ public class TwoFish {
   private void roundDecrypt(int r) {
     flip();
     this.right0 = ((this.right0 << 1)) | ((this.right0 >>> 31));
-    int[] fLeftSide = fFunction(this.left0, this.left1, r);
-    this.right0 ^= fLeftSide[0];
-    this.right1 ^= fLeftSide[1];
+    int[] fleftSide = ffunction(this.left0, this.left1, r);
+    this.right0 ^= fleftSide[0];
+    this.right1 ^= fleftSide[1];
     this.right1 = ((this.right1 >>> 1)) | ((this.right1 << 31));
   }
 
@@ -316,45 +316,45 @@ public class TwoFish {
    * @param k the size of L
    * @return integer
    */
-  private int hFunction(int x, int[] l, int k) {
-    Map<Integer, int[]> qMap = new HashMap<>();
+  private int hfunction(int x, int[] l, int k) {
+    Map<Integer, int[]> qmap = new HashMap<>();
 
-    qMap.put(4, new int[] {1, 0, 0, 1});
-    qMap.put(3, new int[] {1, 1, 0, 0});
-    qMap.put(2, new int[] {0, 1, 0, 1});
-    qMap.put(1, new int[] {0, 0, 1, 1});
-    qMap.put(0, new int[] {1, 0, 1, 0});
+    qmap.put(4, new int[] {1, 0, 0, 1});
+    qmap.put(3, new int[] {1, 1, 0, 0});
+    qmap.put(2, new int[] {0, 1, 0, 1});
+    qmap.put(1, new int[] {0, 0, 1, 1});
+    qmap.put(0, new int[] {1, 0, 1, 0});
 
     byte[] bytesX = ByteArrayUtils.intToBytesBigEndian(x);
 
     byte[] result = new byte[4];
-    boolean xAdded = false;
+    boolean xadded = false;
     for (int i = 4; i > 0; i--) {
 
       // Handling of different keysizes
       if (i > k) {
         continue;
       }
-      if (!xAdded) {
+      if (!xadded) {
         result = Arrays.copyOf(bytesX, 4);
-        xAdded = true;
+        xadded = true;
       }
 
       // substitute
-      result[0] = qSubstitute(result[0], qMap.get(i)[0]);
-      result[1] = qSubstitute(result[1], qMap.get(i)[1]);
-      result[2] = qSubstitute(result[2], qMap.get(i)[2]);
-      result[3] = qSubstitute(result[3], qMap.get(i)[3]);
+      result[0] = qqSubstitute(result[0], qmap.get(i)[0]);
+      result[1] = qqSubstitute(result[1], qmap.get(i)[1]);
+      result[2] = qqSubstitute(result[2], qmap.get(i)[2]);
+      result[3] = qqSubstitute(result[3], qmap.get(i)[3]);
 
       // xor
       result = ByteArrayUtils.bytesXor(result, ByteArrayUtils.intToBytesBigEndian(l[i - 1]));
 
     }
     // last substitute
-    result[0] = qSubstitute(result[0], qMap.get(0)[0]);
-    result[1] = qSubstitute(result[1], qMap.get(0)[1]);
-    result[2] = qSubstitute(result[2], qMap.get(0)[2]);
-    result[3] = qSubstitute(result[3], qMap.get(0)[3]);
+    result[0] = qqSubstitute(result[0], qmap.get(0)[0]);
+    result[1] = qqSubstitute(result[1], qmap.get(0)[1]);
+    result[2] = qqSubstitute(result[2], qmap.get(0)[2]);
+    result[3] = qqSubstitute(result[3], qmap.get(0)[3]);
 
     result = ByteArrayUtils.intToBytesBigEndian(mdsMultiply(result));
 
@@ -380,8 +380,8 @@ public class TwoFish {
     int[] b = new int[keyAmount];
     this.keyWords = new int[keyAmount * 2];
     for (int i = 0; i < keyAmount; i++) {
-      a[i] = hFunction(p * i * 2, me, me.length);
-      b[i] = intRotateLeft(hFunction((p * (i * 2 + 1)), m0, m0.length), 8);
+      a[i] = hfunction(p * i * 2, me, me.length);
+      b[i] = intRotateLeft(hfunction((p * (i * 2 + 1)), m0, m0.length), 8);
       keyWords[2 * i] = a[i] + b[i];
       keyWords[(2 * i) + 1] = intRotateLeft((a[i] + (2 * b[i])), 9);
     }
@@ -421,10 +421,10 @@ public class TwoFish {
     // setting up keydependent substitution boxes
     int p = 0x01010101;
     for (int i = 0; i < 256; i++) {
-      sbox0[i] = (byte) ((hFunction((i * p) & 0xff000000, s, k) & 0xff000000) >>> 24);
-      sbox1[i] = (byte) ((hFunction((i * p) & 0x00ff0000, s, k) & 0x00ff0000) >>> 16);
-      sbox2[i] = (byte) ((hFunction((i * p) & 0x0000ff00, s, k) & 0x0000ff00) >>> 8);
-      sbox3[i] = (byte) ((hFunction((i * p) & 0x000000ff, s, k) & 0x000000ff));
+      sbox0[i] = (byte) ((hfunction((i * p) & 0xff000000, s, k) & 0xff000000) >>> 24);
+      sbox1[i] = (byte) ((hfunction((i * p) & 0x00ff0000, s, k) & 0x00ff0000) >>> 16);
+      sbox2[i] = (byte) ((hfunction((i * p) & 0x0000ff00, s, k) & 0x0000ff00) >>> 8);
+      sbox3[i] = (byte) ((hfunction((i * p) & 0x000000ff, s, k) & 0x000000ff));
     }
   }
 
