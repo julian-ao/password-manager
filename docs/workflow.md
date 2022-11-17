@@ -59,17 +59,14 @@ We use Spotbugs to find bugs in our project. Spotbugs is a static analysis tool 
 
 ## JavaDoc
 
-We have used the JavaDoc standard for our inline 
+We have used the JavaDoc standard for our inline comments. The structure of the comments for our methods is as follows:
 
-We have used JavaDoc to document our code. We have used the following tags:
-
+- a short description of what the method does.
 - `@param` - describes the parameters of a method
 - `@return` - describes what the method returns
 - `@throws` - describes what exceptions the method can throw
-- `@deprecated` - describes that the method is deprecated
-- `@see` - describes a link to another method or class
-- `@since` - describes when the method was added
-- `@version` - describes the version of the method
+
+Our JavaDoc comments could be used to generate a JavaDoc documentation for the project. We have not done this, but it would be a good idea to do so in the future. <!-- ! Remove this? -->
 
 ## Pipeline
 
