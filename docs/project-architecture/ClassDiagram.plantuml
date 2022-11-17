@@ -158,7 +158,7 @@ class UserBuilder{
 
 
 TwoFish "1" --> "1" Encryption
-Encryption "Many" --> "1" PasswordManagerController
+Encryption -->  PasswordManagerController :static
 JsonTalker "Many" --> "1" PasswordManagerController
 SHA256 "Many" --> "1" PasswordManagerController
 ByteArrayUtils --> TwoFish :static
