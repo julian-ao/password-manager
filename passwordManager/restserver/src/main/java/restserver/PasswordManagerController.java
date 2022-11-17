@@ -1,17 +1,23 @@
 package restserver;
 
+import core.Profile;
+import core.User;
+import core.userbuilder.PasswordValidation;
+import core.userbuilder.UserBuilder;
+import core.userbuilder.UsernameValidation;
+import encryption.Encrypted;
+import encryption.Encryption;
+import encryption.HexStringUtils;
+import encryption.Sha256;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
+import localpersistence.DatabaseTalker;
+import localpersistence.JsonTalker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import localpersistence.DatabaseTalker;
-import localpersistence.JsonTalker;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,17 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import core.Profile;
-import core.User;
-import core.userbuilder.PasswordValidation;
-import core.userbuilder.UserBuilder;
-import core.userbuilder.UsernameValidation;
-
-import encryption.Encrypted;
-import encryption.Encryption;
-import encryption.HexStringUtils;
-import encryption.Sha256;
 
 /**
  * PasswordManagerController is the controller for the Password Manager application.
