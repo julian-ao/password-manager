@@ -243,13 +243,8 @@ public class PasswordPageController extends PasswordManagerController {
 
     trashRegion.setOnMouseClicked(new EventHandler<MouseEvent>() {
       public void handle(MouseEvent event) {
-        // TODO get profile and delete it
-        String usernameToDelete = usernameText.getText();
-        String titleToDelete = titleText.getText();
-        String passwordToDelete = passwordText.getText();
-        String userToDelete = restTalker.getUsername();
         String id = idComponent.getText();
-        onDeletePasswordButtonClick(userToDelete, titleToDelete, usernameToDelete, passwordToDelete, id);
+        onDeletePasswordButtonClick(id);
       }
     });
 
@@ -376,14 +371,10 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   private void onDeletePasswordButtonClick(
-      String user,
-      String title,
-      String username,
-      String password,
       String id) {
     System.out.println("Deleting password...");
     try {
-      if (restTalker.deleteProfile(user, title, username, password, Integer.parseInt(id))) {
+      if (restTalker.deleteProfile(Integer.parseInt(id))) {
         System.out.println("Password deleted!");
         updatePasswords();
       } else {

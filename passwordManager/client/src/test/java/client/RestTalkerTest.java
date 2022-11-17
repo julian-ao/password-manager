@@ -156,7 +156,7 @@ public class RestTalkerTest {
 
     try {
       assertEquals(true, restTalker.login("Admin", "Password"));
-      assertEquals(true, restTalker.deleteProfile(user, title, username, password, 0));
+      assertEquals(true, restTalker.deleteProfile(0));
     } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
       e.printStackTrace();
       fail();

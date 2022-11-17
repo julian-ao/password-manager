@@ -202,14 +202,11 @@ public class RestTalker {
   }
 
   // delete profile
-  public boolean deleteProfile(String user, String title, String username, String password, int id)
+  public boolean deleteProfile(int id)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     JSONObject json = new JSONObject();
-    json.put("user", user);
+    json.put("user", loggedInUsername);
     json.put("userPassword", loggedInPassword);
-    json.put("title", title);
-    json.put("username", username);
-    json.put("password", password);
     json.put("id", id);
     HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
     return response.body().equals("Success");

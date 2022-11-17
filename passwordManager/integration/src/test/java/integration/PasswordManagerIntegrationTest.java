@@ -100,7 +100,7 @@ public class PasswordManagerIntegrationTest {
     profiles.add(profile);
     Assertions.assertEquals(profiles.toJSONString(), restTalker.getProfiles());
 
-    Assertions.assertEquals(true, restTalker.deleteProfile("test", "title", "username", "password", 0));
+    Assertions.assertEquals(true, restTalker.deleteProfile(0));
     Assertions.assertEquals("[]", restTalker.getProfiles());
   }
 }
