@@ -2,6 +2,9 @@ package client;
 
 import java.util.Map;
 
+/**
+ * HttpResponses is a class to get responses as string from the server.
+ */
 public final class HttpResponses {
   /**
    * All possible responses.

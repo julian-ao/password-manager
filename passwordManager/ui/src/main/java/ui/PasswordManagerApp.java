@@ -14,7 +14,7 @@ public class PasswordManagerApp extends Application {
 
   /**
    * start is the main method of the application, it loads the login page.
-   * 
+   *
    * @param stage the stage to be used in the application
    */
   @Override

@@ -21,9 +21,15 @@ public class Profile {
    * @param profileUsername   the username of the profile
    * @param encryptedPassword the encrypted password of the profile
    * @param parent            the user it profile belongs to
-   * @param nonceHex          the nonce used to encrypt the password
+   * @param nonce             the nonce used to encrypt the password
    */
-  public Profile(String title, String profileUsername, String encryptedPassword, String parent, String nonce) {
+  public Profile(
+    String title, 
+    String profileUsername, 
+    String encryptedPassword, 
+    String parent, 
+    String nonce
+    ) {
     this.title = title;
     this.profileUsername = profileUsername;
     this.encryptedPassword = encryptedPassword;

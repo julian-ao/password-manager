@@ -1,10 +1,13 @@
 package ui;
 
-import client.Password;
-import client.RestTalker;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import client.Password;
+import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,9 +34,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  * FXML Controller class for the password page.
@@ -86,10 +86,7 @@ public class PasswordPageController extends PasswordManagerController {
   private RestTalker restTalker = new RestTalker();
 
   /**
-   * Set log in  data.
-   *
-   * @param username
-   * @param password
+   * Set login  data.
    */
   public void setUserData(String username, String password) {
     restTalker.setLoggedIn(username, password);
@@ -103,7 +100,10 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    logOutButton.setBackground(
+      new Background(
+        new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)
+        ));
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
@@ -147,7 +147,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   /**
    * profileComponent sets up a component used in the list view.
-   * 
+   *
    * @param name     name displayed in the password Component
    * @param password password displayed
    * @param title    title displayed
@@ -270,7 +270,8 @@ public class PasswordPageController extends PasswordManagerController {
     TextField textField = new TextField(label.getText());
     textField.setEditable(false);
     textField.setStyle(
-        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;");
+        "-fx-background-color: transparent; -fx-background-insets: 0; -fx-background-radius: 0; -fx-padding: 0;"
+        );
     // the invisible label is a hack to get the textField to size like a label.
     Label invisibleLabel = new Label();
     invisibleLabel.textProperty().bind(label.textProperty());
@@ -360,7 +361,12 @@ public class PasswordPageController extends PasswordManagerController {
    * @param passwordToDelete the password to delete
    */
   @FXML
-  private void onDeletePasswordButtonClick(String user, String title, String username, String password) {
+  private void onDeletePasswordButtonClick(
+    String user, 
+    String title, 
+    String username, 
+    String password
+    ) {
     System.out.println("Deleting password...");
     if (restTalker.deleteProfile(user, title, username, password)) {
       System.out.println("Password deleted!");

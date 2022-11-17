@@ -63,11 +63,15 @@ public class Encryption { // CBC
     TwoFish twoFish = new TwoFish(); // class for block cipher algorithm
     Encrypted result = new Encrypted(); // result of encryption is stored as a "Encrypted" object
 
-    byte[] plainTextBlocks = HexStringUtils.textToBytes(plaintext); // store the incoming plaintext as a byte array
-    plainTextBlocks = addPadding(plainTextBlocks, blockSize);       // Padding added to plaintext, so the length is a
-                                                                    // multiple of the blockSize. This is needed because
-                                                                    // the TwoFish block cipher only accepts blocks which
-                                                                    // are exactly 128 bits long
+    /**
+     * store the incoming plaintext as a byte array
+     * Padding added to plaintext, so the length is a
+     * multiple of the blockSize. This is needed because
+     * the TwoFish block cipher only accepts blocks which
+     * are exactly 128 bits long
+     */
+    byte[] plainTextBlocks = HexStringUtils.textToBytes(plaintext); 
+    plainTextBlocks = addPadding(plainTextBlocks, blockSize);
 
     byte[] cipherTextBlocks = new byte[plainTextBlocks.length]; // create byte array to store the encryption result
 
@@ -91,9 +95,14 @@ public class Encryption { // CBC
     // ciphertextblock
     for (int i = 1; i < plainTextBlocks.length / blockSize; i++) {
 
-      byte[] localInput = Arrays.copyOfRange(plainTextBlocks, i * blockSize, i * blockSize + blockSize);
-      localInput = ByteArrayUtils.bytesXor(localInput,
-          Arrays.copyOfRange(cipherTextBlocks, (i - 1) * blockSize, (i - 1) * blockSize + blockSize));
+      byte[] localInput = Arrays.copyOfRange(
+        plainTextBlocks, i * blockSize, i * blockSize + blockSize
+        );
+      localInput = ByteArrayUtils.bytesXor(
+        localInput,
+        Arrays.copyOfRange(
+          cipherTextBlocks, (i - 1) * blockSize, (i - 1) * blockSize + blockSize
+          ));
       byte[] localResult = twoFish.encrypt(localInput, key);
       for (int j = 0; j < blockSize; j++) {
         cipherTextBlocks[i * blockSize + j] = localResult[j];
@@ -124,8 +133,9 @@ public class Encryption { // CBC
 
     // Each plaintext P[i] is equal to decrypt(C[i]) xor C[i-1]. For i > 0
     for (int i = (cipherText.length - 1) / blockSize; i > 0; i--) {
-      byte[] localResult = twoFish.decrypt(Arrays.copyOfRange(cipherText, i * blockSize, i * blockSize + blockSize),
-          key);
+      byte[] localResult = twoFish.decrypt(
+        Arrays.copyOfRange(cipherText, i * blockSize, i * blockSize + blockSize),
+        key);
       localResult = ByteArrayUtils.bytesXor(localResult,
           Arrays.copyOfRange(cipherText, (i - 1) * blockSize, (i - 1) * blockSize + blockSize));
       for (int j = 0; j < blockSize; j++) {

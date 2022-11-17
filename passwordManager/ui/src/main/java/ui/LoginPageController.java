@@ -1,9 +1,8 @@
 package ui;
 
-import client.RestTalker;
-
 import java.io.IOException;
 
+import client.RestTalker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -96,7 +95,11 @@ public class LoginPageController extends PasswordManagerController {
     rotateNode(visualFeedbackText, false);
   }
 
-  private void login(String username, String password, String sceneName, ActionEvent event) throws IOException {
+  private void login(
+    String username, 
+    String password, 
+    String sceneName, 
+    ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName));
     root = loader.load();
 

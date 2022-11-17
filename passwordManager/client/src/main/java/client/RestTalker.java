@@ -65,7 +65,9 @@ public class RestTalker {
     HttpResponse<String> response = this.getAsync(endpoint).get();
 
     if (response.statusCode() != OK_CODE) {
-      throw new ServerResponseException(HttpResponses.getResponseText(response.statusCode()), response.statusCode());
+      throw new ServerResponseException(
+        HttpResponses.getResponseText(response.statusCode()), 
+        response.statusCode());
     }
 
     return response;
@@ -88,9 +90,10 @@ public class RestTalker {
 
   /***
    * Elementary synchronous post request.
-   * 
+   *
    * @param endpoint Where to send the request to.
    * @param payload  What to send to the server.
+   * @return the entry id.
    * @throws URISyntaxException      If the URI syntax is incorrect.
    * @throws InterruptedException    If the underlying asynchronous request was
    *                                 interrupted before retrieval.
@@ -98,14 +101,16 @@ public class RestTalker {
    *                                 completed exceptionally.
    * @throws ServerResponseException If there was an error with the server
    *                                 response.
-   * @return the entry id.
    */
   private HttpResponse<String> post(final String endpoint, final String payload)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     HttpResponse<String> response = this.postAsync(endpoint, payload).get();
 
     if (response.statusCode() != OK_CODE) {
-      throw new ServerResponseException(HttpResponses.getResponseText(response.statusCode()), response.statusCode());
+      throw new ServerResponseException(
+        HttpResponses.getResponseText(response.statusCode()), 
+        response.statusCode()
+        );
     }
     return response;
   }
@@ -118,11 +123,16 @@ public class RestTalker {
    * @return The Http response promise.
    * @throws URISyntaxException If the URI syntax is incorrect.
    */
-  private CompletableFuture<HttpResponse<String>> postAsync(final String endpoint, final String payload)
+  private CompletableFuture<HttpResponse<String>> postAsync(
+    final String endpoint, 
+    final String payload
+    )
       throws URISyntaxException {
     HttpClient client = HttpClient.newBuilder().build();
 
-    HttpRequest request = HttpRequest.newBuilder().POST(HttpRequest.BodyPublishers.ofString(payload))
+    HttpRequest request = HttpRequest.newBuilder().POST(
+      HttpRequest.BodyPublishers.ofString(payload)
+      )
         .uri(new URI(this.url + ":" + this.port + endpoint)).build();
 
     return client.sendAsync(request, BodyHandlers.ofString());
@@ -130,30 +140,35 @@ public class RestTalker {
 
   /**
    * Request login to the server.
-   *
-   * @param username
-   * @param password
-   * @return
    */
   public String login(String username, String password) {
     try {
       HttpResponse<String> response = this.get("/api/v1/entries/login?username=" + username + "&password=" + password);
       return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
       e.printStackTrace();
       return "error";
     }
   }
   /**
    * Request all entries from the server.
-   * @return The entries.
    */
   public String getProfiles() {
     try {
       HttpResponse<String> response = this
           .get("/api/v1/entries/getProfiles?username=" + this.loggedInUsername + "&password=" + this.loggedInPassword);
       return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
       e.printStackTrace();
       return "error";
     }
@@ -162,9 +177,6 @@ public class RestTalker {
   /**
    * post request to create a new user, sends JSON object {"username": username,
    * "password": password}.
-   * @param username
-   * @param password
-   * @return
    */
   public boolean registerUser(String username, String password) {
     try {
@@ -193,7 +205,12 @@ public class RestTalker {
       json.put("parentPassword", loggedInPassword);
       HttpResponse<String> response = this.post("/api/v1/entries/insertProfile", json.toString());
       return response.body().equals("Success");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
       e.printStackTrace();
       return false;
     }
@@ -201,18 +218,19 @@ public class RestTalker {
 
   /**
    * User Validator.
-   *
-   * @param username
-   * @param password
-   * @param passwordRepeat
-   * @return
    */
   public String userValidator(String username, String password, String passwordRepeat) {
     try {
-      HttpResponse<String> response = this.get("/api/v1/entries/userValidator?username=" + username + "&password="
+      HttpResponse<String> response = this.get(
+          "/api/v1/entries/userValidator?username=" + username + "&password="
           + password + "&passwordRepeat=" + passwordRepeat);
       return response.body();
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
       e.printStackTrace();
       return "error";
     }
@@ -233,7 +251,12 @@ public class RestTalker {
       json.put("password", password);
       HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
       return response.body().equals("Success");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
       e.printStackTrace();
       return false;
     }
@@ -245,8 +268,13 @@ public class RestTalker {
   public void doDatabaseTest() {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
+        e.printStackTrace();
     }
   }
 
@@ -256,8 +284,14 @@ public class RestTalker {
   public void doPrdDB() {
     try {
       this.post("/api/v1/entries/doPrdDB", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
+    } 
+    catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
+        e.printStackTrace();
     }
   }
 

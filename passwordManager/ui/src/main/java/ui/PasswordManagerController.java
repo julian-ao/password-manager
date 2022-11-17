@@ -32,10 +32,10 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-    "file:src/main/resources/temporaryImageFolder/eye-open.png"
+      "file:src/main/resources/temporaryImageFolder/eye-open.png"
   );
   protected Image eyeClosedImage = new Image(
-    "file:src/main/resources/temporaryImageFolder/eye-closed.png"
+      "file:src/main/resources/temporaryImageFolder/eye-closed.png"
   );
 
   // Colours
@@ -122,22 +122,17 @@ public class PasswordManagerController {
   }
   /**
    * set color of region when mouse is hovering over it.
-   *
-   * @param region
-   * @param color
    */
-  public void onHover(Region region, String color){
+  public void onHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
           Color.valueOf(color), new CornerRadii(10),
           new Insets(10))));
     scene.setCursor(Cursor.HAND); //Change cursor to hand
   }
+
   /**
    * sets color of region when mouse is not hovering over it.
-   *
-   * @param region
-   * @param color
    */
   public void offHover(Region region, String color) {
     scene = region.getScene();
