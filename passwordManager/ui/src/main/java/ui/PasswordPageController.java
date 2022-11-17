@@ -1,7 +1,5 @@
 package ui;
 
-import client.Password;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -11,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import client.Password;
 import client.RestTalker;
 import client.ServerResponseException;
 import javafx.event.ActionEvent;
@@ -102,7 +101,9 @@ public class PasswordPageController extends PasswordManagerController {
    */
   @FXML
   public void initialize() {
-    logOutButton.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    logOutButton.setBackground(
+        new Background(
+            new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
 
     SVGPath crossSVGPath = new SVGPath();
     crossSVGPath.setContent(
@@ -153,7 +154,7 @@ public class PasswordPageController extends PasswordManagerController {
 
   /**
    * profileComponent sets up a component used in the list view.
-   * 
+   *
    * @param name     name displayed in the password Component
    * @param password password displayed
    * @param title    title displayed
@@ -296,7 +297,7 @@ public class PasswordPageController extends PasswordManagerController {
   /**
    * Tells the restTalker to log out and switches the scene back to the login
    * page.
-   * 
+   *
    * @param event ActionEvent object used in the switchScene method
    * @throws IOException if the switchScene does not work
    */
@@ -366,10 +367,20 @@ public class PasswordPageController extends PasswordManagerController {
   }
 
   /**
-   * Delete password
+   * Delete password.
+   *
+   * @param userToDelete     the user to delete
+   * @param titleToDelete    the title to delete
+   * @param usernameToDelete the username to delete
+   * @param passwordToDelete the password to delete
    */
   @FXML
-  private void onDeletePasswordButtonClick(String user, String title, String username, String password, String id) {
+  private void onDeletePasswordButtonClick(
+      String user,
+      String title,
+      String username,
+      String password,
+      String id) {
     System.out.println("Deleting password...");
     try {
       if (restTalker.deleteProfile(user, title, username, password, Integer.parseInt(id))) {

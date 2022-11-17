@@ -74,7 +74,9 @@ public class RestTalker {
     HttpResponse<String> response = this.getAsync(endpoint).get();
 
     if (response.statusCode() != OK_CODE) {
-      throw new ServerResponseException(HttpResponses.getResponseText(response.statusCode()), response.statusCode());
+      throw new ServerResponseException(
+        HttpResponses.getResponseText(response.statusCode()), 
+        response.statusCode());
     }
 
     return response;
@@ -98,9 +100,10 @@ public class RestTalker {
 
   /***
    * Elementary synchronous post request.
-   * 
+   *
    * @param endpoint Where to send the request to.
    * @param payload  What to send to the server.
+   * @return the entry id.
    * @throws URISyntaxException      If the URI syntax is incorrect.
    * @throws InterruptedException    If the underlying asynchronous request was
    *                                 interrupted before retrieval.
@@ -108,14 +111,16 @@ public class RestTalker {
    *                                 completed exceptionally.
    * @throws ServerResponseException If there was an error with the server
    *                                 response.
-   * @return the entry id.
    */
   private HttpResponse<String> post(final String endpoint, final String payload)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     HttpResponse<String> response = this.postAsync(endpoint, payload).get();
 
     if (response.statusCode() != OK_CODE) {
-      throw new ServerResponseException(HttpResponses.getResponseText(response.statusCode()), response.statusCode());
+      throw new ServerResponseException(
+        HttpResponses.getResponseText(response.statusCode()), 
+        response.statusCode()
+        );
     }
     return response;
   }
@@ -128,7 +133,10 @@ public class RestTalker {
    * @return The Http response promise.
    * @throws URISyntaxException If the URI syntax is incorrect.
    */
-  private CompletableFuture<HttpResponse<String>> postAsync(final String endpoint, final String payload)
+  private CompletableFuture<HttpResponse<String>> postAsync(
+    final String endpoint, 
+    final String payload
+    )
       throws URISyntaxException {
     HttpClient client = HttpClient.newBuilder().build();
 
@@ -138,9 +146,8 @@ public class RestTalker {
     return client.sendAsync(request, BodyHandlers.ofString());
   }
 
-  /*
-   * ------------------------------------------NEXT IS REQ
-   * CODE-----------------------------------------------------
+  /**
+   * Request login to the server.
    */
 
   public boolean login(String username, String password)
@@ -211,16 +218,30 @@ public class RestTalker {
   public void doDatabaseTest() {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
+    } catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
+        e.printStackTrace();
     }
   }
 
+  /**
+   * do Prd database.
+   */
   public void doPrdDB() {
     try {
       this.post("/api/v1/entries/doPrdDB", "[]");
-    } catch (URISyntaxException | InterruptedException | ExecutionException | ServerResponseException e) {
-      e.printStackTrace();
+    } 
+    catch (
+      URISyntaxException 
+      | InterruptedException 
+      | ExecutionException 
+      | ServerResponseException e
+      ) {
+        e.printStackTrace();
     }
   }
 }
