@@ -27,13 +27,13 @@ public class JsonTalkerTest {
 
   private void user1Profiles() {
     try {
-      jsonTalker.insertProfile("tmp",
+      jsonTalker.insertProfile(
           new Profile("s@.n.n", "brukernavn", "pass", "user1", "a", jsonTalker.getNextProfileId()));
-      jsonTalker.insertProfile("tmp",
+      jsonTalker.insertProfile(
           new Profile("s@.n.n", "brukernavn1", "pass", "user1", "a", jsonTalker.getNextProfileId()));
-      jsonTalker.insertProfile("tmp",
+      jsonTalker.insertProfile(
           new Profile("s@.n.n", "brukernavn2", "pass", "user1", "a", jsonTalker.getNextProfileId()));
-      jsonTalker.insertProfile("tmp",
+      jsonTalker.insertProfile(
           new Profile("s@.n.n", "brukernavn3", "pass", "user1", "a", jsonTalker.getNextProfileId()));
 
     } catch (Exception e) {
@@ -129,7 +129,7 @@ public class JsonTalkerTest {
       jsonTalker.insertUser(new User("user1", "password1"));
       Profile profile = new Profile("sondrkol@it.no", "sondrkol", "passord", "user1", "a",
           jsonTalker.getNextProfileId());
-      jsonTalker.insertProfile("user1", profile);
+      jsonTalker.insertProfile(profile);
       ArrayList<Profile> profiles = jsonTalker.getProfiles("user1");
       assertEquals(true, hasProfile(profiles, profile));
     } catch (IOException e) {

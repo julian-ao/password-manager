@@ -88,7 +88,7 @@ public class LoginPageController extends PasswordManagerController {
           login(username, password, "passwords.fxml", event);
         }
       } catch (URISyntaxException | ServerResponseException 
-      | InterruptedException | ExecutionException e) {
+        | InterruptedException | ExecutionException e) {
         e.printStackTrace();
       }
       visualFeedbackText.setText("Wrong username or password");

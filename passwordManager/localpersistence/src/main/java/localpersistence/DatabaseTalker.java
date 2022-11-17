@@ -76,9 +76,9 @@ public interface DatabaseTalker {
   public User getUser(String username) throws IOException;
 
   /**
-   * 
-   * 
+   * Method for receiving unused id in database.
+   *
    * @return an id not currently used in our database
    */
-  public int getNextProfileId() throws IOException;;
+  public int getNextProfileId() throws IOException;
 }

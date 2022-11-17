@@ -252,8 +252,8 @@ public class PasswordPageController extends PasswordManagerController {
         String userToDelete = restTalker.getUsername();
         String id = idComponent.getText();
         onDeletePasswordButtonClick(
-          userToDelete, titleToDelete, usernameToDelete, passwordToDelete
-          , id);
+            userToDelete, titleToDelete, usernameToDelete,
+            passwordToDelete, id);
       }
     });
 

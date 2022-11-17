@@ -256,7 +256,7 @@ public class RestTalker {
    * @throws ExecutionException If the underlying asynchronous request completed exceptionally.
    * @throws ServerResponseException If there was an error with the server response.
    */
-  public boolean deleteProfile(String user, String title, String username, String password)
+  public boolean deleteProfile(String user, String title, String username, String password, int id)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     JSONObject json = new JSONObject();
     json.put("user", user);
@@ -264,6 +264,7 @@ public class RestTalker {
     json.put("title", title);
     json.put("username", username);
     json.put("password", password);
+    json.put("id", id);
     HttpResponse<String> response = this.post("/api/v1/entries/deleteProfile", json.toString());
     return response.body().equals("Success");
   }

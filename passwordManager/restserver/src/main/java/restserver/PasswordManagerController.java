@@ -200,7 +200,7 @@ public class PasswordManagerController {
     }
     System.out.println("creating new profile id: " + id);
     try {
-      if (databaseTalker.insertProfile(user.getUsername(),
+      if (databaseTalker.insertProfile(
           new Profile(title, username, HexStringUtils.byteArrayToHexString(encryptedPassword.getData()),
               user.getUsername(), HexStringUtils.byteArrayToHexString(encryptedPassword.getNonce()), id))) {
         return "Success";

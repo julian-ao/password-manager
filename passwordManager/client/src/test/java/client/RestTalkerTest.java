@@ -168,11 +168,8 @@ public class RestTalkerTest {
 
     stubFor(post(urlEqualTo("/api/v1/entries/doDatabaseTest"))
         .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
-    stubFor(post(urlEqualTo("/api/v1/entries/doPrdDB"))
-        .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
 
     RestTalker restTalker = new RestTalker();
     restTalker.doDatabaseTest();
-    restTalker.doPrdDB();
   }
 }
