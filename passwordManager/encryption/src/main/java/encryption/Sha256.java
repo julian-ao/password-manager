@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * Sha256 is a class that represents the Sha256 hashing algorithm.
  */
-public class sSha256 {
+public class Sha256 {
   private int h0;
   private int h1;
   private int h2;
@@ -32,7 +32,7 @@ public class sSha256 {
   /**
    * The constructor for Sha256.
    */
-  public sSha256() {
+  public Sha256() {
     h0 = 0x6a09e667;
     h1 = 0xbb67ae85;
     h2 = 0x3c6ef372;
