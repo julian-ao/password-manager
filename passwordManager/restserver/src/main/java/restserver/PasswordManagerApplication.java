@@ -14,8 +14,4 @@ public class PasswordManagerApplication {
         SpringApplication.run(PasswordManagerApplication.class, strings);
     }
 
-    /**
-     * Needed for checkstyle to pass. Alternative breaks springboot.
-     */
-    public void dummy() { }
 }

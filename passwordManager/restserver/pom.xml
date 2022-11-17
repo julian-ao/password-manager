@@ -41,6 +41,12 @@
             <version>1.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+
         <!-- junit testing with jupiter -->
         <dependency>
             <groupId>org.junit.platform</groupId>
@@ -54,6 +60,22 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version> 2.5.6 </version>
         </dependency>
+
+        <!--Spring test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version> 2.5.6 </version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>4.4.2</version>
+        </dependency>
+
         <dependency>
             <groupId>com.guicedee.services</groupId>
             <artifactId>json</artifactId>
@@ -67,6 +89,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <!-- Run the checkstyle code quality tool -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

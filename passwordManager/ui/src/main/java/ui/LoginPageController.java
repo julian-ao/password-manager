@@ -1,7 +1,11 @@
 package ui;
 
 import client.RestTalker;
+import client.ServerResponseException;
+
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutionException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,10 +83,12 @@ public class LoginPageController extends PasswordManagerController {
     }
 
     if (!username.equals("") && !password.equals("")) {
-
-      String data = restTalker.login(username, password);
-      if (data.equals("Success")) {
-        login(username, password, "passwords.fxml", event);
+      try {
+        if (restTalker.login(username, password)) {
+          login(username, password, "passwords.fxml", event);
+        }
+      } catch (URISyntaxException | ServerResponseException | InterruptedException | ExecutionException e) {
+        e.printStackTrace();
       }
       visualFeedbackText.setText("Wrong username or password");
     } else {
