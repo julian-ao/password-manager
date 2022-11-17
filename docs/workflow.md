@@ -25,7 +25,7 @@ Our commit messages are structured in a way that makes it easy to see what has b
 - `body` - a longer and more descriptive description of what has been done in the commit
 - `footer` - a list of issue numbers that the commit either relates to or closes, and the author/s of the commit
 
-All group members has used a VS code plugin where we can see the body of the commit inline in the code editor. This simplifies teamwork when two or more members work together. 
+All group members has used a VS code plugin where we can see the body of the commit inline in the code editor. This simplifies teamwork when two or more members work together.
 
 ## Branches & merging
 
@@ -57,6 +57,20 @@ in the **/passwordManager/config/checkstyle** folder. We use the Google Java Sty
 
 We use Spotbugs to find bugs in our project. Spotbugs is a static analysis tool that looks for common bugs in Java code We also added Spotbugs to the pipeline, so that it will run every time the code is pushed to the repository. This will ensure that the code is bug free before it is merged to the master branch.
 
+## JavaDoc
+
+We have used the JavaDoc standard for our inline 
+
+We have used JavaDoc to document our code. We have used the following tags:
+
+- `@param` - describes the parameters of a method
+- `@return` - describes what the method returns
+- `@throws` - describes what exceptions the method can throw
+- `@deprecated` - describes that the method is deprecated
+- `@see` - describes a link to another method or class
+- `@since` - describes when the method was added
+- `@version` - describes the version of the method
+
 ## Pipeline
 
 We have used the GitLab CI/CD
@@ -86,6 +100,8 @@ The [pipeline](../../.gitlab-ci.yml) consists of the following stages:
 Pair programming is a technique we have used for a big fraction of our code. Although pair programming increases the time each person spends on the same task, we believe it  increases the quality of the code drastically.
 
 Our use of pair programming has also ensured that all members of the group have worked together on all parts/modules of the project. This has been a great way to ensure that everyone has a good understanding of the project as a whole.
+
+After a pair programming session, when the commit is to be written, we have written both of our GitLab usernames in the footer of the commit message.
 
 ## Planning
 

@@ -4,7 +4,7 @@
 
 For this release we have created a REST-API with springboot and implemented the functionality to copy passwords and delete profile. We have also implemented the functionality to encrypt and decrypt passwords. We have also implemented a new architecture, where we have seperated the persistence layer from the core layer. The new architecture is shown in the image below.
 
-<!-- !IMAGE -->
+![Package Diagram](..\project-architecture\PUML-diagrams\PackageDiagram.png)
 
 ## Architecture
 
@@ -25,8 +25,8 @@ The encryption module contains the encryption algorithm and the hashing algorith
 - The hash algorithm takes in an arbitrary length byte array and produces the hash for the data, the hashing algorithm is an implementation of the SHA256 algorithm.
 
 ### Local Persistence
-The new local persistence uses two tables in seperate files, each profile now has a reference to its parent user instead of being nested inside its parent user. This is similar to a foreign key in more traditional database systems like SQL.
 
+The new local persistence uses two tables in seperate files, each profile now has a reference to its parent user instead of being nested inside its parent user. This is similar to a foreign key in more traditional database systems like SQL.
 
 - Example of a stored user in our database. The salts are used to generate different hashes, and the password is hashed
 ![User Json Example](../images/release3_user_json_example.png)
