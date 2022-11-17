@@ -3,7 +3,7 @@ image:
 
 tasks:
   - init: sdk use java 17.0.3-ms
-    command: cd passwordManager; mvn clean install -DnoTestUI=true;
+    command: cd passwordManager; mvn compile;
 
 ports:
   # used by virtual desktop and vnc, supports JavaFX
