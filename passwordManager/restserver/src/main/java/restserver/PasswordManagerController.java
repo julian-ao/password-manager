@@ -29,7 +29,7 @@ import core.userbuilder.UsernameValidation;
 import encryption.Encrypted;
 import encryption.Encryption;
 import encryption.HexStringUtils;
-import encryption.sSha256;
+import encryption.Sha256;
 
 /**
  * PasswordManagerController is the controller for the Password Manager application.
@@ -67,7 +67,7 @@ public class PasswordManagerController {
       return "Failure";
     }
 
-    sSha256 hash = new sSha256();
+    Sha256 hash = new Sha256();
     String hashedPasswordAttempt = hash.getHash(password, salt);
 
     try {
@@ -105,7 +105,7 @@ public class PasswordManagerController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    sSha256 hash = new sSha256();
+    Sha256 hash = new Sha256();
     String userPassword = password;
     int encryptionSalt;
     if (user != null) {
@@ -147,7 +147,7 @@ public class PasswordManagerController {
     String username = jsonObject.getString("username");
     String password = jsonObject.getString("password");
 
-    sSha256 hash = new sSha256();
+    Sha256 hash = new Sha256();
     int salt = rand.nextInt();
     int encryptionSalt = rand.nextInt();
     User user = new User(username, hash.getHash(password, salt));
@@ -181,7 +181,7 @@ public class PasswordManagerController {
 
     String userPassword = jsonObject.getString("parentPassword");
     Encryption encryption = new Encryption();
-    sSha256 hash = new sSha256();
+    Sha256 hash = new Sha256();
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("parentUsername"));
