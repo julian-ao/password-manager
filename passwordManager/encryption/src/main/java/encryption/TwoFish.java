@@ -227,7 +227,7 @@ public class TwoFish {
   /**
    * the f function is at the heart of the twofish algorithm and carries out most
    * of the substitution and transposition.
-   
+   *
    * @param x0 the first input
    * @param x1 the second input
    * @param r  the round number
@@ -252,7 +252,7 @@ public class TwoFish {
    * s_boxBytes substitutes bytes MDSMultiply is a spesific instance of
    * matrixVectorMultiplyGF28 function, with a hardcoded reducing polynomial and
    * transformation.
-   
+   *
    * @param bytes the byte array input
    * @return an integer output
    */
@@ -263,7 +263,7 @@ public class TwoFish {
 
   /**
    * roundEncrypt performs one of the 16 rounds of encryption.
-  
+   *
    * @param r the round number
    */
   private void roundEncrypt(int r) {
@@ -278,7 +278,7 @@ public class TwoFish {
 
   /**
    * roundDecrypt performs one of the 16 rounds of decryption.
-   
+   *
    * @param r round number
    */
   private void roundDecrypt(int r) {
@@ -316,7 +316,7 @@ public class TwoFish {
 
   /**
    * the h Function is used in the key schedule to generate more key material
-  
+   *
    * @param X some integer
    * @param L some list of integers
    * @param k the size of L
@@ -379,7 +379,7 @@ public class TwoFish {
   /**
    * expands the key into 40 words of key material, used for input/output
    * whitening and for the f function
-  
+   *
    * @param Me keyMaterial list
    * @param M0 another keyMaterial list
    */
@@ -401,7 +401,7 @@ public class TwoFish {
   /**
    * the keySchedule expands the key into several subkeys as well as creating the
    * key dependent substitution boxes.
-  
+   *
    * @param key the raw key used
    */
   private void keySchedule(byte[] key) {
@@ -420,7 +420,7 @@ public class TwoFish {
       M0[i] = M[(i * 2) + 1];
     }
 
-    expandKeyWords(Me, M0);// Works
+    expandKeyWords(Me, M0); // Works
 
     // keymaterial used for sboxes
     int[] S = new int[k];
@@ -440,9 +440,9 @@ public class TwoFish {
   }
 
   /**
-   * getInput converts the 16 bytes of data inputted in to the algorithm, and
+   * Converts 16 bytes of data inputted in to the algorithm, and
    * stores them a 4 seperate integers.
-   * 
+   *
    * @param input the input to the encryption or decryption function
    */
   private void getInput(byte[] input) {
@@ -454,7 +454,8 @@ public class TwoFish {
   }
 
   /**
-   * @return
+   * gets output of the encryption or decryption function and converts it to a
+   * byte array.
    */
   private byte[] getOutput() {
 
@@ -472,7 +473,7 @@ public class TwoFish {
 
   /**
    * Encrypts the input using the key.
-  
+   *
    * @param plaintext the plaintext is the raw data
    * @param key       arbritrary string of bits used in the encryption
    * @return the cipher text
