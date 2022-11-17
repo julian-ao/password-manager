@@ -6,6 +6,7 @@ import java.util.Random;
 public class Encryption {// CBC
 
   private static final int blockSize = 16;
+  private static Random random = new Random();
 
   /**
    * @param data
@@ -72,7 +73,6 @@ public class Encryption {// CBC
     // nonce is used so every encryption is different, even if the same plaintext is
     // encrypted multiple times
     byte[] nonce = new byte[blockSize];
-    Random random = new Random();
     random.nextBytes(nonce);
     result.setNonce(nonce);
 

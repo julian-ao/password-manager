@@ -272,7 +272,7 @@
           </executions>
 
         </plugin>
-        <!--
+        <!-- Spotbugs -->
           <plugin>
               <groupId>com.github.spotbugs</groupId>
               <artifactId>spotbugs-maven-plugin</artifactId>
@@ -292,7 +292,6 @@
                   </execution>
               </executions>
           </plugin>
-        -->
       </plugins>
     </pluginManagement>
   </build>

@@ -360,10 +360,10 @@ public class TwoFish {
     qMap.put(0, new int[] { 1, 0, 1, 0 });
 
     byte[] bytesX = ByteArrayUtils.intToBytesBigEndian(X);
-    byte[][] bytesL = new byte[L.length][4];
-    for (int i = 0; i < L.length; i++) {
-      bytesL[i] = ByteArrayUtils.intToBytesBigEndian(L[i]);
-    }
+    /*
+     * byte[][] bytesL = new byte[L.length][4]; for (int i = 0; i < L.length; i++) {
+     * bytesL[i] = ByteArrayUtils.intToBytesBigEndian(L[i]); }
+     */
 
     byte[] result = new byte[4];
     boolean xAdded = false;
