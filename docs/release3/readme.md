@@ -37,11 +37,11 @@ The new local persistence uses two tables in seperate files, each profile now ha
 - Exaample of a stored profile in our database. The password is encrypted using the parent users password. Nonce is used in the encryption(see encryption)
 - ![Profile Json Example](../images/release3_profile_json_example.png)
 
-### Core??
+### Core
 
 Core has changed, and consists of the dataclasses User and Profile, and the userbuilder class. 
 
-### Client?
+### Client
 
 <!-- Changes in client -->
 A new client module has been created which mostly serves to send http requests to the server application. The RestTalker class gets called from the ui and creates an appropriate GET/POST request which it send to the server. Once the response returns from the serveside application, and if the request was served successfully the data gets returned to the ui to get displayed to the user. If the user has logged into the account, a RestTalker instance also stores the username and password of the logged in user. 
@@ -123,7 +123,7 @@ The complete documentation for the project workflow is in the [workflow.md](../w
 
 I tillegg til dokumentasjon i samsvar med tidligere krav skal dere denne gangen lage UML diagram som forelest.
 
-!-  Et pakkedigram for løsningen
+!- Et pakkedigram for løsningen
 !- Et klassediagram for viktigste deler av systemet
 !- Et sekvensdiagram for et viktig brukstilfelle, som viser koblingen mellom brukerinteraksjon og hva som skjer inni systemet inkl. REST-kall.
 
