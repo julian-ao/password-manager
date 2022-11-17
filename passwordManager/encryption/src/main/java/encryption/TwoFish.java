@@ -121,22 +121,6 @@ public class TwoFish {
   }
 
   /**
-   * q0 is a substition table.
-   *
-   * @param x the byte to be substituted
-   *
-   * @return the substition for the given byte
-   */
-
-  private byte q0(byte x) {
-    return qSubstitute(x, 0);
-  }
-
-  private byte q1(byte x) {
-    return qSubstitute(x, 1);
-  }
-
-  /**
    * this function takes in 4 bytes and substitutes them with different substitution boxes.
    *
    * @param bytes 4 bytes to be substituted
@@ -198,7 +182,7 @@ public class TwoFish {
    * @param minPoly the reducing polynomial passed on to the multiplication
    * @return the transformed vector of bytes
    */
-  private byte[] matrixVectorMultiplyGF28(byte[][] matrix, byte[] vector, byte minPoly) {
+  private byte[] matrixVectorMultiplyGf28(byte[][] matrix, byte[] vector, byte minPoly) {
     byte[] result = new byte[matrix.length];
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < matrix[i].length; j++) {
@@ -228,7 +212,7 @@ public class TwoFish {
 
   private int mdsMultiply(byte[] vector) {
     return ByteArrayUtils
-        .bytesToIntBigEndian(matrixVectorMultiplyGF28(MDSmatrix, vector, MDSMinPoly));
+        .bytesToIntBigEndian(matrixVectorMultiplyGf28(MDSmatrix, vector, MDSMinPoly));
   }
 
   /**
@@ -242,7 +226,7 @@ public class TwoFish {
    */
   private int[] fFunction(int x0, int x1, int r) {
     x1 = (x1 << 8) | (x1 >>> (32 - 8)); // rightrotate x1 8 to the left before passing it to
-                                        // gFunction
+    // gFunction
     x0 = gFunction(ByteArrayUtils.intToBytesBigEndian(x0));
     x1 = gFunction(ByteArrayUtils.intToBytesBigEndian(x1));
 
@@ -257,7 +241,7 @@ public class TwoFish {
 
   /**
    * the g function substitutes bytes and performs a transformation on the bytes s_boxBytes
-   * substitutes bytes mdsMultiply is a spesific instance of matrixVectorMultiplyGF28 function, with
+   * substitutes bytes mdsMultiply is a spesific instance of matrixVectorMultiplyGf28 function, with
    * a hardcoded reducing polynomial and transformation.
    *
    * @param bytes the byte array input
@@ -327,12 +311,12 @@ public class TwoFish {
   /**
    * the h Function is used in the key schedule to generate more key material.
    *
-   * @param X some integer
-   * @param L some list of integers
+   * @param x some integer
+   * @param l some list of integers
    * @param k the size of L
    * @return integer
    */
-  private int hFunction(int X, int[] L, int k) {
+  private int hFunction(int x, int[] l, int k) {
     Map<Integer, int[]> qMap = new HashMap<>();
 
     qMap.put(4, new int[] {1, 0, 0, 1});
@@ -341,11 +325,7 @@ public class TwoFish {
     qMap.put(1, new int[] {0, 0, 1, 1});
     qMap.put(0, new int[] {1, 0, 1, 0});
 
-    byte[] bytesX = ByteArrayUtils.intToBytesBigEndian(X);
-    /*
-     * byte[][] bytesL = new byte[L.length][4]; for (int i = 0; i < L.length; i++) { bytesL[i] =
-     * ByteArrayUtils.intToBytesBigEndian(L[i]); }
-     */
+    byte[] bytesX = ByteArrayUtils.intToBytesBigEndian(x);
 
     byte[] result = new byte[4];
     boolean xAdded = false;
@@ -367,7 +347,7 @@ public class TwoFish {
       result[3] = qSubstitute(result[3], qMap.get(i)[3]);
 
       // xor
-      result = ByteArrayUtils.bytesXor(result, ByteArrayUtils.intToBytesBigEndian(L[i - 1]));
+      result = ByteArrayUtils.bytesXor(result, ByteArrayUtils.intToBytesBigEndian(l[i - 1]));
 
     }
     // last substitute
@@ -390,22 +370,21 @@ public class TwoFish {
    * expands the key into 40 words of key material, used for input/output whitening and for the f
    * function.
    *
-   * @param Me keyMaterial list
-   * @param M0 another keyMaterial list
+   * @param me keyMaterial list
+   * @param m0 another keyMaterial list
    */
-  private void expandKeyWords(int[] Me, int[] M0) {
+  private void expandKeyWords(int[] me, int[] m0) {
     int p = 0x01010101;
     int keyAmount = 20;
-    int[] A = new int[keyAmount];
-    int[] B = new int[keyAmount];
+    int[] a = new int[keyAmount];
+    int[] b = new int[keyAmount];
     this.keyWords = new int[keyAmount * 2];
     for (int i = 0; i < keyAmount; i++) {
-      A[i] = hFunction(p * i * 2, Me, Me.length);
-      B[i] = intRotateLeft(hFunction((p * (i * 2 + 1)), M0, M0.length), 8);
-      keyWords[2 * i] = A[i] + B[i];
-      keyWords[(2 * i) + 1] = intRotateLeft((A[i] + (2 * B[i])), 9);
+      a[i] = hFunction(p * i * 2, me, me.length);
+      b[i] = intRotateLeft(hFunction((p * (i * 2 + 1)), m0, m0.length), 8);
+      keyWords[2 * i] = a[i] + b[i];
+      keyWords[(2 * i) + 1] = intRotateLeft((a[i] + (2 * b[i])), 9);
     }
-
   }
 
   /**
@@ -416,36 +395,36 @@ public class TwoFish {
    */
   private void keySchedule(byte[] key) {
     int k = key.length / 8;
-    int[] M = new int[2 * k];
+    int[] m = new int[2 * k];
 
-    for (int i = 0; i < M.length; i++) {
-      M[i] = ByteArrayUtils.bytesToIntBigEndian(Arrays.copyOfRange(key, i * 4, i * 4 + 4));
+    for (int i = 0; i < m.length; i++) {
+      m[i] = ByteArrayUtils.bytesToIntBigEndian(Arrays.copyOfRange(key, i * 4, i * 4 + 4));
     }
 
     // keymaterial used for keywords
-    int[] Me = new int[k];
-    int[] M0 = new int[k];
+    int[] me = new int[k];
+    int[] m0 = new int[k];
     for (int i = 0; i < k; i++) {
-      Me[i] = M[i * 2];
-      M0[i] = M[(i * 2) + 1];
+      me[i] = m[i * 2];
+      m0[i] = m[(i * 2) + 1];
     }
 
-    expandKeyWords(Me, M0); // Works
+    expandKeyWords(me, m0); // Works
 
     // keymaterial used for sboxes
-    int[] S = new int[k];
+    int[] s = new int[k];
     for (int i = 0; i < k; i++) {
-      S[k - 1 - i] = ByteArrayUtils.bytesToIntBigEndian(
-          matrixVectorMultiplyGF28(RSD, Arrays.copyOfRange(key, i * 8, i * 8 + 8), RSMinPoly));
+      s[k - 1 - i] = ByteArrayUtils.bytesToIntBigEndian(
+          matrixVectorMultiplyGf28(RSD, Arrays.copyOfRange(key, i * 8, i * 8 + 8), RSMinPoly));
     }
 
     // setting up keydependent substitution boxes
     int p = 0x01010101;
     for (int i = 0; i < 256; i++) {
-      sbox0[i] = (byte) ((hFunction((i * p) & 0xff000000, S, k) & 0xff000000) >>> 24);
-      sbox1[i] = (byte) ((hFunction((i * p) & 0x00ff0000, S, k) & 0x00ff0000) >>> 16);
-      sbox2[i] = (byte) ((hFunction((i * p) & 0x0000ff00, S, k) & 0x0000ff00) >>> 8);
-      sbox3[i] = (byte) ((hFunction((i * p) & 0x000000ff, S, k) & 0x000000ff));
+      sbox0[i] = (byte) ((hFunction((i * p) & 0xff000000, s, k) & 0xff000000) >>> 24);
+      sbox1[i] = (byte) ((hFunction((i * p) & 0x00ff0000, s, k) & 0x00ff0000) >>> 16);
+      sbox2[i] = (byte) ((hFunction((i * p) & 0x0000ff00, s, k) & 0x0000ff00) >>> 8);
+      sbox3[i] = (byte) ((hFunction((i * p) & 0x000000ff, s, k) & 0x000000ff));
     }
   }
 
