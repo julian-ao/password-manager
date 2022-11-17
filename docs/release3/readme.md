@@ -10,11 +10,14 @@ For this release we have created a REST-API with springboot and implemented the 
 
 The complete architecture of the project is documented in the project-architecture folder's [readme file](../project-architecture\readme.md).
 
+The new architecture consists of a server and a client. The server application consists of four modules: core, restserver, encryption and localpersistence. The client application consists of ui and client module. The user interacts with the application trough the ui, ui tells the client module to send requests to the server application. client.restTalker creates the request with the proper format and sends them to the server application. At the server, each requests are handled and the appropriate actions are taken before sending the response data back to the client application.
+
 ## Updated modules
 
 ### Restserver
 
-<!-- Changes in restserver -->
+The new restserver module is the base of our restserver. it handles post and get requests sent from the client and handles all database accesses, passwordchecking, encrypting/decrypting/hashing and produces the right response.
+
 
 ### Encryption
 
@@ -33,19 +36,18 @@ The new local persistence uses two tables in seperate files, each profile now ha
 
 - Exaample of a stored profile in our database. The password is encrypted using the parent users password. Nonce is used in the encryption(see encryption)
 - ![Profile Json Example](../images/release3_profile_json_example.png)
-<!-- Changes in encryption -->
 
 ### Core??
 
-<!-- Changes in core -->
+Core has changed, and consists of the dataclasses User and Profile, and the userbuilder class. 
 
 ### Client?
 
 <!-- Changes in client -->
+A new client module has been created which mostly serves to send http requests to the server application. The RestTalker class gets called from the ui and creates an appropriate GET/POST request which it send to the server. Once the response returns from the serveside application, and if the request was served successfully the data gets returned to the ui to get displayed to the user. If the user has logged into the account, a RestTalker instance also stores the username and password of the logged in user. 
 
-### Local persistence?
+- The module also has a password class, which generates hard to guess passwords, and can give a difficulty rating for passwords. 
 
-<!-- Changes in persistence -->
 
 ### UI
 

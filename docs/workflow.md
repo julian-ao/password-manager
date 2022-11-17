@@ -104,10 +104,6 @@ After a pair programming session, when the commit is to be written, we have writ
 
 <!-- TODO -->
 
-We have two weekly meetings where we discuss our progress and what we need to do to finish the project, those meetings also consists of us coding together for several hours. If we see that two times a week is not enough, we will add more meetings. To ensure that most of us is present at each meeting, we have made a contract that we gives fines to each person that are late to the meetings, this has worked very well since it is a more motivating factor to be on time to the meetings.
-
-<!-- Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
+Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
 
 For this release we had atleast two meetings a week, where we discuss our progress and what we need to do to finish the project. Those meetings also consists of us coding together for several hours.
-
-We have used the GitLab issue tracker to keep track of our issues and milestones. -->
