@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo: remove all asserts
 public class TwoFish {
 
   /**
@@ -20,7 +19,6 @@ public class TwoFish {
   /**
    * the expanded key is stored in keyWords as they are used multiple places, this
    * removes the need to pass this data troughout the algorithm
-   * 
    */
   private int[] keyWords;
 
@@ -35,7 +33,6 @@ public class TwoFish {
   private static final byte[] q1t3 = { 11, 9, 5, 1, 12, 3, 13, 14, 6, 4, 7, 15, 2, 0, 8, 10 };
 
   /**
-   * 
    * MDSmatrix and RSD are transformations used in the algorithm. RSD is used in
    * the keyschedule MDS is used on the internal state every round
    */
@@ -62,15 +59,11 @@ public class TwoFish {
   /**
    * right rotates the 4 rightmost bits in a byte example ROR(xxxx1011, 2) =
    * 00001110 the four upper bits are discarded
-   * 
-   * 
+  
    * @param x      the byte which contains the 4 bits to be rotated
-   * 
    * @param amount hwo much the 4 bits should be rotated
    * 
-   * 
    * @return byte whose 4 least significant bits are rotated
-   * 
    */
   private static byte ROR(byte x, int amount) {
     byte result;
@@ -85,6 +78,8 @@ public class TwoFish {
   }
 
   /**
+   * Substitutes the 4 bits in a byte with the value in the sbox. 
+  
    * @param x the byte to be substituted
    * @param a a 1 or a 0, which chooses between two sets of 4 bit substitutions
    * @return the substituted byte
@@ -118,18 +113,12 @@ public class TwoFish {
     return (byte) (b4 << 4 | (a4 & 0x0f));
   }
 
-  /*
-   * 
+  /**
    * q0 is a substition table
-   * 
-   * 
-   * 
+   
    * @param x the byte to be substituted
    * 
-   * 
    * @return the substition for the given byte
-   * 
-   * 
    */
 
   private byte q0(byte x) {
@@ -142,10 +131,8 @@ public class TwoFish {
 
   /**
    * this function takes in 4 bytes and substitutes them with different
-   * substitution boxes
-   * 
-   * 
-   * 
+   * substitution boxes.
+  
    * @param bytes 4 bytes to be substituted
    * @return substituted bytes
    */
@@ -167,9 +154,7 @@ public class TwoFish {
   /**
    * this function is the same as a*b when a and b is in GF(2^8) with reducing
    * polynomial: minPoly. NOTE: this function does not commute
-   * 
-   * 
-   * 
+   
    * @param a       left hand side operand
    * @param b       right hand side operand
    * @param minPoly reducing polynomial, where x^8 is implicit. 01010101 -->
@@ -199,12 +184,8 @@ public class TwoFish {
   /**
    * the function interprets a byte array as a vector over a certain galois field
    * defined by the reducing polynomial(param minPoly), with a matrix defining a
-   * transformation in the vector space
-   * 
-   * 
-   * 
-   * 
-   * 
+   * transformation in the vector space.
+  
    * @param matrix  matrix representing the transformation
    * @param vector  to be transformed
    * @param minPoly the reducing polynomial passed on to the multiplication
@@ -222,7 +203,7 @@ public class TwoFish {
 
   /**
    * input/output whiteing xor's the current state of the encryption with key
-   * material
+   * material.
    * 
    */
   private void inputWhitening() {
@@ -246,10 +227,7 @@ public class TwoFish {
   /**
    * the f function is at the heart of the twofish algorithm and carries out most
    * of the substitution and transposition.
-   * 
-   * 
-   * 
-   * 
+   
    * @param x0 the first input
    * @param x1 the second input
    * @param r  the round number
@@ -273,8 +251,8 @@ public class TwoFish {
    * the g function substitutes bytes and performs a transformation on the bytes
    * s_boxBytes substitutes bytes MDSMultiply is a spesific instance of
    * matrixVectorMultiplyGF28 function, with a hardcoded reducing polynomial and
-   * transformation
-   * 
+   * transformation.
+   
    * @param bytes the byte array input
    * @return an integer output
    */
@@ -284,9 +262,8 @@ public class TwoFish {
   }
 
   /**
-   * 
-   * roundEncrypt performs one of the 16 rounds of encryption
-   * 
+   * roundEncrypt performs one of the 16 rounds of encryption.
+  
    * @param r the round number
    */
   private void roundEncrypt(int r) {
@@ -300,9 +277,8 @@ public class TwoFish {
   }
 
   /**
-   * 
-   * roundDecrypt performs one of the 16 rounds of decryption
-   * 
+   * roundDecrypt performs one of the 16 rounds of decryption.
+   
    * @param r round number
    */
   private void roundDecrypt(int r) {
@@ -340,15 +316,11 @@ public class TwoFish {
 
   /**
    * the h Function is used in the key schedule to generate more key material
-   * 
-   * 
-   * 
+  
    * @param X some integer
    * @param L some list of integers
    * @param k the size of L
    * @return integer
-   * 
-   * 
    */
   private int hFunction(int X, int[] L, int k) {
     Map<Integer, int[]> qMap = new HashMap<>();
@@ -369,11 +341,7 @@ public class TwoFish {
     boolean xAdded = false;
     for (int i = 4; i > 0; i--) {
 
-      /**
-       * Handling of different keysizes
-       * 
-       * 
-       */
+      // Handling of different keysizes
       if (i > k) {
         continue;
       }
@@ -382,28 +350,17 @@ public class TwoFish {
         xAdded = true;
       }
 
-      /**
-       * 
-       * substitute
-       */
+      // substitute
       result[0] = q(result[0], qMap.get(i)[0]);
       result[1] = q(result[1], qMap.get(i)[1]);
       result[2] = q(result[2], qMap.get(i)[2]);
       result[3] = q(result[3], qMap.get(i)[3]);
 
-      /**
-       * 
-       * 
-       * xor
-       */
+      // xor
       result = ByteArrayUtils.bytesXor(result, ByteArrayUtils.intToBytesBigEndian(L[i - 1]));
 
     }
-    /**
-     * 
-     * last substitute
-     * 
-     */
+    // last substitute
     result[0] = q(result[0], qMap.get(0)[0]);
     result[1] = q(result[1], qMap.get(0)[1]);
     result[2] = q(result[2], qMap.get(0)[2]);
@@ -422,9 +379,7 @@ public class TwoFish {
   /**
    * expands the key into 40 words of key material, used for input/output
    * whitening and for the f function
-   * 
-   * 
-   * 
+  
    * @param Me keyMaterial list
    * @param M0 another keyMaterial list
    */
@@ -445,11 +400,8 @@ public class TwoFish {
 
   /**
    * the keySchedule expands the key into several subkeys as well as creating the
-   * key dependent substitution boxes
-   * 
-   * 
-   * 
-   * 
+   * key dependent substitution boxes.
+  
    * @param key the raw key used
    */
   private void keySchedule(byte[] key) {
@@ -488,10 +440,8 @@ public class TwoFish {
   }
 
   /**
-   * 
-   * 
    * getInput converts the 16 bytes of data inputted in to the algorithm, and
-   * stores them a 4 seperate integers
+   * stores them a 4 seperate integers.
    * 
    * @param input the input to the encryption or decryption function
    */
@@ -521,6 +471,8 @@ public class TwoFish {
   }
 
   /**
+   * Encrypts the input using the key.
+  
    * @param plaintext the plaintext is the raw data
    * @param key       arbritrary string of bits used in the encryption
    * @return the cipher text
@@ -533,7 +485,8 @@ public class TwoFish {
     // input whitening
     inputWhitening();
 
-    for (int i = 0; i < 16; i++) {// rounds
+    for (int i = 0; i < 16; i++) {
+      // rounds
       roundEncrypt(i);
     }
     // output whitening
@@ -545,7 +498,9 @@ public class TwoFish {
     return getOutput();
   }
 
-  /**
+  /** 
+   * Decrypts the given ciphertext using the given key.
+
    * @param ciphertext the cipher text is the encrypted data
    * @param key        key used to encrypt,
    * @return the decrypted plaintext
