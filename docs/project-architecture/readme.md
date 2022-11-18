@@ -41,4 +41,5 @@ The **[restserver module](../../passwordManager/restserver/)** contains one pack
 The **[encryption module](/passwordManager/encryption/)** is responsible for encrypting and decrypting the passwords.
 
 ### Integration
+
 **[integration-module](/passwordManager/integration/)** only exists to house the integration tests. Thus enabling us to test everything together without the front-end and back-end tepending directly on each other.
