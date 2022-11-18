@@ -36,6 +36,4 @@ Note the application will still only work if spring-boot is running.
 Folder structure:
 
 - The **main readme.md-file** where the application is explained is located: /passwordManager/
-- The **backend** is located /passwordManager/core/src/main/java/core/
-- The **FXML-files** is located /passwordManager/ui/src/main/resources/ui/
 - The **documentation** is located in /docs/

@@ -1,5 +1,6 @@
 @startuml
-Logged_in_User -> PasswordPageController: Presses new password button and fills in the form
+actor User
+User -> PasswordPageController: Presses new password button and fills in the form
 PasswordPageController -> RestTalker: restTalker.insertProfile()
 RestTalker -> RestServer: API CALL /api/v1/entries/insertProfile, payload containing Profile data
 RestServer -> Encryption: encryption.encrypt(password, Hash(userPassword))
@@ -16,5 +17,5 @@ RestServer -> Encryption: encryption.decrypt(passwords, hash(userPassword))
 Encryption --> RestServer: decrypted passwords
 RestServer --> RestTalker: Json String with profiles
 RestTalker --> PasswordPageController: Json string with profiles
-PasswordPageController --> Logged_in_User: show the updated list of profiles the user has stored
+PasswordPageController --> User: show the updated list of profiles the user has stored
 @enduml

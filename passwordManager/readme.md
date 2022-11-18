@@ -1,8 +1,6 @@
 # Application description
 
-This is a simple Password Manager where users can store and access their profiles for all types of places where you need an username & password.
-
-<!-- !-->The profiles will be stored locally, but both the users password for the application and all their stored passwords will be encrypted.
+This is a simple Password Manager where users can store and access their profiles for all types of places where you need an username & password. We encrypt passwords to protect our users.
 
 ## Login page
 

@@ -119,26 +119,3 @@ List of stages witch jobs, and their order of execution:
 ## Workflow
 
 The complete documentation for the project workflow is in the [workflow.md](../workflow.md) file.
-
-<!--
-
-I tillegg til dokumentasjon i samsvar med tidligere krav skal dere denne gangen lage UML diagram som forelest.
-
-!- Et pakkedigram for løsningen
-!- Et klassediagram for viktigste deler av systemet
-!- Et sekvensdiagram for et viktig brukstilfelle, som viser koblingen mellom brukerinteraksjon og hva som skjer inni systemet inkl. REST-kall.
-
-!- Dokumentasjon av REST-tjenesten, altså (format for) forespørslene som støttes.
-
-*- dokumentasjon for hver release må plasseres i en egen mappe, så den tredje innleveringsdokumentasjonen må plasseres i gr22nn/docs/release3
-
-I tillegg til overnevnte krav vil alle tidligere krav også være viktige, så se over tidligere kriterier, og bruk dem også!
-
-Innlevering 2:
-
-- dokumentasjon (readme filer og kommentarer) må oppdateres
-*- dokumentasjon for hver release må plasseres i en egen mappe, så den andre innleveringsdokumentasjonen må plasseres i gr22nn/docs/release2
-!- dokumentere arkitektur med minst et diagram (bruk PlantUML) i tillegg til teksten i readme
-?- dokumentere valg knyttet til arbeidsvaner, arbeidsflyt og kodekvalitet (f.eks. tilnærming til testing, verktøy for sjekking av kodekvalitet og innstillinger for dem)
-
--->

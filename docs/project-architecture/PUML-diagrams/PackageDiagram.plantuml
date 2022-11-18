@@ -1,7 +1,6 @@
 @startuml
 component encryption{
 package encryption.encryption
-package encryption.hash
 }
 
 component ui{
@@ -33,7 +32,6 @@ component spring{
 
 restserver.restserver ..> core.core
 restserver.restserver ..> encryption.encryption
-restserver.restserver ..> encryption.hash
 restserver.restserver ..> localpersistence.localpersistence
 localpersistence.localpersistence ..> core.core
 ui.ui ..> client.client
