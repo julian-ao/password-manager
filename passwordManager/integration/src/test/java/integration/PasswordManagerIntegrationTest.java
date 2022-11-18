@@ -1,17 +1,7 @@
 package integration;
 
-
-import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.concurrent.ExecutionException;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
- 
 import client.ServerResponseException;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;

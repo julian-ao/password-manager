@@ -142,8 +142,6 @@ public class RestTalkerTest {
   // test profile delete
   @Test
   public void deleteProfileTest() {
-    String user = "Admin";
-    String title = "Title";
     String password = "Password";
     String username = "Admin";
     String body = "Success";

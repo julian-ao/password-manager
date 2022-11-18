@@ -2,16 +2,11 @@ package encryption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-
-import encryption.HexStringUtils;
-import encryption.TwoFish;
 
 public class TwoFishTest {
   TwoFish twoFish = new TwoFish();

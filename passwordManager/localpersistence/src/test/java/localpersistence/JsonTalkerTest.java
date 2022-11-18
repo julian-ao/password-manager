@@ -65,7 +65,6 @@ public class JsonTalkerTest {
     try {
       jsonTalker.insertUser(user);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -78,7 +77,6 @@ public class JsonTalkerTest {
       assertEquals(true, jsonTalker.userExists("user1"));
       assertEquals(false, jsonTalker.userExists("NOTAUSER"));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -92,7 +90,6 @@ public class JsonTalkerTest {
       jsonTalker.insertUser(newUser);
       assertEquals(true, jsonTalker.userExists(newUser.getUsername()));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -107,7 +104,6 @@ public class JsonTalkerTest {
       jsonTalker.deleteUser(newUser.getUsername());
       assertEquals(false, jsonTalker.userExists(newUser.getUsername()));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -133,7 +129,6 @@ public class JsonTalkerTest {
       ArrayList<Profile> profiles = jsonTalker.getProfiles("user1");
       assertEquals(true, hasProfile(profiles, profile));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -147,7 +142,6 @@ public class JsonTalkerTest {
       assertEquals(true, jsonTalker.checkPassword("user1", "password1"));
       assertEquals(false, jsonTalker.checkPassword("user1", "password2"));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
@@ -163,7 +157,6 @@ public class JsonTalkerTest {
       profiles = jsonTalker.getProfiles("NOTAUSSERTHATEXISSTSINOURDATABAASE");
       assertEquals(profiles, null);
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
