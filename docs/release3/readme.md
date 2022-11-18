@@ -40,19 +40,15 @@ The new local persistence uses two tables in seperate files, each profile now ha
 
 ### Core
 
-Core has changed, and consists of the dataclasses User and Profile, and the userbuilder class. 
+Core has changed, and consists of the dataclasses User and Profile, and the userbuilder class.
 
 ### Client
 
-<!-- Changes in client -->
-A new client module has been created which mostly serves to send http requests to the server application. The RestTalker class gets called from the ui and creates an appropriate GET/POST request which it send to the server. Once the response returns from the serveside application, and if the request was served successfully the data gets returned to the ui to get displayed to the user. If the user has logged into the account, a RestTalker instance also stores the username and password of the logged in user. 
+A new client module has been created which mostly serves to send http requests to the server application. The RestTalker class gets called from the ui and creates an appropriate GET/POST request which it send to the server. Once the response returns from the serveside application, and if the request was served successfully the data gets returned to the ui to get displayed to the user. If the user has logged into the account, a RestTalker instance also stores the username and password of the logged in user.
 
-- The module also has a password class, which generates hard to guess passwords, and can give a difficulty rating for passwords. 
-
+- The module also has a password class, which generates hard to guess passwords, and can give a difficulty rating for passwords.
 
 ### UI
-
-<!-- Changes in UI -->
 
 The UI has had a few functionalities added, as a few changes in the design, as well as a few bug fixes:
 
@@ -86,9 +82,6 @@ Spotbugs is a static analysis tool that looks for bugs in Java code. We have Spo
 
 ## Testing
 
-<!-- Changes in testing -->
-
-<!-- improved testing, ui testing -->
 Unit tests are now actually unit tests, where each unit is tested independently. We have also added integration testing which tests that the whole architecture works together. Jacoco also checks all modules for code coverage, and our tests test at least 80% of all modules.
 
 ## Pipeline Jobs

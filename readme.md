@@ -6,7 +6,7 @@ Password Manager is an application for saving multiple accounts so that a person
 It is a desktop application that is made in JavaFX. The application is made for the course IT1901 at NTNU.
 The prosject is gitpod ready and can be found [here](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216), you can also click on the Gitpod button in the top of the readme.
 
-## Running, building the project
+## Running and building the project
 
 ### Building the project
 
@@ -23,17 +23,18 @@ Open a another terminal, navigate to **passwordManager/ui** and run `mvn javafx:
 
 ### Installing the application
 
-You need on Windows to use JPackage: [WiX Toolset 3.0](https://wixtoolset.org/docs/wix3/). If you are on Linux or Mac it should work fine without.
+If you use Windows you need to use JPackage: [WiX Toolset 3.0](https://wixtoolset.org/docs/wix3/). If you are on Linux or Mac it should work fine without.
 
 Go to the directory `passwordManager/ui`. Then write in terminal: `mvn compile javafx:jlink jpackage:jpackage`.
 After the command has completed, the executable to the application will be found in `passwordManager/ui/target/dist`.
 
 Note the application will still only work if spring-boot is running.
 
-
 ## Structure
 
 Folder structure:
 
-- The **main readme.md-file** where the application is explained is located: /passwordManager/
-- The **documentation** is located in /docs/
+- The main readme.md-file where the application is explained is located in [/passwordManager/](./passwordManager/readme.md)
+- The documentation is located in [/docs/](./docs/)
+- The workflow documentation is located in [/docs/workflow](./docs/workflow.md)
+- The architecture documentation is located in [/docs/architecture/](./docs/architecture.md)
