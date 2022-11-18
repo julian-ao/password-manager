@@ -16,9 +16,7 @@ This project contains six modules in total: core, local persistence, ui, client,
 
 ### Core
 
-The [core module](../../passwordManager/core/) contains TODO!
-
-<!--core contains blabla packages and these packages includes blabla classes that do this and that. -->
+The [core module](../../passwordManager/core/) contains Profile and User class, used by the backend as intermediate representations of the data that is stored in our database. Additonally, the userbuilder package which contains various validator functions for creating new accounts on our platform.
 
 ### Local Persistence
 
