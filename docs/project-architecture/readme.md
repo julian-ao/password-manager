@@ -10,7 +10,7 @@ All the PUML diagrams can be found [here](PUML-diagrams).
 
 ## Modules
 
-This project contains six modules in total: core, local persistence, ui, client, restserver & encryption.
+This project contains six modules in total: core, local persistence, ui, client, restserver, encryption & integration.
 
 <!-- How the architecture works. Why and how we implemented it this way-->
 
@@ -73,3 +73,7 @@ The [restserver module](../../passwordManager/restserver/) contains TODO!
 The [encryption module](../../passwordManager/encryption/) contains TODO!
 
 <!-- encryption contains blabla packages and these packages includes blabla that do this and that. -->
+
+### Integration
+
+The [integration module](../../passwordManager/integration/) contains TODO!
