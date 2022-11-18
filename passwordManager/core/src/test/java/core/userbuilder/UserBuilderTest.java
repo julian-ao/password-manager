@@ -3,8 +3,6 @@ package core.userbuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import core.User;
-
 public class UserBuilderTest {
 
   UserBuilder userBuilder = new UserBuilder();

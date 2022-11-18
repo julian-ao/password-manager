@@ -1,6 +1,6 @@
 <FindBugsFilter>
     <Match>
-        <Class name="encryption.SHA256" />
+        <Class name="encryption.Sha256" />
         <Method name="getHash" />
         <Bug pattern="NP_NULL_ON_SOME_PATH_EXCEPTION" />
         <!--Had to try/catch a function which will never throw the excpetion caught as long as java supports UTF-8 encoding.-->

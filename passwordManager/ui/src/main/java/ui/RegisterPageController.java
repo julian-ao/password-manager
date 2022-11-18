@@ -1,12 +1,10 @@
 package ui;
 
+import client.RestTalker;
+import client.ServerResponseException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
-
-import client.RestTalker;
-import client.ServerResponseException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;

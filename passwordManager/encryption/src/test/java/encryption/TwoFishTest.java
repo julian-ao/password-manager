@@ -2,16 +2,11 @@ package encryption;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
-
-import encryption.HexStringUtils;
-import encryption.TwoFish;
 
 public class TwoFishTest {
   TwoFish twoFish = new TwoFish();
@@ -80,16 +75,16 @@ public class TwoFishTest {
   @Test
   public void testGF28() {
     TwoFish twoFish = new TwoFish();
-    int result = twoFish.multiplyGF28Test((byte) 12, (byte) 17, (byte) 0b00011011);
+    int result = twoFish.multiplyGf28Test((byte) 12, (byte) 17, (byte) 0b00011011);
     result = result < 0 ? result + 256 : result;
     assertEquals(204, result);
   }
 
   @Test
   public void RORtest() {
-    assertEquals(0b00000101, TwoFish.RORtest((byte) 0b00001010, 1));
-    assertEquals(0b00001010, TwoFish.RORtest((byte) 0b00001010, 2));
-    assertEquals(0b00001011, TwoFish.RORtest((byte) 0b00001110, 2));
+    assertEquals(0b00000101, TwoFish.rorTest((byte) 0b00001010, 1));
+    assertEquals(0b00001010, TwoFish.rorTest((byte) 0b00001010, 2));
+    assertEquals(0b00001011, TwoFish.rorTest((byte) 0b00001110, 2));
   }
 
   public static void main(String[] args) {
