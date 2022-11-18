@@ -512,7 +512,7 @@ public class TwoFish {
 
   public int[] testKeySchedule(byte[] key) {
     keySchedule(key);
-    return keyWords;
+    return Arrays.copyOf(keyWords, keyWords.length);
   }
 
   public static void main(String[] args) {

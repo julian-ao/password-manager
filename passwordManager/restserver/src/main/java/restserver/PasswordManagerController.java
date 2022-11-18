@@ -194,7 +194,7 @@ public class PasswordManagerController {
 
     String username = jsonObject.getString("username");
     String title = jsonObject.getString("title");
-    Encrypted encryptedPassword = encryption.encrypt(jsonObject.getString("password"), key);
+    Encrypted encryptedPassword = Encryption.encrypt(jsonObject.getString("password"), key);
 
     int id;
     try {
