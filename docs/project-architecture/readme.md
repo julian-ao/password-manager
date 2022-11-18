@@ -12,17 +12,15 @@ All the PUML diagrams can be found [here](PUML-diagrams).
 
 This project contains six modules in total: core, local persistence, ui, client, restserver, encryption & integration.
 
-<!-- How the architecture works. Why and how we implemented it this way-->
-
 ### Core
 
 The [core module](../../passwordManager/core/) contains Profile and User class, used by the backend as intermediate representations of the data that is stored in our database. Additonally, the userbuilder package which contains various validator functions for creating new accounts on our platform.
 
 ### Local Persistence
 
-The [local persistence module](../../passwordManager/localpersistence/) contains TODO!
+The **[localpersistence-module](/passwordManager/localpersistence)** contains one package, **[localpersistence](/passwordManager/localpersistence/src/main/java/localpersistence)**.
 
-<!--local persistence contains blabla packages and these packages includes blabla classes that do this and that. -->
+This package includes classes that handle serialization and deserialization of classes in the core-module. It also handles reading and writing to and from a file.
 
 ### UI
 
@@ -30,48 +28,17 @@ The [ui module](../../passwordManager/ui/) contains the user interface for the a
 
 The ui module also contains the [**resources**](../../passwordManager/ui/src/main/resources/) folder which contains all of the FXML files as well as the images used.
 
-<!--
-- `ui` - contains all the controllers for the different views in the application.
-  - `PasswordManagerApp.java` - the main class that runs the application.
-
-  - `PasswordManagerController.java` - the main controller for the application, that acts like a superclass for all other controllers.
-  - `LoginPageController.java` - The controller for the login page.
-  - `RegisterPageController.java` - The controller for the register page.
-  - `PasswordPageController.java` - The controller for the main page.
--->
-
-<!--
-The ui module also contains the following resources:
-
-- `images` - contains all images used in the application.
-
-- `ui` - contains all FXML files for the different views in the application.
-  - `login.fxml` - the FXML file for the login page.
-
-  - `register.fxml` - the FXML file for the register page.
-  - `passwords.fxml` - the FXML file for the main page.
--->
-
-<!--The user interface is created with JavaFX and FXML. All FXML files are connected to a controller blablabla. The FXML directory is located here. -->
-
 ### Client
 
-The [client module](../../passwordManager/client/) contains TODO!
-
-<!--client contains blabla packages and these packages includes blabla that do this and that. -->
+The [client module](/passwordManager/client/) contains one package, **[client](/get-fit/client/src/main/java/client)**. This package makues up the transportation layer and transfers data between the server and the UI.
 
 ### Restserver
 
-The [restserver module](../../passwordManager/restserver/) contains TODO!
-
-<!--restserver contains blabla packages and these packages includes blabla that do this and that. -->
+The **[restserver module](../../passwordManager/restserver/)** contains one packages, restserver. This packages make up the service layer and handles requests from the UI. It is responsible for the logic and computation implemented in the core-module & encryption-module and the persistance implemented in the localpersistance-module.
 
 ### Encryption
 
-The [encryption module](../../passwordManager/encryption/) contains TODO!
-
-<!-- encryption contains blabla packages and these packages includes blabla that do this and that. -->
+The **[encryption module](/passwordManager/encryption/)** is responsible for encrypting and decrypting the passwords.
 
 ### Integration
-
-The [integration module](../../passwordManager/integration/) contains TODO!
+**[integration-module](/passwordManager/integration/)** only exists to house the integration tests. Thus enabling us to test everything together without the front-end and back-end tepending directly on each other.
