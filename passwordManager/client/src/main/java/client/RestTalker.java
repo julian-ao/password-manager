@@ -243,7 +243,12 @@ public class RestTalker {
     return response.body();
   }
 
-  // delete profile
+  /**
+   * deleteProfile deletes a profile from the database.
+   *
+   * @param id The id of the profile to be deleted.
+   * @return Returns true if the profile was successfully deleted.
+   */
   public boolean deleteProfile(int id)
       throws URISyntaxException, InterruptedException, ExecutionException, ServerResponseException {
     JSONObject json = new JSONObject();
@@ -261,12 +266,12 @@ public class RestTalker {
     try {
       this.post("/api/v1/entries/doDatabaseTest", "[]");
     } catch (
-      URISyntaxException 
-      | InterruptedException 
-      | ExecutionException 
+    URISyntaxException
+      | InterruptedException
+      | ExecutionException
       | ServerResponseException e
-      ) {
-        e.printStackTrace();
+    ) {
+      e.printStackTrace();
     }
   }
 }

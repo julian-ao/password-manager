@@ -1,17 +1,23 @@
 package restserver;
 
+import core.Profile;
+import core.User;
+import core.userbuilder.PasswordValidation;
+import core.userbuilder.UserBuilder;
+import core.userbuilder.UsernameValidation;
+import encryption.Encrypted;
+import encryption.Encryption;
+import encryption.HexStringUtils;
+import encryption.Sha256;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
+import localpersistence.DatabaseTalker;
+import localpersistence.JsonTalker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import localpersistence.DatabaseTalker;
-import localpersistence.JsonTalker;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,17 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import core.Profile;
-import core.User;
-import core.userbuilder.PasswordValidation;
-import core.userbuilder.UserBuilder;
-import core.userbuilder.UsernameValidation;
-
-import encryption.Encrypted;
-import encryption.Encryption;
-import encryption.HexStringUtils;
-import encryption.SHA256;
 
 /**
  * PasswordManagerController is the controller for the Password Manager application.
@@ -67,7 +62,7 @@ public class PasswordManagerController {
       return "Failure";
     }
 
-    SHA256 hash = new SHA256();
+    Sha256 hash = new Sha256();
     String hashedPasswordAttempt = hash.getHash(password, salt);
 
     try {
@@ -105,7 +100,7 @@ public class PasswordManagerController {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    SHA256 hash = new SHA256();
+    Sha256 hash = new Sha256();
     String userPassword = password;
     int encryptionSalt;
     if (user != null) {
@@ -147,7 +142,7 @@ public class PasswordManagerController {
     String username = jsonObject.getString("username");
     String password = jsonObject.getString("password");
 
-    SHA256 hash = new SHA256();
+    Sha256 hash = new Sha256();
     int salt = rand.nextInt();
     int encryptionSalt = rand.nextInt();
     User user = new User(username, hash.getHash(password, salt));
@@ -180,7 +175,7 @@ public class PasswordManagerController {
     JSONObject jsonObject = new JSONObject(body);
 
     String userPassword = jsonObject.getString("parentPassword");
-    SHA256 hash = new SHA256();
+    Sha256 hash = new Sha256();
     User user = null;
     try {
       user = databaseTalker.getUser(jsonObject.getString("parentUsername"));

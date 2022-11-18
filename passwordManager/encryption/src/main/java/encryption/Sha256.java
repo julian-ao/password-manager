@@ -6,9 +6,9 @@ import java.util.Arrays;
 // https://qvault.io/cryptography/how-sha-2-works-step-by-step-sha-256/
 
 /**
- * SHA256 is a class that represents the SHA256 hashing algorithm.
+ * Sha256 is a class that represents the Sha256 hashing algorithm.
  */
-public class SHA256 {
+public class Sha256 {
   private int h0;
   private int h1;
   private int h2;
@@ -30,9 +30,9 @@ public class SHA256 {
       0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
 
   /**
-   * The constructor for SHA256.
+   * The constructor for Sha256.
    */
-  public SHA256() {
+  public Sha256() {
     h0 = 0x6a09e667;
     h1 = 0xbb67ae85;
     h2 = 0x3c6ef372;
@@ -133,12 +133,12 @@ public class SHA256 {
     int h = this.h7;
 
     for (int i = 0; i < w.length; i++) {
-      int S1 = rightRotateInt(e, 6) ^ rightRotateInt(e, 11) ^ rightRotateInt(e, 25);
+      int s1 = rightRotateInt(e, 6) ^ rightRotateInt(e, 11) ^ rightRotateInt(e, 25);
       int ch = (e & f) ^ (~e & g);
-      int temp1 = h + S1 + ch + k[i] + w[i];
-      int S0 = rightRotateInt(a, 2) ^ rightRotateInt(a, 13) ^ rightRotateInt(a, 22);
+      final int temp1 = h + s1 + ch + k[i] + w[i];
+      int s0 = rightRotateInt(a, 2) ^ rightRotateInt(a, 13) ^ rightRotateInt(a, 22);
       int maj = (a & b) ^ (a & c) ^ (b & c);
-      int temp2 = S0 + maj;
+      final int temp2 = s0 + maj;
       h = g;
       g = f;
       f = e;
@@ -147,7 +147,6 @@ public class SHA256 {
       c = b;
       b = a;
       a = temp1 + temp2;
-
     }
 
     this.h0 += a;
@@ -162,7 +161,7 @@ public class SHA256 {
   }
 
   /**
-   * SHA256 works by reading in the input one block at a time, doing some funky stuff to that block,
+   * Sha256 works by reading in the input one block at a time, doing some funky stuff to that block,
    * and then using that block to manipulate its internal state. This is done until there are no
    * more blocks. Lastly the internal states are returned as the hash.
    */

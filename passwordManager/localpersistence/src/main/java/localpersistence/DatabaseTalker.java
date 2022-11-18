@@ -1,10 +1,8 @@
 package localpersistence;
 
-import java.io.IOException;
-
 import core.Profile;
 import core.User;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
