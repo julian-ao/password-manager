@@ -175,7 +175,6 @@ public class PasswordManagerController {
     JSONObject jsonObject = new JSONObject(body);
 
     String userPassword = jsonObject.getString("parentPassword");
-    Encryption encryption = new Encryption();
     Sha256 hash = new Sha256();
     User user = null;
     try {
