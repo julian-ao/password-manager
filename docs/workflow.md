@@ -35,7 +35,7 @@ An important principle that we have followed is that we have one safe branch: ma
 
 ## Code quality
 
-We have implemented a few Maven plugins to ensure better code quality, formatting and test coverage. The maven commands for running each of the tools can be found in the **/passwordManager/pom.xml** file. <!-- ! Remove this? -->
+We have implemented a few Maven plugins to ensure better code quality, formatting and test coverage. The maven commands for running each of the tools can be found in the **/passwordManager/pom.xml** file.
 
 We used the following tools:
 
@@ -66,7 +66,7 @@ We have used the JavaDoc standard for our inline comments. The structure of the 
 - `@return` - describes what the method returns
 - `@throws` - describes what exceptions the method can throw
 
-Our JavaDoc comments could be used to generate a JavaDoc documentation for the project. We have not done this, but it would be a good idea to do so in the future. <!-- ! Remove this? -->
+Our JavaDoc comments could be used to generate a JavaDoc documentation for the project. We have not done this, but it would be a good idea to do so in the future.
 
 ## Pipeline
 
@@ -94,7 +94,7 @@ The [pipeline](../../.gitlab-ci.yml) consists of the following stages:
 
 ## Pair programming
 
-Pair programming is a technique we have used for a big fraction of our code. Although pair programming increases the time each person spends on the same task, we believe it  increases the quality of the code drastically.
+Pair programming is a technique we have used for a big fraction of our code. Although pair programming increases the time each person spends on the same task, we believe it increases the quality of the code drastically.
 
 Our use of pair programming has also ensured that all members of the group have worked together on all parts/modules of the project. This has been a great way to ensure that everyone has a good understanding of the project as a whole.
 
@@ -102,6 +102,6 @@ After a pair programming session, when the commit is to be written, we have writ
 
 ## Planning
 
-Like we did when working with release 2, we used the GitLab issue tracker to keep track of our issues and milestones. We still used the GitLab CI/CD pipeline to run our tests and check our code quality, but we made some changes in the pipeline jobs (listed above). We used the GitLab merge request feature to ensure that we do not push directly to the master branch.
+At the beginning for each release, we have had a planning session where we have discussed what needs to be done for the release. WE then created relevant user stories to get an overview of what needs to be done. We have then created issues for each user story, and assigned them to the relevant milestone. This has ensured that we have a good overview of what needs to be done for each release.
 
-For this release we had atleast two meetings a week, where we discuss our progress and what we need to do to finish the project. Those meetings also consists of us coding together for several hours. We agreed on the main goals for this release early on and worked towards getting those done, but of course throughout the project we hd to redesign certain parts of our program.
+Throughout the project we have had at least two meetings a week. We first updated each other on what we had done since the last meeting, and if we had any problems. Since we used our meetings as coding sessions, we also discussed what we were going to do next. Since most of our work has been done physically together, we have not had any problems with communication. At the end of each meeting we have discussed what we need to do before the next meeting.

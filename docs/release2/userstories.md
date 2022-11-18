@@ -1,42 +1,6 @@
-# Updated userstories for release 2
-
-## User Story 1: Login
-
-Priority: High
-
-- **As a** returning user
-- **I want** to be able to login
-- **So that** I can see my stored passwords
-
-### Acceptance Criteria
-
-- **Given** that the login inerface exists
-- **When** I open the application
-- **Then** I can fill in username and password to login
-
----
-
-## User Story 2: New Account
-
-Priority: High
-
-- **As a** new user
-- **I want** to be able to create a new account
-- **So that** I can log in
-
-### Acceptance Criteria
-
-- **Given** that I can see and click the create account button
-- **When** I open the application
-- **Then** I can fill in the form and create an account
-
----
-
-## New userstories:
+# New userstories for release 2
 
 ## User Story 3: Validation
-
-Priority: High
 
 - **As a** new user
 - **I want** to get feedback on the input I give the app
@@ -52,8 +16,6 @@ Priority: High
 
 ## User Story 4: Profile Creation
 
-Priority: High
-
 - **As a** logged in user
 - **I want** to be able to create and store a new profile
 - **So that** I can later use the app to get the profile
@@ -66,9 +28,7 @@ Priority: High
 
 ---
 
-## User Story 5: Profile Creation
-
-Priority: High
+## User Story 5: Styling
 
 - **As a** user
 - **I want** the app to be aesthetically sound
