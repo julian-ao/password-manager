@@ -165,7 +165,6 @@ public class RestTalkerTest {
 
   @Test
   public void switchDatabaseTest() {
-
     stubFor(post(urlEqualTo("/api/v1/entries/doDatabaseTest"))
         .willReturn(aResponse().withStatus(200).withHeader("Content-Type", "application/json").withBody("b")));
     RestTalker restTalker = new RestTalker();

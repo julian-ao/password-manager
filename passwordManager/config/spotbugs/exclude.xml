@@ -1,32 +1,5 @@
 <FindBugsFilter>
     <Match>
-        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
-    </Match>
-    <Match>
-        <Bug pattern="UUF_UNUSED_FIELD" />
-    </Match>
-    <Match>
-        <Bug pattern="URF_UNREAD_FIELD" />
-    </Match>
-    <Match>
-        <Bug pattern="UWF_UNWRITTEN_FIELD" />
-    </Match>
-    <Match>
-        <Bug pattern="EI_EXPOSE_REP" />
-    </Match>
-    <Match>
-        <Bug pattern="EI_EXPOSE_REP2" />
-    </Match>
-    <Match>
-        <Bug pattern="MS_EXPOSE_REP" />
-    </Match>
-    <Match>
-        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE" />
-    </Match>
-    <Match>
-        <Bug pattern="DLS_DEAD_LOCAL_STORE" />
-    </Match>
-    <Match>
         <Class name="encryption.SHA256" />
         <Method name="getHash" />
         <Bug pattern="NP_NULL_ON_SOME_PATH_EXCEPTION" />
@@ -37,5 +10,23 @@
         <Method name="multiplyGf28" />
         <Bug pattern="ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT" />
         <!--Its a unsigned rightshift, why is this reported as a bug?-->
+    </Match>
+    <Match>
+        <Class name="ui.PasswordManagerController" />
+        <Method name="switchScene" />
+        <Bug pattern="UI_INHERITANCE_UNSAFE_GETRESOURCE" />
+        <!--Standard way to do this-->
+    </Match>
+    <Match>
+        <Class name="encryption.Encrypted" />
+        <Method name="setData" />
+        <Bug pattern="EI_EXPOSE_REP2" />
+        <!-- It is supposed to be exposed, its a setter.-->
+    </Match>
+    <Match>
+        <Class name="encryption.Encrypted" />
+        <Method name="setNonce" />
+        <Bug pattern="EI_EXPOSE_REP2" />
+        <!-- It is supposed to be exposed, its a setter.-->
     </Match>
 </FindBugsFilter>
