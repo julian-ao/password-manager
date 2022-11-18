@@ -1,8 +1,6 @@
 # Application description
 
-This is a simple Password Manager where users can store and access their passwords.
-
-The passwords will be stored locally, but both the users password for the application and all their stored passwords will be encrypted.
+This is a simple Password Manager where users can store and access their profiles for all types of places where you need an username & password. We encrypt passwords to protect our users.
 
 ## Login page
 
@@ -10,24 +8,24 @@ On the application, the user will first be met with a login page. There they can
 
 In all password inputs, the user will be able to enable a toggle to show the password they are typing.
 
-![img.png](../docs/images/release2_login.png)
+![Login page](../docs/images/release3_login.png)
 
 ## New account page
 
-When you create a new account, you need to submit an unique username and a password that match the requirements.
+When you create a new account, you need to submit an unique username, and a password that match the password requirements.
 
-![img_1.png](../docs/images/release2_create_account.png)
+![Create account page](../docs/images/release3_create_account.png)
 
 ## Main page
 
 When you are logged in to the application, you will see all the profiles you have created. You can create a new profile or access an existing one.
 
-There are also the possibility for deleting, adding and copying passwords to clipboard.
+There are also the possibility for deleting and adding profiles, and copying passwords to the clipboard.
 
-![img_2.png](../docs/images/release2_your_passwords.png)
+![Your profiles page](../docs/images/release3_your_profiles.png)
 
 ## Adding a new password profile
 
-When adding a profile. You have to give it a title, specify your account and password. The password can either be written or generated for you. The gray bar underneith the password field is a progress bar that shows how strong your password is.
+When adding a profile. You have to give it a title, specify your username and password. The password can either be written or generated for you. The gray bar underneith the password field is a progress bar that shows how strong your password is.
 
-![img_3.png](../docs/images/release2_add_profile.png)
+![Add profile overlay](../docs/images/release3_add_profile.png)

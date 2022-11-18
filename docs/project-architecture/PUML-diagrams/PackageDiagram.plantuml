@@ -1,0 +1,43 @@
+@startuml
+component encryption{
+package encryption.encryption
+}
+
+component ui{
+package ui.ui
+}
+
+component client{
+package client.client
+}
+
+component restserver{
+package restserver.restserver
+}
+
+component localpersistence{
+package localpersistence.localpersistence
+}
+
+component core{
+package core.core
+}
+
+component java.net.http{
+}
+component org.json{
+}
+component spring{
+}
+
+restserver.restserver ..> core.core
+restserver.restserver ..> encryption.encryption
+restserver.restserver ..> localpersistence.localpersistence
+localpersistence.localpersistence ..> core.core
+ui.ui ..> client.client
+restserver.restserver ..> spring
+localpersistence.localpersistence ..> org.json
+restserver.restserver ..> org.json
+client.client ..> org.json
+client.client ..> java.net.http
+@enduml

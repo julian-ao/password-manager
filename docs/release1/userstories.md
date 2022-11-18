@@ -1,9 +1,9 @@
-# Userstories
+# Userstories for release 1
 
 **Title: Login**
 **Priority: High**
 
-### User Story 1
+## User Story 1: Login
 
 - **As a** returning user
 - **I want** to be able to login
@@ -20,7 +20,7 @@
 **Title: New Account**
 **Priority: High**
 
-### User Story 2
+## User Story 2: Register
 
 - **As a** new user
 - **I want** to be able to create a new account

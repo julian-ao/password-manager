@@ -82,10 +82,10 @@ public class PasswordPageController extends PasswordManagerController {
   private Scene scene;
 
   private Password passwordObj;
+  private RestTalker restTalker = new RestTalker();
 
   final Clipboard clipboard = Clipboard.getSystemClipboard();
   final ClipboardContent clipboardContent = new ClipboardContent();
-  private RestTalker restTalker = new RestTalker();
 
   /**
    * Set login data.

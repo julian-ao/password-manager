@@ -32,9 +32,9 @@ public class PasswordManagerController {
   protected Parent root;
 
   protected Image eyeOpenImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-open.png");
+      "file:src/main/resources/images/eye-open.png");
   protected Image eyeClosedImage = new Image(
-      "file:src/main/resources/temporaryImageFolder/eye-closed.png");
+      "file:src/main/resources/images/eye-closed.png");
 
   // Colours
   protected String lightRed = "#e98181";
@@ -110,15 +110,22 @@ public class PasswordManagerController {
   }
 
   /**
-   * setBorderRed sets the border of a node to red.
-   *
-   * @param element the element that is to be set to red
+   * setBorderRed sets the border of a node.
+   * 
+   * @param element the element thats border is to be set
+   * @param colour  the colour of the border
    */
   protected void setBorder(Node element, String colour) {
     element.setStyle("-fx-border-color: " + colour);
   }
 
-  protected void onHover(Region region, String color) {
+  /**
+   * onHover changes the background color and sets the cursor to hand.
+   * 
+   * @param region the region that is to be changed
+   * @param color  the color that the background should be changed to
+   */
+  public void onHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
         Color.valueOf(color), new CornerRadii(10),
@@ -126,7 +133,13 @@ public class PasswordManagerController {
     scene.setCursor(Cursor.HAND); // Change cursor to hand
   }
 
-  protected void offHover(Region region, String color) {
+  /**
+   * offHover changes the background color and sets the cursor to default.
+   * 
+   * @param region the region that is to be changed
+   * @param color  the color that the background should be changed to
+   */
+  public void offHover(Region region, String color) {
     scene = region.getScene();
     region.setBackground(new Background(new BackgroundFill(
         Color.valueOf(color), new CornerRadii(10),
