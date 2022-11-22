@@ -4,7 +4,7 @@
 
 For this release we have created a REST-API with springboot and implemented the functionality to copy passwords and delete profile. We have also implemented the functionality to encrypt and decrypt passwords. We have also implemented a new architecture, where we have seperated the persistence layer from the core layer. The new architecture is shown in the image below.
 
-![Package Diagram](..\project-architecture\PUML-diagrams\PackageDiagram.png)
+![Package Diagram](../project-architecture/PUML-diagrams/PackageDiagram.png)
 
 ## Architecture
 
