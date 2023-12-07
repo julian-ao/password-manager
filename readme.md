@@ -1,10 +1,10 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216)
+<!--[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216)-->
 
 # Password Manager - group 2216 project
 
 Password Manager is an application for saving multiple accounts so that a person dont need to remember every username and passwords a person uses.
 It is a desktop application that is made in JavaFX. The application is made for the course IT1901 at NTNU.
-The prosject is gitpod ready and can be found [here](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216), you can also click on the Gitpod button in the top of the readme.
+<!--The prosject is gitpod ready and can be found [here](https://gitpod.stud.ntnu.no/#https://gitlab.stud.idi.ntnu.no/it1901/groups-2022/gr2216/gr2216), you can also click on the Gitpod button in the top of the readme.-->
 
 ## Running and building the project
 
